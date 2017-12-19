@@ -1,6 +1,7 @@
 """Class and methods for the sandbox client."""
 import requests
 from requests.auth import HTTPBasicAuth
+import os
 
 
 class SandboxClient(object):
@@ -38,9 +39,10 @@ class SandboxClient(object):
         r = requests.get('{}/api/v2/utilities/ping'.format(self.base_url), auth=self.auth)
         return r
 
-    def create_transaction():
+    def create_transaction(self, include=None, model=None):
         """."""
-        pass
+        r = requests.post('{}/api/v2/transactions/create'.format(self.base_url), params=include, json=model, auth=self.auth)
+        return r
 
     def resolve_address():
         """."""
@@ -49,7 +51,35 @@ class SandboxClient(object):
     def commit_transaction():
         """."""
         pass
-        
+
     def void_transaction():
         """."""
         pass
+
+if __name__ == '__main__':
+    sb = SandboxClient('cool app', '1000', 'cool machine')
+    sb.add_credentials({
+        'username': os.environ.get('USERNAME'),
+        'password': os.environ.get('PASSWORD')
+    })
+    print(sb.ping().text)
+    tax_document = {
+        'addresses': {'SingleLocation': {'city': 'Irvine',
+            'country': 'US',
+            'line1': '123 Main Street',
+            'postalCode': '92615',
+            'region': 'CA'}},
+             'commit': True,
+             'companyCode': 'DEFAULT',
+             'currencyCode': 'USD',
+             'customerCode': 'ABC',
+             'date': '2017-04-12',
+             'description': 'Yarn',
+             'lines': [{'amount': 100,
+               'description': 'Yarn',
+               'itemCode': 'Y0001',
+               'number': '1',
+               'quantity': 1,
+           'taxCode': 'PS081282'}],
+         'purchaseOrderNo': '2017-04-12-001',
+         'type': 'SalesInvoice'}

@@ -9,7 +9,7 @@ setup(
     author='Han Bao, Adrienne Karnoski, Robert Bronson, Philip Werner',
     author_email='hbao2016@hotmail.com',
     description='Avalara Tax Python SDK.',
-    install_requires=[],
+    install_requires=['requests'],
     extras_require={
         "test": ["pytest", "pytest-cov", "tox"]
     })
