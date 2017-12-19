@@ -4,11 +4,12 @@ from setuptools import setup
 setup(
     name='Avalara Python SDK',
     package_dir={'': 'src'},
-    py_modules=['client'],
+    py_modules=['client',
+                'sandbox_client'],
     author='Han Bao, Adrienne Karnoski, Robert Bronson, Philip Werner',
     author_email='hbao2016@hotmail.com',
     description='Avalara Tax Python SDK.',
-    install_requires=[],
+    install_requires=['requests'],
     extras_require={
         "test": ["pytest", "pytest-cov", "tox"]
     })
