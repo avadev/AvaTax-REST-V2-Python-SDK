@@ -15,6 +15,7 @@ class SandboxClient(object):
         self.app_version = app_version
         self.machine_name = machine_name
         self.client_id = '{};{};python_sdk;17.6;{};'.format(app_name, app_version, machine_name)
+        self.client_header = {'X-Avalara-Client': self.client_id}
 
     def add_credentials(self, authentication):
         """Add credentials to sandbox client."""
@@ -36,13 +37,16 @@ class SandboxClient(object):
 
     def ping(self):
         """Ping the avatax api, can be called with or without credential."""
-        return requests.get('{}/api/v2/utilities/ping'.format(self.base_url), auth=self.auth)
+        return requests.get('{}/api/v2/utilities/ping'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header)
 
     def create_transaction(self, include=None, model=None):
         """Create transaction."""
         if not model:
-            raise ValueError('transaction detail is required')
-        return requests.post('{}/api/v2/transactions/create'.format(self.base_url), params=include, json=model, auth=self.auth)
+            raise ValueError('A model with transaction detail is required')
+        return requests.post('{}/api/v2/transactions/create'.format(
+                             self.base_url), params=include, json=model,
+                             auth=self.auth, headers=self.client_header)
 
     def resolve_address():
         """."""
