@@ -48,9 +48,22 @@ class SandboxClient(object):
                              self.base_url), params=include, json=model,
                              auth=self.auth, headers=self.client_header)
 
-    def resolve_address():
-        """."""
-        pass
+    def resolve_address(self, address):
+        """Verifies address and returns tax region information."""
+        payload = address
+        try:
+            payload['postalCode'] = payload['postal_code']
+            del payload['postal_code']
+        except KeyError:
+            pass
+        try:
+            payload['textCase'] = payload['text_case']
+            del payload['text_case']
+        except KeyError:
+            pass
+        return requests.get('{}/api/v2/addresses/resolve'.format(
+                             self.base_url), params=payload, auth=self.auth,
+                            headers=self.client_header)
 
     def commit_transaction():
         """."""
