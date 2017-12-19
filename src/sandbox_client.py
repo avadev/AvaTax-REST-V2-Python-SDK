@@ -9,6 +9,7 @@ class SandboxClient(object):
     def __init__(self, app_name, app_version, machine_name):
         """Initialize the sandbox client."""
         self.base_url = 'https://sandbox-rest.avatax.com'
+        self.auth = None
         self.app_name = app_name
         self.app_version = app_version
         self.machine_name = machine_name
@@ -16,19 +17,24 @@ class SandboxClient(object):
 
     def add_credentials(self, authentication):
         """Add credentials to sandbox client."""
-        if authentication['username']:
+        try:
             username = authentication['username']
             password = authentication['password']
             self.auth = HTTPBasicAuth(username, password)
-        elif authentication['account_id']:
-            account_id = authentication['account_id']
-            license_key = authentication['license_key']
-            self.auth = HTTPBasicAuth(account_id, license_key)
-        else:
-            bearer_token = authentication['bearer_token']
-            self.auth = 'Bearer {}'.format(bearer_token)
+        except KeyError:
+            try:
+                username = authentication['account_id']
+                password = authentication['license_key']
+                self.auth = HTTPBasicAuth(username, password)
+            except KeyError:
+                try:
+                    bearer_token = authentication['bearer_token']
+                    self.auth = 'Bearer {}'.format(bearer_token)
+                except KeyError:
+                    raise ValueError("You need something")
 
     def ping(self):
         """Pinging some pong."""
+        import pdb; pdb.set_trace()
         r = requests.get('{}/api/v2/utilities/ping'.format(self.base_url), auth=self.auth)
         return r
