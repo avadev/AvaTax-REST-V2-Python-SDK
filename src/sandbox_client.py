@@ -24,9 +24,9 @@ class SandboxClient(object):
             self.auth = HTTPBasicAuth(username, password)
         except KeyError:
             try:
-                username = authentication['account_id']
-                password = authentication['license_key']
-                self.auth = HTTPBasicAuth(username, password)
+                account_id = authentication['account_id']
+                license_key = authentication['license_key']
+                self.auth = HTTPBasicAuth(account_id, license_key)
             except KeyError:
                 try:
                     bearer_token = authentication['bearer_token']
@@ -35,14 +35,14 @@ class SandboxClient(object):
                     raise ValueError("You need something")
 
     def ping(self):
-        """Pinging some pong."""
-        r = requests.get('{}/api/v2/utilities/ping'.format(self.base_url), auth=self.auth)
-        return r
+        """Ping the avatax api, can be called with or without credential."""
+        return requests.get('{}/api/v2/utilities/ping'.format(self.base_url), auth=self.auth)
 
     def create_transaction(self, include=None, model=None):
-        """."""
-        r = requests.post('{}/api/v2/transactions/create'.format(self.base_url), params=include, json=model, auth=self.auth)
-        return r
+        """Create transaction."""
+        if not model:
+            raise ValueError('transaction detail is required')
+        return requests.post('{}/api/v2/transactions/create'.format(self.base_url), params=include, json=model, auth=self.auth)
 
     def resolve_address():
         """."""
@@ -56,7 +56,7 @@ class SandboxClient(object):
         """."""
         pass
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma no cover
     sb = SandboxClient('cool app', '1000', 'cool machine')
     sb.add_credentials({
         'username': os.environ.get('USERNAME'),
@@ -65,21 +65,21 @@ if __name__ == '__main__':
     print(sb.ping().text)
     tax_document = {
         'addresses': {'SingleLocation': {'city': 'Irvine',
-            'country': 'US',
-            'line1': '123 Main Street',
-            'postalCode': '92615',
-            'region': 'CA'}},
-             'commit': True,
-             'companyCode': 'DEFAULT',
-             'currencyCode': 'USD',
-             'customerCode': 'ABC',
-             'date': '2017-04-12',
-             'description': 'Yarn',
-             'lines': [{'amount': 100,
-               'description': 'Yarn',
-               'itemCode': 'Y0001',
-               'number': '1',
-               'quantity': 1,
-           'taxCode': 'PS081282'}],
-         'purchaseOrderNo': '2017-04-12-001',
-         'type': 'SalesInvoice'}
+                                         'country': 'US',
+                                         'line1': '123 Main Street',
+                                         'postalCode': '92615',
+                                         'region': 'CA'}},
+        'commit': True,
+        'companyCode': 'DEFAULT',
+        'currencyCode': 'USD',
+        'customerCode': 'ABC',
+        'date': '2017-04-12',
+        'description': 'Yarn',
+        'lines': [{'amount': 100,
+                  'description': 'Yarn',
+                   'itemCode': 'Y0001',
+                   'number': '1',
+                   'quantity': 1,
+                   'taxCode': 'PS081282'}],
+        'purchaseOrderNo': '2017-04-12-001',
+        'type': 'SalesInvoice'}
