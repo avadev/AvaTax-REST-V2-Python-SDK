@@ -1,39 +1,33 @@
 """Test the client model."""
-import pytest
 from sandbox_client import SandboxClient
 
-@pytest.fixture
-def client_function():
-    """Fucking client."""
-    sb = SandboxClient('cool app', '1000', 'cool machine')
-    return sb
 
-
-def test_client_can_be_created(client_function):
+def test_client_can_be_created(unauth_client):
     """Test that the client object can be created."""
-    assert isinstance(client_function, SandboxClient)
+    assert isinstance(unauth_client, SandboxClient)
 
 
-def test_client_has_base_url_attribute(client_function):
+def test_client_has_base_url_attribute(unauth_client):
     """Test the client model has attributes available."""
-    assert client_function.base_url == 'https://sandbox-rest.avatax.com'
+    assert unauth_client.base_url == 'https://sandbox-rest.avatax.com'
 
 
-def test_client_has_app_name_attribute(client_function):
+def test_client_has_app_name_attribute(unauth_client):
     """Test the client model has attributes available."""
-    assert client_function.app_name == 'cool app'
+    assert unauth_client.app_name == 'test app'
 
 
-def test_client_has_app_version_attribute(client_function):
+def test_client_has_app_version_attribute(unauth_client):
     """Test the client model has attributes available."""
-    assert client_function.app_version == '1000'
+    assert unauth_client.app_version == 'ver 0.0'
 
 
-def test_client_has_machine_name_attribute(client_function):
+def test_client_has_machine_name_attribute(unauth_client):
     """Test the client model has attributes available."""
-    assert client_function.machine_name == 'cool machine'
+    assert unauth_client.machine_name == 'test machine'
 
 
-def test_that_client_id_is_created(client_function):
+def test_that_client_id_is_created(unauth_client):
     """Test that the client id is created and properly formatted."""
-    assert client_function.client_id == 'cool app;1000;python_sdk;17.6;cool machine;'
+    assert unauth_client.client_id == 'test app;ver 0.0;python_sdk;17.6;test machine;'
+
