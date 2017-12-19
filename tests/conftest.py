@@ -22,11 +22,7 @@ def auth_client_loggedin_with_username():
 def auth_client():
     """Create an instance of SanboxClient with authentification using username/password pair."""
     client = SandboxClient('test app', 'ver 0.0', 'test machine')
-    creds = {
-        'username': os.environ.get('USERNAME', ''),
-        'password': os.environ.get('PASSWORD', '')
-    }
-    client.add_credentials(creds)
+    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
     return client
 
 
@@ -46,7 +42,6 @@ def auth_client():
     return client
 
 
-<<<<<<< HEAD
 @pytest.fixture
 def good_address():
     """Properly filled address fixture for testing resolve address."""
@@ -58,17 +53,42 @@ def good_address():
     }
     return address
 
-=======
+
+@pytest.fixture(scope='function')
+def single_transaction():
+    """Create an instance of SandboxClient with authentication and created transaction."""
+    client = SandboxClient('test app', 'ver 0.0', 'test machine')
+    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
+    tax_document = {
+        'addresses': {'SingleLocation': {'city': 'Irvine',
+                                         'country': 'US',
+                                         'line1': '123 Main Street',
+                                         'postalCode': '92615',
+                                         'region': 'CA'}},
+        'commit': False,
+        'companyCode': 'DEFAULT',
+        'currencyCode': 'USD',
+        'customerCode': 'ABC',
+        'date': '2017-04-12',
+        'description': 'Yarn',
+        'lines': [{'amount': 100,
+                  'description': 'Yarn',
+                   'itemCode': 'Y0001',
+                   'number': '1',
+                   'quantity': 1,
+                   'taxCode': 'PS081282'}],
+        'purchaseOrderNo': '2017-04-12-001',
+        'type': 'SalesInvoice'}
+    r = client.create_transaction('DEFAULT', tax_document)
+    trans_code = r.json()['code']
+    return trans_code
+
 @pytest.fixture(scope='function')
 def five_transactions():
     """Create an instance of SandboxClient with authentication and created transaction."""
     trans_codes = []
     client = SandboxClient('test app', 'ver 0.0', 'test machine')
-    creds = {
-        'username': os.environ.get('USERNAME', ''),
-        'password': os.environ.get('PASSWORD', '')
-    }
-    client.add_credentials(creds)
+    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
     addresses = [
         ('Seattle', '600 5th Ave', '98104', 'WA'),
         ('Poulsbo', '200 Moe St Ne', '98370', 'WA'),
@@ -102,7 +122,7 @@ def five_transactions():
     return trans_codes
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def tax_document():
     """Create a tax document dictionary."""
     return {
@@ -125,4 +145,4 @@ def tax_document():
                    'taxCode': 'PS081282'}],
         'purchaseOrderNo': '2017-04-12-001',
         'type': 'SalesInvoice'}
->>>>>>> 7692f4fa2b9e4b10238e3d7c08b01aff7d3f131f
+
