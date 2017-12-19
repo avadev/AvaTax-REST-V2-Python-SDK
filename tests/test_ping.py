@@ -23,11 +23,11 @@ def test_ping_auth_is_true_using_client_id(auth_client_loggedin_with_id):
 
 def test_ping_auth_with_invalid_user_and_pass(unauth_client):
     """Testing client without proper username and password."""
-    unauth_client.add_credentials({'username': '1234', 'password': '4321'})
+    unauth_client.add_credentials('1234', '4321')
     assert '"authenticated":false' in unauth_client.ping().text
 
 
 def test_ping_auth_with_invalid_account_id(unauth_client):
     """Testing client without proper account id and license key."""
-    unauth_client.add_credentials({'account_id': '1234', 'license_key': '4321'})
+    unauth_client.add_credentials('1234', '4321')
     assert '"authenticated":false' in unauth_client.ping().text
