@@ -14,11 +14,7 @@ def unauth_client():
 def auth_client_loggedin_with_username():
     """Create an instance of SanboxClient with authentification using username/password pair."""
     client = SandboxClient('test app', 'ver 0.0', 'test machine')
-    creds = {
-        'username': os.environ.get('USERNAME', ''),
-        'password': os.environ.get('PASSWORD', '')
-    }
-    client.add_credentials(creds)
+    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
     return client
 
 
@@ -38,14 +34,31 @@ def auth_client():
 def auth_client_loggedin_with_id():
     """Create an instance of SanboxClient with authentification using userID/licenseKey pair."""
     client = SandboxClient('test app', 'ver 0.0', 'test machine')
-    creds = {
-        'account_id': os.environ.get('ACCOUNT_ID', ''),
-        'license_key': os.environ.get('LICENSE_KEY', '')
-    }
-    client.add_credentials(creds)
+    client.add_credentials(os.environ.get('ACCOUNT_ID', ''), os.environ.get('LICENSE_KEY', ''))
     return client
 
 
+@pytest.fixture
+def auth_client():
+    """Helper fixture."""
+    client = SandboxClient('test app', 'ver 0.0', 'test machine')
+    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
+    return client
+
+
+<<<<<<< HEAD
+@pytest.fixture
+def good_address():
+    """Properly filled address fixture for testing resolve address."""
+    address = {
+        'line1': '410 Terry Ave. North',
+        'city': 'Seattle',
+        'region': 'WA',
+        'postal_code': '98109',
+    }
+    return address
+
+=======
 @pytest.fixture(scope='function')
 def five_transactions():
     """Create an instance of SandboxClient with authentication and created transaction."""
@@ -112,3 +125,4 @@ def tax_document():
                    'taxCode': 'PS081282'}],
         'purchaseOrderNo': '2017-04-12-001',
         'type': 'SalesInvoice'}
+>>>>>>> 7692f4fa2b9e4b10238e3d7c08b01aff7d3f131f

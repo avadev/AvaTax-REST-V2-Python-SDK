@@ -33,32 +33,16 @@ class SandboxClient(object):
         self.client_id = '{};{};python_sdk;17.6;{};'.format(app_name, app_version, machine_name)
         self.client_header = {'X-Avalara-Client': self.client_id}
 
-    def add_credentials(self, authentication):
-        """
-        Configure this client to use the specified username/password security settings.
 
-        :param  string   username:     The username for your AvaTax user account
-        :param  string   password:     The password for your AvaTax user account
-        :param  int      accountId:    The account ID of your avatax account
-        :param  string   licenseKey:   The license key of your avatax account
-        :param  string   bearerToken:  The OAuth 2.0 token provided by Avalara Identity
-        :return: AvaTaxClient
-        """
-        try:
-            username = authentication['username']
-            password = authentication['password']
-            self.auth = HTTPBasicAuth(username, password)
-        except KeyError:
-            try:
-                account_id = authentication['account_id']
-                license_key = authentication['license_key']
-                self.auth = HTTPBasicAuth(account_id, license_key)
-            except KeyError:
-                try:
-                    bearer_token = authentication['bearer_token']
-                    self.auth = 'Bearer {}'.format(bearer_token)
-                except KeyError:
-                    raise ValueError("You need something")
+    def add_credentials(self, username=None, password=None):
+        """Add credentials to sandbox client."""
+        if not username and not password:
+            raise ValueError('Missing Values')
+        if username and not password:
+            self.auth = 'Bearer {}'.format(username)
+            return
+        self.auth = HTTPBasicAuth(username, password)
+
 
     def ping(self):
         """
@@ -148,13 +132,11 @@ class SandboxClient(object):
         """
         payload = address
         try:
-            payload['postalCode'] = payload['postal_code']
-            del payload['postal_code']
+            payload['postalCode'] = payload.pop('postal_code')
         except KeyError:
             pass
         try:
-            payload['textCase'] = payload['text_case']
-            del payload['text_case']
+            payload['textCase'] = payload.pop('text_case')
         except KeyError:
             pass
         return requests.get('{}/api/v2/addresses/resolve'.format(
@@ -186,16 +168,15 @@ class SandboxClient(object):
                              format(self.base_url, comp_code, trans_code),
                              auth=self.auth, json=commit_model)
 
-    def void_transaction():
-        """."""
-        pass
+    def void_transaction(self, company_code, transaction_code, model):
+        """Voids given transaction by transaction code."""
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(
+            self.base_url, company_code, transaction_code), json=model, auth=self.auth,
+            headers=self.client_header)
 
 if __name__ == '__main__':  # pragma no cover
     sb = SandboxClient('cool app', '1000', 'cool machine')
-    sb.add_credentials({
-        'username': os.environ.get('USERNAME'),
-        'password': os.environ.get('PASSWORD')
-    })
+    sb.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
     print(sb.ping().text)
     tax_document = {
         'addresses': {'SingleLocation': {'city': 'Irvine',
