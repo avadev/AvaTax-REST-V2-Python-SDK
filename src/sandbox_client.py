@@ -35,6 +35,21 @@ class SandboxClient(object):
 
     def ping(self):
         """Pinging some pong."""
-        import pdb; pdb.set_trace()
         r = requests.get('{}/api/v2/utilities/ping'.format(self.base_url), auth=self.auth)
         return r
+
+    def create_transaction():
+        """."""
+        pass
+
+    def resolve_address():
+        """."""
+        pass
+
+    def commit_transaction():
+        """."""
+        pass
+        
+    def void_transaction():
+        """."""
+        pass
