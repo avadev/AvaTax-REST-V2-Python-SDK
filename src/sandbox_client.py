@@ -12,7 +12,7 @@ file that was distributed with this source code.
 @author     Han Bao
 @copyright  2004-2017 Avalara, Inc.
 @license    https://www.apache.org/licenses/LICENSE-2.0
-@version
+@version    TBD
 @link       https://github.com/avadev/AvaTax-REST-V2-Python-SDK
 """
 import requests
@@ -217,15 +217,3 @@ if __name__ == '__main__':  # pragma no cover
                    'taxCode': 'PS081282'}],
         'purchaseOrderNo': '2017-04-12-001',
         'type': 'SalesInvoice'}
-
-
-# You may specify one or more of the following values in the $include parameter to fetch additional nested data, using commas to separate multiple values:
-
-# Lines
-# Details (implies lines)
-# Summary (implies details)
-# Addresses
-# SummaryOnly (omit lines and details - reduces API response size)
-# LinesOnly (omit details - reduces API response size)
-# ForceTimeout - Simulates a timeout. This adds a 30 second delay and error to your API call. This can be used to test your code to ensure it can respond correctly in the case of a dropped connection.
-# If you omit the $include parameter, the API will assume you want Summary,Addresses.
