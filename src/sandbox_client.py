@@ -49,7 +49,7 @@ class SandboxClient(object):
                              auth=self.auth, headers=self.client_header)
 
     def resolve_address(self, address):
-        """Verifies address and returns tax region information."""
+        """Verify address and returns tax region information."""
         payload = address
         try:
             payload['postalCode'] = payload['postal_code']
@@ -62,12 +62,15 @@ class SandboxClient(object):
         except KeyError:
             pass
         return requests.get('{}/api/v2/addresses/resolve'.format(
-                             self.base_url), params=payload, auth=self.auth,
+                            self.base_url), params=payload, auth=self.auth,
                             headers=self.client_header)
 
-    def commit_transaction():
-        """."""
-        pass
+    def commit_transaction(self, comp_code=None, trans_code=None, commit=True):
+        """Commit a single transaction with given transaction_id."""
+        if not comp_code or not trans_code:
+            raise ValueError('A company code and a transaction code is required')
+        commit_model = {'commit': commit}
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.format(self.base_url, comp_code, trans_code), auth=self.auth, json=commit_model)
 
     def void_transaction():
         """."""
@@ -86,7 +89,7 @@ if __name__ == '__main__':  # pragma no cover
                                          'line1': '123 Main Street',
                                          'postalCode': '92615',
                                          'region': 'CA'}},
-        'commit': True,
+        'commit': False,
         'companyCode': 'DEFAULT',
         'currencyCode': 'USD',
         'customerCode': 'ABC',
