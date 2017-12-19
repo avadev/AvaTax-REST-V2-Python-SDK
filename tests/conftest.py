@@ -83,6 +83,7 @@ def single_transaction():
     trans_code = r.json()['code']
     return trans_code
 
+
 @pytest.fixture(scope='function')
 def five_transactions():
     """Create an instance of SandboxClient with authentication and created transaction."""
