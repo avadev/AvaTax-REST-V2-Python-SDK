@@ -10,7 +10,7 @@ def unauth_client():
     return SandboxClient('test app', 'ver 0.0', 'test machine')
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='session')
 def auth_client_loggedin_with_username():
     """Create an instance of SanboxClient with authentification using username/password pair."""
     client = SandboxClient('test app', 'ver 0.0', 'test machine')
@@ -22,7 +22,19 @@ def auth_client_loggedin_with_username():
     return client
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='session')
+def auth_client():
+    """Create an instance of SanboxClient with authentification using username/password pair."""
+    client = SandboxClient('test app', 'ver 0.0', 'test machine')
+    creds = {
+        'username': os.environ.get('USERNAME', ''),
+        'password': os.environ.get('PASSWORD', '')
+    }
+    client.add_credentials(creds)
+    return client
+
+
+@pytest.fixture(scope='session')
 def auth_client_loggedin_with_id():
     """Create an instance of SanboxClient with authentification using userID/licenseKey pair."""
     client = SandboxClient('test app', 'ver 0.0', 'test machine')
@@ -35,8 +47,9 @@ def auth_client_loggedin_with_id():
 
 
 @pytest.fixture(scope='function')
-def auth_client_with_5_transactions():
+def five_transactions():
     """Create an instance of SandboxClient with authentication and created transaction."""
+    trans_codes = []
     client = SandboxClient('test app', 'ver 0.0', 'test machine')
     creds = {
         'username': os.environ.get('USERNAME', ''),
@@ -71,9 +84,9 @@ def auth_client_with_5_transactions():
                        'taxCode': 'PS081282'}],
             'purchaseOrderNo': '2017-04-12-001',
             'type': 'SalesInvoice'}
-        client.create_transaction(None, tax_document)
-
-    return client
+        r = client.create_transaction(None, tax_document)
+        trans_codes.append(r.json()['code'])
+    return trans_codes
 
 
 @pytest.fixture(scope='session')

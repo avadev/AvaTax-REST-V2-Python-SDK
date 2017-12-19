@@ -70,7 +70,9 @@ class SandboxClient(object):
         if not comp_code or not trans_code:
             raise ValueError('A company code and a transaction code is required')
         commit_model = {'commit': commit}
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.format(self.base_url, comp_code, trans_code), auth=self.auth, json=commit_model)
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.
+                             format(self.base_url, comp_code, trans_code),
+                             auth=self.auth, json=commit_model)
 
     def void_transaction():
         """."""
@@ -103,3 +105,15 @@ if __name__ == '__main__':  # pragma no cover
                    'taxCode': 'PS081282'}],
         'purchaseOrderNo': '2017-04-12-001',
         'type': 'SalesInvoice'}
+
+
+# You may specify one or more of the following values in the $include parameter to fetch additional nested data, using commas to separate multiple values:
+
+# Lines
+# Details (implies lines)
+# Summary (implies details)
+# Addresses
+# SummaryOnly (omit lines and details - reduces API response size)
+# LinesOnly (omit details - reduces API response size)
+# ForceTimeout - Simulates a timeout. This adds a 30 second delay and error to your API call. This can be used to test your code to ensure it can respond correctly in the case of a dropped connection.
+# If you omit the $include parameter, the API will assume you want Summary,Addresses.
