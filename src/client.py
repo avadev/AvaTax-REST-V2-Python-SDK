@@ -21,15 +21,16 @@ import os
 
 
 class AvataxClient(object):
-    """Class for our sandbox client."""
+    """Class for our Avatax client."""
 
-    def __init__(self, app_name, app_version, machine_name, environment=None):
+    def __init__(self, app_name=None, app_version=None, machine_name=None, environment=None):
         """Initialize the sandbox client."""
         self.base_url = 'https://rest.avatax.com'
-        if environment.lower() == 'sandbox':
-            self.base_url = 'https://sandbox-rest.avatax.com'
-        elif environment[:8] == 'https://' or environment[:7] == 'http://':
-            self.base_url = environment
+        if environment:
+            if environment.lower() == 'sandbox':
+                self.base_url = 'https://sandbox-rest.avatax.com'
+            elif environment[:8] == 'https://' or environment[:7] == 'http://':
+                self.base_url = environment
         self.auth = None
         self.app_name = app_name
         self.app_version = app_version
@@ -61,7 +62,7 @@ class AvataxClient(object):
         recognized, and the roundtrip time it takes to communicate with
         AvaTax.
 
-        :return: object
+        :return: requests response object
         """
         return requests.get('{}/api/v2/utilities/ping'.format(self.base_url),
                             auth=self.auth, headers=self.client_header)
@@ -99,7 +100,7 @@ class AvataxClient(object):
 
           :param string include: A comma separated list of child objects to return underneath the primary object.
           :param object model: The transaction you wish to create
-        :return: object
+        :return: requests response object
         """
         if not model:
             raise ValueError('A model with transaction detail is required')
@@ -133,7 +134,7 @@ class AvataxClient(object):
                 (See TextCase::* for a list of allowable values)
             :param float latitude: Geospatial latitude measurement
             :param float longitude: Geospatial longitude measurement
-        :return: object
+        :return: requests response object
         """
         payload = address
         try:
@@ -164,7 +165,7 @@ class AvataxClient(object):
           :param string companyCode: The company code of the company that recorded this transaction
           :param string transactionCode: The transaction code to commit
           :param object model: The commit request you wish to execute
-        :return: object
+        :return: requests response object
         """
         if not comp_code or not trans_code:
             raise ValueError('A company code and a transaction code is required')
