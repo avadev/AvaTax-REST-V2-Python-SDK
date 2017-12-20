@@ -1,10 +1,10 @@
 """Test the client model."""
-from sandbox_client import SandboxClient
+from client import AvataxClient
 
 
 def test_client_can_be_created(unauth_client):
     """Test that the client object can be created."""
-    assert isinstance(unauth_client, SandboxClient)
+    assert isinstance(unauth_client, AvataxClient)
 
 
 def test_client_has_base_url_attribute(unauth_client):

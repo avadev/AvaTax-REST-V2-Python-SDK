@@ -1,5 +1,5 @@
 """Conftest is a file recognize by pytest module, allowing us to share fixture across multiple tests."""
-from sandbox_client import SandboxClient
+from client import AvataxClient
 import os
 import pytest
 
@@ -7,13 +7,13 @@ import pytest
 @pytest.fixture(scope='function')
 def unauth_client():
     """Create an instance of SanboxClient without authentification."""
-    return SandboxClient('test app', 'ver 0.0', 'test machine')
+    return AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
 
 
 @pytest.fixture(scope='session')
 def auth_client_loggedin_with_username():
     """Create an instance of SanboxClient with authentification using username/password pair."""
-    client = SandboxClient('test app', 'ver 0.0', 'test machine')
+    client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
     client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
     return client
 
@@ -21,7 +21,7 @@ def auth_client_loggedin_with_username():
 @pytest.fixture(scope='session')
 def auth_client():
     """Create an instance of SanboxClient with authentification using username/password pair."""
-    client = SandboxClient('test app', 'ver 0.0', 'test machine')
+    client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
     client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
     return client
 
@@ -29,16 +29,8 @@ def auth_client():
 @pytest.fixture(scope='session')
 def auth_client_loggedin_with_id():
     """Create an instance of SanboxClient with authentification using userID/licenseKey pair."""
-    client = SandboxClient('test app', 'ver 0.0', 'test machine')
+    client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
     client.add_credentials(os.environ.get('ACCOUNT_ID', ''), os.environ.get('LICENSE_KEY', ''))
-    return client
-
-
-@pytest.fixture
-def auth_client():
-    """Helper fixture."""
-    client = SandboxClient('test app', 'ver 0.0', 'test machine')
-    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
     return client
 
 
@@ -56,8 +48,8 @@ def good_address():
 
 @pytest.fixture(scope='function')
 def single_transaction():
-    """Create an instance of SandboxClient with authentication and created transaction."""
-    client = SandboxClient('test app', 'ver 0.0', 'test machine')
+    """Create an instance of AvataxClient with authentication and created transaction."""
+    client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
     client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
     tax_document = {
         'addresses': {'SingleLocation': {'city': 'Irvine',
@@ -86,9 +78,9 @@ def single_transaction():
 
 @pytest.fixture(scope='function')
 def five_transactions():
-    """Create an instance of SandboxClient with authentication and created transaction."""
+    """Create an instance of AvataxClient with authentication and created transaction."""
     trans_codes = []
-    client = SandboxClient('test app', 'ver 0.0', 'test machine')
+    client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
     client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
     addresses = [
         ('Seattle', '600 5th Ave', '98104', 'WA'),
