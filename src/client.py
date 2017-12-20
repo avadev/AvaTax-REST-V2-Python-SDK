@@ -47,6 +47,7 @@ class AvataxClient(object):
             self.auth = 'Bearer {}'.format(username)
             return
         self.auth = HTTPBasicAuth(username, password)
+        return self
 
     def ping(self):
         """
@@ -181,9 +182,9 @@ class AvataxClient(object):
             headers=self.client_header)
 
 if __name__ == '__main__':  # pragma no cover
-    sb = AvataxClient('cool app', '1000', 'cool machine')
-    sb.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
-    print(sb.ping().text)
+    client = AvataxClient('my test app', 'ver 0.0', 'my test machine', 'sandbox')
+    c = client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
+    print(client.ping().text)
     tax_document = {
         'addresses': {'SingleLocation': {'city': 'Irvine',
                                          'country': 'US',
