@@ -3,51 +3,39 @@ import pytest
 from requests.auth import HTTPBasicAuth
 
 
-test_creds = {
-    'username': 'joe',
-    'password': '1234'}
-
-test_creds_2 = {
-    'username': '123321',
-    'password': 'abcdef'}
-
-test_creds_3 = {
-    'bearer_token': '123321'}
-
-
 def test_username_auth(unauth_client):
     """Test passing in username to authorization."""
-    unauth_client.add_credentials(test_creds)
+    unauth_client.add_credentials('joe', '1234')
     assert unauth_client.auth.username == 'joe'
 
 
 def test_username_auth_2(unauth_client):
     """Test passing in username to authorization."""
-    unauth_client.add_credentials(test_creds)
+    unauth_client.add_credentials('joe', '1234')
     assert unauth_client.auth.password == '1234'
 
 
 def test_account_id_auth(unauth_client):
     """Test passing in account id to authorization."""
-    unauth_client.add_credentials(test_creds_2)
+    unauth_client.add_credentials('123321', 'abcdef')
     assert unauth_client.auth.username == '123321'
 
 
 def test_account_id_auth_2(unauth_client):
     """Test passing in account id to authorization."""
-    unauth_client.add_credentials(test_creds_2)
+    unauth_client.add_credentials('123321', 'abcdef')
     assert unauth_client.auth.password == 'abcdef'
 
 
 def test_bearer_token_auth(unauth_client):
     """Test passing in bearer to authorization."""
-    unauth_client.add_credentials(test_creds_3)
+    unauth_client.add_credentials('123321')
     assert unauth_client.auth == 'Bearer 123321'
 
 
 def test_auth_object(unauth_client):
     """Test auth is HTTPBasicAuth object."""
-    unauth_client.add_credentials(test_creds)
+    unauth_client.add_credentials('joe', '1234')
     assert isinstance(unauth_client.auth, HTTPBasicAuth)
 
 
