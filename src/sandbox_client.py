@@ -168,10 +168,12 @@ class SandboxClient(object):
                              format(self.base_url, comp_code, trans_code),
                              auth=self.auth, json=commit_model)
 
-    def void_transaction(self, company_code, transaction_code, model):
+    def void_transaction(self, comp_code=None, trans_code=None, model=None):
         """Voids given transaction by transaction code."""
+        if not comp_code or not trans_code or not model:
+            raise ValueError('Missing necessary parameters.')
         return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(
-            self.base_url, company_code, transaction_code), json=model, auth=self.auth,
+            self.base_url, comp_code, trans_code), json=model, auth=self.auth,
             headers=self.client_header)
 
 if __name__ == '__main__':  # pragma no cover
