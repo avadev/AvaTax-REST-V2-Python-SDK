@@ -18,18 +18,34 @@ file that was distributed with this source code.
 import requests
 from requests.auth import HTTPBasicAuth
 import os
+import sys
 
 
 class AvataxClient(object):
-    """Class for our sandbox client."""
+    """Class for our Avatax client."""
 
-    def __init__(self, app_name, app_version, machine_name, environment=None):
-        """Initialize the sandbox client."""
+    def __init__(self, app_name=None, app_version=None, machine_name=None, environment=None):
+        """
+        Initialize the sandbox client.
+
+        By default the client object enviroment will be production. For
+        sandbox API, set the enviroment variable to sandbox.
+
+            :param  string  app_name: The name of your Application
+            :param  string/integer  app_version:  Version of your Application
+            :param  string  machine_name: Name of machine you are working on
+            :param  string  enviroment: Default enviroment is production,
+                input sandbox, for the sandbox API
+        :return: object
+        """
+        if not all(isinstance(i, str_type) for i in [app_name, machine_name, environment]):
+            raise ValueError('Input(s) must be string or none type object')
         self.base_url = 'https://rest.avatax.com'
-        if environment.lower() == 'sandbox':
-            self.base_url = 'https://sandbox-rest.avatax.com'
-        elif environment[:8] == 'https://' or environment[:7] == 'http://':
-            self.base_url = environment
+        if environment:
+            if environment.lower() == 'sandbox':
+                self.base_url = 'https://sandbox-rest.avatax.com'
+            elif environment[:8] == 'https://' or environment[:7] == 'http://':
+                self.base_url = environment
         self.auth = None
         self.app_name = app_name
         self.app_version = app_version
@@ -40,13 +56,23 @@ class AvataxClient(object):
         self.client_header = {'X-Avalara-Client': self.client_id}
 
     def add_credentials(self, username=None, password=None):
-        """Add credentials to sandbox client."""
-        if not username and not password:
-            raise ValueError('Missing Values')
+        """
+        Configure this client to use the specified username/password security settings.
+
+        :param  string    username:     The username for your AvaTax user account
+        :param  string    password:     The password for your AvaTax user account
+        :param  int       accountId:    The account ID of your avatax account
+        :param  string    licenseKey:   The license key of your avatax account
+        :param  string    bearerToken:  The OAuth 2.0 token provided by Avalara Identity
+        :return: AvaTaxClient
+        """
+        if not all(isinstance(i, str_type) for i in [username, password]):
+            raise ValueError('Input(s) must be string or none type object')
         if username and not password:
-            self.auth = 'Bearer {}'.format(username)
-            return
-        self.auth = HTTPBasicAuth(username, password)
+            self.client_header['Authorization'] = 'Bearer ' + username
+        else:
+            self.auth = HTTPBasicAuth(username, password)
+        return self
 
     def ping(self):
         """
@@ -60,7 +86,7 @@ class AvataxClient(object):
         recognized, and the roundtrip time it takes to communicate with
         AvaTax.
 
-        :return: object
+        :return: requests response object
         """
         return requests.get('{}/api/v2/utilities/ping'.format(self.base_url),
                             auth=self.auth, headers=self.client_header)
@@ -96,17 +122,18 @@ class AvataxClient(object):
         If you omit the `include` parameter, the API will assume you
         want `Summary,Addresses`.
 
-          :param string include: A comma separated list of child objects to return underneath the primary object.
+          :param string include: A comma separated list of child objects to
+            return underneath the primary object.
           :param object model: The transaction you wish to create
-        :return: object
+        :return: requests response object
         """
-        if not model:
-            raise ValueError('A model with transaction detail is required')
+        if not all(isinstance(i, (dict, type(None))) for i in [model]):
+            raise ValueError('Input(s) must be py dictionary or none type object')
         return requests.post('{}/api/v2/transactions/create'.format(
                              self.base_url), params=include, json=model,
                              auth=self.auth, headers=self.client_header)
 
-    def resolve_address(self, address):
+    def resolve_address(self, address=None):
         """
         Retrieve geolocation information for a specified address.
 
@@ -132,8 +159,10 @@ class AvataxClient(object):
                 (See TextCase::* for a list of allowable values)
             :param float latitude: Geospatial latitude measurement
             :param float longitude: Geospatial longitude measurement
-        :return: object
+        :return: requests response object
         """
+        if not isinstance(address, (dict, type(None))):
+            raise ValueError('Input must be py dictionary or none type object')
         payload = address
         try:
             payload['postalCode'] = payload.pop('postal_code')
@@ -160,30 +189,49 @@ class AvataxClient(object):
         a committed transaction will generate a transaction history.
 
 
-          :param string companyCode: The company code of the company that recorded this transaction
+          :param string companyCode: The company code of the company
+            that recorded this transaction
           :param string transactionCode: The transaction code to commit
           :param object model: The commit request you wish to execute
-        :return: object
+        :return: requests response object
         """
-        if not comp_code or not trans_code:
-            raise ValueError('A company code and a transaction code is required')
+        if not all(isinstance(i, str_type) for i in [trans_code, comp_code]):
+            raise ValueError('Input(s) must be py string or none type object')
         commit_model = {'commit': commit}
         return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.
                              format(self.base_url, comp_code, trans_code),
                              auth=self.auth, json=commit_model)
 
-    def void_transaction(self, comp_code=None, trans_code=None, model=None):
-        """Void given transaction by transaction code."""
-        if not comp_code or not trans_code or not model:
-            raise ValueError('Missing necessary parameters.')
+    def void_transaction(self, comp_code=None, trans_code=None, code_model='DocVoided'):
+        """
+        Void a transaction.
+
+        Voids the current transaction uniquely identified by this URL.
+        A transaction represents a unique potentially taxable action that your
+        company has recorded, and transactions include actions like sales,
+        purchases, inventory transfer, and returns (also called refunds). When
+        you void a transaction, that transaction's status is recorded as
+        'DocVoided'. Transactions that have been previously reported to a
+        tax authority by Avalara Managed Returns are no longer available
+        to be voided.
+
+            :param string companyCode: The company code of the company
+                that recorded this transaction
+            :param string transactionCode: The transaction code to void
+            :param object model: The void request you wish to execute
+        :return: object
+        """
+        if not all(isinstance(i, str_type) for i in [code_model, trans_code, comp_code]):
+            raise ValueError('Input(s) must be py string or none type object')
+        model = {'code': code_model}
         return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(
             self.base_url, comp_code, trans_code), json=model, auth=self.auth,
             headers=self.client_header)
 
 if __name__ == '__main__':  # pragma no cover
-    sb = AvataxClient('cool app', '1000', 'cool machine')
-    sb.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
-    print(sb.ping().text)
+    client = AvataxClient('my test app', 'ver 0.0', 'my test machine', 'sandbox')
+    c = client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
+    print(client.ping().text)
     tax_document = {
         'addresses': {'SingleLocation': {'city': 'Irvine',
                                          'country': 'US',
@@ -204,3 +252,9 @@ if __name__ == '__main__':  # pragma no cover
                    'taxCode': 'PS081282'}],
         'purchaseOrderNo': '2017-04-12-001',
         'type': 'SalesInvoice'}
+
+
+if sys.version_info.major == 3:
+    str_type = (str, type(None))
+else:
+    str_type = (str, unicode, type(None))

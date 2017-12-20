@@ -2,18 +2,18 @@
 import pytest
 
 
-def test_commit_transaction_with_no_company_code(auth_client):
-    """Test if an error is raised with lack of required variable."""
+def test_commit_transaction_with_invalid_company_code_type(auth_client):
+    """Test if an error is raised with invalid input type."""
     trans_code = '94affa7f-b691-41ad-9048-301cdceaffc8'
     with pytest.raises(ValueError):
-        auth_client.commit_transaction(trans_code=trans_code)
+        auth_client.commit_transaction(trans_code={'code': trans_code})
 
 
-def test_commit_transaction_with_no_trans_code(auth_client):
+def test_commit_transaction_with_invaild_trans_code_type(auth_client):
     """Test if an error is raised with lack of required variable."""
     comp_code = 'DEFAULT'
     with pytest.raises(ValueError):
-        auth_client.commit_transaction(comp_code=comp_code)
+        auth_client.commit_transaction(comp_code={'code': comp_code})
 
 
 def test_commit_transaction_commit_saved_trans(auth_client, five_transactions):
