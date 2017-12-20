@@ -24,7 +24,19 @@ class AvataxClient(object):
     """Class for our Avatax client."""
 
     def __init__(self, app_name=None, app_version=None, machine_name=None, environment=None):
-        """Initialize the sandbox client."""
+        """
+        Initialize the sandbox client.
+
+        By default the client object enviroment will be production. For
+        sandbox API, set the enviroment variable to sandbox.
+
+            :param  string  app_name: The name of your Application
+            :param  string/integer  app_version:  Version of your Application
+            :param  string  machine_name: Name of machine you are working on
+            :param  string  enviroment: Default enviroment is production,
+                input sandbox, for the sandbox API
+        :return: object
+        """
         self.base_url = 'https://rest.avatax.com'
         if environment:
             if environment.lower() == 'sandbox':
@@ -41,7 +53,16 @@ class AvataxClient(object):
         self.client_header = {'X-Avalara-Client': self.client_id}
 
     def add_credentials(self, username=None, password=None):
-        """Add credentials to sandbox client."""
+        """
+        Configure this client to use the specified username/password security settings.
+
+        :param  string    username:     The username for your AvaTax user account
+        :param  string    password:     The password for your AvaTax user account
+        :param  int       accountId:    The account ID of your avatax account
+        :param  string    licenseKey:   The license key of your avatax account
+        :param  string    bearerToken:  The OAuth 2.0 token provided by Avalara Identity
+        :return: AvaTaxClient
+        """
         if not username and not password:
             raise ValueError('Missing Values')
         if username and not password:
@@ -98,7 +119,8 @@ class AvataxClient(object):
         If you omit the `include` parameter, the API will assume you
         want `Summary,Addresses`.
 
-          :param string include: A comma separated list of child objects to return underneath the primary object.
+          :param string include: A comma separated list of child objects to
+            return underneath the primary object.
           :param object model: The transaction you wish to create
         :return: requests response object
         """
@@ -162,7 +184,8 @@ class AvataxClient(object):
         a committed transaction will generate a transaction history.
 
 
-          :param string companyCode: The company code of the company that recorded this transaction
+          :param string companyCode: The company code of the company
+            that recorded this transaction
           :param string transactionCode: The transaction code to commit
           :param object model: The commit request you wish to execute
         :return: requests response object
@@ -175,7 +198,24 @@ class AvataxClient(object):
                              auth=self.auth, json=commit_model)
 
     def void_transaction(self, comp_code=None, trans_code=None, model=None):
-        """Void given transaction by transaction code."""
+        """
+        Void a transaction.
+
+        Voids the current transaction uniquely identified by this URL.
+        A transaction represents a unique potentially taxable action that your
+        company has recorded, and transactions include actions like sales,
+        purchases, inventory transfer, and returns (also called refunds). When
+        you void a transaction, that transaction's status is recorded as
+        'DocVoided'. Transactions that have been previously reported to a
+        tax authority by Avalara Managed Returns are no longer available
+        to be voided.
+
+            :param string companyCode: The company code of the company
+                that recorded this transaction
+            :param string transactionCode: The transaction code to void
+            :param object model: The void request you wish to execute
+        :return: object
+        """
         if not comp_code or not trans_code or not model:
             raise ValueError('Missing necessary parameters.')
         return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(
