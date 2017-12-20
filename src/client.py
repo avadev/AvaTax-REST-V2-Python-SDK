@@ -18,6 +18,7 @@ file that was distributed with this source code.
 import requests
 from requests.auth import HTTPBasicAuth
 import os
+import sys
 
 
 class AvataxClient(object):
@@ -37,7 +38,7 @@ class AvataxClient(object):
                 input sandbox, for the sandbox API
         :return: object
         """
-        if not all(isinstance(i, (str, unicode, type(None))) for i in [app_name, machine_name, environment]):
+        if not all(isinstance(i, str_type) for i in [app_name, machine_name, environment]):
             raise ValueError('Input(s) must be string or none type object')
         self.base_url = 'https://rest.avatax.com'
         if environment:
@@ -65,7 +66,7 @@ class AvataxClient(object):
         :param  string    bearerToken:  The OAuth 2.0 token provided by Avalara Identity
         :return: AvaTaxClient
         """
-        if not all(isinstance(i, (str, unicode, type(None))) for i in [username, password]):
+        if not all(isinstance(i, str_type) for i in [username, password]):
             raise ValueError('Input(s) must be string or none type object')
         if username and not password:
             self.client_header['Authorization'] = 'Bearer ' + username
@@ -194,7 +195,7 @@ class AvataxClient(object):
           :param object model: The commit request you wish to execute
         :return: requests response object
         """
-        if not all(isinstance(i, (str, unicode, type(None))) for i in [trans_code, comp_code]):
+        if not all(isinstance(i, str_type) for i in [trans_code, comp_code]):
             raise ValueError('Input(s) must be py string or none type object')
         commit_model = {'commit': commit}
         return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.
@@ -220,7 +221,7 @@ class AvataxClient(object):
             :param object model: The void request you wish to execute
         :return: object
         """
-        if not all(isinstance(i, (str, unicode, type(None))) for i in [code_model, trans_code, comp_code]):
+        if not all(isinstance(i, str_type) for i in [code_model, trans_code, comp_code]):
             raise ValueError('Input(s) must be py string or none type object')
         model = {'code': code_model}
         return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(
@@ -251,3 +252,9 @@ if __name__ == '__main__':  # pragma no cover
                    'taxCode': 'PS081282'}],
         'purchaseOrderNo': '2017-04-12-001',
         'type': 'SalesInvoice'}
+
+
+if sys.version_info.major == 3:
+    str_type = (str, type(None))
+else:
+    str_type = (unicode, type(None))
