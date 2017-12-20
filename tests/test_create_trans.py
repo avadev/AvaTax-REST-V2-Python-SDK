@@ -3,10 +3,10 @@ import pytest
 from requests import Response
 
 
-def test_no_transaction_infor(auth_client):
-    """Test that an error is returned from the server."""
+def test_error_raises_invalid_type(auth_client):
+    """Test that an error is raised with inproper input type."""
     with pytest.raises(ValueError):
-        auth_client.create_transaction()
+        auth_client.create_transaction(model='invalid_transaction')
 
 
 def test_201_response_when_creating_transaction(auth_client, tax_document):

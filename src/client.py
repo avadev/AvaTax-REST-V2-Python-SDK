@@ -25,6 +25,8 @@ class AvataxClient(object):
 
     def __init__(self, app_name=None, app_version=None, machine_name=None, environment=None):
         """Initialize the sandbox client."""
+        if not all(isinstance(i, (str, type(None))) for i in [app_name, machine_name, environment]):
+            raise ValueError('Input(s) must be string or none type object')
         self.base_url = 'https://rest.avatax.com'
         if environment:
             if environment.lower() == 'sandbox':
@@ -42,10 +44,10 @@ class AvataxClient(object):
 
     def add_credentials(self, username=None, password=None):
         """Add credentials to sandbox client."""
-        if not username and not password:
-            raise ValueError('Missing Values')
+        if not all(isinstance(i, (str, type(None))) for i in [username, password]):
+            raise ValueError('Input(s) must be string or none type object')
         if username and not password:
-            self.auth = 'Bearer {}'.format(username)
+            self.client_header['Authorization'] = 'Bearer ' + username
             return
         self.auth = HTTPBasicAuth(username, password)
         return self
@@ -102,13 +104,13 @@ class AvataxClient(object):
           :param object model: The transaction you wish to create
         :return: requests response object
         """
-        if not model:
-            raise ValueError('A model with transaction detail is required')
+        if not all(isinstance(i, (dict, type(None))) for i in [model]):
+            raise ValueError('Input(s) must be py dictionary or none type object')
         return requests.post('{}/api/v2/transactions/create'.format(
                              self.base_url), params=include, json=model,
                              auth=self.auth, headers=self.client_header)
 
-    def resolve_address(self, address):
+    def resolve_address(self, address=None):
         """
         Retrieve geolocation information for a specified address.
 
@@ -136,6 +138,8 @@ class AvataxClient(object):
             :param float longitude: Geospatial longitude measurement
         :return: requests response object
         """
+        if not isinstance(address, (dict, type(None))):
+            raise ValueError('Input must be py dictionary or none type object')
         payload = address
         try:
             payload['postalCode'] = payload.pop('postal_code')
@@ -167,17 +171,18 @@ class AvataxClient(object):
           :param object model: The commit request you wish to execute
         :return: requests response object
         """
-        if not comp_code or not trans_code:
-            raise ValueError('A company code and a transaction code is required')
+        if not all(isinstance(i, (str, type(None))) for i in [trans_code, comp_code]):
+            raise ValueError('Input(s) must be py string or none type object')
         commit_model = {'commit': commit}
         return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.
                              format(self.base_url, comp_code, trans_code),
                              auth=self.auth, json=commit_model)
 
-    def void_transaction(self, comp_code=None, trans_code=None, model=None):
+    def void_transaction(self, comp_code=None, trans_code=None, code_model='DocVoided'):
         """Void given transaction by transaction code."""
-        if not comp_code or not trans_code or not model:
-            raise ValueError('Missing necessary parameters.')
+        if not all(isinstance(i, (str, type(None))) for i in [code_model, trans_code, comp_code]):
+            raise ValueError('Input(s) must be py string or none type object')
+        model = {'code': code_model}
         return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(
             self.base_url, comp_code, trans_code), json=model, auth=self.auth,
             headers=self.client_header)

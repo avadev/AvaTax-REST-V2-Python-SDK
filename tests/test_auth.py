@@ -1,6 +1,7 @@
 """Test the add_credential method."""
 import pytest
 from requests.auth import HTTPBasicAuth
+from client import AvataxClient
 
 
 def test_username_auth(unauth_client):
@@ -30,7 +31,7 @@ def test_account_id_auth_2(unauth_client):
 def test_bearer_token_auth(unauth_client):
     """Test passing in bearer to authorization."""
     unauth_client.add_credentials('123321')
-    assert unauth_client.auth == 'Bearer 123321'
+    assert unauth_client.client_header['Authorization'] == 'Bearer 123321'
 
 
 def test_auth_object(unauth_client):
@@ -40,9 +41,14 @@ def test_auth_object(unauth_client):
 
 
 def test_auth_raises_value_error(unauth_client):
-    """Test value error is raised with imporper authorization."""
+    """Test value error is raised with imporper input type."""
     with pytest.raises(ValueError):
-        unauth_client.add_credentials({})
+        unauth_client.add_credentials(1, False)
+
+
+def test_auth_able_to_call_and_return_self(unauth_client):
+    """Test client can call add_cred method and returns an avatax client obj."""
+    assert isinstance(unauth_client.add_credentials(), AvataxClient)
 
 
 def test_no_auth_if_no_cred_is_added(unauth_client):
