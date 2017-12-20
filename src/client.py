@@ -18,11 +18,7 @@ file that was distributed with this source code.
 import requests
 from requests.auth import HTTPBasicAuth
 import os
-import sys
-if sys.version_info.major == 3:
-    str_type = (str, type(None))
-else:
-    str_type = (str, unicode, type(None))
+from src import str_type
 
 
 class AvataxClient(object):
