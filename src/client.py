@@ -257,4 +257,4 @@ if __name__ == '__main__':  # pragma no cover
 if sys.version_info.major == 3:
     str_type = (str, type(None))
 else:
-    str_type = (unicode, type(None))
+    str_type = (str, unicode, type(None))
