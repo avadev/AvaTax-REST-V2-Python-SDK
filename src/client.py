@@ -19,6 +19,10 @@ import requests
 from requests.auth import HTTPBasicAuth
 import os
 import sys
+if sys.version_info.major == 3:
+    str_type = (str, type(None))
+else:
+    str_type = (str, unicode, type(None))
 
 
 class AvataxClient(object):
@@ -254,7 +258,4 @@ if __name__ == '__main__':  # pragma no cover
         'type': 'SalesInvoice'}
 
 
-if sys.version_info.major == 3:
-    str_type = (str, type(None))
-else:
-    str_type = (str, unicode, type(None))
+
