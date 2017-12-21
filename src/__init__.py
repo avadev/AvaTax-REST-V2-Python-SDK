@@ -1,4 +1,4 @@
-"""Return proper type checking tuple based on Python version of current environment."""
+"""Return type checking tuple based on Python version of environment."""
 import sys
 
 

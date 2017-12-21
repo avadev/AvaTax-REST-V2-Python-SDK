@@ -15,7 +15,8 @@ file that was distributed with this source code.
 @version    TBD
 @link       https://github.com/avadev/AvaTax-REST-V2-Python-SDK
 
-TransactionBuilder helps you construct a new transaction using a literate interface
+TransactionBuilder helps you construct a new transaction using a literate
+interface
 """
 from datetime import datetime
 
@@ -25,11 +26,15 @@ class TransactionBuilder(object):
 
     def __init__(self, client, comp_code, type_, cust_code):
         """
-        The TransactionBuilder helps you construct a new transaction using a literate interface.
+        Construct a new transaction using a literate interface.
 
-        :param AvaTaxClient  client:     The AvaTaxClient object to use to create this transaction
-        :param string        comp_code:  The code of the company for this transaction
-        :param DocumentType  type:       The type of transaction to create (See DocumentType::* for a list of allowable values)
+        :param AvaTaxClient  client:     The AvaTaxClient object to use to
+                                         create this transaction
+        :param string        comp_code:  The code of the company for this
+                                         transaction
+        :param DocumentType  type:       The type of transaction to create
+                                         (See DocumentType::* for a list of
+                                         allowable values)
         :param string        cust_code:  The customer code for this transaction
         """
         # The client that will be used to create the transaction
@@ -69,7 +74,8 @@ class TransactionBuilder(object):
         """
         Set the document type.
 
-        :param  string  type: (See DocumentType::* for a list of allowable values)
+        :param  string  type: (See DocumentType::* for a list of allowable
+                               values)
         :return: TransactionBuilder
         """
         self.create_model['type'] = type_
@@ -79,7 +85,8 @@ class TransactionBuilder(object):
         """
         Add an address to this transaction.
 
-        :param  string  address_type:  Address Type (See AddressType::* for a list of allowable values)
+        :param  string  address_type:  Address Type (See AddressType::* for a
+                                                     list of allowable values)
         :param  dictionary  address:  A dictionary containing the following
             line1         The street address, attention line, or business name
                             of the location.
@@ -101,9 +108,10 @@ class TransactionBuilder(object):
         """
         Add a lat/long coordinate to this transaction.
 
-        :param  string  type:       Address Type (See AddressType::* for a list of allowable values)
-        :param  float   lat:   The latitude of the geolocation for this transaction
-        :param  float   long_:  The longitude of the geolocation for this transaction
+        :param  string  type:       Address Type (See AddressType::* for a list
+                                                  of allowable values)
+        :param  float   lat:   The geolocated latitude for this transaction
+        :param  float   long_: The geolocated longitude for this transaction
         :return:  TransactionBuilder
         """
         self.create_model['addresses'][address_type] = {'latitude': lat,
@@ -114,10 +122,11 @@ class TransactionBuilder(object):
         """
         Add a line to the transaction.
 
-        :param  float   amount:   Value of the item.
-        :param  float   quantity: Quantity of the item.
+        :param  float   amount:    Value of the item.
+        :param  float   quantity:  Quantity of the item.
         :param  string  item_code: Code of the item.
-        :param  string  tax_code:  Tax Code of the item. If left blank, the default item (P0000000) is assumed.
+        :param  string  tax_code:  Tax Code of the item. If left blank, the
+                                   default item (P0000000) is assumed.
         :return:  TransactionBuilder
         """
         temp = {
@@ -172,10 +181,14 @@ class TransactionBuilder(object):
 
         A TaxDate override requires a valid DateTime object to be passed.
 
-        :param  string  type:        Type of the Tax Override (See TaxOverrideType::* for a list of allowable values)
+        :param  string  type:        Type of the Tax Override
+                                     (See TaxOverrideType::* for a list
+                                     of allowable values)
         :param  string  reason:      Reason of the Tax Override.
-        :param  float   tax_amount:  Amount of tax to apply. Required for a TaxAmount Override.
-        :param  date    tax_date:    Date of a Tax Override. Required for a TaxDate Override.
+        :param  float   tax_amount:  Amount of tax to apply. Required for a
+                                     TaxAmount Override.
+        :param  date    tax_date:    Date of a Tax Override. Required for a
+                                     TaxDate Override.
         :return:  TransactionBuilder
         """
         line = self.get_most_recent_line('WithLineTaxOverride')
