@@ -59,11 +59,11 @@ class AvataxClient(object):
         """
         Configure this client to use the specified username/password security settings.
 
-        :param  string    username:     The username for your AvaTax user account
-        :param  string    password:     The password for your AvaTax user account
-        :param  int       accountId:    The account ID of your avatax account
-        :param  string    licenseKey:   The license key of your avatax account
-        :param  string    bearerToken:  The OAuth 2.0 token provided by Avalara Identity
+        :param  string  username:    The username for your AvaTax user account
+        :param  string  password:    The password for your AvaTax user account
+        :param  int     accountId:   The account ID of your avatax account
+        :param  string  licenseKey:  The license key of your avatax account
+        :param  string  bearerToken: The OAuth 2.0 token provided by Avalara Identity
         :return: AvaTaxClient
         """
         if not all(isinstance(i, str_type) for i in [username, password]):
@@ -177,7 +177,7 @@ class AvataxClient(object):
                             headers=self.client_header)
 
     def commit_transaction(self, comp_code=None, trans_code=None, commit=True):
-        """
+        r"""
         Commit a transaction for reporting.
 
         Marks a transaction by changing its status to 'Committed'.
@@ -189,7 +189,7 @@ class AvataxClient(object):
         a committed transaction will generate a transaction history.
 
 
-          :param string companyCode: The company code of the company
+          :param string companyCode: The company code of the company \
             that recorded this transaction
           :param string transactionCode: The transaction code to commit
           :param object model: The commit request you wish to execute
@@ -203,7 +203,7 @@ class AvataxClient(object):
                              auth=self.auth, json=commit_model)
 
     def void_transaction(self, comp_code=None, trans_code=None, code_model='DocVoided'):
-        """
+        r"""
         Void a transaction.
 
         Voids the current transaction uniquely identified by this URL.
@@ -215,7 +215,7 @@ class AvataxClient(object):
         tax authority by Avalara Managed Returns are no longer available
         to be voided.
 
-            :param string companyCode: The company code of the company
+            :param string companyCode: The company code of the company \
                 that recorded this transaction
             :param string transactionCode: The transaction code to void
             :param object model: The void request you wish to execute
@@ -252,6 +252,3 @@ if __name__ == '__main__':  # pragma no cover
                    'taxCode': 'PS081282'}],
         'purchaseOrderNo': '2017-04-12-001',
         'type': 'SalesInvoice'}
-
-
-
