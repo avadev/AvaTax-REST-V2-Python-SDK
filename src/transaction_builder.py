@@ -97,7 +97,23 @@ class TransactionBuilder(object):
         return self
 
     def with_line_address(self, type_, address):
-        """."""
+        """
+        Add an address to this line.
+
+        :param  string  address_type:  Address Type (See AddressType::* for a list of allowable values)
+        :param  dictionary  address:  A dictionary containing the following
+            line1         The street address, attention line, or business name
+                            of the location.
+            line2         The street address, business name, or apartment/unit
+                            number of the location.
+            line3         The street address or apartment/unit number
+                            of the location.
+            city          City of the location.
+            region        State or Region of the location.
+            postal_code    Postal/zip code of the location.
+            country       The two-letter country code of the location.
+        :return: TransactionBuilder
+        """
         temp = self.get_most_recent_line('WithLineAddress')
         temp['addresses'][type_] = address
         return self
@@ -155,28 +171,55 @@ class TransactionBuilder(object):
         self.line_num += 1
 
     def with_diagnostics(self):
-        """."""
+        """
+        Enable diagnostic information.
+
+        - Sets the debugLevel to 'Diagnostic'
+        :return: TransactionBuilder
+        """
         self.create_model['debugLevel'] = 'Diagnostic'
         return self
 
     def with_discount_amount(self, discount):
-        """."""
+        """
+        Set a specific discount amount.
+
+        :param  float  discount: Amount of the discount
+        :return: TransactionBuilder
+        """
         self.create_model['discount'] = discount
 
     def with_item_discount(self, discounted):
-        """."""
+        """
+        Set if discount is applicable for the current line.
+
+        :param  boolean  discounted: Set true or false for discounted
+        :return: TransactionBuilder
+        """
         temp = self.get_most_recent_line('WithItemDiscount')
         temp['discounted'] = discounted
         return self
 
     def with_parameter(self, name, value):
-        """."""
+        """
+        Add a parameter at the document level.
+
+        :param  string  name: Name of the parameter
+        :param  string  value: Value to be assigned to the parameter
+        :return: TransactionBuilder
+        """
         self.create_model.setdefault('parameters', {})
         self.create_model['parameters'][name] = value
         return self
 
     def with_line_parameter(self, name, value):
-        """."""
+        """
+        Add a parameter to the current line.
+
+        :param  string  name: Name of the parameter
+        :param  string  value: Value to be assigned to the parameter
+        :return: TransactionBuilder
+        """
         temp = self.get_most_recent_line('WithLineParameter')
         temp.setdefault('parameters', {})
         temp['parameters'][name] = value
@@ -221,7 +264,17 @@ class TransactionBuilder(object):
         return self
 
     def with_tax_override(self, type_, reason, tax_amount, tax_date):
-        """."""
+        """
+        Add a document-level Tax Override to the transaction.
+
+        - A TaxDate override requires a valid DateTime object to be passed
+
+        :param  string  type_:       Type of the Tax Override (See TaxOverrideType::* for a list of allowable values)
+        :param  string  reason:      Reason of the Tax Override.
+        :param  float   tax_amount:  Amount of tax to apply. Required for a TaxAmount Override.
+        :param  date    tax_date:    Date of a Tax Override. Required for a TaxDate Override.
+        :return:  TransactionBuilder
+        """
         self.create_model['taxOverride'] = {
             'type': type_,
             'reason': reason,
@@ -230,7 +283,24 @@ class TransactionBuilder(object):
         }
 
     def with_separate_address_line(self, amount, type_, address):
-        """."""
+        """
+        Add a line to this transaction.
+
+        :param  float  amount:  Value of the line
+        :param  string  type_:  Address Type  (See AddressType::* for a list of allowable values)
+        :param  dictionary  address:  A dictionary containing the following
+            line1         The street address, attention line, or business name
+                            of the location.
+            line2         The street address, business name, or apartment/unit
+                            number of the location.
+            line3         The street address or apartment/unit number
+                            of the location.
+            city          City of the location.
+            region        State or Region of the location.
+            postal_code    Postal/zip code of the location.
+            country       The two-letter country code of the location.
+        :return: TransactionBuilder
+        """
         temp = {
             'number': self.line_num,
             'quantity': 1,
@@ -245,7 +315,11 @@ class TransactionBuilder(object):
         return self
 
     def create_adjustment_request(self, desc, reason):
-        """."""
+        """
+        Create a transaction adjustment request that can be used with the AdjustTransaction() API call.
+
+        :return: AdjustTransactionModel
+        """
         return {
             'newTransaction': self.create_model,
             'adjustmentDescription': desc,
