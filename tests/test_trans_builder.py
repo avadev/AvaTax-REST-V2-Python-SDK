@@ -124,7 +124,8 @@ def test_with_separate_address_method(mt_trans, valid_address):
             'SingleLocation': valid_address
         }
     }
-    trans = mt_trans.with_separate_address_line(200, 'SingleLocation', valid_address)
+    trans = mt_trans.with_separate_address_line(200, 'SingleLocation',
+                                                valid_address)
     assert trans.create_model['lines'][-1] == model
 
 
@@ -139,8 +140,16 @@ def test_create_adjustment_request_method(mt_trans):
     assert re == model
 
 
+def test_create_method_without_commit(mt_trans, valid_address):
+    """Test creating a transaction with transaction builder."""
+    trans = (mt_trans.with_address('SingleLocation', valid_address)
+             .with_line(20, 100, 'ITEM2001', 1234567).create())
+    assert '"status":"Saved"' in trans.text
 
 
-
-
-
+def test_create_method_with_commit(mt_trans, valid_address):
+    """Test creating a transaction with transaction builder."""
+    trans = (mt_trans.with_address('SingleLocation', valid_address)
+             .with_line(20, 100, 'ITEM2001', 1234567)
+             .with_commit().create())
+    assert '"status":"Committed"' in trans.text
