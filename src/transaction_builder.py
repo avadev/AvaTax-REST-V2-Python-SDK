@@ -23,7 +23,7 @@ from datetime import datetime
 class TransactionBuilder(object):
     """Transaction builder class."""
 
-    def __init__(self, client, comp_code, type_, cust_code):
+    def __init__(self, client, comp_code=None, type_=None, cust_code=None):
         """
         The TransactionBuilder helps you construct a new transaction using a literate interface.
 
@@ -96,10 +96,11 @@ class TransactionBuilder(object):
         self.create_model['addresses'][address_type] = address
         return self
 
-    def with_line_address(self, type_, address):
+    def with_line_address(self, address_type, address):
         """."""
         temp = self.get_most_recent_line('WithLineAddress')
-        temp['addresses'][type_] = address
+        temp.setdefault('addresses', {})
+        temp['addresses'][address_type] = address
         return self
 
     def with_latlong(self, address_type, lat, long_):
@@ -111,8 +112,9 @@ class TransactionBuilder(object):
         :param  float   long_:  The longitude of the geolocation for this transaction
         :return:  TransactionBuilder
         """
-        self.create_model['addresses'][address_type] = {'latitude': lat,
-                                                        'longitude': long_}
+        self.create_model.setdefault('addresses', {})
+        self.create_model['addresses'][address_type] = {'latitude': float(lat),
+                                                        'longitude': float(long_)}
         return self
 
     def with_line(self, amount, quantity, item_code, tax_code):
@@ -126,14 +128,15 @@ class TransactionBuilder(object):
         :return:  TransactionBuilder
         """
         temp = {
-            'number': self.line_num,
-            'quantity': quantity,
-            'amount': amount,
-            'taxCode': tax_code,
-            'itemCode': item_code
+            'number': str(self.line_num),
+            'amount': int(amount),
+            'quantity': int(quantity),
+            'itemCode': str(item_code),
+            'taxCode': str(tax_code)
         }
         self.create_model['lines'].append(temp)
         self.line_num += 1
+        return self
 
     def with_exempt_line(self, amount, item_code, exemption_code):
         """
@@ -145,14 +148,15 @@ class TransactionBuilder(object):
         :return:  TransactionBuilder
         """
         temp = {
-            'number': self.line_num,
+            'number': str(self.line_num),
             'quantity': 1,
-            'amount': amount,
-            'exemptionCode': exemption_code,
-            'itemCode': item_code
+            'amount': int(amount),
+            'exemptionCode': str(exemption_code),
+            'itemCode': str(item_code)
         }
         self.create_model['lines'].append(temp)
         self.line_num += 1
+        return self
 
     def with_diagnostics(self):
         """."""
@@ -162,6 +166,7 @@ class TransactionBuilder(object):
     def with_discount_amount(self, discount):
         """."""
         self.create_model['discount'] = discount
+        return self
 
     def with_item_discount(self, discounted):
         """."""
@@ -188,7 +193,10 @@ class TransactionBuilder(object):
 
         :return: TransactionBuilder
         """
-        return self.create_model['lines'][-1]
+        line = self.create_model['lines']
+        if line == []:
+            line.append({})
+        return line[-1]
 
     def create(self):
         """
@@ -213,9 +221,9 @@ class TransactionBuilder(object):
         """
         line = self.get_most_recent_line('WithLineTaxOverride')
         line['taxOverride'] = {
-            'type': type_,
-            'reason': reason,
-            'taxAmount': tax_amount,
+            'type': str(type_),
+            'reason': str(reason),
+            'taxAmount': float(tax_amount),
             'taxDate': tax_date
         }
         return self
@@ -228,6 +236,7 @@ class TransactionBuilder(object):
             'taxAmount': tax_amount,
             'taxDate': tax_date
         }
+        return self
 
     def with_separate_address_line(self, amount, type_, address):
         """."""
@@ -251,3 +260,25 @@ class TransactionBuilder(object):
             'adjustmentDescription': desc,
             'adjustmentReason': reason
         }
+
+
+if __name__ == '__main__':  # pragma no cover
+    address_1 = {   "line1": "2000 Main Street",
+                    "city": "Irvine",
+                    "region": "CA",
+                    "country": "US",
+                    "postalCode": "92614"}
+    address_2 = {
+                    "line1": "1100 2nd Ave",
+                    "city": "Seattle",
+                    "region": "WA",
+                    "country": "US",
+                    "postalCode": "98101"
+                }
+
+    trans_detail = {'amount': 100,
+                  'description': 'Yarn',
+                   'itemCode': 'Y0001',
+                   'number': '1',
+                   'quantity': 1,
+                   'taxCode': 'PS081282'}

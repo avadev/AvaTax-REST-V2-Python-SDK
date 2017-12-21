@@ -18,7 +18,7 @@ file that was distributed with this source code.
 import requests
 from requests.auth import HTTPBasicAuth
 import os
-from src import str_type
+from __init__ import str_type
 
 
 class AvataxClient(object):
