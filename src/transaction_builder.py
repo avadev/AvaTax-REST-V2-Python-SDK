@@ -133,7 +133,6 @@ class TransactionBuilder(object):
         r"""
         Add a lat/long coordinate to this transaction.
 
-
         :param  string  type:       Address Type \
         (See AddressType::* for a list of allowable values)
 
