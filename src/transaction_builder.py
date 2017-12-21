@@ -27,10 +27,10 @@ class TransactionBuilder(object):
         """
         The TransactionBuilder helps you construct a new transaction using a literate interface.
 
-            :param AvaTaxClient  client:     The AvaTaxClient object to use to create this transaction
-            :param string        comp_code:  The code of the company for this transaction
-            :param DocumentType  type:       The type of transaction to create (See DocumentType::* for a list of allowable values)
-            :param string        cust_code:  The customer code for this transaction
+        :param AvaTaxClient  client:     The AvaTaxClient object to use to create this transaction
+        :param string        comp_code:  The code of the company for this transaction
+        :param DocumentType  type:       The type of transaction to create (See DocumentType::* for a list of allowable values)
+        :param string        cust_code:  The customer code for this transaction
         """
         # The client that will be used to create the transaction
         self.client = client
@@ -151,7 +151,7 @@ class TransactionBuilder(object):
 
     def get_most_recent_line(self, member_name=None):
         """
-        Checks to see if the current model has a line.
+        Check to see if the current model has a line.
 
         :return: TransactionBuilder
         """
@@ -161,7 +161,8 @@ class TransactionBuilder(object):
         """
         Create this transaction.
 
-        :return: TransactionModel"""
+        :return: TransactionModel
+        """
         include = None
         return self.client.create_transaction(include, self.create_model)
 
