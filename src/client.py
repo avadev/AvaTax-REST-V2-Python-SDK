@@ -180,7 +180,7 @@ class AvataxClient(object):
                             headers=self.client_header)
 
     def commit_transaction(self, comp_code=None, trans_code=None, commit=True):
-        """
+        r"""
         Commit a transaction for reporting.
 
         Marks a transaction by changing its status to 'Committed'.
@@ -192,7 +192,7 @@ class AvataxClient(object):
         a committed transaction will generate a transaction history.
 
 
-          :param string companyCode: The company code of the company
+          :param string companyCode: The company code of the company \
             that recorded this transaction
           :param string transactionCode: The transaction code to commit
           :param object model: The commit request you wish to execute
@@ -207,7 +207,7 @@ class AvataxClient(object):
 
     def void_transaction(self, comp_code=None, trans_code=None,
                          code_model='DocVoided'):
-        """
+        r"""
         Void a transaction.
 
         Voids the current transaction uniquely identified by this URL.
@@ -219,7 +219,7 @@ class AvataxClient(object):
         tax authority by Avalara Managed Returns are no longer available
         to be voided.
 
-            :param string companyCode: The company code of the company
+            :param string companyCode: The company code of the company \
                 that recorded this transaction
             :param string transactionCode: The transaction code to void
             :param object model: The void request you wish to execute
