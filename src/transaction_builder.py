@@ -38,7 +38,6 @@ class TransactionBuilder(object):
         self.line_num = 1
         # The in-progress model
         self.create_model = {
-            'addresses': {},
             'companyCode': comp_code,
             'customerCode': cust_code,
             'type': type_,
@@ -93,8 +92,14 @@ class TransactionBuilder(object):
             country       The two-letter country code of the location.
         :return: TransactionBuilder
         """
-        if self.create_model['addresses'] == {}:
-            self.create_model['addresses'][address_type] = address
+        self.create_model.setdefault('addresses', {})
+        self.create_model['addresses'][address_type] = address
+        return self
+
+    def with_line_address(self, type_, address):
+        """."""
+        temp = self.get_most_recent_line('WithLineAddress')
+        temp['addresses'][type_] = address
         return self
 
     def with_latlong(self, address_type, lat, long_):
@@ -149,6 +154,34 @@ class TransactionBuilder(object):
         self.create_model['lines'].append(temp)
         self.line_num += 1
 
+    def with_diagnostics(self):
+        """."""
+        self.create_model['debugLevel'] = 'Diagnostic'
+        return self
+
+    def with_discount_amount(self, discount):
+        """."""
+        self.create_model['discount'] = discount
+
+    def with_item_discount(self, discounted):
+        """."""
+        temp = self.get_most_recent_line('WithItemDiscount')
+        temp['discounted'] = discounted
+        return self
+
+    def with_parameter(self, name, value):
+        """."""
+        self.create_model.setdefault('parameters', {})
+        self.create_model['parameters'][name] = value
+        return self
+
+    def with_line_parameter(self, name, value):
+        """."""
+        temp = self.get_most_recent_line('WithLineParameter')
+        temp.setdefault('parameters', {})
+        temp['parameters'][name] = value
+        return self
+
     def get_most_recent_line(self, member_name=None):
         """
         Check to see if the current model has a line.
@@ -186,3 +219,35 @@ class TransactionBuilder(object):
             'taxDate': tax_date
         }
         return self
+
+    def with_tax_override(self, type_, reason, tax_amount, tax_date):
+        """."""
+        self.create_model['taxOverride'] = {
+            'type': type_,
+            'reason': reason,
+            'taxAmount': tax_amount,
+            'taxDate': tax_date
+        }
+
+    def with_separate_address_line(self, amount, type_, address):
+        """."""
+        temp = {
+            'number': self.line_num,
+            'quantity': 1,
+            'amount': amount,
+            'addresses': {
+                type_: address
+            }
+        }
+
+        self.create_model['lines'].append(temp)
+        self.line_num += 1
+        return self
+
+    def create_adjustment_request(self, desc, reason):
+        """."""
+        return {
+            'newTransaction': self.create_model,
+            'adjustmentDescription': desc,
+            'adjustmentReason': reason
+        }
