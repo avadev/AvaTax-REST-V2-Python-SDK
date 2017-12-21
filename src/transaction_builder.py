@@ -129,8 +129,8 @@ class TransactionBuilder(object):
         """
         temp = {
             'number': str(self.line_num),
-            'amount': int(amount),
-            'quantity': int(quantity),
+            'amount': amount,
+            'quantity': quantity,
             'itemCode': str(item_code),
             'taxCode': str(tax_code)
         }
@@ -150,7 +150,7 @@ class TransactionBuilder(object):
         temp = {
             'number': str(self.line_num),
             'quantity': 1,
-            'amount': int(amount),
+            'amount': amount,
             'exemptionCode': str(exemption_code),
             'itemCode': str(item_code)
         }
@@ -223,7 +223,7 @@ class TransactionBuilder(object):
         line['taxOverride'] = {
             'type': str(type_),
             'reason': str(reason),
-            'taxAmount': float(tax_amount),
+            'taxAmount': tax_amount,
             'taxDate': tax_date
         }
         return self
@@ -231,8 +231,8 @@ class TransactionBuilder(object):
     def with_tax_override(self, type_, reason, tax_amount, tax_date):
         """."""
         self.create_model['taxOverride'] = {
-            'type': type_,
-            'reason': reason,
+            'type': str(type_),
+            'reason': str(reason),
             'taxAmount': tax_amount,
             'taxDate': tax_date
         }
