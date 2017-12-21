@@ -104,9 +104,39 @@ def test_get_most_recent_line_method(mt_trans):
 
 def test_with_line_tax_overrride_method(mt_trans):
     """Test method functionality of the Transaction Builder."""
-    trans = mt_trans.with_parameter('param', 'param_val')
-    assert trans.create_model['parameters']['param'] == 'param_val'
+    model = {
+        "type": "TaxAmount",
+        "taxAmount": 6.25,
+        "taxDate": "2017-12-14",
+        "reason": "Precalculated Tax"
+    }
+    trans = mt_trans.with_tax_override('TaxAmount', 'Precalculated Tax', 6.25, '2017-12-14')
+    assert trans.create_model['taxOverride'] == model
 
+
+def test_with_separate_address_method(mt_trans, valid_address):
+    """Test method functionality of the Transaction Builder."""
+    model = {
+        'number': 1,
+        'quantity': 1,
+        'amount': 200,
+        'addresses': {
+            'SingleLocation': valid_address
+        }
+    }
+    trans = mt_trans.with_separate_address_line(200, 'SingleLocation', valid_address)
+    assert trans.create_model['lines'][-1] == model
+
+
+def test_create_adjustment_request_method(mt_trans):
+    """Test method functionality of the Transaction Builder."""
+    model = {
+        'newTransaction': mt_trans.create_model,
+        'adjustmentDescription': 'EOY adjustment',
+        'adjustmentReason': 'internal transfer'
+    }
+    re = mt_trans.create_adjustment_request('EOY adjustment', 'internal transfer')
+    assert re == model
 
 
 
