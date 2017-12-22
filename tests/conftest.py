@@ -1,5 +1,6 @@
 """Conftest is a file recognize by pytest module, allowing us to share fixture across multiple tests."""
 from client import AvataxClient
+from transaction_builder import TransactionBuilder
 import os
 import pytest
 
@@ -34,8 +35,17 @@ def auth_client_loggedin_with_id():
     return client
 
 
+@pytest.fixture(scope='function')
+def mt_trans():
+    """Create an instance of Transaction Builder object."""
+    client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
+    client.add_credentials(os.environ.get('ACCOUNT_ID', ''), os.environ.get('LICENSE_KEY', ''))
+    trans = TransactionBuilder(client, 'DEFAULT', 'SalesInvoice', 'ABC123')
+    return trans
+
+
 @pytest.fixture
-def good_address():
+def valid_address():
     """Properly filled address fixture for testing resolve address."""
     address = {
         'line1': '410 Terry Ave. North',
