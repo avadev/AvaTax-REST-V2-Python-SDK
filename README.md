@@ -35,6 +35,7 @@ Python_Final $ source ENV/bin/activate
 (ENV) Python_Final $ pip install -e .
 (ENV) Python_Final $ pip install -e .[testing]
 ```
+
 ## **Usage:**
 
 
@@ -128,3 +129,4 @@ address = {
 }
 return print(client.resolveAddress(address))
 ```
+
