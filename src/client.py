@@ -18,13 +18,14 @@ file that was distributed with this source code.
 import requests
 from requests.auth import HTTPBasicAuth
 import os
-import sys
+from __init__ import str_type
 
 
 class AvataxClient(object):
     """Class for our Avatax client."""
 
-    def __init__(self, app_name=None, app_version=None, machine_name=None, environment=None):
+    def __init__(self, app_name=None, app_version=None, machine_name=None,
+                 environment=None):
         """
         Initialize the sandbox client.
 
@@ -38,7 +39,9 @@ class AvataxClient(object):
                 input sandbox, for the sandbox API
         :return: object
         """
-        if not all(isinstance(i, str_type) for i in [app_name, machine_name, environment]):
+        if not all(isinstance(i, str_type) for i in [app_name,
+                                                     machine_name,
+                                                     environment]):
             raise ValueError('Input(s) must be string or none type object')
         self.base_url = 'https://rest.avatax.com'
         if environment:
@@ -57,13 +60,13 @@ class AvataxClient(object):
 
     def add_credentials(self, username=None, password=None):
         """
-        Configure this client to use the specified username/password security settings.
+        Configure this client for the specified username/password security.
 
-        :param  string    username:     The username for your AvaTax user account
-        :param  string    password:     The password for your AvaTax user account
-        :param  int       accountId:    The account ID of your avatax account
-        :param  string    licenseKey:   The license key of your avatax account
-        :param  string    bearerToken:  The OAuth 2.0 token provided by Avalara Identity
+        :param  string  username:    The username of your AvaTax user account
+        :param  string  password:    The password of your AvaTax user account
+        :param  int     accountId:   The account ID of your avatax account
+        :param  string  licenseKey:  The license key of your avatax account
+        :param  string  bearerToken: The OAuth 2.0 token provided by Avalara
         :return: AvaTaxClient
         """
         if not all(isinstance(i, str_type) for i in [username, password]):
@@ -128,7 +131,7 @@ class AvataxClient(object):
         :return: requests response object
         """
         if not all(isinstance(i, (dict, type(None))) for i in [model]):
-            raise ValueError('Input(s) must be py dictionary or none type object')
+            raise ValueError('Input(s) must be py dict. or none type object')
         return requests.post('{}/api/v2/transactions/create'.format(
                              self.base_url), params=include, json=model,
                              auth=self.auth, headers=self.client_header)
@@ -177,7 +180,7 @@ class AvataxClient(object):
                             headers=self.client_header)
 
     def commit_transaction(self, comp_code=None, trans_code=None, commit=True):
-        """
+        r"""
         Commit a transaction for reporting.
 
         Marks a transaction by changing its status to 'Committed'.
@@ -189,7 +192,7 @@ class AvataxClient(object):
         a committed transaction will generate a transaction history.
 
 
-          :param string companyCode: The company code of the company
+          :param string companyCode: The company code of the company \
             that recorded this transaction
           :param string transactionCode: The transaction code to commit
           :param object model: The commit request you wish to execute
@@ -202,8 +205,9 @@ class AvataxClient(object):
                              format(self.base_url, comp_code, trans_code),
                              auth=self.auth, json=commit_model)
 
-    def void_transaction(self, comp_code=None, trans_code=None, code_model='DocVoided'):
-        """
+    def void_transaction(self, comp_code=None, trans_code=None,
+                         code_model='DocVoided'):
+        r"""
         Void a transaction.
 
         Voids the current transaction uniquely identified by this URL.
@@ -215,13 +219,15 @@ class AvataxClient(object):
         tax authority by Avalara Managed Returns are no longer available
         to be voided.
 
-            :param string companyCode: The company code of the company
+            :param string companyCode: The company code of the company \
                 that recorded this transaction
             :param string transactionCode: The transaction code to void
             :param object model: The void request you wish to execute
         :return: object
         """
-        if not all(isinstance(i, str_type) for i in [code_model, trans_code, comp_code]):
+        if not all(isinstance(i, str_type) for i in [code_model,
+                                                     trans_code,
+                                                     comp_code]):
             raise ValueError('Input(s) must be py string or none type object')
         model = {'code': code_model}
         return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(
@@ -229,8 +235,12 @@ class AvataxClient(object):
             headers=self.client_header)
 
 if __name__ == '__main__':  # pragma no cover
-    client = AvataxClient('my test app', 'ver 0.0', 'my test machine', 'sandbox')
-    c = client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
+    client = AvataxClient('my test app',
+                          'ver 0.0',
+                          'my test machine',
+                          'sandbox')
+    c = client.add_credentials(os.environ.get('USERNAME', ''),
+                               os.environ.get('PASSWORD', ''))
     print(client.ping().text)
     tax_document = {
         'addresses': {'SingleLocation': {'city': 'Irvine',
@@ -252,9 +262,3 @@ if __name__ == '__main__':  # pragma no cover
                    'taxCode': 'PS081282'}],
         'purchaseOrderNo': '2017-04-12-001',
         'type': 'SalesInvoice'}
-
-
-if sys.version_info.major == 3:
-    str_type = (str, type(None))
-else:
-    str_type = (str, unicode, type(None))
