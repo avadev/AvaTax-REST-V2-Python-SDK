@@ -40,10 +40,12 @@ Python_Final $ source ENV/bin/activate
 
 ### **Configuration**
 
-// Python import
-// from client import AvaTaxClient
+Python import
+```
+from client import AvaTaxClient
+```
 
-// Inside ENV/bin/activate export your credentials:
+Inside ENV/bin/activate export your credentials:
 ```
 export USERNAME='<your-username>'
 export PASSWORD='<your-password>'
