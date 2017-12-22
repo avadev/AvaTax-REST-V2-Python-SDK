@@ -40,19 +40,48 @@ Python_Final $ source ENV/bin/activate
 
 ### **Configuration**
 
-Python import
-```
-from client import AvaTaxClient
-```
+**Environment**
 
-Inside ENV/bin/activate export your credentials:
+Avalara provides two different environments for AvaTax: **Sandbox** and **Production**.
+
+The **Sandbox** environment is meant to help you test your software without the risk of accidentally affecting production data or reporting transactions. 
+
+In **Production**, transactions that are marked Committed can be reported on a tax filing using the Avalara Managed Returns Service.
+
+Each environment is completely separate, and each has its own credentials.
+
+If you have a Sandbox account, you cannot use that account to log onto Production; and vice versa.
+
+### **Setup Test Credentials**
+
+For testing, your credentials are accessed as environment varibales through os.environ.
+Add the following to the ```activate``` file in your environment:
+
+``` 
+  bash
+# Username and password
+USERNAME='your_sandbox_username'
+PASSWORD='your_sandbox_password'
+
+# Or account id and license key
+ACCOUNT_ID='your_sandbox_account_id'
+LICENSE_KEY='your_sandbox_license_key'
+```
+Setting up environmental variables for production mode is similar:
 ```
 export USERNAME='<your-username>'
 export PASSWORD='<your-password>'
 export ACCOUNT_ID='<your-account-id>'
 export LICENSE_KEY='<your-license-key>'
+```
+**Import the python AvaTaxClient from the client module:**
 
-client = new AvaTaxClient('<app-name>', '<app-version>', '<your-machine-name>', '<your-desired-environment>').add_credentials('<Your-credentials>')
+```
+from client import AvaTaxClient
+```
+Create a new AvaTaxClient object:
+```
+client = new AvaTaxClient("app-name", 'app-version', 'your-machine-name', 'your-desired-environment').add_credentials('<Your-credentials>')
 ```
 
 ### **Tax Calculation**
