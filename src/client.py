@@ -78,6 +78,7 @@ class AvataxClient(client_methods.Mixin):
         return self
 
 if __name__ == '__main__':  # pragma no cover
+    """Creating a client with credential, must have env variables username & password."""
     client = AvataxClient('my test app',
                           'ver 0.0',
                           'my test machine',
