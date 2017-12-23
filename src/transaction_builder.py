@@ -19,6 +19,7 @@ TransactionBuilder helps you construct a new transaction using a literate
 interface
 """
 from datetime import datetime
+import transaction_builder_methods
 
 
 class TransactionBuilder(object):
@@ -358,25 +359,3 @@ class TransactionBuilder(object):
             'adjustmentDescription': desc,
             'adjustmentReason': reason
         }
-
-
-if __name__ == '__main__':  # pragma no cover
-    address_1 = {   "line1": "2000 Main Street",
-                    "city": "Irvine",
-                    "region": "CA",
-                    "country": "US",
-                    "postalCode": "92614"}
-    address_2 = {
-                    "line1": "1100 2nd Ave",
-                    "city": "Seattle",
-                    "region": "WA",
-                    "country": "US",
-                    "postalCode": "98101"
-                }
-
-    trans_detail = {'amount': 100,
-                  'description': 'Yarn',
-                   'itemCode': 'Y0001',
-                   'number': '1',
-                   'quantity': 1,
-                   'taxCode': 'PS081282'}

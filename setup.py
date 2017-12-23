@@ -4,7 +4,7 @@ from setuptools import setup
 setup(
     name='Avalara Python SDK',
     package_dir={'': 'src'},
-    py_modules=['client', 'transaction_builder'],
+    py_modules=['client', 'transaction_builder', 'client_methods'],
     author='Han Bao, Adrienne Karnoski, Robert Bronson, Philip Werner',
     author_email='hbao2016@hotmail.com',
     description='Avalara Tax Python SDK.',

@@ -51,7 +51,7 @@ def valid_address():
         'line1': '410 Terry Ave. North',
         'city': 'Seattle',
         'region': 'WA',
-        'postal_code': '98109',
+        'postalCode': '98109',
     }
     return address
 
