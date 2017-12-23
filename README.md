@@ -58,7 +58,7 @@ If you have a Sandbox account, you cannot use that account to log onto Productio
 For testing, your credentials are accessed as environment varibales through os.environ.
 Add the following to the ```activate``` file in your environment:
 
-``` 
+```
   bash
 # Username and password
 USERNAME='your_sandbox_username'
