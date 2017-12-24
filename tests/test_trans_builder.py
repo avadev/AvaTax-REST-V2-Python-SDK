@@ -34,6 +34,7 @@ def test_with_address_method(mt_trans, valid_address):
 
 def test_with_line_address_method(mt_trans, valid_address):
     """Test method functionality of the Transaction Builder."""
+    mt_trans.with_line(20, 100, 'ITEM2001', 1234567)
     mt_trans.with_line_address('SingleLocation', valid_address)
     last_line = mt_trans.get_most_recent_line()
     assert last_line['addresses']['SingleLocation'] == valid_address
@@ -98,6 +99,7 @@ def test_with_line_parameter_method(mt_trans):
 
 def test_get_most_recent_line_method(mt_trans):
     """Test method functionality of the Transaction Builder."""
+    mt_trans.with_line(20, 100, 'ITEM2001', 1234567)
     line = mt_trans.get_most_recent_line('TestName')
     assert line is mt_trans.create_model['lines'][-1]
 
@@ -140,16 +142,44 @@ def test_create_adjustment_request_method(mt_trans):
     assert re == model
 
 
-def test_create_method_without_commit(mt_trans, valid_address):
+def test_create_trans_without_commit(mt_trans, valid_address):
     """Test creating a transaction with transaction builder."""
     trans = (mt_trans.with_address('SingleLocation', valid_address)
              .with_line(20, 100, 'ITEM2001', 1234567).create())
     assert '"status":"Saved"' in trans.text
 
 
-def test_create_method_with_commit(mt_trans, valid_address):
+def test_create_trans_with_commit(mt_trans, valid_address):
     """Test creating a transaction with transaction builder."""
     trans = (mt_trans.with_address('SingleLocation', valid_address)
              .with_line(20, 100, 'ITEM2001', 1234567)
              .with_commit().create())
     assert '"status":"Committed"' in trans.text
+
+
+def test_create_trans_with_two_lines(mt_trans, valid_address, ship_from_address):
+    """Test creating transaction with 2 lines."""
+    trans = (mt_trans.with_address('ShipFrom', ship_from_address)
+             .with_address('ShipTo', valid_address)
+             .with_line(100.0, 1, None, 'P0000000')
+             .create())
+    assert trans.status_code == 201
+
+
+def test_create_trans_with_exempt_line(mt_trans, valid_address):
+    """Test creating a transaction with transaction builder."""
+    trans = (mt_trans.with_address('SingleLocation', valid_address)
+             .with_line(100.0, 1, None, 'P0000000')
+             .with_exempt_line(50.0, None, 'NT')
+             .create())
+    assert trans.status_code == 201
+
+
+def test_create_trans_with_line_address(mt_trans, valid_address, ship_from_address):
+    """Test creating a transaction with transaction builder."""
+    trans = (mt_trans.with_line(100.0, 1, None, 'P0000000')
+             .with_line_address('ShipFrom', ship_from_address)
+             .with_line_address('ShipTo', valid_address)
+             .create())
+    assert trans.status_code == 201
+

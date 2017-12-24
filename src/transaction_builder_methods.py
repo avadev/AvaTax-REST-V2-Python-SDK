@@ -223,8 +223,8 @@ class Mixin:
         :return: TransactionBuilder
         """
         line = self.create_model['lines']
-        if line == []:
-            line.append({})
+        if not len(line):  # if length is zero
+            raise Exception('No lines have been added. The {} method applies to the most recent line. To use this function, first add a line.'.format(member_name))
         return line[-1]
 
     def create(self):
@@ -256,7 +256,7 @@ class Mixin:
         line['taxOverride'] = {
             'type': str(type_),
             'reason': str(reason),
-            'taxAmount': tax_amount,
+            'taxAmount': float(tax_amount),
             'taxDate': tax_date
         }
         return self
