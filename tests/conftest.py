@@ -51,7 +51,19 @@ def valid_address():
         'line1': '410 Terry Ave. North',
         'city': 'Seattle',
         'region': 'WA',
-        'postal_code': '98109',
+        'postalCode': '98109',
+    }
+    return address
+
+
+@pytest.fixture
+def ship_from_address():
+    """Different address for testing purpose."""
+    address = {
+        'line1': '123 Main Street',
+        'city': 'Irvine',
+        'region': 'CA',
+        'postalCode': '92615'
     }
     return address
 
