@@ -1,5 +1,5 @@
 # Avalara AvaTax Python SDK
-[![Build Status](https://travis-ci.org/RJB888/Python_Final.svg?branch=master)](https://travis-ci.org/RJB888/Python_Final)
+[![Build Status](https://travis-ci.org/AvaTax-REST-V2-Python-SDK/Python_Final.svg?branch=master)](https://travis-ci.org/AvaTax-REST-V2-Python-SDK/Python_Final)
 
 ### About Our Product:
 This GitHub repository is the Python SDK for Avalara's world-class tax service, AvaTax.  It uses the AvaTax REST v2 API, which is a fully REST implementation and provides a single client for all AvaTax functionality.  For more information about AvaTax REST v2, please visit [Avalara's Developer Network](http://developer.avalara.com/) or view the [online Swagger documentation](https://sandbox-rest.avatax.com/swagger/ui/index.html).
@@ -19,11 +19,11 @@ This GitHub repository is the Python SDK for Avalara's world-class tax service, 
 
 Clone this repository to your local machine.
 ```
-$ git clone https://github.com/RJB888/Python_Final.git
+$ git clone https://github.com/avadev/AvaTax-REST-V2-Python-SDK.git
 ```
-Once downloaded, cd into the ```Python_Final``` directory.
+Once downloaded, cd into the ```AvaTax-REST-V2-Python-SDK``` directory.
 ```
-$ cd Python_Final
+$ cd AvaTax-REST-V2-Python-SDK
 ```
 Begin a new virtual environment with Python 3 and activate it.
 ```
