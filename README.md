@@ -1,5 +1,5 @@
 # Avalara AvaTax Python SDK
-[![Build Status](https://travis-ci.org/avadev/AvaTax-REST-V2-Python-SDK.svg?branch=master2)](https://travis-ci.org/avadev/AvaTax-REST-V2-Python-SDK)
+[![Build Status](https://travis-ci.org/avadev/AvaTax-REST-V2-Python-SDK.svg?branch=master)](https://travis-ci.org/avadev/AvaTax-REST-V2-Python-SDK)
 
 
 ### About Our Product:
