@@ -1,18 +1,1 @@
-{
-  "tests/test_commit_trans.py::test_commit_transaction_commit_saved_trans": true,
-  "tests/test_commit_trans.py::test_commit_transaction_wont_commit_if_commit_param_false": true,
-  "tests/test_create_trans.py::test_201_response_when_creating_transaction": true,
-  "tests/test_create_trans.py::test_include_param_is_addresses": true,
-  "tests/test_create_trans.py::test_transaction_is_commited_when_commit_is_true": true,
-  "tests/test_create_trans.py::test_transaction_is_saved_when_commit_is_false": true,
-  "tests/test_ping.py::test_ping_auth_is_true_connection": true,
-  "tests/test_resolve_address.py::test_resolve_address_response_code_200": true,
-  "tests/test_resolve_address.py::test_resolve_address_response_code_400": true,
-  "tests/test_resolve_address.py::test_resolved_address_response_has_coordinates": true,
-  "tests/test_void_transaction.py::test_imports": true,
-  "tests/test_void_transaction.py::test_void_changes_transaction_status_to": true,
-  "tests/test_void_transaction.py::test_void_changes_transaction_status_to_with_model": true,
-  "tests/test_void_transaction.py::test_void_with_invalid_type_company_code_raises_errror": true,
-  "tests/test_void_transaction.py::test_void_with_invalid_type_model_info_raises_error": true,
-  "tests/test_void_transaction.py::test_void_with_invalid_type_transaction_num_raises_error": true
-}
+{}
