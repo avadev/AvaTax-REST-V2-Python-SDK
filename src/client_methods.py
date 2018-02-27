@@ -17,7 +17,7 @@ file that was distributed with this source code.
 """
 
 import requests
-from __init__ import str_type
+from _str_version import str_type
 
 
 class Mixin:
