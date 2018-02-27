@@ -68,6 +68,8 @@ class AvataxClient(client_methods.Mixin):
         :param  string  licenseKey:  The license key of your avatax account
         :param  string  bearerToken: The OAuth 2.0 token provided by Avalara
         :return: AvaTaxClient
+
+        Note: if you wish to use Bearer token, enter it as the ONLY argument to this method.
         """
         if not all(isinstance(i, str_type) for i in [username, password]):
             raise ValueError('Input(s) must be string or none type object')

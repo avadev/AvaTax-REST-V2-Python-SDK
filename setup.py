@@ -6,8 +6,8 @@ setup(
     package_dir={'': 'src'},
     py_modules=[
         'client', 
-        'transaction_builder', 
         'client_methods', 
+        'transaction_builder', 
         'transaction_builder_methods',
         '_str_version'
     ],
