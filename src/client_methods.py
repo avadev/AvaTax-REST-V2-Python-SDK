@@ -5492,7 +5492,7 @@ class Mixin:
       :param model [CommitTransactionModel] The commit request you wish to execute
       :return TransactionModel
     """
-    def commit_transaction(self, companyCode, transactionCode, model, include=None):
+    def commit_transaction(self, companyCode, transactionCode, model={'commit': True}, include=None):
         return requests.post(f"{self.base_url}/api/v2/companies/{companyCode}/transactions/{transactionCode}/commit", 
                 auth=self.auth, headers=self.client_header,
                 params=include, json=model)

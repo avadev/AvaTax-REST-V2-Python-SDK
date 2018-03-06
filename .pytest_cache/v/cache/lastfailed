@@ -1,1 +1,5 @@
-{}
+{
+  "tests/test_commit_trans.py::test_commit_transaction_with_invaild_trans_code_type": true,
+  "tests/test_commit_trans.py::test_commit_transaction_with_invalid_company_code_type": true,
+  "tests/test_create_trans.py::test_error_raises_invalid_type": true
+}
