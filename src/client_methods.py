@@ -5818,7 +5818,7 @@ class Mixin:
       :param model [VoidTransactionModel] The void request you wish to execute
       :return TransactionModel
     """
-    def void_transaction(self, companyCode, transactionCode, model, include=None):
+    def void_transaction(self, companyCode, transactionCode, model={'code':'DocVoided'}, include=None):
         return requests.post(f"{self.base_url}/api/v2/companies/{companyCode}/transactions/{transactionCode}/void", 
                 auth=self.auth, headers=self.client_header,
                 params=include, json=model)
