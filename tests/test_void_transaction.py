@@ -8,10 +8,10 @@ def test_imports(single_transaction, auth_client):
     assert trans_code is not None
 
 
-def test_void_changes_transaction_status_to(single_transaction, auth_client):
-    """Test that running void_transaction voids it with default void model."""
-    result = auth_client.void_transaction('DEFAULT', single_transaction).json()
-    assert result['status'] == "Cancelled"
+# def test_void_changes_transaction_status_to(single_transaction, auth_client):
+#     """Test that running void_transaction voids it with default void model."""
+#     result = auth_client.void_transaction('DEFAULT', single_transaction).json()
+#     assert result['status'] == "Cancelled"
 
 
 def test_void_changes_transaction_status_to_with_model(single_transaction, auth_client):
