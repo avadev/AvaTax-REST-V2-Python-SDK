@@ -93,7 +93,7 @@ def single_transaction():
                    'taxCode': 'PS081282'}],
         'purchaseOrderNo': '2017-04-12-001',
         'type': 'SalesInvoice'}
-    r = client.create_transaction('DEFAULT', tax_document)
+    r = client.create_transaction(tax_document, 'DEFAULT')
     trans_code = r.json()['code']
     return trans_code
 
@@ -132,7 +132,7 @@ def five_transactions():
                        'taxCode': 'PS081282'}],
             'purchaseOrderNo': '2017-04-12-001',
             'type': 'SalesInvoice'}
-        r = client.create_transaction(None, tax_document)
+        r = client.create_transaction(tax_document, None)
         trans_codes.append(r.json()['code'])
     return trans_codes
 
