@@ -22,7 +22,7 @@ class Mixin:
       :return LicenseKeyModel
     """
     def account_reset_license_key(self, id_, model):
-        return requests.post('{}/api/v2/accounts/{}/resetlicensekey'.format(self.base_url, id_, model),
+        return requests.post('{}/api/v2/accounts/{}/resetlicensekey'.format(self.base_url, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -42,7 +42,7 @@ class Mixin:
       :return AccountModel
     """
     def activate_account(self, id_, model, include=None):
-        return requests.post('{}/api/v2/accounts/{}/activate'.format(self.base_url, id_, model),
+        return requests.post('{}/api/v2/accounts/{}/activate'.format(self.base_url, id_),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -99,7 +99,7 @@ class Mixin:
       :return AccountConfigurationModel
     """
     def set_account_configuration(self, id_, model):
-        return requests.post('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_, model),
+        return requests.post('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -125,7 +125,7 @@ class Mixin:
       :return AddressResolutionModel
     """
     def resolve_address(self, include=None):
-        return requests.get('{}/api/v2/addresses/resolve'.format(self.base_url, ),
+        return requests.get('{}/api/v2/addresses/resolve'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -142,7 +142,7 @@ class Mixin:
       :return AddressResolutionModel
     """
     def resolve_address_post(self, model):
-        return requests.post('{}/api/v2/addresses/resolve'.format(self.base_url, model),
+        return requests.post('{}/api/v2/addresses/resolve'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -158,7 +158,7 @@ class Mixin:
       :return BatchModel
     """
     def create_batches(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -244,7 +244,7 @@ class Mixin:
       :return FetchResult
     """
     def query_batches(self, include=None):
-        return requests.get('{}/api/v2/batches'.format(self.base_url, ),
+        return requests.get('{}/api/v2/batches'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -269,7 +269,7 @@ class Mixin:
       :return CertExpressInvitationStatusModel
     """
     def create_cert_express_invitation(self, companyId, customerCode, model):
-        return requests.post('{}/api/v2/companies/{}/customers/{}/certexpressinvites'.format(self.base_url, companyId, customerCode, model),
+        return requests.post('{}/api/v2/companies/{}/customers/{}/certexpressinvites'.format(self.base_url, companyId, customerCode),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -350,7 +350,7 @@ class Mixin:
       :return CertificateModel
     """
     def create_certificates(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -464,7 +464,7 @@ class Mixin:
       :return FetchResult
     """
     def link_attributes_to_certificate(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(self.base_url, companyId, id_, model),
+        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -489,7 +489,7 @@ class Mixin:
       :return FetchResult
     """
     def link_customers_to_certificate(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/link'.format(self.base_url, companyId, id_, model),
+        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/link'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -607,7 +607,7 @@ class Mixin:
       :return FetchResult
     """
     def unlink_attributes_from_certificate(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(self.base_url, companyId, id_, model),
+        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -633,7 +633,7 @@ class Mixin:
       :return FetchResult
     """
     def unlink_customers_from_certificate(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(self.base_url, companyId, id_, model),
+        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -655,7 +655,7 @@ class Mixin:
       :return CertificateModel
     """
     def update_certificate(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -700,7 +700,7 @@ class Mixin:
       :return string
     """
     def change_filing_status(self, id_, model):
-        return requests.post('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_, model),
+        return requests.post('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -721,7 +721,7 @@ class Mixin:
       :return CompanyModel
     """
     def company_initialize(self, model):
-        return requests.post('{}/api/v2/companies/initialize'.format(self.base_url, model),
+        return requests.post('{}/api/v2/companies/initialize'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -735,7 +735,7 @@ class Mixin:
       :return CompanyModel
     """
     def create_companies(self, model):
-        return requests.post('{}/api/v2/companies'.format(self.base_url, model),
+        return requests.post('{}/api/v2/companies'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -757,7 +757,7 @@ class Mixin:
       :return FundingStatusModel
     """
     def create_funding_request(self, id_, model):
-        return requests.post('{}/api/v2/companies/{}/funding/setup'.format(self.base_url, id_, model),
+        return requests.post('{}/api/v2/companies/{}/funding/setup'.format(self.base_url, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -891,7 +891,7 @@ class Mixin:
       :return FetchResult
     """
     def list_mrs_companies(self):
-        return requests.get('{}/api/v2/companies/mrs'.format(self.base_url, ),
+        return requests.get('{}/api/v2/companies/mrs'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=None)
 
     r"""
@@ -919,7 +919,7 @@ class Mixin:
       :return FetchResult
     """
     def query_companies(self, include=None):
-        return requests.get('{}/api/v2/companies'.format(self.base_url, ),
+        return requests.get('{}/api/v2/companies'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -940,7 +940,7 @@ class Mixin:
       :return CompanyConfigurationModel
     """
     def set_company_configuration(self, id_, model):
-        return requests.post('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_, model),
+        return requests.post('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -956,7 +956,7 @@ class Mixin:
       :return CompanyModel
     """
     def update_company(self, id_, model):
-        return requests.put('{}/api/v2/companies/{}'.format(self.base_url, id_, model),
+        return requests.put('{}/api/v2/companies/{}'.format(self.base_url, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -971,7 +971,7 @@ class Mixin:
       :return ContactModel
     """
     def create_contacts(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -1038,7 +1038,7 @@ class Mixin:
       :return FetchResult
     """
     def query_contacts(self, include=None):
-        return requests.get('{}/api/v2/contacts'.format(self.base_url, ),
+        return requests.get('{}/api/v2/contacts'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1056,7 +1056,7 @@ class Mixin:
       :return ContactModel
     """
     def update_contact(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -1078,7 +1078,7 @@ class Mixin:
       :return CustomerModel
     """
     def create_customers(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -1148,7 +1148,7 @@ class Mixin:
       :return FetchResult
     """
     def link_certificates_to_customer(self, companyId, customerCode, model):
-        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/link'.format(self.base_url, companyId, customerCode, model),
+        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/link'.format(self.base_url, companyId, customerCode),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -1252,7 +1252,7 @@ class Mixin:
       :return FetchResult
     """
     def unlink_certificates_from_customer(self, companyId, customerCode, model):
-        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(self.base_url, companyId, customerCode, model),
+        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(self.base_url, companyId, customerCode),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -1275,7 +1275,7 @@ class Mixin:
       :return CustomerModel
     """
     def update_customer(self, companyId, customerCode, model):
-        return requests.put('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode, model),
+        return requests.put('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -1329,7 +1329,7 @@ class Mixin:
       :return FetchResult
     """
     def list_ava_file_forms(self, include=None):
-        return requests.get('{}/api/v2/definitions/avafileforms'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/avafileforms'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1348,7 +1348,7 @@ class Mixin:
       :return FetchResult
     """
     def list_certificate_attributes(self, include=None):
-        return requests.get('{}/api/v2/definitions/certificateattributes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/certificateattributes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1367,7 +1367,7 @@ class Mixin:
       :return FetchResult
     """
     def list_certificate_exempt_reasons(self, include=None):
-        return requests.get('{}/api/v2/definitions/certificateexemptreasons'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/certificateexemptreasons'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1386,7 +1386,7 @@ class Mixin:
       :return FetchResult
     """
     def list_certificate_exposure_zones(self, include=None):
-        return requests.get('{}/api/v2/definitions/certificateexposurezones'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/certificateexposurezones'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1419,7 +1419,7 @@ class Mixin:
       :return FetchResult
     """
     def list_communications_transaction_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/communications/transactiontypes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/communications/transactiontypes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1435,7 +1435,7 @@ class Mixin:
       :return FetchResult
     """
     def list_communications_t_s_pairs(self, include=None):
-        return requests.get('{}/api/v2/definitions/communications/tspairs'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/communications/tspairs'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1452,7 +1452,7 @@ class Mixin:
       :return FetchResult
     """
     def list_countries(self, include=None):
-        return requests.get('{}/api/v2/definitions/countries'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/countries'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1472,7 +1472,7 @@ class Mixin:
       :return FetchResult
     """
     def list_cover_letters(self, include=None):
-        return requests.get('{}/api/v2/definitions/coverletters'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/coverletters'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1505,7 +1505,7 @@ class Mixin:
       :return FetchResult
     """
     def list_cross_border_sections(self):
-        return requests.get('{}/api/v2/definitions/crossborder/sections'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/crossborder/sections'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=None)
 
     r"""
@@ -1522,7 +1522,7 @@ class Mixin:
       :return FetchResult
     """
     def list_currencies(self, include=None):
-        return requests.get('{}/api/v2/definitions/currencies'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/currencies'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1541,7 +1541,7 @@ class Mixin:
       :return FetchResult
     """
     def list_entity_use_codes(self, include=None):
-        return requests.get('{}/api/v2/definitions/entityusecodes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/entityusecodes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1557,7 +1557,7 @@ class Mixin:
       :return FetchResult
     """
     def list_filing_frequencies(self, include=None):
-        return requests.get('{}/api/v2/definitions/filingfrequencies'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/filingfrequencies'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1574,7 +1574,7 @@ class Mixin:
       :return FetchResult
     """
     def list_jurisdictions(self, include=None):
-        return requests.get('{}/api/v2/definitions/jurisdictions'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/jurisdictions'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1600,7 +1600,7 @@ class Mixin:
       :return FetchResult
     """
     def list_jurisdictions_by_address(self, include=None):
-        return requests.get('{}/api/v2/definitions/jurisdictionsnearaddress'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/jurisdictionsnearaddress'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1629,7 +1629,7 @@ class Mixin:
       :return FetchResult
     """
     def list_location_questions_by_address(self, include=None):
-        return requests.get('{}/api/v2/definitions/locationquestions'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/locationquestions'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1646,7 +1646,7 @@ class Mixin:
       :return FetchResult
     """
     def list_login_verifiers(self, include=None):
-        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1662,7 +1662,7 @@ class Mixin:
       :return FetchResult
     """
     def list_nexus(self, include=None):
-        return requests.get('{}/api/v2/definitions/nexus'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/nexus'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1688,7 +1688,7 @@ class Mixin:
       :return FetchResult
     """
     def list_nexus_by_address(self, include=None):
-        return requests.get('{}/api/v2/definitions/nexus/byaddress'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/nexus/byaddress'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1762,7 +1762,7 @@ class Mixin:
       :return FetchResult
     """
     def list_nexus_tax_type_groups(self, include=None):
-        return requests.get('{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1778,7 +1778,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_customer_funding_options(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticecustomerfundingoptions'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/noticecustomerfundingoptions'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1794,7 +1794,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_customer_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticecustomertypes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/noticecustomertypes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1810,7 +1810,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_filingtypes(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticefilingtypes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/noticefilingtypes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1826,7 +1826,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_priorities(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticepriorities'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/noticepriorities'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1842,7 +1842,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_reasons(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticereasons'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/noticereasons'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1858,7 +1858,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_responsibilities(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticeresponsibilities'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/noticeresponsibilities'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1874,7 +1874,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_root_causes(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticerootcauses'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/noticerootcauses'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1890,7 +1890,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_statuses(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticestatuses'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/noticestatuses'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1906,7 +1906,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticetypes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/noticetypes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1923,7 +1923,7 @@ class Mixin:
       :return FetchResult
     """
     def list_parameters(self, include=None):
-        return requests.get('{}/api/v2/definitions/parameters'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/parameters'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1939,7 +1939,7 @@ class Mixin:
       :return FetchResult
     """
     def list_permissions(self, include=None):
-        return requests.get('{}/api/v2/definitions/permissions'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/permissions'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1954,7 +1954,7 @@ class Mixin:
       :return FetchResult
     """
     def list_postal_codes(self, include=None):
-        return requests.get('{}/api/v2/definitions/postalcodes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/postalcodes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -1975,7 +1975,7 @@ class Mixin:
       :return FetchResult
     """
     def list_preferred_programs(self, include=None):
-        return requests.get('{}/api/v2/definitions/preferredprograms'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/preferredprograms'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2009,7 +2009,7 @@ class Mixin:
       :return FetchResult
     """
     def list_regions(self, include=None):
-        return requests.get('{}/api/v2/definitions/regions'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/regions'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2043,7 +2043,7 @@ class Mixin:
       :return FetchResult
     """
     def list_resource_file_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/resourcefiletypes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/resourcefiletypes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2060,7 +2060,7 @@ class Mixin:
       :return FetchResult
     """
     def list_security_roles(self, include=None):
-        return requests.get('{}/api/v2/definitions/securityroles'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/securityroles'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2078,7 +2078,7 @@ class Mixin:
       :return FetchResult
     """
     def list_subscription_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2094,7 +2094,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_authorities(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxauthorities'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/taxauthorities'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2112,7 +2112,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_authority_forms(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxauthorityforms'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/taxauthorityforms'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2128,7 +2128,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_authority_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2147,7 +2147,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_codes(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxcodes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/taxcodes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2164,7 +2164,7 @@ class Mixin:
       :return TaxCodeTypesModel
     """
     def list_tax_code_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxcodetypes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/taxcodetypes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2180,7 +2180,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_forms(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxforms'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/taxforms'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2196,7 +2196,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_sub_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxsubtypes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/taxsubtypes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2212,7 +2212,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_type_groups(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2228,7 +2228,7 @@ class Mixin:
       :return FetchResult
     """
     def list_unit_of_measurement(self, include=None):
-        return requests.get('{}/api/v2/definitions/unitofmeasurements'.format(self.base_url, ),
+        return requests.get('{}/api/v2/definitions/unitofmeasurements'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2244,7 +2244,7 @@ class Mixin:
       :return CompanyDistanceThresholdModel
     """
     def create_distance_threshold(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2317,7 +2317,7 @@ class Mixin:
       :return FetchResult
     """
     def query_distance_thresholds(self, include=None):
-        return requests.get('{}/api/v2/distancethresholds'.format(self.base_url, ),
+        return requests.get('{}/api/v2/distancethresholds'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2336,7 +2336,7 @@ class Mixin:
       :return CompanyDistanceThresholdModel
     """
     def update_distance_threshold(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2383,7 +2383,7 @@ class Mixin:
       :return FilingRequestModel
     """
     def cancel_filing_requests(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/cancel/request'.format(self.base_url, companyId, id_, model),
+        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/cancel/request'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2397,7 +2397,7 @@ class Mixin:
       :return FilingCalendarModel
     """
     def create_filing_calendars(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/filingcalendars'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/filingcalendars'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2412,7 +2412,7 @@ class Mixin:
       :return FilingRequestModel
     """
     def create_filing_requests(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/filingcalendars/add/request'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/filingcalendars/add/request'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2439,7 +2439,7 @@ class Mixin:
       :return CycleEditOptionModel
     """
     def cycle_safe_edit(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/edit/options'.format(self.base_url, companyId, id_, model),
+        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/edit/options'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2545,7 +2545,7 @@ class Mixin:
       :return LoginVerificationOutputModel
     """
     def login_verification_request(self, model):
-        return requests.post('{}/api/v2/filingcalendars/credentials/verify'.format(self.base_url, model),
+        return requests.post('{}/api/v2/filingcalendars/credentials/verify'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2576,7 +2576,7 @@ class Mixin:
       :return FetchResult
     """
     def query_filing_calendars(self, include=None):
-        return requests.get('{}/api/v2/filingcalendars'.format(self.base_url, ),
+        return requests.get('{}/api/v2/filingcalendars'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2595,7 +2595,7 @@ class Mixin:
       :return FetchResult
     """
     def query_filing_requests(self, include=None):
-        return requests.get('{}/api/v2/filingrequests'.format(self.base_url, ),
+        return requests.get('{}/api/v2/filingrequests'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -2613,7 +2613,7 @@ class Mixin:
       :return FilingRequestModel
     """
     def request_filing_calendar_update(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/edit/request'.format(self.base_url, companyId, id_, model),
+        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/edit/request'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2627,7 +2627,7 @@ class Mixin:
       :return FilingCalendarModel
     """
     def update_filing_calendar(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2643,7 +2643,7 @@ class Mixin:
       :return FilingRequestModel
     """
     def update_filing_request(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/filingrequests/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/filingrequests/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2664,7 +2664,7 @@ class Mixin:
       :return FilingModel
     """
     def approve_filings(self, companyId, year, month, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/approve'.format(self.base_url, companyId, year, month, model),
+        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/approve'.format(self.base_url, companyId, year, month),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2686,7 +2686,7 @@ class Mixin:
       :return FilingModel
     """
     def approve_filings_country(self, companyId, year, month, country, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/approve'.format(self.base_url, companyId, year, month, country, model),
+        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/approve'.format(self.base_url, companyId, year, month, country),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2709,7 +2709,7 @@ class Mixin:
       :return FilingModel
     """
     def approve_filings_country_region(self, companyId, year, month, country, region, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/approve'.format(self.base_url, companyId, year, month, country, region, model),
+        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/approve'.format(self.base_url, companyId, year, month, country, region),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2732,7 +2732,7 @@ class Mixin:
       :return FilingAdjustmentModel
     """
     def create_return_adjustment(self, companyId, year, month, country, region, formCode, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/adjust'.format(self.base_url, companyId, year, month, country, region, formCode, model),
+        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/adjust'.format(self.base_url, companyId, year, month, country, region, formCode),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2754,7 +2754,7 @@ class Mixin:
       :return FilingAugmentationModel
     """
     def create_return_augmentation(self, companyId, year, month, country, region, formCode, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/augment'.format(self.base_url, companyId, year, month, country, region, formCode, model),
+        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/augment'.format(self.base_url, companyId, year, month, country, region, formCode),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -2777,7 +2777,7 @@ class Mixin:
       :return FilingPaymentModel
     """
     def create_return_payment(self, companyId, year, month, country, region, formCode, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/payment'.format(self.base_url, companyId, year, month, country, region, formCode, model),
+        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/payment'.format(self.base_url, companyId, year, month, country, region, formCode),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3028,7 +3028,7 @@ class Mixin:
       :return FetchResult
     """
     def rebuild_filings(self, companyId, year, month, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/rebuild'.format(self.base_url, companyId, year, month, model),
+        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/rebuild'.format(self.base_url, companyId, year, month),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3049,7 +3049,7 @@ class Mixin:
       :return FetchResult
     """
     def rebuild_filings_by_country(self, companyId, year, month, country, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country, model),
+        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3071,7 +3071,7 @@ class Mixin:
       :return FetchResult
     """
     def rebuild_filings_by_country_region(self, companyId, year, month, country, region, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country, region, model),
+        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country, region),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3090,7 +3090,7 @@ class Mixin:
       :return FilingAdjustmentModel
     """
     def update_return_adjustment(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/filings/adjust/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/filings/adjust/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3108,7 +3108,7 @@ class Mixin:
       :return FilingModel
     """
     def update_return_augmentation(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/filings/augment/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/filings/augment/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3127,7 +3127,7 @@ class Mixin:
       :return FilingPaymentModel
     """
     def update_return_payment(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/filings/payment/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/filings/payment/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3147,7 +3147,7 @@ class Mixin:
       :return NewAccountModel
     """
     def request_free_trial(self, model):
-        return requests.post('{}/api/v2/accounts/freetrials/request'.format(self.base_url, model),
+        return requests.post('{}/api/v2/accounts/freetrials/request'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3183,7 +3183,7 @@ class Mixin:
       :return TaxRateModel
     """
     def tax_rates_by_address(self, include=None):
-        return requests.get('{}/api/v2/taxrates/byaddress'.format(self.base_url, ),
+        return requests.get('{}/api/v2/taxrates/byaddress'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -3215,7 +3215,7 @@ class Mixin:
       :return TaxRateModel
     """
     def tax_rates_by_postal_code(self, include=None):
-        return requests.get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url, ),
+        return requests.get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -3277,7 +3277,7 @@ class Mixin:
       :return ItemModel
     """
     def create_items(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/items'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3364,7 +3364,7 @@ class Mixin:
       :return FetchResult
     """
     def query_items(self, include=None):
-        return requests.get('{}/api/v2/items'.format(self.base_url, ),
+        return requests.get('{}/api/v2/items'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -3385,7 +3385,7 @@ class Mixin:
       :return ItemModel
     """
     def update_item(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3402,7 +3402,7 @@ class Mixin:
       :return JurisdictionOverrideModel
     """
     def create_jurisdiction_overrides(self, accountId, model):
-        return requests.post('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId, model),
+        return requests.post('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3477,7 +3477,7 @@ class Mixin:
       :return FetchResult
     """
     def query_jurisdiction_overrides(self, include=None):
-        return requests.get('{}/api/v2/jurisdictionoverrides'.format(self.base_url, ),
+        return requests.get('{}/api/v2/jurisdictionoverrides'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -3491,7 +3491,7 @@ class Mixin:
       :return JurisdictionOverrideModel
     """
     def update_jurisdiction_override(self, accountId, id_, model):
-        return requests.put('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_, model),
+        return requests.put('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3504,7 +3504,7 @@ class Mixin:
       :return LocationModel
     """
     def create_locations(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3586,7 +3586,7 @@ class Mixin:
       :return FetchResult
     """
     def query_locations(self, include=None):
-        return requests.get('{}/api/v2/locations'.format(self.base_url, ),
+        return requests.get('{}/api/v2/locations'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -3602,7 +3602,7 @@ class Mixin:
       :return LocationModel
     """
     def update_location(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3637,7 +3637,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def adjust_multi_document_transaction(self, code, type, model, include=None):
-        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/adjust'.format(self.base_url, code, type, model),
+        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/adjust'.format(self.base_url, code, type),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -3676,7 +3676,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def commit_multi_document_transaction(self, model):
-        return requests.post('{}/api/v2/transactions/multidocument/commit'.format(self.base_url, model),
+        return requests.post('{}/api/v2/transactions/multidocument/commit'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3712,7 +3712,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def create_multi_document_transaction(self, model, include=None):
-        return requests.post('{}/api/v2/transactions/multidocument'.format(self.base_url, model),
+        return requests.post('{}/api/v2/transactions/multidocument'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -3791,7 +3791,7 @@ class Mixin:
       :return FetchResult
     """
     def list_multi_document_transactions(self, include=None):
-        return requests.get('{}/api/v2/transactions/multidocument'.format(self.base_url, ),
+        return requests.get('{}/api/v2/transactions/multidocument'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -3832,7 +3832,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def refund_multi_document_transaction(self, code, type, model, include=None):
-        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/refund'.format(self.base_url, code, type, model),
+        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/refund'.format(self.base_url, code, type),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -3847,7 +3847,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def verify_multi_document_transaction(self, model):
-        return requests.post('{}/api/v2/transactions/multidocument/verify'.format(self.base_url, model),
+        return requests.post('{}/api/v2/transactions/multidocument/verify'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3866,7 +3866,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def void_multi_document_transaction(self, code, type, model):
-        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/void'.format(self.base_url, code, type, model),
+        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/void'.format(self.base_url, code, type),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3887,7 +3887,7 @@ class Mixin:
       :return NexusModel
     """
     def create_nexus(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -3983,7 +3983,7 @@ class Mixin:
       :return FetchResult
     """
     def query_nexus(self, include=None):
-        return requests.get('{}/api/v2/nexus'.format(self.base_url, ),
+        return requests.get('{}/api/v2/nexus'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -4007,7 +4007,7 @@ class Mixin:
       :return NexusModel
     """
     def update_nexus(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4024,7 +4024,7 @@ class Mixin:
       :return NoticeCommentModel
     """
     def create_notice_comment(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/notices/{}/comments'.format(self.base_url, companyId, id_, model),
+        return requests.post('{}/api/v2/companies/{}/notices/{}/comments'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4042,7 +4042,7 @@ class Mixin:
       :return NoticeFinanceModel
     """
     def create_notice_finance_details(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/notices/{}/financedetails'.format(self.base_url, companyId, id_, model),
+        return requests.post('{}/api/v2/companies/{}/notices/{}/financedetails'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4059,7 +4059,7 @@ class Mixin:
       :return NoticeResponsibilityDetailModel
     """
     def create_notice_responsibilities(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/notices/{}/responsibilities'.format(self.base_url, companyId, id_, model),
+        return requests.post('{}/api/v2/companies/{}/notices/{}/responsibilities'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4076,7 +4076,7 @@ class Mixin:
       :return NoticeRootCauseDetailModel
     """
     def create_notice_root_causes(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/notices/{}/rootcauses'.format(self.base_url, companyId, id_, model),
+        return requests.post('{}/api/v2/companies/{}/notices/{}/rootcauses'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4092,7 +4092,7 @@ class Mixin:
       :return NoticeModel
     """
     def create_notices(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/notices'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/notices'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4280,7 +4280,7 @@ class Mixin:
       :return FetchResult
     """
     def query_notices(self, include=None):
-        return requests.get('{}/api/v2/notices'.format(self.base_url, ),
+        return requests.get('{}/api/v2/notices'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -4299,7 +4299,7 @@ class Mixin:
       :return NoticeModel
     """
     def update_notice(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/notices/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/notices/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4313,7 +4313,7 @@ class Mixin:
       :return String
     """
     def upload_attachment(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/notices/files/attachment'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/notices/files/attachment'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4335,7 +4335,7 @@ class Mixin:
       :return NewAccountModel
     """
     def request_new_account(self, model):
-        return requests.post('{}/api/v2/accounts/request'.format(self.base_url, model),
+        return requests.post('{}/api/v2/accounts/request'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4351,7 +4351,7 @@ class Mixin:
       :return string
     """
     def change_password(self, model):
-        return requests.put('{}/api/v2/passwords'.format(self.base_url, model),
+        return requests.put('{}/api/v2/passwords'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4366,7 +4366,7 @@ class Mixin:
       :return AccountModel
     """
     def create_account(self, model):
-        return requests.post('{}/api/v2/accounts'.format(self.base_url, model),
+        return requests.post('{}/api/v2/accounts'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4383,7 +4383,7 @@ class Mixin:
       :return SubscriptionModel
     """
     def create_subscriptions(self, accountId, model):
-        return requests.post('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId, model),
+        return requests.post('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4452,7 +4452,7 @@ class Mixin:
       :return FetchResult
     """
     def query_accounts(self, include=None):
-        return requests.get('{}/api/v2/accounts'.format(self.base_url, ),
+        return requests.get('{}/api/v2/accounts'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -4469,7 +4469,7 @@ class Mixin:
       :return string
     """
     def reset_password(self, userId, model):
-        return requests.post('{}/api/v2/passwords/{}/reset'.format(self.base_url, userId, model),
+        return requests.post('{}/api/v2/passwords/{}/reset'.format(self.base_url, userId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4484,7 +4484,7 @@ class Mixin:
       :return AccountModel
     """
     def update_account(self, id_, model):
-        return requests.put('{}/api/v2/accounts/{}'.format(self.base_url, id_, model),
+        return requests.put('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4504,7 +4504,7 @@ class Mixin:
       :return SubscriptionModel
     """
     def update_subscription(self, accountId, id_, model):
-        return requests.put('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_, model),
+        return requests.put('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4543,7 +4543,7 @@ class Mixin:
       :return String
     """
     def export_document_line(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/reports/exportdocumentline'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/reports/exportdocumentline'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4582,7 +4582,7 @@ class Mixin:
       :return String
     """
     def initiate_export_document_line_report(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/reports/exportdocumentline/initiate'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/reports/exportdocumentline/initiate'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4600,7 +4600,7 @@ class Mixin:
       :return FetchResult
     """
     def list_reports(self):
-        return requests.get('{}/api/v2/reports'.format(self.base_url, ),
+        return requests.get('{}/api/v2/reports'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=None)
 
     r"""
@@ -4619,7 +4619,7 @@ class Mixin:
       :return SettingModel
     """
     def create_settings(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4700,7 +4700,7 @@ class Mixin:
       :return FetchResult
     """
     def query_settings(self, include=None):
-        return requests.get('{}/api/v2/settings'.format(self.base_url, ),
+        return requests.get('{}/api/v2/settings'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -4722,7 +4722,7 @@ class Mixin:
       :return SettingModel
     """
     def update_setting(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4776,7 +4776,7 @@ class Mixin:
       :return FetchResult
     """
     def query_subscriptions(self, include=None):
-        return requests.get('{}/api/v2/subscriptions'.format(self.base_url, ),
+        return requests.get('{}/api/v2/subscriptions'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -4793,7 +4793,7 @@ class Mixin:
       :return TaxCodeModel
     """
     def create_tax_codes(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4868,7 +4868,7 @@ class Mixin:
       :return FetchResult
     """
     def query_tax_codes(self, include=None):
-        return requests.get('{}/api/v2/taxcodes'.format(self.base_url, ),
+        return requests.get('{}/api/v2/taxcodes'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -4888,7 +4888,7 @@ class Mixin:
       :return TaxCodeModel
     """
     def update_tax_code(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4907,7 +4907,7 @@ class Mixin:
       :return String
     """
     def build_tax_content_file(self, model):
-        return requests.post('{}/api/v2/pointofsaledata/build'.format(self.base_url, model),
+        return requests.post('{}/api/v2/pointofsaledata/build'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -4972,7 +4972,7 @@ class Mixin:
       :return TaxRuleModel
     """
     def create_tax_rules(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -5047,7 +5047,7 @@ class Mixin:
       :return FetchResult
     """
     def query_tax_rules(self, include=None):
-        return requests.get('{}/api/v2/taxrules'.format(self.base_url, ),
+        return requests.get('{}/api/v2/taxrules'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -5067,7 +5067,7 @@ class Mixin:
       :return TaxRuleModel
     """
     def update_tax_rule(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -5095,7 +5095,7 @@ class Mixin:
       :return TransactionModel
     """
     def add_lines(self, model, include=None):
-        return requests.post('{}/api/v2/companies/transactions/lines/add'.format(self.base_url, model),
+        return requests.post('{}/api/v2/companies/transactions/lines/add'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -5117,7 +5117,7 @@ class Mixin:
       :return TransactionModel
     """
     def adjust_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/adjust'.format(self.base_url, companyCode, transactionCode, model),
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/adjust'.format(self.base_url, companyCode, transactionCode),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -5180,7 +5180,7 @@ class Mixin:
       :return BulkLockTransactionResult
     """
     def bulk_lock_transaction(self, model):
-        return requests.post('{}/api/v2/transactions/lock'.format(self.base_url, model),
+        return requests.post('{}/api/v2/transactions/lock'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -5201,7 +5201,7 @@ class Mixin:
       :return TransactionModel
     """
     def change_transaction_code(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/changecode'.format(self.base_url, companyCode, transactionCode, model),
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/changecode'.format(self.base_url, companyCode, transactionCode),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -5221,7 +5221,7 @@ class Mixin:
       :return TransactionModel
     """
     def commit_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.format(self.base_url, companyCode, transactionCode, model),
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.format(self.base_url, companyCode, transactionCode),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -5254,7 +5254,7 @@ class Mixin:
       :return TransactionModel
     """
     def create_or_adjust_transaction(self, model, include=None):
-        return requests.post('{}/api/v2/transactions/createoradjust'.format(self.base_url, model),
+        return requests.post('{}/api/v2/transactions/createoradjust'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -5291,7 +5291,7 @@ class Mixin:
       :return TransactionModel
     """
     def create_transaction(self, model, include=None):
-        return requests.post('{}/api/v2/transactions/create'.format(self.base_url, model),
+        return requests.post('{}/api/v2/transactions/create'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -5316,7 +5316,7 @@ class Mixin:
       :return TransactionModel
     """
     def delete_lines(self, model, include=None):
-        return requests.post('{}/api/v2/companies/transactions/lines/delete'.format(self.base_url, model),
+        return requests.post('{}/api/v2/companies/transactions/lines/delete'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -5438,7 +5438,7 @@ class Mixin:
       :return TransactionModel
     """
     def lock_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/lock'.format(self.base_url, companyCode, transactionCode, model),
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/lock'.format(self.base_url, companyCode, transactionCode),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -5476,7 +5476,7 @@ class Mixin:
       :return TransactionModel
     """
     def refund_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/refund'.format(self.base_url, companyCode, transactionCode, model),
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/refund'.format(self.base_url, companyCode, transactionCode),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -5496,7 +5496,7 @@ class Mixin:
       :return TransactionModel
     """
     def settle_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/settle'.format(self.base_url, companyCode, transactionCode, model),
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/settle'.format(self.base_url, companyCode, transactionCode),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -5515,7 +5515,7 @@ class Mixin:
       :return TransactionModel
     """
     def verify_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/verify'.format(self.base_url, companyCode, transactionCode, model),
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/verify'.format(self.base_url, companyCode, transactionCode),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -5535,7 +5535,7 @@ class Mixin:
       :return TransactionModel
     """
     def void_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(self.base_url, companyCode, transactionCode, model),
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(self.base_url, companyCode, transactionCode),
                 auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
@@ -5549,7 +5549,7 @@ class Mixin:
       :return UPCModel
     """
     def create_u_p_cs(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId, model),
+        return requests.post('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -5615,7 +5615,7 @@ class Mixin:
       :return FetchResult
     """
     def query_u_p_cs(self, include=None):
-        return requests.get('{}/api/v2/upcs'.format(self.base_url, ),
+        return requests.get('{}/api/v2/upcs'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -5632,7 +5632,7 @@ class Mixin:
       :return UPCModel
     """
     def update_u_p_c(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_, model),
+        return requests.put('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -5650,7 +5650,7 @@ class Mixin:
       :return UserModel
     """
     def create_users(self, accountId, model):
-        return requests.post('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId, model),
+        return requests.post('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -5729,7 +5729,7 @@ class Mixin:
       :return FetchResult
     """
     def query_users(self, include=None):
-        return requests.get('{}/api/v2/users'.format(self.base_url, ),
+        return requests.get('{}/api/v2/users'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -5746,7 +5746,7 @@ class Mixin:
       :return UserModel
     """
     def update_user(self, id_, accountId, model):
-        return requests.put('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, id_, accountId, model),
+        return requests.put('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, id_, accountId),
                 auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -5773,7 +5773,7 @@ class Mixin:
       :return FetchResult
     """
     def list_my_subscriptions(self):
-        return requests.get('{}/api/v2/utilities/subscriptions'.format(self.base_url, ),
+        return requests.get('{}/api/v2/utilities/subscriptions'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=None)
 
     r"""
@@ -5788,6 +5788,6 @@ class Mixin:
       :return PingResultModel
     """
     def ping(self):
-        return requests.get('{}/api/v2/utilities/ping'.format(self.base_url, ),
+        return requests.get('{}/api/v2/utilities/ping'.format(self.base_url),
                 auth=self.auth, headers=self.client_header, params=None)
  
