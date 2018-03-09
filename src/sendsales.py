@@ -5,13 +5,14 @@ import os
 import requests
 import time
 import pdb
+from tax_code_list import sample_codes
 
 user_auth = (os.environ["USERNAME"], os.environ["PASSWORD"])
 codes = requests.get('https://sandbox-rest.avatax.com/api/v2/definitions/postalcodes',
                      auth=user_auth)
-test_codes = codes.json()["value"][0:10]  # small sample of codes to generate reports with to make sure its working
+test_codes = codes.json()["value"][0:5]  # small sample of codes to generate reports with to make sure its working
 loc_list = []
-tax_codes = ["P0000000", "FR020100", "SF096370"]
+tax_codes = sample_codes  # ["P0000000", "FR020100", "SF096370"]
 id_count = 1
 total_start_time = time.time()
 for entry in test_codes:  # codes.json()["value"]:
