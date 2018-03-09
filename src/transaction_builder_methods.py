@@ -234,7 +234,7 @@ class Mixin:
         :return: TransactionModel
         """
         include = None
-        return self.client.create_transaction(include, self.create_model)
+        return self.client.create_transaction(self.create_model, include)
 
     def with_line_tax_override(self, type_, reason, tax_amount, tax_date):
         r"""

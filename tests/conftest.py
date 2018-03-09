@@ -31,7 +31,7 @@ def auth_client():
 def auth_client_loggedin_with_id():
     """Create an instance of SanboxClient with authentification using userID/licenseKey pair."""
     client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
-    client.add_credentials(os.environ.get('ACCOUNT_ID', ''), os.environ.get('LICENSE_KEY', ''))
+    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
     return client
 
 
@@ -39,7 +39,7 @@ def auth_client_loggedin_with_id():
 def mt_trans():
     """Create an instance of Transaction Builder object."""
     client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
-    client.add_credentials(os.environ.get('ACCOUNT_ID', ''), os.environ.get('LICENSE_KEY', ''))
+    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
     trans = TransactionBuilder(client, 'DEFAULT', 'SalesInvoice', 'ABC123')
     return trans
 
@@ -93,7 +93,7 @@ def single_transaction():
                    'taxCode': 'PS081282'}],
         'purchaseOrderNo': '2017-04-12-001',
         'type': 'SalesInvoice'}
-    r = client.create_transaction('DEFAULT', tax_document)
+    r = client.create_transaction(tax_document, 'DEFAULT')
     trans_code = r.json()['code']
     return trans_code
 
@@ -132,7 +132,7 @@ def five_transactions():
                        'taxCode': 'PS081282'}],
             'purchaseOrderNo': '2017-04-12-001',
             'type': 'SalesInvoice'}
-        r = client.create_transaction(None, tax_document)
+        r = client.create_transaction(tax_document, None)
         trans_codes.append(r.json()['code'])
     return trans_codes
 
