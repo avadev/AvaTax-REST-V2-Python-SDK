@@ -101,3 +101,6 @@ avadev/
 
 # mypy
 .mypy_cache/
+
+# other testing
+taxfiles/
