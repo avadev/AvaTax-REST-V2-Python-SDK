@@ -31,7 +31,7 @@ def auth_client():
 def auth_client_loggedin_with_id():
     """Create an instance of SanboxClient with authentification using userID/licenseKey pair."""
     client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
-    client.add_credentials(os.environ.get('ACCOUNT_ID', ''), os.environ.get('LICENSE_KEY', ''))
+    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
     return client
 
 
@@ -39,7 +39,7 @@ def auth_client_loggedin_with_id():
 def mt_trans():
     """Create an instance of Transaction Builder object."""
     client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
-    client.add_credentials(os.environ.get('ACCOUNT_ID', ''), os.environ.get('LICENSE_KEY', ''))
+    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
     trans = TransactionBuilder(client, 'DEFAULT', 'SalesInvoice', 'ABC123')
     return trans
 
