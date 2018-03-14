@@ -127,6 +127,24 @@ def tax_document():
     """Create a tax document dictionary."""
     return default_trans_model()
 
+@pytest.fixture(scope='function')
+def init_comp_model():
+    """Return the following initialize company model for company DEFAULT."""
+    return {
+        "name": "Bobs Artisan Pottery",
+        "companyCode": 'DEFAULT',
+        "taxpayerIdNumber": "12-3456789",
+        "line1": "2000 Main Street",
+        "city": "Irvine",
+        "region": "CA",
+        "postalCode": "92614",
+        "country": "US",
+        "firstName": "Bob",
+        "lastName": "Example",
+        "title": "Owner",
+        "email": "bob@example.org",
+        "phoneNumber": "714 555-2121",
+        "mobileNumber": "714 555-1212"}
 
 def cred_determine():
     """Return the appropriate pair of cred."""
@@ -136,7 +154,6 @@ def cred_determine():
         return (os.environ.get('SANDBOX_CLIENTID'), os.environ.get('SANDBOX_LICENSEKEY'))
     else:
         raise ValueError()
-
 
 def default_trans_model():
     """Return the default transaction model."""
@@ -160,4 +177,19 @@ def default_trans_model():
                    'taxCode': 'PS081282'}],
         'purchaseOrderNo': '2017-04-12-001',
         'type': 'SalesInvoice'}
+
+def pytest_runtest_makereport(item, call):
+    """For incremental testing fixture called mark.increment."""
+    if "incremental" in item.keywords:
+        if call.excinfo is not None:
+            parent = item.parent
+            parent._previousfailed = item
+
+def pytest_runtest_setup(item):
+    """For incremental testing fixture called mark.increment."""
+    if "incremental" in item.keywords:
+        previousfailed = getattr(item.parent, "_previousfailed", None)
+        if previousfailed is not None:
+            pytest.xfail("previous test failed (%s)" %previousfailed.name)
+
 
