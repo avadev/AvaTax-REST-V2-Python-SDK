@@ -64,26 +64,7 @@ def single_transaction():
     login_key, login_val = cred_determine()
     client.add_credentials(login_key, login_val)
 
-    tax_document = {
-        'addresses': {'SingleLocation': {'city': 'Irvine',
-                                         'country': 'US',
-                                         'line1': '123 Main Street',
-                                         'postalCode': '92615',
-                                         'region': 'CA'}},
-        'commit': False,
-        'companyCode': 'DEFAULT',
-        'currencyCode': 'USD',
-        'customerCode': 'ABC',
-        'date': '2017-04-12',
-        'description': 'Yarn',
-        'lines': [{'amount': 100,
-                  'description': 'Yarn',
-                   'itemCode': 'Y0001',
-                   'number': '1',
-                   'quantity': 1,
-                   'taxCode': 'PS081282'}],
-        'purchaseOrderNo': '2017-04-12-001',
-        'type': 'SalesInvoice'}
+    tax_document = default_trans_model()
     r = client.create_transaction(tax_document, 'DEFAULT')
     trans_code = r.json()['code']
     return trans_code
@@ -132,6 +113,21 @@ def five_transactions():
 @pytest.fixture(scope='function')
 def tax_document():
     """Create a tax document dictionary."""
+    return default_trans_model()
+
+
+def cred_determine():
+    """Return the appropriate pair of cred."""
+    if os.environ.get('SANDBOX_USERNAME') and os.environ.get('SANDBOX_PASSWORD'):
+        return (os.environ.get('SANDBOX_USERNAME'), os.environ.get('SANDBOX_PASSWORD'))
+    elif os.environ.get('SANDBOX_CLIENTID') and os.environ.get('SANDBOX_LICENSEKEY'):
+        return (os.environ.get('SANDBOX_CLIENTID'), os.environ.get('SANDBOX_LICENSEKEY'))
+    else:
+        raise ValueError()
+
+
+def default_trans_model():
+    """Return the default transaction model."""
     return {
         'addresses': {'SingleLocation': {'city': 'Irvine',
                                          'country': 'US',
@@ -153,12 +149,3 @@ def tax_document():
         'purchaseOrderNo': '2017-04-12-001',
         'type': 'SalesInvoice'}
 
-
-def cred_determine():
-    """Return the appropriate pair of cred."""
-    if os.environ.get('SANDBOX_USERNAME') and os.environ.get('SANDBOX_PASSWORD'):
-        return (os.environ.get('SANDBOX_USERNAME'), os.environ.get('SANDBOX_PASSWORD'))
-    elif os.environ.get('SANDBOX_CLIENTID') and os.environ.get('SANDBOX_LICENSEKEY'):
-        return (os.environ.get('SANDBOX_CLIENTID'), os.environ.get('SANDBOX_LICENSEKEY'))
-    else:
-        raise ValueError()
