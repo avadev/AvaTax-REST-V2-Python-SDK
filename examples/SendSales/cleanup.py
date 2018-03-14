@@ -1,7 +1,7 @@
 """.
 
-This removes all generated dummy locations from the company.
-    (all locations but the default one.
+Use this script to remove ALL locations from your company
+except for the one with locationCode = "DEFAULT"
 
 """
 
@@ -23,13 +23,12 @@ user_auth = (os.environ["USERNAME"], os.environ["PASSWORD"])
 comp_id = os.environ["COMPANY"]
 comp_name = "TUGBOAT"
 
-locs_for_company = requests.get("{}/companies/{}/locations".format(base_url,
-                                                                   comp_id), auth=user_auth)
+locs_for_company = requests.get("{}/companies/{}/locations".format(
+                                base_url, comp_id), auth=user_auth)
 
 for loc in locs_for_company.json()["value"]:
     if loc["locationCode"] == "DEFAULT":
         continue
     else:
-        requests.delete("{}/companies/{}/locations/{}".format(base_url,
-                                                              comp_id,
-                                                              loc["id"]), auth=user_auth)
+        requests.delete("{}/companies/{}/locations/{}".format(
+                        base_url, comp_id, loc["id"]), auth=user_auth)
