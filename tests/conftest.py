@@ -63,8 +63,20 @@ def single_transaction():
     client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
     login_key, login_val = cred_determine()
     client.add_credentials(login_key, login_val)
-
     tax_document = default_trans_model()
+    r = client.create_transaction(tax_document, 'DEFAULT')
+    trans_code = r.json()['code']
+    return trans_code
+
+
+@pytest.fixture(scope='function')
+def single_transaction_purchase_invoice():
+    """Create an instance of AvataxClient with authentication and created transaction(purchase invoice)."""
+    client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
+    login_key, login_val = cred_determine()
+    client.add_credentials(login_key, login_val)
+    tax_document = default_trans_model()
+    tax_document['type'] = 'PurchaseInvoice'
     r = client.create_transaction(tax_document, 'DEFAULT')
     trans_code = r.json()['code']
     return trans_code

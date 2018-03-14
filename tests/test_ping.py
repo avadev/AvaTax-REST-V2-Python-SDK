@@ -26,4 +26,3 @@ def test_ping_auth_with_invalid_account_id(unauth_client):
     """Testing client without proper account id and license key."""
     unauth_client.add_credentials('1234', '4321')
     assert '"authenticated":false' in unauth_client.ping().text
-
