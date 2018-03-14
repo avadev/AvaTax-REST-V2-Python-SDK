@@ -16,5 +16,5 @@ setup(
     description='Avalara Tax Python SDK.',
     install_requires=['requests', 'ipython'],
     extras_require={
-        "test": ['pytest', 'pytest-cov', 'tox']
+        "test": ['pytest', 'pytest-cov', 'tox', 'Faker']
     })
