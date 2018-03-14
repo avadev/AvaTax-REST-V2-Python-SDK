@@ -12,26 +12,10 @@ def unauth_client():
 
 
 @pytest.fixture(scope='session')
-def auth_client_loggedin_with_username():
-    """Create an instance of SanboxClient with authentification using username/password pair."""
-    client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
-    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
-    return client
-
-
-@pytest.fixture(scope='session')
 def auth_client():
     """Create an instance of SanboxClient with authentification using username/password pair."""
     client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
-    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
-    return client
-
-
-@pytest.fixture(scope='session')
-def auth_client_loggedin_with_id():
-    """Create an instance of SanboxClient with authentification using userID/licenseKey pair."""
-    client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
-    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
+    client.add_credentials(os.environ.get('SANDBOX_USERNAME', ''), os.environ.get('SANDBOX_PASSWORD', ''))
     return client
 
 
@@ -39,7 +23,7 @@ def auth_client_loggedin_with_id():
 def mt_trans():
     """Create an instance of Transaction Builder object."""
     client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
-    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
+    client.add_credentials(os.environ.get('SANDBOX_USERNAME', ''), os.environ.get('SANDBOX_PASSWORD', ''))
     trans = TransactionBuilder(client, 'DEFAULT', 'SalesInvoice', 'ABC123')
     return trans
 
