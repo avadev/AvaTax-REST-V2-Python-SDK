@@ -16,7 +16,6 @@ file that was distributed with this source code.
 @link       https://github.com/avadev/AvaTax-REST-V2-Python-SDK
 """
 from requests.auth import HTTPBasicAuth
-import os
 from _str_version import str_type
 import client_methods
 
@@ -53,9 +52,9 @@ class AvataxClient(client_methods.Mixin):
         self.app_name = app_name
         self.app_version = app_version
         self.machine_name = machine_name
-        self.client_id = '{};{};python_sdk;17.6;{};'.format(app_name,
-                                                            app_version,
-                                                            machine_name)
+        self.client_id = '{}; {}; Python SDK; 18.2; {};'.format(app_name,
+                                                                app_version,
+                                                                machine_name)
         self.client_header = {'X-Avalara-Client': self.client_id}
 
     def add_credentials(self, username=None, password=None):
@@ -80,32 +79,32 @@ class AvataxClient(client_methods.Mixin):
         return self
 
 # to generate a client object on initialization of this file, uncomment the script below
-if __name__ == '__main__':  # pragma no cover
-    """Creating a client with credential, must have env variables username & password."""
-    client = AvataxClient('my test app',
-                          'ver 0.0',
-                          'my test machine',
-                          'sandbox')
-    c = client.add_credentials(os.environ.get('USERNAME', ''),
-                               os.environ.get('PASSWORD', ''))
-    print(client.ping().text)
-    tax_document = {
-        'addresses': {'SingleLocation': {'city': 'Irvine',
-                                         'country': 'US',
-                                         'line1': '123 Main Street',
-                                         'postalCode': '92615',
-                                         'region': 'CA'}},
-        'commit': False,
-        'companyCode': 'DEFAULT',
-        'currencyCode': 'USD',
-        'customerCode': 'ABC',
-        'date': '2017-04-12',
-        'description': 'Yarn',
-        'lines': [{'amount': 100,
-                  'description': 'Yarn',
-                   'itemCode': 'Y0001',
-                   'number': '1',
-                   'quantity': 1,
-                   'taxCode': 'PS081282'}],
-        'purchaseOrderNo': '2017-04-12-001',
-        'type': 'SalesInvoice'}
+# if __name__ == '__main__':  # pragma no cover
+#     """Creating a client with credential, must have env variables username & password."""
+#     client = AvataxClient('my test app',
+#                           'ver 0.0',
+#                           'my test machine',
+#                           'sandbox')
+#     c = client.add_credentials(os.environ.get('USERNAME', ''),
+#                                os.environ.get('PASSWORD', ''))
+#     print(client.ping().text)
+#     tax_document = {
+#         'addresses': {'SingleLocation': {'city': 'Irvine',
+#                                          'country': 'US',
+#                                          'line1': '123 Main Street',
+#                                          'postalCode': '92615',
+#                                          'region': 'CA'}},
+#         'commit': False,
+#         'companyCode': 'DEFAULT',
+#         'currencyCode': 'USD',
+#         'customerCode': 'ABC',
+#         'date': '2017-04-12',
+#         'description': 'Yarn',
+#         'lines': [{'amount': 100,
+#                   'description': 'Yarn',
+#                    'itemCode': 'Y0001',
+#                    'number': '1',
+#                    'quantity': 1,
+#                    'taxCode': 'PS081282'}],
+#         'purchaseOrderNo': '2017-04-12-001',
+#         'type': 'SalesInvoice'}

@@ -22,23 +22,12 @@ def auth_client():
     client.add_credentials(os.environ.get('SANDBOX_USERNAME', ''), os.environ.get('SANDBOX_PASSWORD', ''))
     return client
 
-def cred_determine():
-    """Return the appropriate pair of cred."""
-    if os.environ.get('SANDBOX_USERNAME') and os.environ.get('SANDBOX_PASSWORD'):
-        return (os.environ.get('SANDBOX_USERNAME'), os.environ.get('SANDBOX_PASSWORD'))
-    elif os.environ.get('SANDBOX_CLIENTID') and os.environ.get('SANDBOX_LICENSEKEY'):
-        return (os.environ.get('SANDBOX_CLIENTID'), os.environ.get('SANDBOX_LICENSEKEY'))
-    else:
-        raise ValueError()
 
 @pytest.fixture(scope='function')
 def mt_trans():
     """Create an instance of Transaction Builder object."""
-    try:
-        login_key, login_val = cred_determine()
-    except ValueError:
-        raise ValueError('must store a pair of credentials into the running environment!')
     client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
+    login_key, login_val = cred_determine()
     client.add_credentials(login_key, login_val)
     trans = TransactionBuilder(client, 'DEFAULT', 'SalesInvoice', 'ABC123')
     return trans
@@ -72,7 +61,9 @@ def ship_from_address():
 def single_transaction():
     """Create an instance of AvataxClient with authentication and created transaction."""
     client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
-    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
+    login_key, login_val = cred_determine()
+    client.add_credentials(login_key, login_val)
+
     tax_document = {
         'addresses': {'SingleLocation': {'city': 'Irvine',
                                          'country': 'US',
@@ -103,7 +94,8 @@ def five_transactions():
     """Create an instance of AvataxClient with authentication and created transaction."""
     trans_codes = []
     client = AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
-    client.add_credentials(os.environ.get('USERNAME', ''), os.environ.get('PASSWORD', ''))
+    login_key, login_val = cred_determine()
+    client.add_credentials(login_key, login_val)
     addresses = [
         ('Seattle', '600 5th Ave', '98104', 'WA'),
         ('Poulsbo', '200 Moe St Ne', '98370', 'WA'),
@@ -161,3 +153,12 @@ def tax_document():
         'purchaseOrderNo': '2017-04-12-001',
         'type': 'SalesInvoice'}
 
+
+def cred_determine():
+    """Return the appropriate pair of cred."""
+    if os.environ.get('SANDBOX_USERNAME') and os.environ.get('SANDBOX_PASSWORD'):
+        return (os.environ.get('SANDBOX_USERNAME'), os.environ.get('SANDBOX_PASSWORD'))
+    elif os.environ.get('SANDBOX_CLIENTID') and os.environ.get('SANDBOX_LICENSEKEY'):
+        return (os.environ.get('SANDBOX_CLIENTID'), os.environ.get('SANDBOX_LICENSEKEY'))
+    else:
+        raise ValueError()
