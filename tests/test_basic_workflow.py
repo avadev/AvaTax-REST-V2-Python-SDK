@@ -16,7 +16,7 @@ class TestBasicWorkFlow(object):
 		"""Test credential is valid."""
 		assert '"authenticated":true' in auth_client.ping().text
 
-	def test_check_default_company_exist(self, auth_client):
+	def test_check_default_company_exist(self, auth_client, init_comp_model):
 		"""Test if the user has default company set up already, create one otherwise."""
 		response = auth_client.query_companies()
 		assert response.status_code == 200
@@ -49,7 +49,7 @@ class TestBasicWorkFlow(object):
 	def test_adjust_transaction(self, auth_client, tax_document):
 		"""Adjust the transaction just committed."""
 		tax_document['commit'] = True
-		tax_document['lines'][0]['amount'] =80
+		tax_document['lines'][0]['amount'] = 80
 		model = {
 					'adjustmentReason': 'PriceAdjusted',
 					'adjustmentDescription': 'Price drop before shipping.',
