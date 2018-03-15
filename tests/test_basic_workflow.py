@@ -29,13 +29,37 @@ class TestBasicWorkFlow(object):
 		"""Create a transaction(save it only) using the company created(DEFAULT)."""
 		tax_document['commit'] = False
 		response = auth_client.create_transaction(tax_document, None)
+		assert response.status_code == 201
 		assert response.json()['status'] == 'Saved'
 		auth_client.trans_code = response.json()['code']
 
 	def test_verfiy_transaction(self, auth_client):
 		"""Verify the transaction that has been created."""
 		response = auth_client.verify_transaction('DEFAULT', auth_client.trans_code, {})
+		assert response.status_code == 200
 		assert response.json()['status'] == 'Posted'
+
+	def test_commit_transaction(self, auth_client):
+		"""Commit the transaction that has been saved."""
+		model = {'commit': True}
+		response = auth_client.commit_transaction('DEFAULT', auth_client.trans_code, model)
+		assert response.status_code == 200
+		assert response.json()['status'] == 'Committed'
+
+	def test_adjust_transaction(self, auth_client, tax_document):
+		"""Adjust the transaction just committed."""
+		tax_document['commit'] = True
+		tax_document['lines'][0]['amount'] =80
+		model = {
+					'adjustmentReason': 'PriceAdjusted',
+					'adjustmentDescription': 'Price drop before shipping.',
+					'newTransaction': tax_document
+				}
+		response = auth_client.adjust_transaction('DEFAULT', auth_client.trans_code, model)
+		assert response.status_code == 200
+		assert response.json()['adjustmentReason'] == 'PriceAdjusted'
+
+
 
 
 
