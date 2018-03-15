@@ -6,7 +6,7 @@ a single transaction works properly.
 import pytest
 
 
-@pytest.mark.incremental  # allow "test-step" : only continue to next test if previous ones all pass
+@pytest.mark.incremental  # allow "test-step" : only continue to next test if previous ones all passes
 class TestBasicWorkFlow(object):
 	def test_connection(self, auth_client):
 		"""Test internet connection of the testing env."""
@@ -59,8 +59,10 @@ class TestBasicWorkFlow(object):
 		assert response.status_code == 200
 		assert response.json()['adjustmentReason'] == 'PriceAdjusted'
 
-
-
-
-
+	def test_void_transaction(self, auth_client):
+		"""Void the transaction we just adjusted(still committed status)."""
+		model = {'code': 'DocVoided'}
+		response = auth_client.void_transaction('DEFAULT', auth_client.trans_code, model)
+		assert response.status_code == 200
+		assert response.json()['status'] == 'Cancelled'
 
