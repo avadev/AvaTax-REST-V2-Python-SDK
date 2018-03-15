@@ -6,16 +6,6 @@
 This GitHub repository is the Python SDK for Avalara's world-class tax service, AvaTax.  It uses the AvaTax REST v2 API, which is a fully REST implementation and provides a single client for all AvaTax functionality.  For more information about AvaTax REST v2, please visit [Avalara's Developer Network](http://developer.avalara.com/) or view the [online Swagger documentation](https://sandbox-rest.avatax.com/swagger/ui/index.html).
 
 
-### **Meet the Team:**
-
-[Han Bao](https://www.linkedin.com/in/hbao2016)
-
-[Philip Werner](https://www.linkedin.com/in/philip-werner-421aa66a)
-
-[Robert Bronson](https://www.linkedin.com/in/robert-bronson)
-
-[Adrienne Karnoski](https://www.linkedin.com/in/adrienne-karnoski)
-
 ## **Set Up and Installation:**
 
 Clone this repository to your local machine.
@@ -39,7 +29,6 @@ Python_Final $ source ENV/bin/activate
 
 ## **Usage:**
 
-
 ### **Configuration**
 
 **Environment**
@@ -62,19 +51,20 @@ Add the following to the ```activate``` file in your environment:
 ```
   bash
 # Username and password
-USERNAME='your_sandbox_username'
-PASSWORD='your_sandbox_password'
+SANDBOX_USERNAME='your_sandbox_username'
+SANDBOX_PASSWORD='your_sandbox_password'
 
 # Or account id and license key
-ACCOUNT_ID='your_sandbox_account_id'
-LICENSE_KEY='your_sandbox_license_key'
+SANDBOX_ACCOUNTID='your_sandbox_account_id'
+SANDBOX_LICENSEKEY='your_sandbox_license_key'
 ```
-Setting up environmental variables for production mode is similar:
+Note: Only *Sandbox credentials* should be used for testing, as the test case will commit/adjust/void dummy transactions on the account to verify functionalities.  
+You may store testing credentials onto the `activate` script within your `ENV/bin`:  
 ```
-export USERNAME='<your-username>'
-export PASSWORD='<your-password>'
-export ACCOUNT_ID='<your-account-id>'
-export LICENSE_KEY='<your-license-key>'
+export SANDBOX_USERNAME='<your-username>'
+export SANDBOX_PASSWORD='<your-password>'
+export SANDBOX_ACCOUNTID='<your-account-id>'
+export SANDBOX_LICENSEKEY='<your-license-key>'
 ```
 **Import the python AvaTaxClient from the client module:**
 
@@ -131,3 +121,12 @@ address = {
 return print(client.resolveAddress(address))
 ```
 
+### **Contributors:**
+
+[Han Bao](https://www.linkedin.com/in/hbao2016)
+
+[Philip Werner](https://www.linkedin.com/in/philip-werner-421aa66a)
+
+[Robert Bronson](https://www.linkedin.com/in/robert-bronson)
+
+[Adrienne Karnoski](https://www.linkedin.com/in/adrienne-karnoski)
