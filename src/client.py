@@ -18,6 +18,7 @@ file that was distributed with this source code.
 from requests.auth import HTTPBasicAuth
 from _str_version import str_type
 import client_methods
+import os
 
 
 class AvataxClient(client_methods.Mixin):
@@ -79,32 +80,32 @@ class AvataxClient(client_methods.Mixin):
         return self
 
 # to generate a client object on initialization of this file, uncomment the script below
-# if __name__ == '__main__':  # pragma no cover
-#     """Creating a client with credential, must have env variables username & password."""
-#     client = AvataxClient('my test app',
-#                           'ver 0.0',
-#                           'my test machine',
-#                           'sandbox')
-#     c = client.add_credentials(os.environ.get('USERNAME', ''),
-#                                os.environ.get('PASSWORD', ''))
-#     print(client.ping().text)
-#     tax_document = {
-#         'addresses': {'SingleLocation': {'city': 'Irvine',
-#                                          'country': 'US',
-#                                          'line1': '123 Main Street',
-#                                          'postalCode': '92615',
-#                                          'region': 'CA'}},
-#         'commit': False,
-#         'companyCode': 'DEFAULT',
-#         'currencyCode': 'USD',
-#         'customerCode': 'ABC',
-#         'date': '2017-04-12',
-#         'description': 'Yarn',
-#         'lines': [{'amount': 100,
-#                   'description': 'Yarn',
-#                    'itemCode': 'Y0001',
-#                    'number': '1',
-#                    'quantity': 1,
-#                    'taxCode': 'PS081282'}],
-#         'purchaseOrderNo': '2017-04-12-001',
-#         'type': 'SalesInvoice'}
+if __name__ == '__main__':  # pragma no cover
+    """Creating a client with credential, must have env variables username & password."""
+    client = AvataxClient('my test app',
+                          'ver 0.0',
+                          'my test machine',
+                          'sandbox')
+    c = client.add_credentials(os.environ.get('USERNAME', ''),
+                               os.environ.get('PASSWORD', ''))
+    print(client.ping().text)
+    tax_document = {
+        'addresses': {'SingleLocation': {'city': 'Irvine',
+                                         'country': 'US',
+                                         'line1': '123 Main Street',
+                                         'postalCode': '92615',
+                                         'region': 'CA'}},
+        'commit': False,
+        'companyCode': 'DEFAULT',
+        'currencyCode': 'USD',
+        'customerCode': 'ABC',
+        'date': '2017-04-12',
+        'description': 'Yarn',
+        'lines': [{'amount': 100,
+                  'description': 'Yarn',
+                   'itemCode': 'Y0001',
+                   'number': '1',
+                   'quantity': 1,
+                   'taxCode': 'PS081282'}],
+        'purchaseOrderNo': '2017-04-12-001',
+        'type': 'SalesInvoice'}
