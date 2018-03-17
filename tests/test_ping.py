@@ -11,14 +11,9 @@ def test_ping_auth_is_false_connection(unauth_client):
     assert '"authenticated":false' in unauth_client.ping().text
 
 
-def test_ping_auth_is_true_connection(auth_client_loggedin_with_username):
+def test_ping_auth_is_true_using_client_id(auth_client):
     """Testing client with authorization from username and password."""
-    assert '"authenticated":true' in auth_client_loggedin_with_username.ping().text
-
-
-def test_ping_auth_is_true_using_client_id(auth_client_loggedin_with_id):
-    """Testing client with authorization from account ID and license key."""
-    assert '"authenticated":true' in auth_client_loggedin_with_id.ping().text
+    assert '"authenticated":true' in auth_client.ping().text
 
 
 def test_ping_auth_with_invalid_user_and_pass(unauth_client):
