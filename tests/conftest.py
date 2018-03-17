@@ -152,6 +152,8 @@ def cred_determine():
         return (os.environ.get('SANDBOX_USERNAME'), os.environ.get('SANDBOX_PASSWORD'))
     elif os.environ.get('SANDBOX_CLIENTID') and os.environ.get('SANDBOX_LICENSEKEY'):
         return (os.environ.get('SANDBOX_CLIENTID'), os.environ.get('SANDBOX_LICENSEKEY'))
+    elif os.environ.get('USERNAME') and os.environ.get('PASSWORD'):
+        return (os.environ.get('USERNAME'), os.environ.get('PASSWORD'))
     else:
         raise ValueError()
 
