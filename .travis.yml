@@ -12,7 +12,6 @@ env:
   global:
   - CI=true
   matrix:
-  - TEST_DOC=false
   - TEST_DOC=true
 notifications:
   email: false
@@ -30,3 +29,4 @@ deploy:
     secure: H4MQ6af8IdGleXgbvItT8Od708LR5nVeFS2KSk4xVC89NPXpfkWsBHMTZ/DgdaIHsoRAIzmFU+wwaz1p7gmTcoH0S/EbG+kBNlSrsgzkvntFQdQnDolkTozRkUUhMeS4MxwoSb/hrSByJcgp2rDhAcTAw22SJQ6zDArhPnTUWnWxkq1xmCHKi8r835iQcJu5jIYV+ePhrsc7v9MbHCj148NRjyfLpuSsJTF4vmD551dbvGjR0x6hxU06DZN++SQfNX3EkolRzuvemeAleWWlK54oI+OuQPLmtNlehPX1IkqfCCDC9Txvcl6nyDNATumnMvt2xtuAHyCYiLAUKTYYwtsYPOzwTDcEcR6mgNeN6KvPCLekngX25sNx4wBAKnKwT0L+2Uf9tH5rQntpw4OA8LVfGQZrxTnvn96KZ36Ga1siFu02p8HH2EykpZd7pfiamCrrRGVKE8Ttamm0BqKK2+2q01Eq2c5md8YkS3UE3K/3Cffpv1gJtWH1p6rM5I+KLN3J4WMxU3TVmRKQJho6y095Hj2DlHFAuiF/N8k266P7lnGKLmmj8q1o1HPanT/mDokY+0D1sTQf7It4HGhcLzObDp8PvOHncBBWH/tRdq3dKxVjnY6q3KVcPwRqUhOlVSUagW1tOYCk49sEbuE93/FyYqILHLypAqckVmrEJKY=
   on:
     branch: master
+    python: 3.6
