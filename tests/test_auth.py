@@ -55,3 +55,8 @@ def test_no_auth_if_no_cred_is_added(unauth_client):
     """Test client object auth property is None by default."""
     assert unauth_client.auth is None
 
+
+def test_if_valid_pair_sandbox_cred_in_place(auth_client):
+    """Test if there is a pair of valid Avatax credentials stored in env."""
+    assert auth_client is not None
+
