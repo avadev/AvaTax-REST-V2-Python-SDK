@@ -1,12 +1,17 @@
 # Avalara AvaTax Python SDK
 [![Build Status](https://travis-ci.org/avadev/AvaTax-REST-V2-Python-SDK.svg?branch=master)](https://travis-ci.org/avadev/AvaTax-REST-V2-Python-SDK)
-[![PyPI](https://img.shields.io/pypi/v/Avalara.svg)](https://pypi.python.org/pypi/Avalara-Python-SDK)
+[![PyPI](https://img.shields.io/pypi/v/Avalara.svg)](https://pypi.python.org/pypi/Avalara)
 
 ### About Our Product:
 This GitHub repository is the Python SDK for Avalara's world-class tax service, AvaTax.  It uses the AvaTax REST v2 API, which is a fully REST implementation and provides a single client for all AvaTax functionality.  For more information about AvaTax REST v2, please visit [Avalara's Developer Network](http://developer.avalara.com/) or view the [online Swagger documentation](https://sandbox-rest.avatax.com/swagger/ui/index.html).
 
 
 ## **Set Up and Installation:**
+
+Install simply with pip.
+```pip install Avalara```
+
+**OR**
 
 Clone this repository to your local machine.
 ```
@@ -18,13 +23,13 @@ $ cd AvaTax-REST-V2-Python-SDK
 ```
 Begin a new virtual environment with Python 3 and activate it.
 ```
-Python_Final $ python3 -m venv ENV
-Python_Final $ source ENV/bin/activate
+AvaTax-REST-V2-Python-SDK $ python3 -m venv ENV
+AvaTax-REST-V2-Python-SDK $ source ENV/bin/activate
 ```
 [pip](https://pip.pypa.io/en/stable) install this package as well as the testing set of extras into your virtual enviroment.
 ```
-(ENV) Python_Final $ pip install -e .
-(ENV) Python_Final $ pip install -e .[testing]
+(ENV) AvaTax-REST-V2-Python-SDK $ pip install -e .
+(ENV) AvaTax-REST-V2-Python-SDK $ pip install -e .[testing]
 ```
 
 ## **Usage:**
@@ -49,7 +54,7 @@ For testing, your credentials are accessed as environment varibales through os.e
 Add the following to the ```activate``` file in your environment:
 
 ```
-  bash
+bash
 # Username and password
 SANDBOX_USERNAME='your_sandbox_username'
 SANDBOX_PASSWORD='your_sandbox_password'
