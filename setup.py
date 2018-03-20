@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(
-    name='AvaTax',
+    name='Avalara',
     version='18.2.0',
     url='https://github.com/avadev/AvaTax-REST-V2-Python-SDK',
     package_dir={'': 'src'},
