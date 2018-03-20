@@ -6,22 +6,23 @@ install:
 - pip install -e .[test]
 - pip install -e .
 script: py.test --cov=. --cov-report term-missing
-notifications:
-  email: false
 env:
   global:
   - CI=true
+  - secure: dBVua3/c98UV58EDFzO2g6fjCP4MOAOVAxeba6J2eJ9rCDXUy6NP1WoluWgu8WHIAwoFDfAI5WZRl4yOaT6bKdERYD1dlffTZMcjcbSnAOdEgnJ8HMCUQzFHeOTb7gdcX1rO6jkkwWALYO0ejC0C118NuqZo/5LccD20m9bbEyjI8DHuUPznIosAhzroykZpN36zhoKCVLXadH3CpKkVVbr2MgfjPemBDSFTK40jpPoA+5t0sLpf2qVb/8EnPZuJZ+kqAqoWimYc4Xs5Scks3wzAlUOoQ/4NncA1OXSMaf7Iz4vZOf3AcPP0H0r4yS1kaYo4TP+ob85Xgh3+Z0RFu5UuKaoqkSjfHCIT1Oy3YBBaME4/OnQg1WsEpysvS5PNICdXodB+lzFnb/uX12wVwnVI9yTlyQhvErK0ouw5rVc9ie1YFizayyzWRx9EIv1mrNVF3bNphB8cIGooukuKXO1jYbYt4AP/cWGZcaENVbn0uzkAxIP9oHHeP87OxOKNn3f16e6cXhsHVwsG/Zhtz4JkwpjqaYCJRZhqwDB/OEeSHHpmfMz8PXGprFmCCk9eJ/yS/2NXeQmKSGCz6Pt+lthrVHt+1UNA8u1z2VaOIdUcizdyJkGZ8cO0NAF2bnSPx9WVFXRnqB+PqUzJoX0Jdq+vvUccXXPPGKtczMUI3ds=
+  - secure: SUXP97FIfcDWfQtnTl2m7FTabKvftyO8DWk05FzYFHV8JA9hBJ4MStsQo5WCjizEtAqiLWX0ZhAQKyBb2fAiX+VeoHqGydHYhgLTtsOC5Pg40yCamxl2ktqrn40lZz9B5Ik9uPlWsesX9/fn9WB6umGXfCCT8RU/P5dP8ZGTyOT+gjwgzrV2fDeZmWgG2WeUTlrzWFdTjdUsUCtBPxk3XQuKsC9LIUT0fURtQ+xOU4AWl3s+/q8fE+EpKgWG/X50jH2XXaZrhbdGhFuTKq0DJuUY7TJK0gBmkameF4jPRCDYBz7lEKZcPVXIppSQxzteGeolP3UlIIZJoxUIrE+eu7cR/RCN3IaJSIASf1FmpPigMZbXNJ8L4/07o/1oJt0ECb2TtomYI4yrX3ZOfdzBTKr6o6mJRcFhfmNCH0Jh08RPXqOmgg1/aoScCLejFmFS1O17WrRPrpnJq/t7xx7J0YldHvvCXypBsY3TiCSsnA+wHiJzuWRZyXaw4zwnZv2u+v7ZDJkmgUrLlpmpAO3cCd9YQ68epk6LZ5B5VGKMkgT08V/IwAodyHBmt6kX+WtlW217LZ3SQhqifbFguercbTW9TRYyk8vHdpVte07bNTO7Prs5MxymSRco/v3Wv6+mQVvY9uZapIal1iz5mhv93lfNxQJ97uZMqeWO1OjQRwI=
   matrix:
   - TEST_DOC=true
 notifications:
   email: false
   slack:
     rooms:
-      - secure: R8rDp7cXw0h40KKgUSg/VlZsf8y5FkqzcR06HpgN/OCOmtp1tum+zsmO3kb1yjlmYcxsW3AqtZBvOVmKsTeHfAJgt9uKvoW770kGXRPnCpqpJ6eCs47sOTNrwyUJIOwyFbZKFicgeFygIjnU5sL7NWMC8ZE/bGWMXjpbzx4jXYgwQrSbY5kIoH+aZXg4UyVczX6vv/7ItE4VhxPMMI+eRC/sqK3A/fbRvDnwyWnwRfNnQhfG5bCMFgF1TEKsHBt3SZjPTqr1WGn8B8loVLOw1LVpmBWBNOy0hUiSGq5ZZ8ZNOvJa3Nuno3+6TfmB0r/jmg2CgARdLkGhjtVbhsRIpT4SbEppo66LEUFhhuWmi9Y0G2sbV2HjKFUw0cCX7zezH/d8h2BeNyfSZ0gYKC1OWnnlY8d+mcVZLmd3V46YUM/rplVZMlE0jxPrF6aS6ePtDh694tgLEHBgSExDzqNMeACYjM674X6rKoOcX34pHu3MegnA8s7TUB1d4RexS2IsHB4cPurR4wcdAKIAqpFO3u07Ab0TxV0YuJuiwS2r3cckFsf107T7uT8TPRxfUv57Qncdd2XomS6+VsE6TIfyfgDnkoIoADUG+625V1EXiYnsUUCTrcdkr2HkGXBRxqY8B7t76tEe6IryoG4yl6uiOG3afqaOJjKedHEvf4K2+Sc=
+    - secure: R8rDp7cXw0h40KKgUSg/VlZsf8y5FkqzcR06HpgN/OCOmtp1tum+zsmO3kb1yjlmYcxsW3AqtZBvOVmKsTeHfAJgt9uKvoW770kGXRPnCpqpJ6eCs47sOTNrwyUJIOwyFbZKFicgeFygIjnU5sL7NWMC8ZE/bGWMXjpbzx4jXYgwQrSbY5kIoH+aZXg4UyVczX6vv/7ItE4VhxPMMI+eRC/sqK3A/fbRvDnwyWnwRfNnQhfG5bCMFgF1TEKsHBt3SZjPTqr1WGn8B8loVLOw1LVpmBWBNOy0hUiSGq5ZZ8ZNOvJa3Nuno3+6TfmB0r/jmg2CgARdLkGhjtVbhsRIpT4SbEppo66LEUFhhuWmi9Y0G2sbV2HjKFUw0cCX7zezH/d8h2BeNyfSZ0gYKC1OWnnlY8d+mcVZLmd3V46YUM/rplVZMlE0jxPrF6aS6ePtDh694tgLEHBgSExDzqNMeACYjM674X6rKoOcX34pHu3MegnA8s7TUB1d4RexS2IsHB4cPurR4wcdAKIAqpFO3u07Ab0TxV0YuJuiwS2r3cckFsf107T7uT8TPRxfUv57Qncdd2XomS6+VsE6TIfyfgDnkoIoADUG+625V1EXiYnsUUCTrcdkr2HkGXBRxqY8B7t76tEe6IryoG4yl6uiOG3afqaOJjKedHEvf4K2+Sc=
     only: master
     on_success: never
+    on_failure: never
     template:
-      - Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch}%{result}
+    - Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch}%{result}
 deploy:
   provider: pypi
   user: Avalara
