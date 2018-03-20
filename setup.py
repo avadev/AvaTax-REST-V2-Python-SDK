@@ -3,6 +3,8 @@ from setuptools import setup
 
 setup(
     name='Avalara Python SDK',
+    version='1.0.0',
+    url='https://github.com/avadev/AvaTax-REST-V2-Python-SDK',
     package_dir={'': 'src'},
     py_modules=[
         'client',

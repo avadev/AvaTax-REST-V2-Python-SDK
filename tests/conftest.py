@@ -149,12 +149,12 @@ def init_comp_model():
 
 def cred_determine():
     """Return the appropriate pair of cred."""
-    if os.environ.get('SANDBOX_USERNAME') and os.environ.get('SANDBOX_PASSWORD'):
-        return (os.environ.get('SANDBOX_USERNAME'), os.environ.get('SANDBOX_PASSWORD'))
+    if os.environ.get('USERNAME') and os.environ.get('PASSWORD'):
+        return (os.environ.get('USERNAME'), os.environ.get('PASSWORD'))
     elif os.environ.get('SANDBOX_CLIENTID') and os.environ.get('SANDBOX_LICENSEKEY'):
         return (os.environ.get('SANDBOX_CLIENTID'), os.environ.get('SANDBOX_LICENSEKEY'))
-    elif os.environ.get('USERNAME') and os.environ.get('PASSWORD'):
-        return (os.environ.get('USERNAME'), os.environ.get('PASSWORD'))
+    elif os.environ.get('SANDBOX_USERNAME') and os.environ.get('SANDBOX_PASSWORD'):
+        return (os.environ.get('SANDBOX_USERNAME'), os.environ.get('SANDBOX_PASSWORD'))
     else:
         raise ValueError()
 
