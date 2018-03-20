@@ -6,8 +6,6 @@ install:
 - pip install -e .[test]
 - pip install -e .
 script: py.test --cov=. --cov-report term-missing
-notifications:
-  email: false
 env:
   global:
   - CI=true
@@ -17,11 +15,12 @@ notifications:
   email: false
   slack:
     rooms:
-      - secure: R8rDp7cXw0h40KKgUSg/VlZsf8y5FkqzcR06HpgN/OCOmtp1tum+zsmO3kb1yjlmYcxsW3AqtZBvOVmKsTeHfAJgt9uKvoW770kGXRPnCpqpJ6eCs47sOTNrwyUJIOwyFbZKFicgeFygIjnU5sL7NWMC8ZE/bGWMXjpbzx4jXYgwQrSbY5kIoH+aZXg4UyVczX6vv/7ItE4VhxPMMI+eRC/sqK3A/fbRvDnwyWnwRfNnQhfG5bCMFgF1TEKsHBt3SZjPTqr1WGn8B8loVLOw1LVpmBWBNOy0hUiSGq5ZZ8ZNOvJa3Nuno3+6TfmB0r/jmg2CgARdLkGhjtVbhsRIpT4SbEppo66LEUFhhuWmi9Y0G2sbV2HjKFUw0cCX7zezH/d8h2BeNyfSZ0gYKC1OWnnlY8d+mcVZLmd3V46YUM/rplVZMlE0jxPrF6aS6ePtDh694tgLEHBgSExDzqNMeACYjM674X6rKoOcX34pHu3MegnA8s7TUB1d4RexS2IsHB4cPurR4wcdAKIAqpFO3u07Ab0TxV0YuJuiwS2r3cckFsf107T7uT8TPRxfUv57Qncdd2XomS6+VsE6TIfyfgDnkoIoADUG+625V1EXiYnsUUCTrcdkr2HkGXBRxqY8B7t76tEe6IryoG4yl6uiOG3afqaOJjKedHEvf4K2+Sc=
+    - secure: R8rDp7cXw0h40KKgUSg/VlZsf8y5FkqzcR06HpgN/OCOmtp1tum+zsmO3kb1yjlmYcxsW3AqtZBvOVmKsTeHfAJgt9uKvoW770kGXRPnCpqpJ6eCs47sOTNrwyUJIOwyFbZKFicgeFygIjnU5sL7NWMC8ZE/bGWMXjpbzx4jXYgwQrSbY5kIoH+aZXg4UyVczX6vv/7ItE4VhxPMMI+eRC/sqK3A/fbRvDnwyWnwRfNnQhfG5bCMFgF1TEKsHBt3SZjPTqr1WGn8B8loVLOw1LVpmBWBNOy0hUiSGq5ZZ8ZNOvJa3Nuno3+6TfmB0r/jmg2CgARdLkGhjtVbhsRIpT4SbEppo66LEUFhhuWmi9Y0G2sbV2HjKFUw0cCX7zezH/d8h2BeNyfSZ0gYKC1OWnnlY8d+mcVZLmd3V46YUM/rplVZMlE0jxPrF6aS6ePtDh694tgLEHBgSExDzqNMeACYjM674X6rKoOcX34pHu3MegnA8s7TUB1d4RexS2IsHB4cPurR4wcdAKIAqpFO3u07Ab0TxV0YuJuiwS2r3cckFsf107T7uT8TPRxfUv57Qncdd2XomS6+VsE6TIfyfgDnkoIoADUG+625V1EXiYnsUUCTrcdkr2HkGXBRxqY8B7t76tEe6IryoG4yl6uiOG3afqaOJjKedHEvf4K2+Sc=
     only: master
     on_success: never
+    on_failure: never
     template:
-      - Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch}%{result}
+    - Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch}%{result}
 deploy:
   provider: pypi
   user: Avalara
