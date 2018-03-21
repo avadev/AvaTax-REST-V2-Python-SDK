@@ -87,6 +87,7 @@ celerybeat-schedule
 .venv
 venv/
 ENV/
+avadev/
 
 # Spyder project settings
 .spyderproject
@@ -100,3 +101,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# other testing
+taxfiles/
+tax_code_list.py
+~$x_Json.txt
+.DS_Store
