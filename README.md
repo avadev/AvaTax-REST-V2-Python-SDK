@@ -36,6 +36,32 @@ AvaTax-REST-V2-Python-SDK $ source ENV/bin/activate
 
 ### **Configuration**
 
+**Import the AvataxClient from the client module:**
+
+First thing to do is to import the AvataxClient constructor module to your name space, or your python script.
+
+```
+from client import AvataxClient
+```
+
+**Now we are ready to construct a client object**
+
+Create a new AvaTaxClient object:
+```
+    client = AvataxClient('my test app',
+                          'ver 0.0',
+                          'my test machine',
+                          'sandbox')
+```
+The client constructor takes four string parameters, in squence they are `app_name(required)`, `app_version(required)`, `achine_name(optional)`, and `environment(required)`. 
+The app_name, app_version, machine_name will be use to construct the [Client Header](https://developer.avalara.com/avatax/client-headers/) associated with each calls made by this client. Which will be return within the response object to help you keep track of the API calls.
+The 
+
+
+
+
+
+
 **Environment**
 
 Avalara provides two different environments for AvaTax: **Sandbox** and **Production**.
@@ -48,38 +74,11 @@ Each environment is completely separate, and each has its own credentials.
 
 If you have a Sandbox account, you cannot use that account to log onto Production; and vice versa.
 
-### **Setup Test Credentials**
 
-For testing, your credentials are accessed as environment varibales through os.environ.
-Add the following to the ```activate``` file in your environment:
 
-```
-bash
-# Username and password
-SANDBOX_USERNAME='your_sandbox_username'
-SANDBOX_PASSWORD='your_sandbox_password'
 
-# Or account id and license key
-SANDBOX_ACCOUNTID='your_sandbox_account_id'
-SANDBOX_LICENSEKEY='your_sandbox_license_key'
-```
-Note: Only *Sandbox credentials* should be used for testing, as the test case will commit/adjust/void dummy transactions on the account to verify functionalities.  
-You may store testing credentials onto the `activate` script within your `ENV/bin`:  
-```
-export SANDBOX_USERNAME='<your-username>'
-export SANDBOX_PASSWORD='<your-password>'
-export SANDBOX_ACCOUNTID='<your-account-id>'
-export SANDBOX_LICENSEKEY='<your-license-key>'
-```
-**Import the python AvaTaxClient from the client module:**
 
-```
-from client import AvaTaxClient
-```
-Create a new AvaTaxClient object:
-```
-client = new AvaTaxClient("app-name", 'app-version', 'your-machine-name', 'your-desired-environment').add_credentials('<Your-credentials>')
-```
+
 
 ### **Tax Calculation**
 ```
@@ -112,7 +111,7 @@ tax_document = {
   currencyCode: 'USD',
   description: 'Yarn'
 }
-return print(client.createTransaction(tax_document))
+print(client.createTransaction(tax_document))
 ```
 
 ### **Address Validation**
@@ -125,6 +124,24 @@ address = {
 }
 return print(client.resolveAddress(address))
 ```
+
+
+### **Setup Test Credentials**
+
+If you wish to run the integration and unit testings, you must store a pair of credentials in the current enviroment.
+Add the following to the ```activate``` file in your environment, and restart bash.
+OR simply ```export``` them directly:
+
+```
+export SANDBOX_USERNAME='your_sandbox_username'
+export SANDBOX_PASSWORD='your_sandbox_password'
+
+# OR
+SANDBOX_ACCOUNTID='your_sandbox_account_id'
+SANDBOX_LICENSEKEY='your_sandbox_license_key'
+```
+Note: Only *Sandbox credentials* should be used for testing, as the test case will commit/adjust/void dummy transactions on the account to verify functionalities.  
+
 
 ### **Contributors:**
 
