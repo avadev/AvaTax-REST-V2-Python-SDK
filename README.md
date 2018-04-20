@@ -2,11 +2,10 @@
 [![Build Status](https://travis-ci.org/avadev/AvaTax-REST-V2-Python-SDK.svg?branch=master)](https://travis-ci.org/avadev/AvaTax-REST-V2-Python-SDK)
 [![PyPI](https://img.shields.io/pypi/v/Avalara.svg)](https://pypi.python.org/pypi/Avalara)
 
-### About Our Product:
 This GitHub repository is the Python SDK for Avalara's world-class tax service, AvaTax.  It uses the AvaTax REST v2 API, which is a fully REST implementation and provides a single client for all AvaTax functionality.  For more information about AvaTax REST v2, please visit [Avalara's Developer Network](http://developer.avalara.com/) or view the [online Swagger documentation](https://sandbox-rest.avatax.com/swagger/ui/index.html).
 
 
-## **Set Up and Installation:**
+## Installation:
 
 Install simply with pip.
 ```pip install Avalara```
@@ -32,11 +31,12 @@ AvaTax-REST-V2-Python-SDK $ source ENV/bin/activate
 (ENV) AvaTax-REST-V2-Python-SDK $ pip install -e .[testing]
 ```
 
-## **Usage:**
+## Usage:
 
-### **Configuration**
+### Create a transaction
 
-**Import the AvataxClient from the client module:**
+
+**Import the AvataxClient from the client module**
 
 First thing to do is to import the AvataxClient constructor module to your name space, or your python script.
 
@@ -55,78 +55,106 @@ Create a new AvaTaxClient object:
 ```
 The client constructor takes four string parameters, in squence they are `app_name(required)`, `app_version(required)`, `achine_name(optional)`, and `environment(required)`. 
 The app_name, app_version, machine_name will be use to construct the [Client Header](https://developer.avalara.com/avatax/client-headers/) associated with each calls made by this client. Which will be return within the response object to help you keep track of the API calls.
-The 
+The `environment` variable can be either `"sandbox"` or `production`, they corresponds to the two different environment AvaTax service has.
+If you are a regular or free trial customer please use `"production"`. If you don't have an account, you can sign up for a free trail account on our [developer site](https://developer.avalara.com/avatax/signup/), this will be a production account as well.
+If you wish to obtain a Sandbox account, please contact your [Customer Account Manager](https://help.avalara.com/Frequently_Asked_Questions/Avalara_AvaTax_FAQ/How_do_I_get_access_to_our_development%2F%2Fsandbox_account%3F)
 
 
+**Ping the service**
 
-
-
-
-**Environment**
-
-Avalara provides two different environments for AvaTax: **Sandbox** and **Production**.
-
-The **Sandbox** environment is meant to help you test your software without the risk of accidentally affecting production data or reporting transactions. 
-
-In **Production**, transactions that are marked Committed can be reported on a tax filing using the Avalara Managed Returns Service.
-
-Each environment is completely separate, and each has its own credentials.
-
-If you have a Sandbox account, you cannot use that account to log onto Production; and vice versa.
-
-
-
-
-
-
-
-### **Tax Calculation**
+Now we have a client object, we can ping the AvaTax REST V2 server to ensure connectivity.
 ```
-tax_document = {
-  type: 'SalesInvoice',
-  companyCode: 'abc123',
-  date: '2017-04-12',
-  customerCode: 'ABC',
-  purchaseOrderNo: '2017-04-12-001',
-  addresses: {
-    SingleLocation: {
-      line1: '123 Main Street',
-      city: 'Irvine',
-      region: 'CA',
-      country: 'US',
-      postalCode: '92615'
-    }
-  },
-  lines: [
-    {
-      number: '1',
-      quantity: 1,
-      amount: 100,
-      taxCode: 'PS081282',
-      itemCode: 'Y0001',
-      description: 'Yarn'
-    }
-  ],
-  commit: true,
-  currencyCode: 'USD',
-  description: 'Yarn'
-}
-print(client.createTransaction(tax_document))
-```
+  response = client.ping()
 
-### **Address Validation**
+  # to view respnse text
+  print(response.text())
+
+  # to view json version of the response
+  print(respnse.json())
+
+  # to view the status code
+  print(response.status_code())
+
+  # to view the raw response
+  print(response.raw())
 ```
-address = {
-  city: 'irvine',
-  postalCode: '92615',
-  region: 'ca',
-  country: 'us'
-}
-return print(client.resolveAddress(address))
-```
+Note that the response from all REST calls made using this SDK will be [Request](http://docs.python-requests.org/en/master/user/quickstart/#response-content) object, which contains status code, response text, raw josn, and more information on the respnse.
 
 
-### **Setup Test Credentials**
+**Add credentials to your client object**
+
+Unlike `ping`, most methods in our REST V2 API requires you to be authenticated in order to associate those information provided by you with your account.
+To find out if a method requires authentication, visit our [API Reference](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/) page.
+To add credential on the current client object:
+```
+  client = client.add_credentials('USERNAME/ACCOUNT_ID', 'PASSWORD/LICENSE_KEY')
+```
+The `add_credential` method will hash your username/password, or account_id/license_key pair and attach to every call made by your client object, meaning you only have to add credential once to each client you prepare to use.
+
+To verify that you have added a valid credential, simply call the `ping` method again, this time in the response text you should see "authenticated: true".
+
+
+**To create a transaction using your client object**
+
+Now our client object is authenticated, we can call the create_transaction method which calls the [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/)
+```
+  transaction_response = client.create_transaction(tax_document)
+  print(transaction_reaponse.text())
+
+  tax_document = {
+      'addresses': {'SingleLocation': {'city': 'Irvine',
+                                       'country': 'US',
+                                       'line1': '123 Main Street',
+                                       'postalCode': '92615',
+                                       'region': 'CA'}},
+      'commit': False,
+      'companyCode': 'DEFAULT',
+      'currencyCode': 'USD',
+      'customerCode': 'ABC',
+      'date': '2017-04-12',
+      'description': 'Yarn',
+      'lines': [{'amount': 100,
+                'description': 'Yarn',
+                 'itemCode': 'Y0001',
+                 'number': '1',
+                 'quantity': 1,
+                 'taxCode': 'PS081282'}],
+      'purchaseOrderNo': '2017-04-12-001',
+      'type': 'SalesInvoice'}
+
+```  
+The create_transaction method takes in a model, in python it's a dictionary type object. Which you will fill out to include all of your transaction information. In this case, we are using the [TransactionModel](https://developer.avalara.com/api-reference/avatax/rest/v2/models/TransactionModel/)
+For information on other models use by AvaTax APIs, visit our information page [here](https://developer.avalara.com/api-reference/avatax/rest/v2/models)
+
+
+### Use other methods
+
+Like our SDKs in other languages, the Python SDK includes all methods offered by the AvaTax REST V2 API. To find a mehtod corresponding to a specific API endpoint, simply visit this [code page](https://github.com/avadev/AvaTax-REST-V2-Python-SDK/blob/master/src/client_methods.py)
+To learn more about integrating our REST API into your system, visit our [developer guide](https://developer.avalara.com/avatax/dev-guide/getting-started-with-avatax/) that contains information on using the powerful features offered by our API.
+
+
+### Use transaction builder
+
+We realize that having to format the TransactionModel can be complicated and time consuming, thus we created a tool called Transaction Builder to help you put together a transaction model, and create it!
+First import the transaction builder constructor into your name space:
+```from transaction_builder import TransactionBuilder```
+
+Then, let's create a transaction builder object:
+```
+  tb = TransactionBuilder(client, "DEFAULT", "SalesInvoice", "ABC")
+```
+The builder takes four required parameters, in sequence they are
+- The client object
+- Company name(created through AvaTax portal or by calling [CreateCompany API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Companies/CreateCompanies/))
+- The type of transaction, a [full list](https://developer.avalara.com/api-reference/avatax/rest/v2/models/enums/DocumentType/) of options. 
+- The customer code, an unique code identifying the customer that requested this transaction.
+
+Now you are free to add transaction details to this object, by using methods like `with_address`, `with_line`, `with_parameter`.
+For a fulll list of transaction builder methods available and the parameters they take in, visit the [code page](https://github.com/avadev/AvaTax-REST-V2-Python-SDK/blob/master/src/transaction_builder_methods.py)
+In the end, you may call the `create` method on your builder object, which will call the CreateTransaction API with the transaction model you have build so far, and return back the response.
+
+
+### Setup Test Credentials
 
 If you wish to run the integration and unit testings, you must store a pair of credentials in the current enviroment.
 Add the following to the ```activate``` file in your environment, and restart bash.
@@ -143,7 +171,13 @@ SANDBOX_LICENSEKEY='your_sandbox_license_key'
 Note: Only *Sandbox credentials* should be used for testing, as the test case will commit/adjust/void dummy transactions on the account to verify functionalities.  
 
 
-### **Contributors:**
+## Issue or suggestion
+
+User feedbacks are highly valued here at Avalara, we want to ensure the best experience for every customer using our services. If you have any concern with this SDK or AvaTax in general, please post your queston/suggestion on our [Developer Relation Forum](https://community.avalara.com/avalara/category_sets/developers) as we will reply to you in a timely manner.
+If you wish to contribute to this SDK, please fork the [repository](https://github.com/avadev/AvaTax-REST-V2-Python-SDK) and submit your pull request from the forked version. We are happy to review your contribution, and merge them if all checks has passed!
+
+
+## Original Contributors
 
 [Han Bao](https://www.linkedin.com/in/hbao2016)
 
