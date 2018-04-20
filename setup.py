@@ -1,9 +1,9 @@
-"""Set up file, to install this module : pip install -e ."""
+﻿"""Set up file, to install this module : pip install -e ."""
 from setuptools import setup
 
 setup(
     name='Avalara',
-    version='18.3.0',
+    version='18.4.0',
     url='https://github.com/avadev/AvaTax-REST-V2-Python-SDK',
     package_dir={'': 'src'},
     py_modules=[
