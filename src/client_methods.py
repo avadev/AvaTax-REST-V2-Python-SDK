@@ -8,7 +8,6 @@ class Mixin:
     r"""
     Reset this account's license key
     
-
     Resets the existing license key for this account to a new key.
       To reset your account, you must specify the ID of the account you wish to reset and confirm the action.
       This API is only available to account administrators for the account in question, and may only be called after
@@ -18,7 +17,6 @@ class Mixin:
       When you call this API, all account administrators for this account will receive an email with the newly updated license key.
       The email will specify which user reset the license key and it will contain the new key to use to update your connectors.
     
-
       :param id_ [int] The ID of the account you wish to update.
       :param model [ResetLicenseKeyModel] A request confirming that you wish to reset the license key of this account.
       :return LicenseKeyModel
@@ -30,7 +28,6 @@ class Mixin:
     r"""
     Activate an account by accepting terms and conditions
     
-
     Activate the account specified by the unique accountId number.
       This activation request can only be called by account administrators. You must indicate
       that you have read and accepted Avalara's terms and conditions to call this API.
@@ -39,7 +36,6 @@ class Mixin:
       If you have not read or accepted the terms and conditions, this API call will return the
       unchanged account model.
     
-
       :param id_ [int] The ID of the account to activate
       :param include [string] Elements to include when fetching the account
       :param model [ActivateAccountModel] The activation request
@@ -52,13 +48,11 @@ class Mixin:
     r"""
     Retrieve a single account
     
-
     Get the account object identified by this URL.
       You may use the '$include' parameter to fetch additional nested data:
       * Subscriptions
       * Users
     
-
       :param id_ [int] The ID of the account to retrieve
       :param include [string] A comma separated list of special fetch options
       :return AccountModel
@@ -70,7 +64,6 @@ class Mixin:
     r"""
     Get configuration settings for this account
     
-
     Retrieve a list of all configuration settings tied to this account.
       Configuration settings provide you with the ability to control features of your account and of your
       tax software. The category names `TaxServiceConfig` and `AddressServiceConfig` are reserved for
@@ -81,7 +74,6 @@ class Mixin:
       Avalara-based account settings for `TaxServiceConfig` and `AddressServiceConfig` affect your account's
       tax calculation and address resolution, and should only be changed with care.
     
-
       :param id_ [int] 
       :return AccountConfigurationModel
     """
@@ -92,7 +84,6 @@ class Mixin:
     r"""
     Change configuration settings for this account
     
-
     Update configuration settings tied to this account.
       Configuration settings provide you with the ability to control features of your account and of your
       tax software. The category names `TaxServiceConfig` and `AddressServiceConfig` are reserved for
@@ -103,7 +94,6 @@ class Mixin:
       Avalara-based account settings for `TaxServiceConfig` and `AddressServiceConfig` affect your account's
       tax calculation and address resolution, and should only be changed with care.
     
-
       :param id_ [int] 
       :param model [AccountConfigurationModel] 
       :return AccountConfigurationModel
@@ -115,7 +105,6 @@ class Mixin:
     r"""
     Retrieve geolocation information for a specified address
     
-
     Resolve an address against Avalara's address-validation system. If the address can be resolved, this API
       provides the latitude and longitude of the resolved location. The value 'resolutionQuality' can be used
       to identify how closely this address can be located. If the address cannot be clearly located, use the
@@ -123,7 +112,6 @@ class Mixin:
       This is the same API as the POST /api/v2/addresses/resolve endpoint.
       Both verbs are supported to provide for flexible implementation.
     
-
       :param line1 [string] Line 1
       :param line2 [string] Line 2
       :param line3 [string] Line 3
@@ -143,7 +131,6 @@ class Mixin:
     r"""
     Retrieve geolocation information for a specified address
     
-
     Resolve an address against Avalara's address-validation system. If the address can be resolved, this API
       provides the latitude and longitude of the resolved location. The value 'resolutionQuality' can be used
       to identify how closely this address can be located. If the address cannot be clearly located, use the
@@ -151,13 +138,149 @@ class Mixin:
       This is the same API as the GET /api/v2/addresses/resolve endpoint.
       Both verbs are supported to provide for flexible implementation.
     
-
       :param model [AddressValidationInfo] The address to resolve
       :return AddressResolutionModel
     """
     def resolve_address_post(self, model):
         return requests.post('{}/api/v2/addresses/resolve'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model)
+
+    r"""
+    Approve an advanced rule script to run.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return AdvancedRuleScriptModel
+    """
+    def approve_advanced_rule_script(self, accountId, scriptType):
+        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/approve'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Create an advanced rule.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that will own the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type, Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :param crashBehavior [AdvancedRuleCrashBehavior] The behavior the script should take if it crashes: Fail or Proceed. (See AdvancedRuleCrashBehavior::* for a list of allowable values)
+      :param file [String] The JavaScript file containing the advanced rule.
+      :return string
+    """
+    def create_advanced_rule_script(self, accountId, scriptType, include=None):
+        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=include)
+
+    r"""
+    Create a lookup table for an advanced rule
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param csvTableName [string] The name to assign the CSV lookup table.
+      :param file [String] A CSV file containing lookup data for an advanced rule.
+      :return string
+    """
+    def create_advanced_rule_table(self, accountId, csvTableName):
+        return requests.post('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Delete an account's active advanced rule
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return ErrorDetail
+    """
+    def delete_advanced_rule_script(self, accountId, scriptType):
+        return requests.delete('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Delete a lookup table for an advanced rule.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param csvTableName [string] The name of the CSV lookup table to delete.
+      :return ErrorDetail
+    """
+    def delete_advanced_rule_table(self, accountId, csvTableName):
+        return requests.delete('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Get an account's advanced rule script.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return AdvancedRuleScriptModel
+    """
+    def get_advanced_rule_script(self, accountId, scriptType):
+        return requests.get('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Get an advanced rule lookup table for an account
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param csvTableName [string] The name of the CSV lookup table to get.
+      :return AdvancedRuleTableModel
+    """
+    def get_advanced_rule_table(self, accountId, csvTableName):
+        return requests.get('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Get all advanced rule lookup tables for an account
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :return AdvancedRuleTableModel
+    """
+    def get_advanced_rule_tables(self, accountId):
+        return requests.get('{}/api/v2/accounts/{}/advancedruletables'.format(self.base_url, accountId),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Unapprove an advanced rule script so that it cannot be run.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return AdvancedRuleScriptModel
+    """
+    def unapprove_advanced_rule_script(self, accountId, scriptType):
+        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/unapprove'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None)
 
     r"""
     Create a new AvaFileForm
@@ -230,12 +353,8 @@ class Mixin:
     r"""
     Create a new batch
     
-
     Create one or more new batch objects attached to this company.
-
-
       Each batch object may have one or more file objects (currently only one file is supported).
-
       When a batch is created, it is added to the AvaTax Batch Queue and will be
       processed as quickly as possible in the order it was received. To check the
       status of a batch, fetch the batch and retrieve the results of the batch
@@ -256,9 +375,7 @@ class Mixin:
 
     r"""
     Delete a single batch
-
     
-
     
     
       :param companyId [int] The ID of the company that owns this batch.
@@ -272,10 +389,8 @@ class Mixin:
     r"""
     Download a single batch file
     
-
     Download a single batch file identified by this URL.
     
-
       :param companyId [int] The ID of the company that owns this batch
       :param batchId [int] The ID of the batch object
       :param id_ [int] The primary key of this batch file object
@@ -288,12 +403,8 @@ class Mixin:
     r"""
     Retrieve a single batch
     
-
     Get the batch object identified by this URL. A batch object is a large
       collection of API calls stored in a compact file.
-
-
-
       Use this endpoint to retrieve the results or check the status of a batch.
       When a batch is created, it is added to the AvaTax Batch Queue and will be
       processed as quickly as possible in the order it was received. To check the
@@ -316,15 +427,11 @@ class Mixin:
     r"""
     Retrieve all batches for this company
     
-
     List all batch objects attached to the specified company.
       A batch object is a large collection of API calls stored in a compact file.
       Search for specific objects using the criteria in the `$filter` parameter;
-
-
       full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate results using the `$top`, `$skip`, and `$orderby` parameters.
-
       Use [GetBatch](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Batches/GetBatch/)
       to retrieve the results, or check the status, of an individual batch.
       When a batch is created, it is added to the AvaTax Batch Queue and will be
@@ -352,15 +459,11 @@ class Mixin:
     r"""
     Retrieve all batches
     
-
     Get multiple batch objects across all companies.
       A batch object is a large collection of API calls stored in a compact file.
       Search for specific objects using the criteria in the `$filter` parameter;
-
-
       full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate results using the `$top`, `$skip`, and `$orderby` parameters.
-
       When a batch is created, it is added to the AvaTax Batch Queue and will be
       processed as quickly as possible in the order it was received. To check the
       status of a batch, fetch the batch and retrieve the results of the batch
@@ -385,7 +488,6 @@ class Mixin:
     r"""
     Create a CertExpress invitation
     
-
     Creates an invitation for a customer to self-report certificates using the CertExpress website.
       This invitation is delivered by your choice of method, or you can present a hyperlink to the user
       directly in your connector. Your customer will be redirected to https://app.certexpress.com/ where
@@ -399,7 +501,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that will record certificates
       :param customerCode [string] The number of the customer where the request is sent to
       :param model [CreateCertExpressInvitationModel] the requests to send out to customers
@@ -412,7 +513,6 @@ class Mixin:
     r"""
     Retrieve a single CertExpress invitation
     
-
     Retrieve an existing CertExpress invitation sent to a customer.
       A CertExpression invitation allows a customer to follow a helpful step-by-step guide to provide information
       about their certificates. This step by step guide allows the customer to complete and upload the full
@@ -426,7 +526,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that issued this invitation
       :param customerCode [string] The number of the customer where the request is sent to
       :param id_ [int] The unique ID number of this CertExpress invitation
@@ -440,7 +539,6 @@ class Mixin:
     r"""
     List CertExpress invitations
     
-
     Retrieve CertExpress invitations sent by this company.
       A CertExpression invitation allows a customer to follow a helpful step-by-step guide to provide information
       about their certificates. This step by step guide allows the customer to complete and upload the full
@@ -454,7 +552,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that issued this invitation
       :param include [string] OPTIONAL: A comma separated list of special fetch options.       No options are defined at this time.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -470,7 +567,6 @@ class Mixin:
     r"""
     Create certificates for this company
     
-
     Record one or more certificates document for this company.
       A certificate is a document stored in either AvaTax Exemptions or CertCapture. The certificate document
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
@@ -487,7 +583,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The ID number of the company recording this certificate
       :param model [CertificateModel] Certificates to be created
       :return CertificateModel
@@ -499,7 +594,6 @@ class Mixin:
     r"""
     Revoke and delete a certificate
     
-
     Revoke the certificate identified by this URL, then delete it.
       A certificate is a document stored in either AvaTax Exemptions or CertCapture. The certificate document
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
@@ -511,7 +605,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :return CertificateModel
@@ -523,7 +616,6 @@ class Mixin:
     r"""
     Download an image for this certificate
     
-
     Download an image or PDF file for this certificate.
       This API can be used to download either a single-page preview of the certificate or a full PDF document.
       To retrieve a preview image, set the `$type` parameter to `Jpeg` and the `$page` parameter to `1`.
@@ -536,7 +628,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param page [int] If you choose `$type`=`Jpeg`, you must specify which page number to retrieve.
@@ -550,7 +641,6 @@ class Mixin:
     r"""
     Retrieve a single certificate
     
-
     Get the current certificate identified by this URL.
       A certificate is a document stored in either AvaTax Exemptions or CertCapture. The certificate document
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
@@ -565,7 +655,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * Customers - Retrieves the list of customers linked to the certificate.   * PoNumbers - Retrieves all PO numbers tied to the certificate.   * Attributes - Retrieves all attributes applied to the certificate.
@@ -578,7 +667,6 @@ class Mixin:
     r"""
     Check a company's exemption certificate status.
     
-
     Checks whether this company is configured to use exemption certificates in AvaTax.
       Exemption certificates are tracked through a different auditable data store than the one that
       holds AvaTax transactions. To use the AvaTax exemption certificate document store, please call
@@ -586,7 +674,6 @@ class Mixin:
       document store. To request setup, please call `RequestCertificateSetup` and your company will
       be configured with data storage in the auditable certificate system.
     
-
       :param companyId [int] The company ID to check
       :return ProvisionStatusModel
     """
@@ -597,7 +684,6 @@ class Mixin:
     r"""
     Link attributes to a certificate
     
-
     Link one or many attributes to a certificate.
       A certificate may have multiple attributes that control its behavior. You may link or unlink attributes to a
       certificate at any time. The full list of defined attributes may be found using `ListCertificateAttributes`.
@@ -610,7 +696,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [CertificateAttributeModel] The list of attributes to link to this certificate.
@@ -623,7 +708,6 @@ class Mixin:
     r"""
     Link customers to a certificate
     
-
     Link one or more customers to an existing certificate.
       Customers and certificates must be linked before a customer can make use of a certificate to obtain
       a tax exemption in AvaTax. Since some certificates may cover more than one business entity, a certificate
@@ -637,7 +721,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [LinkCustomersModel] The list of customers needed be added to the Certificate for exemption
@@ -650,7 +733,6 @@ class Mixin:
     r"""
     List all attributes applied to this certificate
     
-
     Retrieve the list of attributes that are linked to this certificate.
       A certificate may have multiple attributes that control its behavior. You may link or unlink attributes to a
       certificate at any time. The full list of defined attributes may be found using `/api/v2/definitions/certificateattributes`.
@@ -663,7 +745,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :return FetchResult
@@ -675,7 +756,6 @@ class Mixin:
     r"""
     List customers linked to this certificate
     
-
     List all customers linked to this certificate.
       Customers must be linked to a certificate in order to make use of its tax exemption features. You
       can link or unlink customers to a certificate at any time.
@@ -688,7 +768,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param include [string] OPTIONAL: A comma separated list of special fetch options.    No options are currently available when fetching customers.
@@ -701,7 +780,6 @@ class Mixin:
     r"""
     List all certificates for a company
     
-
     List all certificates recorded by a company
       A certificate is a document stored in either AvaTax Exemptions or CertCapture. The certificate document
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
@@ -716,7 +794,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The ID number of the company to search
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * Customers - Retrieves the list of customers linked to the certificate.   * PoNumbers - Retrieves all PO numbers tied to the certificate.   * Attributes - Retrieves all attributes applied to the certificate.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -732,7 +809,6 @@ class Mixin:
     r"""
     Request setup of exemption certificates for this company.
     
-
     Requests the setup of exemption certificates for this company.
       Exemption certificates are tracked through a different auditable data store than the one that
       holds AvaTax transactions. To use the AvaTax exemption certificate document store, please call
@@ -741,7 +817,6 @@ class Mixin:
       be configured with data storage in the auditable certificate system.
       This API will return the current status of exemption certificate setup for this company.
     
-
       :param companyId [int] 
       :return ProvisionStatusModel
     """
@@ -752,7 +827,6 @@ class Mixin:
     r"""
     Unlink attributes from a certificate
     
-
     Unlink one or many attributes from a certificate.
       A certificate may have multiple attributes that control its behavior. You may link or unlink attributes to a
       certificate at any time. The full list of defined attributes may be found using `ListCertificateAttributes`.
@@ -765,7 +839,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [CertificateAttributeModel] The list of attributes to unlink from this certificate.
@@ -778,7 +851,6 @@ class Mixin:
     r"""
     Unlink customers from a certificate
     
-
     Unlinks one or more customers from a certificate.
       Unlinking a certificate from a customer will prevent the certificate from being used to generate
       tax exemptions for the customer in the future. If any previous transactions for this customer had
@@ -793,7 +865,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [LinkCustomersModel] The list of customers to unlink from this certificate
@@ -806,7 +877,6 @@ class Mixin:
     r"""
     Update a single certificate
     
-
     Replace the certificate identified by this URL with a new one.
       A certificate is a document stored in either AvaTax Exemptions or CertCapture. The certificate document
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
@@ -817,7 +887,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [CertificateModel] The new certificate object that will replace the existing one
@@ -830,7 +899,6 @@ class Mixin:
     r"""
     Upload an image or PDF attachment for this certificate
     
-
     Upload an image or PDF attachment for this certificate.
       Image attachments can be of the format `PDF`, `JPEG`, `TIFF`, or `PNG`. To upload a multi-page image, please
       use the `PDF` data type.
@@ -843,7 +911,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param file [String] The exemption certificate file you wanted to upload. Accepted formats are: PDF, JPEG, TIFF, PNG.
@@ -856,7 +923,6 @@ class Mixin:
     r"""
     Change the filing status of this company
     
-
     Changes the current filing status of this company.
       For customers using Avalara's Managed Returns Service, each company within their account can request
       for Avalara to file tax returns on their behalf. Avalara compliance team members will review all
@@ -867,7 +933,6 @@ class Mixin:
       * Avalara compliance team members may change a company from `FirstFiling` to `Active`.
       All other status changes must be requested through the Avalara customer support team.
     
-
       :param id_ [int] 
       :param model [FilingStatusChangeModel] 
       :return string
@@ -879,7 +944,6 @@ class Mixin:
     r"""
     Quick setup for a company with a single physical address
     
-
     Shortcut to quickly setup a single-physical-location company with critical information and activate it.
       This API provides quick and simple company setup functionality and does the following things:
       * Create a company object with its own tax profile
@@ -891,7 +955,6 @@ class Mixin:
       If you need additional features or options not present in this 'Quick Setup' API call, please use the full 'Create Company' call instead.
       Please allow 1 minute before making transactions using the company.
     
-
       :param model [CompanyInitializationModel] Information about the company you wish to create.
       :return CompanyModel
     """
@@ -902,12 +965,10 @@ class Mixin:
     r"""
     Create new companies
     
-
     Create one or more new company objects.
       A 'company' represents a single corporation or individual that is registered to handle transactional taxes.
       You may attach nested data objects such as contacts, locations, and nexus with this CREATE call, and those objects will be created with the company.
     
-
       :param model [CompanyModel] Either a single company object or an array of companies to create
       :return CompanyModel
     """
@@ -918,7 +979,6 @@ class Mixin:
     r"""
     Request managed returns funding setup for a company
     
-
     This API is available by invitation only.
       Companies that use the Avalara Managed Returns or the SST Certified Service Provider services are
       required to setup their funding configuration before Avalara can begin filing tax returns on their
@@ -930,7 +990,6 @@ class Mixin:
       This API records that an ambedded HTML funding setup widget was activated.
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
     
-
       :param id_ [int] The unique identifier of the company
       :param model [FundingInitiateModel] The funding initialization request
       :return FundingStatusModel
@@ -942,10 +1001,8 @@ class Mixin:
     r"""
     Delete a single company
     
-
     Deleting a company will delete all child companies, and all users attached to this company.
     
-
       :param id_ [int] The ID of the company you wish to delete.
       :return ErrorDetail
     """
@@ -956,13 +1013,11 @@ class Mixin:
     r"""
     Check the funding configuration of a company
     
-
     This API is available by invitation only.
       Requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       Returns the funding configuration of the requested company.
       .
     
-
       :param companyId [int] The unique identifier of the company
       :return FundingConfigurationModel
     """
@@ -973,13 +1028,11 @@ class Mixin:
     r"""
     Check the funding configuration of a company
     
-
     This API is available by invitation only.
       Requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       Returns the funding configuration of the requested company.
       .
     
-
       :param companyId [int] The unique identifier of the company
       :param currency [string] The currency of the funding. USD and CAD are the only valid currencies
       :return FundingConfigurationModel
@@ -991,7 +1044,6 @@ class Mixin:
     r"""
     Retrieve a single company
     
-
     Get the company object identified by this URL.
       A 'company' represents a single corporation or individual that is registered to handle transactional taxes.
       You may specify one or more of the following values in the '$include' parameter to fetch additional nested data, using commas to separate multiple values:
@@ -1004,7 +1056,6 @@ class Mixin:
        * TaxRules
        * UPC
     
-
       :param id_ [int] The ID of the company to retrieve.
       :param include [string] OPTIONAL: A comma separated list of special fetch options.       * Child objects - Specify one or more of the following to retrieve objects related to each company: "Contacts", "FilingCalendars", "Items", "Locations", "Nexus", "TaxCodes", or "TaxRules".   * Deleted objects - Specify "FetchDeleted" to retrieve information about previously deleted objects.
       :return CompanyModel
@@ -1016,7 +1067,6 @@ class Mixin:
     r"""
     Get configuration settings for this company
     
-
     Retrieve a list of all configuration settings tied to this company.
       Configuration settings provide you with the ability to control features of your account and of your
       tax software. The category names `AvaCertServiceConfig` is reserved for
@@ -1027,7 +1077,6 @@ class Mixin:
       Avalara-based account settings for `AvaCertServiceConfig` affect your account's exemption certificate
       processing, and should only be changed with care.
     
-
       :param id_ [int] 
       :return CompanyConfigurationModel
     """
@@ -1038,7 +1087,6 @@ class Mixin:
     r"""
     Get this company's filing status
     
-
     Retrieve the current filing status of this company.
       For customers using Avalara's Managed Returns Service, each company within their account can request
       for Avalara to file tax returns on their behalf. Avalara compliance team members will review all
@@ -1050,7 +1098,6 @@ class Mixin:
       * `FirstFiling` - The company has recently filing tax returns and is in a new status.
       * `Active` - The company is currently active and is filing tax returns via Avalara Managed Returns.
     
-
       :param id_ [int] 
       :return string
     """
@@ -1061,13 +1108,11 @@ class Mixin:
     r"""
     Check managed returns funding status for a company
     
-
     This API is available by invitation only.
       Requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       Returns a list of funding setup requests and their current status.
       Each object in the result is a request that was made to setup or adjust funding status for this company.
     
-
       :param id_ [int] The unique identifier of the company
       :return FundingStatusModel
     """
@@ -1078,11 +1123,9 @@ class Mixin:
     r"""
     Retrieve a list of MRS Companies with account
     
-
     This API is available by invitation only.
       Get a list of companies with an active MRS service.
     
-
       :return FetchResult
     """
     def list_mrs_companies(self):
@@ -1092,7 +1135,6 @@ class Mixin:
     r"""
     Retrieve all companies
     
-
     Get multiple company objects.
       A 'company' represents a single corporation or individual that is registered to handle transactional taxes.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -1107,7 +1149,6 @@ class Mixin:
       * TaxRules
       * UPC
     
-
       :param include [string] A comma separated list of objects to fetch underneath this company. Any object with a URL path underneath this company can be fetched by specifying its name.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -1122,7 +1163,6 @@ class Mixin:
     r"""
     Change configuration settings for this account
     
-
     Update configuration settings tied to this account.
       Configuration settings provide you with the ability to control features of your account and of your
       tax software. The category names `AvaCertServiceConfig` is reserved for
@@ -1133,7 +1173,6 @@ class Mixin:
       Avalara-based account settings for `AvaCertServiceConfig` affect your account's exemption certificate
       processing, and should only be changed with care.
     
-
       :param id_ [int] 
       :param model [CompanyConfigurationModel] 
       :return CompanyConfigurationModel
@@ -1145,13 +1184,11 @@ class Mixin:
     r"""
     Update a single company
     
-
     Replace the existing company object at this URL with an updated object.
       A 'company' represents a single corporation or individual that is registered to handle transactional taxes.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
     
-
       :param id_ [int] The ID of the company you wish to update.
       :param model [CompanyModel] The company object you wish to update.
       :return CompanyModel
@@ -1163,12 +1200,10 @@ class Mixin:
     r"""
     Create a new contact
     
-
     Create one or more new contact objects.
       A 'contact' is a person associated with a company who is designated to handle certain responsibilities of
       a tax collecting and filing entity.
     
-
       :param companyId [int] The ID of the company that owns this contact.
       :param model [ContactModel] The contacts you wish to create.
       :return ContactModel
@@ -1180,10 +1215,8 @@ class Mixin:
     r"""
     Delete a single contact
     
-
     Mark the existing contact object at this URL as deleted.
     
-
       :param companyId [int] The ID of the company that owns this contact.
       :param id_ [int] The ID of the contact you wish to delete.
       :return ErrorDetail
@@ -1195,12 +1228,10 @@ class Mixin:
     r"""
     Retrieve a single contact
     
-
     Get the contact object identified by this URL.
       A 'contact' is a person associated with a company who is designated to handle certain responsibilities of
       a tax collecting and filing entity.
     
-
       :param companyId [int] The ID of the company for this contact
       :param id_ [int] The primary key of this contact
       :return ContactModel
@@ -1212,12 +1243,10 @@ class Mixin:
     r"""
     Retrieve contacts for this company
     
-
     List all contact objects assigned to this company.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param companyId [int] The ID of the company that owns these contacts
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
@@ -1233,14 +1262,12 @@ class Mixin:
     r"""
     Retrieve all contacts
     
-
     Get multiple contact objects across all companies.
       A 'contact' is a person associated with a company who is designated to handle certain responsibilities of
       a tax collecting and filing entity.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -1255,14 +1282,12 @@ class Mixin:
     r"""
     Update a single contact
     
-
     Replace the existing contact object at this URL with an updated object.
       A 'contact' is a person associated with a company who is designated to handle certain responsibilities of
       a tax collecting and filing entity.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
     
-
       :param companyId [int] The ID of the company that this contact belongs to.
       :param id_ [int] The ID of the contact you wish to update
       :param model [ContactModel] The contact you wish to update.
@@ -1275,19 +1300,19 @@ class Mixin:
     r"""
     Create customers for this company
     
-
     Create one or more customers for this company.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
       record in your `CreateTransaction` API call. AvaTax will search for this `customerCode` value and
       identify any certificates linked to this `customer` object. If any certificate applies to the transaction,
       AvaTax will record the appropriate elements of the transaction as exempt and link it to the `certificate`.
+      A nested object such as CustomFields could be specified and created along with the customer object. To fetch the
+      nested object, please call 'GetCustomer' API with appropriate $include parameters.
       Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param model [CustomerModel] The list of customer objects to be created
       :return CustomerModel
@@ -1299,7 +1324,6 @@ class Mixin:
     r"""
     Delete a customer record
     
-
     Deletes the customer object referenced by this URL.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -1311,7 +1335,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :return CustomerModel
@@ -1323,7 +1346,6 @@ class Mixin:
     r"""
     Retrieve a single customer
     
-
     Retrieve the customer identified by this URL.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -1338,7 +1360,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param include [string] Specify optional additional objects to include in this fetch request
@@ -1351,7 +1372,6 @@ class Mixin:
     r"""
     Link certificates to a customer
     
-
     Link one or more certificates to a customer.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -1363,7 +1383,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param model [LinkCertificatesModel] The list of certificates to link to this customer
@@ -1376,7 +1395,6 @@ class Mixin:
     r"""
     List certificates linked to a customer
     
-
     List all certificates linked to a customer.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -1388,7 +1406,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * Customers - Retrieves the list of customers linked to the certificate.   * PoNumbers - Retrieves all PO numbers tied to the certificate.   * Attributes - Retrieves all attributes applied to the certificate.
@@ -1405,7 +1422,6 @@ class Mixin:
     r"""
     List active certificates for a location
     
-
     List valid certificates linked to a customer in a particular country and region.
       This API is intended to help identify whether a customer has already provided a certificate that
       applies to a particular country and region. This API is intended to help you remind a customer
@@ -1419,7 +1435,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param country [string] Search for certificates matching this country. Uses the ISO 3166 two character country code.
@@ -1433,7 +1448,6 @@ class Mixin:
     r"""
     List all customers for this company
     
-
     List all customers recorded by this company matching the specified criteria.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -1447,7 +1461,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param include [string] OPTIONAL - You can specify the value `certificates` to fetch information about certificates linked to the customer.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -1463,7 +1476,6 @@ class Mixin:
     r"""
     Unlink certificates from a customer
     
-
     Remove one or more certificates to a customer.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -1475,7 +1487,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param model [LinkCertificatesModel] The list of certificates to link to this customer
@@ -1488,7 +1499,6 @@ class Mixin:
     r"""
     Update a single customer
     
-
     Replace the customer object at this URL with a new record.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -1500,7 +1510,6 @@ class Mixin:
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
     
-
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param model [CustomerModel] The new customer model that will replace the existing record at this URL
@@ -1513,7 +1522,6 @@ class Mixin:
     r"""
     Lists all parents of an HS Code.
     
-
     Retrieves the specified HS code and all of its parents, reflecting all sections, chapters, headings, and subheadings
       a list of HS Codes that are the parents and information branches of the HS Code for the given
       destination country, if lower detail is available.
@@ -1522,7 +1530,6 @@ class Mixin:
       This API is intended to be useful to review the descriptive hierarchy of an HS Code, which can be particularly helpful
       when HS Codes can have multiple levels of generic descriptions.
     
-
       :param country [string] The name or code of the destination country.
       :param hsCode [string] The partial or full HS Code for which you would like to view all of the parents.
       :return FetchResult
@@ -1534,11 +1541,9 @@ class Mixin:
     r"""
     Test whether a form supports online login verification
     
-
     This API is intended to be useful to identify whether the user should be allowed
       to automatically verify their login and password.
     
-
       :param form [string] The name of the form you would like to verify. This can be the tax form code or the legacy return name
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -1553,13 +1558,11 @@ class Mixin:
     r"""
     Retrieve the full list of the AvaFile Forms available
     
-
     This API is deprecated.
       Please use the ListTaxForms API.
       Returns the full list of Avalara-supported AvaFile Forms
       This API is intended to be useful to identify all the different AvaFile Forms
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1573,14 +1576,12 @@ class Mixin:
     r"""
     List certificate attributes used by a company
     
-
     List the certificate attributes defined by a company.
       A certificate may have multiple attributes that control its behavior. You may apply or remove attributes to a
       certificate at any time.
       If you see the 'CertCaptureNotConfiguredError', please use CheckProvision and RequestProvision endpoints to
       check and provision account.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1592,16 +1593,14 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=include)
 
     r"""
-    List certificate attributes used by a company
+    List the certificate exempt reasons defined by a company
     
-
     List the certificate exempt reasons defined by a company.
       An exemption reason defines why a certificate allows a customer to be exempt
       for purposes of tax calculation.
       If you see the 'CertCaptureNotConfiguredError', please use CheckProvision and RequestProvision endpoints to
       check and provision account.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1615,14 +1614,12 @@ class Mixin:
     r"""
     List certificate exposure zones used by a company
     
-
     List the certificate exposure zones defined by a company.
       An exposure zone is a location where a certificate can be valid. Exposure zones may indicate a taxing
       authority or other legal entity to which a certificate may apply.
       If you see the 'CertCaptureNotConfiguredError', please use CheckProvision and RequestProvision endpoints to
       check and provision account.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1634,13 +1631,10 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=include)
 
     r"""
-    Retrieve the full list of communications transactiontypes
+    Retrieve the full list of communications service types
     
-
-    Returns full list of communications transaction types which
-      are accepted in communication tax calculation requests.
+    Returns full list of service types for a given transaction type ID.
     
-
       :param id_ [int] The transaction type ID to examine
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -1655,11 +1649,9 @@ class Mixin:
     r"""
     Retrieve the full list of communications transactiontypes
     
-
     Returns full list of communications transaction types which
       are accepted in communication tax calculation requests.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1673,11 +1665,9 @@ class Mixin:
     r"""
     Retrieve the full list of communications transaction/service type pairs
     
-
     Returns full list of communications transaction/service type pairs which
       are accepted in communication tax calculation requests.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1691,12 +1681,10 @@ class Mixin:
     r"""
     List all ISO 3166 countries
     
-
     Returns a list of all ISO 3166 country codes, and their US English friendly names.
       This API is intended to be useful when presenting a dropdown box in your website to allow customers to select a country for
       a shipping address.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1710,7 +1698,6 @@ class Mixin:
     r"""
     List certificate exposure zones used by a company
     
-
     List available cover letters that can be used when sending invitation to use CertExpress to upload certificates.
       The CoverLetter model represents a message sent along with an invitation to use CertExpress to
       upload certificates. An invitation allows customers to use CertExpress to upload their exemption
@@ -1718,7 +1705,6 @@ class Mixin:
       If you see the 'CertCaptureNotConfiguredError', please use CheckProvision and RequestProvision endpoints to
       check and provision account.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1732,7 +1718,6 @@ class Mixin:
     r"""
     Lists the next level of HS Codes given a destination country and HS Code prefix.
     
-
     Retrieves a list of HS Codes that are the children of the prefix for the given destination country, if
       additional children are available.
       HS Code is interchangeable with "tariff code" and definitions are generally unique to a destination country.
@@ -1740,7 +1725,6 @@ class Mixin:
       Section/Chapter/Heading/Subheading/Classification.
       This API is intended to be useful to identify the correct HS Code to use for your item.
     
-
       :param country [string] The name or code of the destination country.
       :param hsCode [string] The Section or partial HS Code for which you would like to view the next level of HS Code detail, if more detail is available.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -1756,14 +1740,12 @@ class Mixin:
     r"""
     List top level HS Code Sections.
     
-
     Returns the full list of top level HS Code Sections. Sections are the broadest level of detail for
       classifying tariff codes and the items to which they apply. HS Codes are organized
       by Section/Chapter/Heading/Subheading/Classification.
       This API is intended to be useful to identify the top level Sections for
       further LandedCost HS Code lookups.
     
-
       :return FetchResult
     """
     def list_cross_border_sections(self):
@@ -1773,12 +1755,10 @@ class Mixin:
     r"""
     List all ISO 4217 currencies supported by AvaTax.
     
-
     Lists all ISO 4217 currencies supported by AvaTax.
       This API produces a list of currency codes that can be used when calling AvaTax. The values from this API can be used to fill out the
       `currencyCode` field in a `CreateTransactionModel`.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1792,14 +1772,12 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported entity use codes
     
-
     Returns the full list of Avalara-supported entity use codes.
       Entity/Use Codes are definitions of the entity who is purchasing something, or the purpose for which the transaction
       is occurring. This information is generally used to determine taxability of the product.
       In order to facilitate correct reporting of your taxes, you are encouraged to select the proper entity use codes for
       all transactions that are exempt.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1813,11 +1791,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported filing frequencies.
     
-
     Returns the full list of Avalara-supported filing frequencies.
       This API is intended to be useful to identify all the different filing frequencies that can be used in notices.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1831,12 +1807,10 @@ class Mixin:
     r"""
     List jurisdictions based on the filter provided
     
-
     Returns a list of all Avalara-supported taxing jurisdictions.
       This API allows you to examine all Avalara-supported jurisdictions. You can filter your search by supplying
       SQL-like query for fetching only the ones you concerned about. For example: effectiveDate &gt; '2016-01-01'
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1850,14 +1824,12 @@ class Mixin:
     r"""
     List jurisdictions near a specific address
     
-
     Returns a list of all Avalara-supported taxing jurisdictions that apply to this address.
       This API allows you to identify which jurisdictions are nearby a specific address according to the best available geocoding information.
       It is intended to allow you to create a "Jurisdiction Override", which allows an address to be configured as belonging to a nearby
       jurisdiction in AvaTax.
       The results of this API call can be passed to the `CreateJurisdictionOverride` API call.
     
-
       :param line1 [string] The first address line portion of this address.
       :param line2 [string] The second address line portion of this address.
       :param line3 [string] The third address line portion of this address.
@@ -1878,7 +1850,6 @@ class Mixin:
     r"""
     Retrieve the list of questions that are required for a tax location
     
-
     Returns the list of additional questions you must answer when declaring a location in certain taxing jurisdictions.
       Some tax jurisdictions require that you register or provide additional information to configure each physical place where
       your company does business.
@@ -1886,7 +1857,6 @@ class Mixin:
       You can call this API call for any address and obtain information about what questions must be answered in order to properly
       file tax in that location.
     
-
       :param line1 [string] The first line of this location's address.
       :param line2 [string] The second line of this location's address.
       :param line3 [string] The third line of this location's address.
@@ -1909,12 +1879,10 @@ class Mixin:
     r"""
     List all forms where logins can be verified automatically
     
-
     List all forms where logins can be verified automatically.
       This API is intended to be useful to identify whether the user should be allowed
       to automatically verify their login and password.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1928,11 +1896,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported nexus for all countries and regions.
     
-
     Returns the full list of all Avalara-supported nexus for all countries and regions.
       This API is intended to be useful if your user interface needs to display a selectable list of nexus.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -1946,14 +1912,12 @@ class Mixin:
     r"""
     List all nexus that apply to a specific address.
     
-
     Returns a list of all Avalara-supported taxing jurisdictions that apply to this address.
       This API allows you to identify which tax authorities apply to a physical location, salesperson address, or point of sale.
       In general, it is usually expected that a company will declare nexus in all the jurisdictions that apply to each physical address
       where the company does business.
       The results of this API call can be passed to the 'Create Nexus' API call to declare nexus for this address.
     
-
       :param line1 [string] The first address line portion of this address.
       :param line2 [string] The first address line portion of this address.
       :param line3 [string] The first address line portion of this address.
@@ -1974,11 +1938,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported nexus for a country.
     
-
     Returns all Avalara-supported nexus for the specified country.
       This API is intended to be useful if your user interface needs to display a selectable list of nexus filtered by country.
     
-
       :param country [string] The country in which you want to fetch the system nexus
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -1993,11 +1955,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported nexus for a country and region.
     
-
     Returns all Avalara-supported nexus for the specified country and region.
       This API is intended to be useful if your user interface needs to display a selectable list of nexus filtered by country and region.
     
-
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -2013,7 +1973,6 @@ class Mixin:
     r"""
     List nexus related to a tax form
     
-
     Retrieves a list of nexus related to a tax form.
       The concept of `Nexus` indicates a place where your company has sufficient physical presence and is obligated
       to collect and remit transaction-based taxes.
@@ -2023,7 +1982,6 @@ class Mixin:
       a tax form, you may want to know whether you have declared nexus in all the jurisdictions related to that tax
       form in order to better understand how the form will be filled out.
     
-
       :param formCode [string] The form code that we are looking up the nexus for
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -2038,11 +1996,9 @@ class Mixin:
     r"""
     Retrieve the full list of nexus tax type groups
     
-
     Returns the full list of Avalara-supported nexus tax type groups
       This API is intended to be useful to identify all the different tax sub-types.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2056,11 +2012,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported tax notice customer funding options.
     
-
     Returns the full list of Avalara-supported tax notice customer funding options.
       This API is intended to be useful to identify all the different notice customer funding options that can be used in notices.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2074,11 +2028,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported tax notice customer types.
     
-
     Returns the full list of Avalara-supported tax notice customer types.
       This API is intended to be useful to identify all the different notice customer types.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2092,11 +2044,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported tax notice filing types.
     
-
     Returns the full list of Avalara-supported tax notice filing types.
       This API is intended to be useful to identify all the different notice filing types that can be used in notices.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2110,11 +2060,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported tax notice priorities.
     
-
     Returns the full list of Avalara-supported tax notice priorities.
       This API is intended to be useful to identify all the different notice priorities that can be used in notices.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2128,11 +2076,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported tax notice reasons.
     
-
     Returns the full list of Avalara-supported tax notice reasons.
       This API is intended to be useful to identify all the different tax notice reasons.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2146,11 +2092,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported tax notice responsibility ids
     
-
     Returns the full list of Avalara-supported tax notice responsibility ids
       This API is intended to be useful to identify all the different tax notice responsibilities.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2164,11 +2108,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported tax notice root causes
     
-
     Returns the full list of Avalara-supported tax notice root causes
       This API is intended to be useful to identify all the different tax notice root causes.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2182,11 +2124,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported tax notice statuses.
     
-
     Returns the full list of Avalara-supported tax notice statuses.
       This API is intended to be useful to identify all the different tax notice statuses.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2200,11 +2140,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported tax notice types.
     
-
     Returns the full list of Avalara-supported tax notice types.
       This API is intended to be useful to identify all the different notice types that can be used in notices.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2218,12 +2156,10 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported extra parameters for creating transactions.
     
-
     Returns the full list of Avalara-supported extra parameters for the 'Create Transaction' API call.
       This list of parameters is available for use when configuring your transaction.
       Some parameters are only available for use if you have subscribed to certain features of AvaTax.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2237,11 +2173,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported permissions
     
-
     Returns the full list of Avalara-supported permission types.
       This API is intended to be useful to identify the capabilities of a particular user logon.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2255,10 +2189,8 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported postal codes.
     
-
     Retrieves the list of Avalara-supported postal codes.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2272,7 +2204,6 @@ class Mixin:
     r"""
     List all customs duty programs recognized by AvaTax
     
-
     List all preferred customs duty programs recognized by AvaTax.
       A customs duty program is an optional program you can use to obtain favorable treatment from customs and duty agents.
       An example of a preferred program is NAFTA, which provides preferential rates for products being shipped from neighboring
@@ -2281,7 +2212,6 @@ class Mixin:
       preferred program. Next, set the parameter `AvaTax.LC.PreferredProgram` in your `CreateTransaction` call to the code of
       the program.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2295,11 +2225,9 @@ class Mixin:
     r"""
     Retrieve the full list of rate types for each country
     
-
     Returns the full list of Avalara-supported rate type file types
       This API is intended to be useful to identify all the different rate types.
     
-
       :param country [string] The country to examine for rate types
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -2314,12 +2242,10 @@ class Mixin:
     r"""
     List all ISO 3166 regions
     
-
     Returns a list of all ISO 3166 region codes and their US English friendly names.
       This API is intended to be useful when presenting a dropdown box in your website to allow customers to select a region
       within the country for a shipping addresses.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2333,12 +2259,10 @@ class Mixin:
     r"""
     List all ISO 3166 regions for a country
     
-
     Returns a list of all ISO 3166 region codes for a specific country code, and their US English friendly names.
       This API is intended to be useful when presenting a dropdown box in your website to allow customers to select a region
       within the country for a shipping addresses.
     
-
       :param country [string] The country of which you want to fetch ISO 3166 regions
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -2353,11 +2277,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported resource file types
     
-
     Returns the full list of Avalara-supported resource file types
       This API is intended to be useful to identify all the different resource file types.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2371,12 +2293,10 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported permissions
     
-
     Returns the full list of Avalara-supported permission types.
       This API is intended to be useful when designing a user interface for selecting the security role of a user account.
       Some security roles are restricted for Avalara internal use.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2390,13 +2310,11 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported subscription types
     
-
     Returns the full list of Avalara-supported subscription types.
       This API is intended to be useful for identifying which features you have added to your account.
       You may always contact Avalara's sales department for information on available products or services.
       You cannot change your subscriptions directly through the API.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2410,11 +2328,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported tax authorities.
     
-
     Returns the full list of Avalara-supported tax authorities.
       This API is intended to be useful to identify all the different authorities that receive tax.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2428,13 +2344,11 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported forms for each tax authority.
     
-
     Returns the full list of Avalara-supported forms for each tax authority.
       This list represents tax forms that Avalara recognizes.
       Customers who subscribe to Avalara Managed Returns Service can request these forms to be filed automatically
       based on the customer's AvaTax data.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2448,11 +2362,9 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported tax authority types.
     
-
     Returns the full list of Avalara-supported tax authority types.
       This API is intended to be useful to identify all the different authority types.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2466,14 +2378,12 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported tax codes.
     
-
     Retrieves the list of Avalara-supported system tax codes.
       A 'TaxCode' represents a uniquely identified type of product, good, or service.
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
       If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
       taxability rules for this product in all supported jurisdictions.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2487,12 +2397,10 @@ class Mixin:
     r"""
     Retrieve the full list of Avalara-supported tax code types.
     
-
     Returns the full list of recognized tax code types.
       A 'Tax Code Type' represents a broad category of tax codes, and is less detailed than a single TaxCode.
       This API is intended to be useful for broadly searching for tax codes by tax code type.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2506,11 +2414,9 @@ class Mixin:
     r"""
     Retrieve the full list of the Tax Forms available
     
-
     Returns the full list of Avalara-supported Tax Forms
       This API is intended to be useful to identify all the different Tax Forms
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2524,11 +2430,9 @@ class Mixin:
     r"""
     Retrieve the full list of tax sub types
     
-
     Returns the full list of Avalara-supported tax sub-types
       This API is intended to be useful to identify all the different tax sub-types.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2542,11 +2446,9 @@ class Mixin:
     r"""
     Retrieve the full list of tax type groups
     
-
     Returns the full list of Avalara-supported tax type groups
       This API is intended to be useful to identify all the different tax type groups.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2560,11 +2462,9 @@ class Mixin:
     r"""
     List all defined units of measurement
     
-
     List all units of measurement systems defined by Avalara.
       A unit of measurement system is a method of measuring a quantity, such as distance, mass, or others.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2578,13 +2478,11 @@ class Mixin:
     r"""
     Create one or more DistanceThreshold objects
     
-
     Create one or more DistanceThreshold objects for this company.
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
     
-
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold
       :param model [CompanyDistanceThresholdModel] The DistanceThreshold object or objects you wish to create.
       :return CompanyDistanceThresholdModel
@@ -2596,13 +2494,11 @@ class Mixin:
     r"""
     Delete a single DistanceThreshold object
     
-
     Marks the DistanceThreshold object identified by this URL as deleted.
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
     
-
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold
       :param id_ [int] The unique ID number of the DistanceThreshold object you wish to delete.
       :return ErrorDetail
@@ -2614,13 +2510,11 @@ class Mixin:
     r"""
     Retrieve a single DistanceThreshold
     
-
     Retrieves a single DistanceThreshold object defined by this URL.
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
     
-
       :param companyId [int] The ID of the company that owns this DistanceThreshold object
       :param id_ [int] The unique ID number referring to this DistanceThreshold object
       :return CompanyDistanceThresholdModel
@@ -2632,13 +2526,11 @@ class Mixin:
     r"""
     Retrieve all DistanceThresholds for this company.
     
-
     Lists all DistanceThreshold objects that belong to this company.
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
     
-
       :param companyId [int] The ID of the company whose DistanceThreshold objects you wish to list.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
@@ -2654,7 +2546,6 @@ class Mixin:
     r"""
     Retrieve all DistanceThreshold objects
     
-
     Lists all DistanceThreshold objects that belong to this account.
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
@@ -2662,7 +2553,6 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -2677,7 +2567,6 @@ class Mixin:
     r"""
     Update a DistanceThreshold object
     
-
     Replace the existing DistanceThreshold object at this URL with an updated object.
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
@@ -2685,7 +2574,6 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
     
-
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold object.
       :param id_ [int] The unique ID number of the DistanceThreshold object to replace.
       :param model [CompanyDistanceThresholdModel] The new DistanceThreshold object to store.
@@ -2698,13 +2586,11 @@ class Mixin:
     r"""
     Approve existing Filing Request
     
-
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
       The filing request must be in the "ChangeRequest" status to be approved.
     
-
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing request object
       :return FilingRequestModel
@@ -2716,12 +2602,10 @@ class Mixin:
     r"""
     Cancel existing Filing Request
     
-
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
     
-
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing request object
       :return FilingRequestModel
@@ -2733,12 +2617,10 @@ class Mixin:
     r"""
     Create a new filing request to cancel a filing calendar
     
-
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
     
-
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID number of the filing calendar to cancel
       :param model [FilingRequestModel] The cancellation request for this filing calendar
@@ -2751,11 +2633,9 @@ class Mixin:
     r"""
     Create a filing calendar
     
-
     This API is available by invitation only and only available for users with Compliance access
       A "filing request" represents information that compliance uses to file a return
     
-
       :param companyId [int] The unique ID of the company that will add the new filing calendar
       :param model [FilingCalendarModel] Filing calendars that will be added
       :return FilingCalendarModel
@@ -2767,12 +2647,10 @@ class Mixin:
     r"""
     Create a new filing request to create a filing calendar
     
-
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
     
-
       :param companyId [int] The unique ID of the company that will add the new filing calendar
       :param model [FilingRequestModel] Information about the proposed new filing calendar
       :return FilingRequestModel
@@ -2784,10 +2662,8 @@ class Mixin:
     r"""
     Returns a list of options for adding the specified form.
     
-
     This API is available by invitation only.
     
-
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param formCode [string] The unique code of the form
       :return CycleAddOptionModel
@@ -2799,10 +2675,8 @@ class Mixin:
     r"""
     Indicates when changes are allowed to be made to a filing calendar.
     
-
     This API is available by invitation only.
     
-
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID of the filing calendar object
       :param model [FilingCalendarEditModel] A list of filing calendar edits to be made
@@ -2815,10 +2689,8 @@ class Mixin:
     r"""
     Returns a list of options for expiring a filing calendar
     
-
     This API is available by invitation only.
     
-
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID of the filing calendar object
       :return CycleExpireModel
@@ -2830,13 +2702,11 @@ class Mixin:
     r"""
     Delete a single filing calendar.
     
-
     This API is available by invitation only.
       Mark the existing notice object at this URL as deleted.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param companyId [int] The ID of the company that owns this filing calendar.
       :param id_ [int] The ID of the filing calendar you wish to delete.
       :return ErrorDetail
@@ -2848,10 +2718,8 @@ class Mixin:
     r"""
     Retrieve a single filing calendar
     
-
     This API is available by invitation only.
     
-
       :param companyId [int] The ID of the company that owns this filing calendar
       :param id_ [int] The primary key of this filing calendar
       :return FilingCalendarModel
@@ -2863,12 +2731,10 @@ class Mixin:
     r"""
     Retrieve a single filing request
     
-
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
     
-
       :param companyId [int] The ID of the company that owns this filing calendar
       :param id_ [int] The primary key of this filing calendar
       :return FilingRequestModel
@@ -2880,10 +2746,8 @@ class Mixin:
     r"""
     Retrieve all filing calendars for this company
     
-
     This API is available by invitation only.
     
-
       :param companyId [int] The ID of the company that owns these batches
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -2900,12 +2764,10 @@ class Mixin:
     r"""
     Retrieve all filing requests for this company
     
-
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
     
-
       :param companyId [int] The ID of the company that owns these batches
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -2920,11 +2782,9 @@ class Mixin:
     r"""
     New request for getting for validating customer's login credentials
     
-
     This API is available by invitation only.
       This API verifies that a customer has submitted correct login credentials for a tax authority's online filing system.
     
-
       :param model [LoginVerificationInputModel] The model of the login information we are verifying
       :return LoginVerificationOutputModel
     """
@@ -2935,12 +2795,10 @@ class Mixin:
     r"""
     Gets the request status and Login Result
     
-
     This API is available by invitation only.
       This API checks the status of a login verification request. It may only be called by authorized users from the account
       that initially requested the login verification.
     
-
       :param jobId [int] The unique ID number of this login request
       :return LoginVerificationOutputModel
     """
@@ -2951,10 +2809,8 @@ class Mixin:
     r"""
     Retrieve all filing calendars
     
-
     This API is available by invitation only.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2970,14 +2826,12 @@ class Mixin:
     r"""
     Retrieve all filing requests
     
-
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2991,14 +2845,12 @@ class Mixin:
     r"""
     Create a new filing request to edit a filing calendar
     
-
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
       Certain users may not update filing calendars directly. Instead, they may submit an edit request
       to modify the value of a filing calendar using this API.
     
-
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID number of the filing calendar to edit
       :param model [FilingRequestModel] A list of filing calendar edits to be made
@@ -3011,10 +2863,8 @@ class Mixin:
     r"""
     Edit existing Filing Calendar
     
-
     This API is available by invitation only.
     
-
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing calendar object
       :param model [FilingCalendarModel] The filing calendar model you are wishing to update with.
@@ -3027,12 +2877,10 @@ class Mixin:
     r"""
     Edit existing Filing Request
     
-
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
     
-
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing request object
       :param model [FilingRequestModel] A list of filing calendar edits to be made
@@ -3045,7 +2893,6 @@ class Mixin:
     r"""
     Approve all filings for the specified company in the given filing period.
     
-
     This API is available by invitation only.
       Approving a return means the customer is ready to let Avalara file that return.
       Customer either approves themselves from admin console,
@@ -3054,7 +2901,6 @@ class Mixin:
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to approve.
       :param month [int] The month of the filing period to approve.
@@ -3068,7 +2914,6 @@ class Mixin:
     r"""
     Approve all filings for the specified company in the given filing period and country.
     
-
     This API is available by invitation only.
       Approving a return means the customer is ready to let Avalara file that return.
       Customer either approves themselves from admin console,
@@ -3077,7 +2922,6 @@ class Mixin:
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to approve.
       :param month [int] The month of the filing period to approve.
@@ -3092,7 +2936,6 @@ class Mixin:
     r"""
     Approve all filings for the specified company in the given filing period, country and region.
     
-
     This API is available by invitation only.
       Approving a return means the customer is ready to let Avalara file that return.
       Customer either approves themselves from admin console,
@@ -3101,7 +2944,6 @@ class Mixin:
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to approve.
       :param month [int] The month of the filing period to approve.
@@ -3117,7 +2959,6 @@ class Mixin:
     r"""
     Add an adjustment to a given filing.
     
-
     This API is available by invitation only.
       An "Adjustment" is usually an increase or decrease to customer funding to Avalara,
       such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
@@ -3125,7 +2966,6 @@ class Mixin:
       This API creates a new adjustment for an existing tax filing.
       This API can only be used when the filing has not yet been approved.
     
-
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param year [int] The year of the filing's filing period being adjusted.
       :param month [int] The month of the filing's filing period being adjusted.
@@ -3142,14 +2982,12 @@ class Mixin:
     r"""
     Add an augmentation for a given filing.
     
-
     This API is available by invitation only.
       An "Augmentation" is a manually added increase or decrease in tax liability, by either customer or Avalara
       usually due to customer wanting to report tax Avatax does not support, e.g. bad debts, rental tax.
       This API creates a new augmentation for an existing tax filing.
       This API can only be used when the filing has not been approved.
     
-
       :param companyId [int] The ID of the company that owns the filing being changed.
       :param year [int] The month of the filing's filing period being changed.
       :param month [int] The month of the filing's filing period being changed.
@@ -3166,7 +3004,6 @@ class Mixin:
     r"""
     Add an payment to a given filing.
     
-
     This API is available by invitation only.
       An "Payment" is usually an increase or decrease to customer funding to Avalara,
       such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
@@ -3174,7 +3011,6 @@ class Mixin:
       This API creates a new payment for an existing tax filing.
       This API can only be used when the filing has not yet been approved.
     
-
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param year [int] The year of the filing's filing period being adjusted.
       :param month [int] The month of the filing's filing period being adjusted.
@@ -3191,7 +3027,6 @@ class Mixin:
     r"""
     Delete an adjustment for a given filing.
     
-
     This API is available by invitation only.
       An "Adjustment" is usually an increase or decrease to customer funding to Avalara,
       such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
@@ -3199,7 +3034,6 @@ class Mixin:
       This API deletes an adjustment for an existing tax filing.
       This API can only be used when the filing has been unapproved.
     
-
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the adjustment being deleted.
       :return ErrorDetail
@@ -3211,14 +3045,12 @@ class Mixin:
     r"""
     Delete an augmentation for a given filing.
     
-
     This API is available by invitation only.
       An "Augmentation" is a manually added increase or decrease in tax liability, by either customer or Avalara
       usually due to customer wanting to report tax Avatax does not support, e.g. bad debts, rental tax.
       This API deletes an augmentation for an existing tax filing.
       This API can only be used when the filing has been unapproved.
     
-
       :param companyId [int] The ID of the company that owns the filing being changed.
       :param id_ [int] The ID of the augmentation being added.
       :return ErrorDetail
@@ -3230,7 +3062,6 @@ class Mixin:
     r"""
     Delete an payment for a given filing.
     
-
     This API is available by invitation only.
       An "Payment" is usually an increase or decrease to customer funding to Avalara,
       such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
@@ -3238,7 +3069,6 @@ class Mixin:
       This API deletes an payment for an existing tax filing.
       This API can only be used when the filing has been unapproved.
     
-
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the payment being deleted.
       :return ErrorDetail
@@ -3250,10 +3080,8 @@ class Mixin:
     r"""
     Retrieve worksheet checkup report for company and filing period.
     
-
     This API is available by invitation only.
     
-
       :param filingsId [int] The unique id of the worksheet.
       :param companyId [int] The unique ID of the company that owns the worksheet.
       :return FilingsCheckupModel
@@ -3265,10 +3093,8 @@ class Mixin:
     r"""
     Retrieve worksheet checkup report for company and filing period.
     
-
     This API is available by invitation only.
     
-
       :param companyId [int] The unique ID of the company that owns the worksheets object.
       :param year [int] The year of the filing period.
       :param month [int] The month of the filing period.
@@ -3281,10 +3107,8 @@ class Mixin:
     r"""
     Retrieve a single attachment for a filing
     
-
     This API is available by invitation only.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param filingReturnId [int] The unique id of the worksheet return.
       :param fileId [int] The unique id of the document you are downloading
@@ -3297,12 +3121,10 @@ class Mixin:
     r"""
     Retrieve a list of filings for the specified company in the year and month of a given filing period.
     
-
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
@@ -3315,12 +3137,10 @@ class Mixin:
     r"""
     Retrieve a single trace file for a company filing period
     
-
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
@@ -3333,12 +3153,10 @@ class Mixin:
     r"""
     Retrieve a filing for the specified company and id.
     
-
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param id_ [int] The id of the filing return your retrieving
       :return FetchResult
@@ -3350,12 +3168,10 @@ class Mixin:
     r"""
     Retrieve a list of filings for the specified company in the year and month of a given filing period.
     
-
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
@@ -3368,12 +3184,10 @@ class Mixin:
     r"""
     Retrieve a list of filings for the specified company in the given filing period and country.
     
-
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
@@ -3387,12 +3201,10 @@ class Mixin:
     r"""
     Retrieve a list of filings for the specified company in the filing period, country and region.
     
-
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
@@ -3407,12 +3219,10 @@ class Mixin:
     r"""
     Retrieve a list of filings for the specified company in the given filing period, country, region and form.
     
-
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
@@ -3428,9 +3238,7 @@ class Mixin:
     r"""
     Retrieve a list of filings for the specified company in the year and month of a given filing period.
       This gets the basic information from the filings and doesn't include anything extra.
-
     
-
     
     
       :param companyId [int] The ID of the company that owns these batches
@@ -3450,7 +3258,6 @@ class Mixin:
     r"""
     Rebuild a set of filings for the specified company in the given filing period.
     
-
     This API is available by invitation only.
       Rebuilding a return means re-creating or updating the amounts to be filed (worksheet) for a filing.
       Rebuilding has to be done whenever a customer adds transactions to a filing.
@@ -3458,7 +3265,6 @@ class Mixin:
       based on filing frequency of filing.
       This API requires filing to be unapproved.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to be rebuilt.
       :param month [int] The month of the filing period to be rebuilt.
@@ -3472,7 +3278,6 @@ class Mixin:
     r"""
     Rebuild a set of filings for the specified company in the given filing period and country.
     
-
     This API is available by invitation only.
       Rebuilding a return means re-creating or updating the amounts to be filed (worksheet) for a filing.
       Rebuilding has to be done whenever a customer adds transactions to a filing.
@@ -3480,7 +3285,6 @@ class Mixin:
       based on filing frequency of filing.
       This API requires filing to be unapproved.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to be rebuilt.
       :param month [int] The month of the filing period to be rebuilt.
@@ -3495,7 +3299,6 @@ class Mixin:
     r"""
     Rebuild a set of filings for the specified company in the given filing period, country and region.
     
-
     This API is available by invitation only.audit.CheckAuthorizationReturns(null, companyId);
       Rebuilding a return means re-creating or updating the amounts to be filed for a filing.
       Rebuilding has to be done whenever a customer adds transactions to a filing.
@@ -3503,7 +3306,6 @@ class Mixin:
       based on filing frequency of filing.
       This API requires filing to be unapproved.
     
-
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to be rebuilt.
       :param month [int] The month of the filing period to be rebuilt.
@@ -3519,7 +3321,6 @@ class Mixin:
     r"""
     Edit an adjustment for a given filing.
     
-
     This API is available by invitation only.
       An "Adjustment" is usually an increase or decrease to customer funding to Avalara,
       such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
@@ -3527,7 +3328,6 @@ class Mixin:
       This API modifies an adjustment for an existing tax filing.
       This API can only be used when the filing has not yet been approved.
     
-
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the adjustment being edited.
       :param model [FilingAdjustmentModel] The updated Adjustment.
@@ -3540,14 +3340,12 @@ class Mixin:
     r"""
     Edit an augmentation for a given filing.
     
-
     This API is available by invitation only.
       An "Augmentation" is a manually added increase or decrease in tax liability, by either customer or Avalara
       usually due to customer wanting to report tax Avatax does not support, e.g. bad debts, rental tax.
       This API modifies an augmentation for an existing tax filing.
       This API can only be used when the filing has not been approved.
     
-
       :param companyId [int] The ID of the company that owns the filing being changed.
       :param id_ [int] The ID of the augmentation being edited.
       :param model [FilingAugmentationModel] The updated Augmentation.
@@ -3560,7 +3358,6 @@ class Mixin:
     r"""
     Edit an payment for a given filing.
     
-
     This API is available by invitation only.
       An "Payment" is usually an increase or decrease to customer funding to Avalara,
       such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
@@ -3568,7 +3365,6 @@ class Mixin:
       This API modifies an payment for an existing tax filing.
       This API can only be used when the filing has not yet been approved.
     
-
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the payment being edited.
       :param model [FilingPaymentModel] The updated Payment.
@@ -3581,9 +3377,8 @@ class Mixin:
     r"""
     FREE API - Request a free trial of AvaTax
     
-
     Call this API to obtain a free AvaTax sandbox account.
-      This API is free to use. No authentication credentials are required to call this API.
+      This API is free to use. No authentication credentials are required to call this API. You must read and accept Avalara's terms and conditions.
       The account will grant a full trial version of AvaTax (e.g. AvaTaxPro) for a limited period of time.
       After this introductory period, you may continue to use the free TaxRates API.
       Limitations on free trial accounts:
@@ -3592,7 +3387,6 @@ class Mixin:
       * Includes a limited time free trial of AvaTaxPro; after that date, the free TaxRates API will continue to work.
       * Each free trial account must have its own valid email address.
     
-
       :param model [FreeTrialRequestModel] Required information to provision a free trial account.
       :return NewAccountModel
     """
@@ -3603,7 +3397,6 @@ class Mixin:
     r"""
     FREE API - Sales tax rates for a specified address
     
-
     # Free-To-Use
       The TaxRates API is a free-to-use, no cost option for estimating sales tax rates.
       Any customer can request a free AvaTax account and make use of the TaxRates API.
@@ -3624,7 +3417,6 @@ class Mixin:
       Please see [Estimating Tax with REST v2](http://developer.avalara.com/blog/2016/11/04/estimating-tax-with-rest-v2/)
       for information on how to upgrade to the full AvaTax CreateTransaction API.
     
-
       :param line1 [string] The street address of the location.
       :param line2 [string] The street address of the location.
       :param line3 [string] The street address of the location.
@@ -3641,7 +3433,6 @@ class Mixin:
     r"""
     FREE API - Sales tax rates for a specified country and postal code. This API is only available for US postal codes.
     
-
     # Free-To-Use
       This API is only available for a US postal codes.
       The TaxRates API is a free-to-use, no cost option for estimating sales tax rates.
@@ -3663,7 +3454,6 @@ class Mixin:
       Please see [Estimating Tax with REST v2](http://developer.avalara.com/blog/2016/11/04/estimating-tax-with-rest-v2/)
       for information on how to upgrade to the full AvaTax CreateTransaction API.
     
-
       :param country [string] Name or ISO 3166 code identifying the country.    This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries    For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
       :param postalCode [string] The postal code of the location.
       :return TaxRateModel
@@ -3675,7 +3465,6 @@ class Mixin:
     r"""
     Request the javascript for a funding setup widget
     
-
     This API is available by invitation only.
       Companies that use the Avalara Managed Returns or the SST Certified Service Provider services are
       required to setup their funding configuration before Avalara can begin filing tax returns on their
@@ -3689,7 +3478,6 @@ class Mixin:
       Use the 'methodReturn.javaScript' return value to insert this widget into your HTML page.
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
     
-
       :param id_ [int] The unique ID number of this funding request
       :return FundingStatusModel
     """
@@ -3700,7 +3488,6 @@ class Mixin:
     r"""
     Retrieve status about a funding setup request
     
-
     This API is available by invitation only.
       Companies that use the Avalara Managed Returns or the SST Certified Service Provider services are
       required to setup their funding configuration before Avalara can begin filing tax returns on their
@@ -3712,7 +3499,6 @@ class Mixin:
       This API checks the status on an existing funding request.
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
     
-
       :param id_ [int] The unique ID number of this funding request
       :return FundingStatusModel
     """
@@ -3723,7 +3509,6 @@ class Mixin:
     r"""
     Create a new item
     
-
     Creates one or more new item objects attached to this company.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -3731,7 +3516,6 @@ class Mixin:
       from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
     
-
       :param companyId [int] The ID of the company that owns this item.
       :param model [ItemModel] The item you wish to create.
       :return ItemModel
@@ -3743,7 +3527,6 @@ class Mixin:
     r"""
     Delete a single item
     
-
     Marks the item object at this URL as deleted.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -3751,7 +3534,6 @@ class Mixin:
       from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
     
-
       :param companyId [int] The ID of the company that owns this item.
       :param id_ [int] The ID of the item you wish to delete.
       :return ErrorDetail
@@ -3763,7 +3545,6 @@ class Mixin:
     r"""
     Retrieve a single item
     
-
     Get the item object identified by this URL.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -3771,7 +3552,6 @@ class Mixin:
       from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
     
-
       :param companyId [int] The ID of the company that owns this item object
       :param id_ [int] The primary key of this item
       :return ItemModel
@@ -3783,7 +3563,6 @@ class Mixin:
     r"""
     Retrieve items for this company
     
-
     List all items defined for the current company.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -3795,7 +3574,6 @@ class Mixin:
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * Attributes
     
-
       :param companyId [int] The ID of the company that defined these items
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
@@ -3811,7 +3589,6 @@ class Mixin:
     r"""
     Retrieve all items
     
-
     Get multiple item objects across all companies.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -3823,7 +3600,6 @@ class Mixin:
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * Attributes
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -3838,7 +3614,6 @@ class Mixin:
     r"""
     Update a single item
     
-
     Replace the existing `Item` object at this URL with an updated object.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -3848,7 +3623,6 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
     
-
       :param companyId [int] The ID of the company that this item belongs to.
       :param id_ [int] The ID of the item you wish to update
       :param model [ItemModel] The item object you wish to update.
@@ -3861,14 +3635,12 @@ class Mixin:
     r"""
     Create one or more overrides
     
-
     Creates one or more jurisdiction override objects for this account.
       A Jurisdiction Override is a configuration setting that allows you to select the taxing
       jurisdiction for a specific address. If you encounter an address that is on the boundary
       between two different jurisdictions, you can choose to set up a jurisdiction override
       to switch this address to use different taxing jurisdictions.
     
-
       :param accountId [int] The ID of the account that owns this override
       :param model [JurisdictionOverrideModel] The jurisdiction override objects to create
       :return JurisdictionOverrideModel
@@ -3880,10 +3652,8 @@ class Mixin:
     r"""
     Delete a single override
     
-
     Marks the item object at this URL as deleted.
     
-
       :param accountId [int] The ID of the account that owns this override
       :param id_ [int] The ID of the override you wish to delete
       :return ErrorDetail
@@ -3895,14 +3665,12 @@ class Mixin:
     r"""
     Retrieve a single override
     
-
     Get the item object identified by this URL.
       A Jurisdiction Override is a configuration setting that allows you to select the taxing
       jurisdiction for a specific address. If you encounter an address that is on the boundary
       between two different jurisdictions, you can choose to set up a jurisdiction override
       to switch this address to use different taxing jurisdictions.
     
-
       :param accountId [int] The ID of the account that owns this override
       :param id_ [int] The primary key of this override
       :return JurisdictionOverrideModel
@@ -3914,7 +3682,6 @@ class Mixin:
     r"""
     Retrieve overrides for this account
     
-
     List all jurisdiction override objects defined for this account.
       A Jurisdiction Override is a configuration setting that allows you to select the taxing
       jurisdiction for a specific address. If you encounter an address that is on the boundary
@@ -3923,7 +3690,6 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param accountId [int] The ID of the account that owns this override
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
@@ -3939,7 +3705,6 @@ class Mixin:
     r"""
     Retrieve all overrides
     
-
     Get multiple jurisdiction override objects across all companies.
       A Jurisdiction Override is a configuration setting that allows you to select the taxing
       jurisdiction for a specific address. If you encounter an address that is on the boundary
@@ -3948,7 +3713,6 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -3963,10 +3727,8 @@ class Mixin:
     r"""
     Update a single jurisdictionoverride
     
-
     Replace the existing jurisdictionoverride object at this URL with an updated object.
     
-
       :param accountId [int] The ID of the account that this jurisdictionoverride belongs to.
       :param id_ [int] The ID of the jurisdictionoverride you wish to update
       :param model [JurisdictionOverrideModel] The jurisdictionoverride object you wish to update.
@@ -3979,10 +3741,8 @@ class Mixin:
     r"""
     Create a new location
     
-
     Create one or more new location objects attached to this company.
     
-
       :param companyId [int] The ID of the company that owns this location.
       :param model [LocationModel] The location you wish to create.
       :return LocationModel
@@ -3994,10 +3754,8 @@ class Mixin:
     r"""
     Delete a single location
     
-
     Mark the location object at this URL as deleted.
     
-
       :param companyId [int] The ID of the company that owns this location.
       :param id_ [int] The ID of the location you wish to delete.
       :return ErrorDetail
@@ -4009,7 +3767,6 @@ class Mixin:
     r"""
     Retrieve a single location
     
-
     Get the location object identified by this URL.
       An 'Location' represents a physical address where a company does business.
       Many taxing authorities require that you define a list of all locations where your company does business.
@@ -4018,7 +3775,6 @@ class Mixin:
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * LocationSettings
     
-
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
       :param include [string] A comma separated list of additional data to retrieve. You may specify `LocationSettings` to retrieve location settings.
@@ -4031,7 +3787,6 @@ class Mixin:
     r"""
     Retrieve locations for this company
     
-
     List all location objects defined for this company.
       An 'Location' represents a physical address where a company does business.
       Many taxing authorities require that you define a list of all locations where your company does business.
@@ -4042,7 +3797,6 @@ class Mixin:
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * LocationSettings
     
-
       :param companyId [int] The ID of the company that owns these locations
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve. You may specify `LocationSettings` to retrieve location settings.
@@ -4058,7 +3812,6 @@ class Mixin:
     r"""
     Retrieve all locations
     
-
     Get multiple location objects across all companies.
       An 'Location' represents a physical address where a company does business.
       Many taxing authorities require that you define a list of all locations where your company does business.
@@ -4069,7 +3822,6 @@ class Mixin:
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * LocationSettings
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve. You may specify `LocationSettings` to retrieve location settings.
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -4084,12 +3836,10 @@ class Mixin:
     r"""
     Update a single location
     
-
     Replace the existing location object at this URL with an updated object.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
     
-
       :param companyId [int] The ID of the company that this location belongs to.
       :param id_ [int] The ID of the location you wish to update
       :param model [LocationModel] The location you wish to update.
@@ -4102,12 +3852,10 @@ class Mixin:
     r"""
     Validate the location against local requirements
     
-
     Returns validation information for this location.
       This API call is intended to compare this location against the currently known taxing authority rules and regulations,
       and provide information about what additional work is required to completely setup this location.
     
-
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
       :return LocationValidationModel
@@ -4119,7 +3867,6 @@ class Mixin:
     r"""
     Adjust a MultiDocument transaction
     
-
     Adjusts the current MultiDocument transaction uniquely identified by this URL.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
@@ -4127,7 +3874,6 @@ class Mixin:
       Both the revisions will be available for retrieval based on their code and ID numbers. Only transactions in Committed status can be reported on a tax filing by Avalara's Managed Returns Service.
       Transactions that have been previously reported to a tax authority by Avalara Managed Returns are considered locked and are no longer available for adjustments.
     
-
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
@@ -4141,7 +3887,6 @@ class Mixin:
     r"""
     Get audit information about a MultiDocument transaction
     
-
     Retrieve audit information about a MultiDocument transaction stored in AvaTax.
       The audit API retrieves audit information related to a specific MultiDocument transaction. This audit
       information includes the following:
@@ -4154,7 +3899,6 @@ class Mixin:
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
     
-
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :return AuditMultiDocumentModel
@@ -4166,14 +3910,12 @@ class Mixin:
     r"""
     Commit a MultiDocument transaction
     
-
     Marks a list of transactions by changing its status to `Committed`.
       Transactions that are committed are available to be reported to a tax authority by Avalara Managed Returns.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
       Any changes made to a committed transaction will generate a transaction history.
     
-
       :param model [CommitMultiDocumentModel] The commit request you wish to execute
       :return MultiDocumentModel
     """
@@ -4184,7 +3926,6 @@ class Mixin:
     r"""
     Create a new MultiDocument transaction
     
-
     Records a new MultiDocument transaction in AvaTax.
       A traditional transaction requires exactly two parties: a seller and a buyer. MultiDocument transactions can
       involve a marketplace of vendors, each of which contributes some portion of the final transaction. Within
@@ -4210,7 +3951,6 @@ class Mixin:
       * ForceTimeout - Simulates a timeout. This adds a 30 second delay and error to your API call. This can be used to test your code to ensure it can respond correctly in the case of a dropped connection.
       If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
     
-
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateMultiDocumentModel] the multi document transaction model
       :return MultiDocumentModel
@@ -4222,7 +3962,6 @@ class Mixin:
     r"""
     Retrieve a MultiDocument transaction
     
-
     Get the current MultiDocument transaction identified by this URL.
       If this transaction was adjusted, the return value of this API will be the current transaction with this code.
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
@@ -4233,7 +3972,6 @@ class Mixin:
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
     
-
       :param code [string] 
       :param type [DocumentType]  (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -4246,7 +3984,6 @@ class Mixin:
     r"""
     Retrieve a MultiDocument transaction by ID
     
-
     Get the unique MultiDocument transaction identified by this URL.
       A traditional transaction requires exactly two parties: a seller and a buyer. MultiDocument transactions can
       involve a marketplace of vendors, each of which contributes some portion of the final transaction. Within
@@ -4264,7 +4001,6 @@ class Mixin:
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
     
-
       :param id_ [int] The unique ID number of the MultiDocument transaction to retrieve
       :param include [string] Specifies objects to include in the response after transaction is created
       :return MultiDocumentModel
@@ -4276,7 +4012,6 @@ class Mixin:
     r"""
     Retrieve all MultiDocument transactions
     
-
     List all MultiDocument transactions within this account.
       This endpoint is limited to returning 1,000 MultiDocument transactions at a time. To retrieve more than 1,000 MultiDocument
       transactions, please use the pagination features of the API.
@@ -4292,7 +4027,6 @@ class Mixin:
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] Specifies objects to include in the response after transaction is created
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -4307,7 +4041,6 @@ class Mixin:
     r"""
     Create a refund for a MultiDocument transaction
     
-
     Create a refund for a MultiDocument transaction.
       A traditional transaction requires exactly two parties: a seller and a buyer. MultiDocument transactions can
       involve a marketplace of vendors, each of which contributes some portion of the final transaction. Within
@@ -4336,7 +4069,6 @@ class Mixin:
       * LinesOnly (omit details - reduces API response size)
       If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
     
-
       :param code [string] The code of this MultiDocument transaction
       :param type [DocumentType] The type of this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -4350,13 +4082,11 @@ class Mixin:
     r"""
     Verify a MultiDocument transaction
     
-
     Verifies that the MultiDocument transaction uniquely identified by this URL matches certain expected values.
       If the transaction does not match these expected values, this API will return an error code indicating which value did not match.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
     
-
       :param model [VerifyMultiDocumentModel] Information from your accounting system to verify against this MultiDocument transaction as it is stored in AvaTax
       :return MultiDocumentModel
     """
@@ -4367,7 +4097,6 @@ class Mixin:
     r"""
     Void a MultiDocument transaction
     
-
     Voids the current transaction uniquely identified by this URL.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
@@ -4375,7 +4104,6 @@ class Mixin:
       Transactions that have been previously reported to a tax authority by Avalara Managed Returns Service are considered `locked`,
       and they are no longer available to be voided.
     
-
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :param model [VoidTransactionModel] The void request you wish to execute
@@ -4388,7 +4116,6 @@ class Mixin:
     r"""
     Create a new nexus
     
-
     Creates one or more new nexus objects attached to this company.
       The concept of 'Nexus' indicates a place where your company has sufficient physical presence and is obligated
       to collect and remit transaction-based taxes.
@@ -4397,9 +4124,8 @@ class Mixin:
       Note that not all fields within a nexus can be updated; Avalara publishes a list of all defined nexus at the
       '/api/v2/definitions/nexus' endpoint.
       You may only define nexus matching the official list of declared nexus.
-      Please allow 1 minute before start using the created Nexus in your transactions.
+      Please allow 1 minute before using the created nexus in your transactions.
     
-
       :param companyId [int] The ID of the company that owns this nexus.
       :param model [NexusModel] The nexus you wish to create.
       :return NexusModel
@@ -4409,13 +4135,34 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model)
 
     r"""
+    Creates nexus for a list of addresses.
+    
+    This call is intended to simplify adding all applicable nexus to a company, for an address or addresses. Calling this
+      API declares nexus for this company, for the list of addresses provided,
+      for the date range provided. You may also use this API to extend effective date on an already-declared nexus.
+      The concept of 'Nexus' indicates a place where your company has sufficient physical presence and is obligated
+      to collect and remit transaction-based taxes.
+      When defining companies in AvaTax, you must declare nexus for your company in order to correctly calculate tax
+      in all jurisdictions affected by your transactions.
+      Note that not all fields within a nexus can be updated; Avalara publishes a list of all defined nexus at the
+      '/api/v2/definitions/nexus' endpoint.
+      You may only define nexus matching the official list of declared nexus.
+      Please allow 1 minute before using the created nexus in your transactions.
+    
+      :param companyId [int] The ID of the company that will own this nexus.
+      :param model [DeclareNexusByAddressModel] The nexus you wish to create.
+      :return NexusByAddressModel
+    """
+    def declare_nexus_by_address(self, companyId, model):
+        return requests.post('{}/api/v2/companies/{}/nexus/byaddress'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model)
+
+    r"""
     Delete a single nexus
     
-
     Marks the existing nexus object at this URL as deleted.
       Please allow 1 minute to stop collecting tax in your transaction on the deleted Nexus.
     
-
       :param companyId [int] The ID of the company that owns this nexus.
       :param id_ [int] The ID of the nexus you wish to delete.
       :return ErrorDetail
@@ -4427,14 +4174,12 @@ class Mixin:
     r"""
     Retrieve a single nexus
     
-
     Get the nexus object identified by this URL.
       The concept of 'Nexus' indicates a place where your company has sufficient physical presence and is obligated
       to collect and remit transaction-based taxes.
       When defining companies in AvaTax, you must declare nexus for your company in order to correctly calculate tax
       in all jurisdictions affected by your transactions.
     
-
       :param companyId [int] The ID of the company that owns this nexus object
       :param id_ [int] The primary key of this nexus
       :return NexusModel
@@ -4446,7 +4191,6 @@ class Mixin:
     r"""
     List company nexus related to a tax form
     
-
     Retrieves a list of nexus related to a tax form.
       The concept of `Nexus` indicates a place where your company has sufficient physical presence and is obligated
       to collect and remit transaction-based taxes.
@@ -4456,7 +4200,6 @@ class Mixin:
       a tax form, you may want to know whether you have declared nexus in all the jurisdictions related to that tax
       form in order to better understand how the form will be filled out.
     
-
       :param companyId [int] The ID of the company that owns this nexus object
       :param formCode [string] The form code that we are looking up the nexus for
       :return NexusByTaxFormModel
@@ -4468,7 +4211,6 @@ class Mixin:
     r"""
     Retrieve nexus for this company
     
-
     List all nexus objects defined for this company.
       The concept of 'Nexus' indicates a place where your company has sufficient physical presence and is obligated
       to collect and remit transaction-based taxes.
@@ -4477,7 +4219,6 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param companyId [int] The ID of the company that owns these nexus objects
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
@@ -4493,7 +4234,6 @@ class Mixin:
     r"""
     Retrieve all nexus
     
-
     Get multiple nexus objects across all companies.
       The concept of 'Nexus' indicates a place where your company has sufficient physical presence and is obligated
       to collect and remit transaction-based taxes.
@@ -4502,7 +4242,6 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -4517,7 +4256,6 @@ class Mixin:
     r"""
     Update a single nexus
     
-
     Replace the existing nexus object at this URL with an updated object.
       The concept of 'Nexus' indicates a place where your company has sufficient physical presence and is obligated
       to collect and remit transaction-based taxes.
@@ -4528,9 +4266,8 @@ class Mixin:
       You may only define nexus matching the official list of declared nexus.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
-      Please allow 1 minute to start seeing your updated Nexus taking effect on your transactions.
+      Please allow 1 minute for your updated Nexus to take effect on your transactions.
     
-
       :param companyId [int] The ID of the company that this nexus belongs to.
       :param id_ [int] The ID of the nexus you wish to update
       :param model [NexusModel] The nexus object you wish to update.
@@ -4543,13 +4280,11 @@ class Mixin:
     r"""
     Create a new notice comment.
     
-
     This API is available by invitation only.
       'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the comment for.
       :param model [NoticeCommentModel] The notice comments you wish to create.
@@ -4562,14 +4297,12 @@ class Mixin:
     r"""
     Create a new notice finance details.
     
-
     This API is available by invitation only.
       'Notice finance details' is the categorical breakdown of the total charge levied by the tax authority on our customer,
       as broken down in our "notice log" found in Workflow. Main examples of the categories are 'Tax Due', 'Interest', 'Penalty', 'Total Abated'.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice added to the finance details.
       :param model [NoticeFinanceModel] The notice finance details you wish to create.
@@ -4582,13 +4315,11 @@ class Mixin:
     r"""
     Create a new notice responsibility.
     
-
     This API is available by invitation only.
       'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the responsibility for.
       :param model [NoticeResponsibilityDetailModel] The notice responsibilities you wish to create.
@@ -4601,13 +4332,11 @@ class Mixin:
     r"""
     Create a new notice root cause.
     
-
     This API is available by invitation only.
       'Notice root causes' are are those who are responsible for the notice.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the responsibility for.
       :param model [NoticeRootCauseDetailModel] The notice root causes you wish to create.
@@ -4620,13 +4349,11 @@ class Mixin:
     r"""
     Create a new notice.
     
-
     This API is available by invitation only.
       Create one or more new notice objects.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param companyId [int] The ID of the company that owns this notice.
       :param model [NoticeModel] The notice object you wish to create.
       :return NoticeModel
@@ -4638,13 +4365,11 @@ class Mixin:
     r"""
     Delete a single notice.
     
-
     This API is available by invitation only.
       Mark the existing notice object at this URL as deleted.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice you wish to delete.
       :return ErrorDetail
@@ -4656,13 +4381,11 @@ class Mixin:
     r"""
     Delete a single responsibility
     
-
     This API is available by invitation only.
       Mark the existing notice object at this URL as deleted.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param companyId [int] The ID of the company that owns this notice.
       :param noticeId [int] The ID of the notice you wish to delete.
       :param id_ [int] The ID of the responsibility you wish to delete.
@@ -4675,13 +4398,11 @@ class Mixin:
     r"""
     Delete a single root cause.
     
-
     This API is available by invitation only.
       Mark the existing notice object at this URL as deleted.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param companyId [int] The ID of the company that owns this notice.
       :param noticeId [int] The ID of the notice you wish to delete.
       :param id_ [int] The ID of the root cause you wish to delete.
@@ -4694,11 +4415,9 @@ class Mixin:
     r"""
     Retrieve a single attachment
     
-
     This API is available by invitation only.
       Get the file attachment identified by this URL.
     
-
       :param companyId [int] The ID of the company for this attachment.
       :param id_ [int] The ResourceFileId of the attachment to download.
       :return String
@@ -4710,13 +4429,11 @@ class Mixin:
     r"""
     Retrieve a single notice.
     
-
     This API is available by invitation only.
       Get the tax notice object identified by this URL.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param companyId [int] The ID of the company for this notice.
       :param id_ [int] The ID of this notice.
       :return NoticeModel
@@ -4728,13 +4445,11 @@ class Mixin:
     r"""
     Retrieve notice comments for a specific notice.
     
-
     This API is available by invitation only.
       'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
       :return FetchResult
@@ -4746,14 +4461,12 @@ class Mixin:
     r"""
     Retrieve notice finance details for a specific notice.
     
-
     This API is available by invitation only.
       'Notice finance details' is the categorical breakdown of the total charge levied by the tax authority on our customer,
       as broken down in our "notice log" found in Workflow. Main examples of the categories are 'Tax Due', 'Interest', 'Penalty', 'Total Abated'.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param id_ [int] The ID of the company that owns these notices.
       :param companyId [int] The ID of the company that owns these notices.
       :return FetchResult
@@ -4765,13 +4478,11 @@ class Mixin:
     r"""
     Retrieve notice responsibilities for a specific notice.
     
-
     This API is available by invitation only.
       'Notice responsibilities' are are those who are responsible for the notice.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
       :return FetchResult
@@ -4783,13 +4494,11 @@ class Mixin:
     r"""
     Retrieve notice root causes for a specific notice.
     
-
     This API is available by invitation only.
       'Notice root causes' are are those who are responsible for the notice.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
     
-
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
       :return FetchResult
@@ -4801,7 +4510,6 @@ class Mixin:
     r"""
     Retrieve notices for a company.
     
-
     This API is available by invitation only.
       List all tax notice objects assigned to this company.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
@@ -4809,7 +4517,6 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param companyId [int] The ID of the company that owns these notices.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
@@ -4825,7 +4532,6 @@ class Mixin:
     r"""
     Retrieve all notices.
     
-
     This API is available by invitation only.
       Get multiple notice objects across all companies.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
@@ -4833,7 +4539,6 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -4848,7 +4553,6 @@ class Mixin:
     r"""
     Update a single notice.
     
-
     This API is available by invitation only.
       Replace the existing notice object at this URL with an updated object.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
@@ -4856,7 +4560,6 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
     
-
       :param companyId [int] The ID of the company that this notice belongs to.
       :param id_ [int] The ID of the notice you wish to update.
       :param model [NoticeModel] The notice object you wish to update.
@@ -4869,11 +4572,9 @@ class Mixin:
     r"""
     Retrieve a single attachment
     
-
     This API is available by invitation only.
       Get the file attachment identified by this URL.
     
-
       :param companyId [int] The ID of the company for this attachment.
       :param model [ResourceFileUploadRequestModel] The ResourceFileId of the attachment to download.
       :return String
@@ -4885,7 +4586,6 @@ class Mixin:
     r"""
     Request a new Avalara account
     
-
     This API is for use by partner onboarding services customers only.
       Avalara invites select partners to refer new customers to the AvaTax service using the onboarding features
       of AvaTax. These partners can create accounts for new customers using this API.
@@ -4898,7 +4598,6 @@ class Mixin:
       conditions, the account will be created in `New` status and they can receive a license key by logging
       onto the AvaTax website and reviewing terms and conditions online.
     
-
       :param model [NewAccountRequestModel] Information about the account you wish to create and the selected product offerings.
       :return NewAccountModel
     """
@@ -4909,14 +4608,12 @@ class Mixin:
     r"""
     Change Password
     
-
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Allows a user to change their password via the API.
       This API only allows the currently authenticated user to change their password; it cannot be used to apply to a
       different user than the one authenticating the current API call.
     
-
       :param model [PasswordChangeModel] An object containing your current password and the new password.
       :return string
     """
@@ -4927,13 +4624,11 @@ class Mixin:
     r"""
     Create a new account
     
-
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Create a single new account object.
       When creating an account object you may attach subscriptions and users as part of the 'Create' call.
     
-
       :param model [AccountModel] The account you wish to create.
       :return AccountModel
     """
@@ -4944,14 +4639,12 @@ class Mixin:
     r"""
     Create a new subscription
     
-
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Create one or more new subscription objects attached to this account.
       A 'subscription' indicates a licensed subscription to a named Avalara service.
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
     
-
       :param accountId [int] The ID of the account that owns this subscription.
       :param model [SubscriptionModel] The subscription you wish to create.
       :return SubscriptionModel
@@ -4963,13 +4656,11 @@ class Mixin:
     r"""
     Delete a single account
     
-
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Delete an account.
       Deleting an account will delete all companies and all account level users attached to this account.
     
-
       :param id_ [int] The ID of the account you wish to delete.
       :return ErrorDetail
     """
@@ -4980,12 +4671,10 @@ class Mixin:
     r"""
     Delete a single subscription
     
-
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Mark the existing account identified by this URL as deleted.
     
-
       :param accountId [int] The ID of the account that owns this subscription.
       :param id_ [int] The ID of the subscription you wish to delete.
       :return ErrorDetail
@@ -4997,12 +4686,10 @@ class Mixin:
     r"""
     Delete a single user
     
-
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Mark the user object identified by this URL as deleted.
     
-
       :param id_ [int] The ID of the user you wish to delete.
       :param accountId [int] The accountID of the user you wish to delete.
       :return ErrorDetail
@@ -5014,7 +4701,6 @@ class Mixin:
     r"""
     Retrieve all accounts
     
-
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Get multiple account objects.
@@ -5025,7 +4711,6 @@ class Mixin:
       * Users
       For more information about filtering in REST, please see the documentation at http://developer.avalara.com/avatax/filtering-in-rest/ .
     
-
       :param include [string] A comma separated list of objects to fetch underneath this account. Any object with a URL path underneath this account can be fetched by specifying its name.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -5040,14 +4725,12 @@ class Mixin:
     r"""
     Reset a user's password programmatically
     
-
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Allows a system admin to reset the password for a specific user via the API.
       This API is only available for Avalara Registrar Admins, and can be used to reset the password of any
       user based on internal Avalara business processes.
     
-
       :param userId [int] The unique ID of the user whose password will be changed
       :param model [SetPasswordModel] The new password for this user
       :return string
@@ -5059,12 +4742,10 @@ class Mixin:
     r"""
     Update a single account
     
-
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Replace an existing account object with an updated account object.
     
-
       :param id_ [int] The ID of the account you wish to update.
       :param model [AccountModel] The account object you wish to update.
       :return AccountModel
@@ -5076,7 +4757,6 @@ class Mixin:
     r"""
     Update a single subscription
     
-
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Replace the existing subscription object at this URL with an updated object.
@@ -5085,7 +4765,6 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
     
-
       :param accountId [int] The ID of the account that this subscription belongs to.
       :param id_ [int] The ID of the subscription you wish to update
       :param model [SubscriptionModel] The subscription you wish to update.
@@ -5098,7 +4777,6 @@ class Mixin:
     r"""
     Download a report
     
-
     This API downloads the file associated with a report.
       If the report is not yet complete, you will receive a `ReportNotFinished` error. To check if a report is complete,
       use the `GetReport` API.
@@ -5110,7 +4788,6 @@ class Mixin:
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       This API works for all report types.
     
-
       :param id_ [int] The unique ID number of this report
       :return String
     """
@@ -5121,7 +4798,6 @@ class Mixin:
     r"""
     Intiate and download an ExportDocumentLine report
     
-
     This API is deprecated.
       Please use the asynchronous reports APIs:
       * Begin a report by calling the report's Initiate API. There is a separate initiate API call for each report type.
@@ -5129,7 +4805,6 @@ class Mixin:
       * Check the status of a report by calling `GetReport` and passing in the report's `id` value.
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
     
-
       :param companyId [int] The unique ID number of the company to report on.
       :param model [ExportDocumentLineModel] Options that may be configured to customize the report.
       :return String
@@ -5141,7 +4816,6 @@ class Mixin:
     r"""
     Retrieve a single report
     
-
     Retrieve a single report by its unique ID number.
       Reports are run as asynchronous report tasks on the server. When complete, the report file will be available for download
       for up to 30 days after completion. To run an asynchronous report, you should follow these steps:
@@ -5151,7 +4825,6 @@ class Mixin:
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       This API call returns information about any report type.
     
-
       :param id_ [int] The unique ID number of the report to retrieve
       :return ReportModel
     """
@@ -5162,7 +4835,6 @@ class Mixin:
     r"""
     Initiate an ExportDocumentLine report task
     
-
     Begins running an `ExportDocumentLine` report task and returns the identity of the report.
       Reports are run as asynchronous report tasks on the server. When complete, the report file will be available for download
       for up to 30 days after completion. To run an asynchronous report, you should follow these steps:
@@ -5172,10 +4844,9 @@ class Mixin:
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       The `ExportDocumentLine` report produces information about invoice lines recorded within your account.
     
-
       :param companyId [int] The unique ID number of the company to report on.
       :param model [ExportDocumentLineModel] Options that may be configured to customize the report.
-      :return String
+      :return ReportModel
     """
     def initiate_export_document_line_report(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/reports/exportdocumentline/initiate'.format(self.base_url, companyId),
@@ -5184,7 +4855,6 @@ class Mixin:
     r"""
     List all report tasks for account
     
-
     List all report tasks for your account.
       Reports are run as asynchronous report tasks on the server. When complete, the report file will be available for download
       for up to 30 days after completion. To run an asynchronous report, you should follow these steps:
@@ -5194,7 +4864,6 @@ class Mixin:
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       This API call returns information about all report types across your entire account.
     
-
       :return FetchResult
     """
     def list_reports(self):
@@ -5204,16 +4873,15 @@ class Mixin:
     r"""
     Create a new setting
     
-
     Create one or more new setting objects attached to this company.
-      A 'setting' is a piece of user-defined data that can be attached to a company, and it provides you the ability to store information
-      not defined or managed by Avalara.
-      You may create, update, and delete your own settings objects as required, and there is no mandatory data format for the 'name' and
-      'value' data fields.
-      To ensure correct operation of other programs or connectors, please create a new GUID for your application and use that value for
-      the 'set' data field.
+      The company settings system is a metadata system that you can use to store extra information
+      about a company. Your integration or connector could use this data storage to keep track of
+      preference information, reminders, or any other storage that would need to persist even if
+      the customer uninstalls your application.
+      A setting can refer to any type of data you need to remember about this company object.
+      When creating this object, you may define your own `set`, `name`, and `value` parameters.
+      To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
     
-
       :param companyId [int] The ID of the company that owns this setting.
       :param model [SettingModel] The setting you wish to create.
       :return SettingModel
@@ -5225,10 +4893,15 @@ class Mixin:
     r"""
     Delete a single setting
     
-
     Mark the setting object at this URL as deleted.
+      The company settings system is a metadata system that you can use to store extra information
+      about a company. Your integration or connector could use this data storage to keep track of
+      preference information, reminders, or any other storage that would need to persist even if
+      the customer uninstalls your application.
+      A setting can refer to any type of data you need to remember about this company object.
+      When creating this object, you may define your own `set`, `name`, and `value` parameters.
+      To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
     
-
       :param companyId [int] The ID of the company that owns this setting.
       :param id_ [int] The ID of the setting you wish to delete.
       :return ErrorDetail
@@ -5240,16 +4913,15 @@ class Mixin:
     r"""
     Retrieve a single setting
     
-
     Get a single setting object by its unique ID.
-      A 'setting' is a piece of user-defined data that can be attached to a company, and it provides you the ability to store information
-      not defined or managed by Avalara.
-      You may create, update, and delete your own settings objects as required, and there is no mandatory data format for the 'name' and
-      'value' data fields.
-      To ensure correct operation of other programs or connectors, please create a new GUID for your application and use that value for
-      the 'set' data field.
+      The company settings system is a metadata system that you can use to store extra information
+      about a company. Your integration or connector could use this data storage to keep track of
+      preference information, reminders, or any other storage that would need to persist even if
+      the customer uninstalls your application.
+      A setting can refer to any type of data you need to remember about this company object.
+      When creating this object, you may define your own `set`, `name`, and `value` parameters.
+      To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
     
-
       :param companyId [int] The ID of the company that owns this setting
       :param id_ [int] The primary key of this setting
       :return SettingModel
@@ -5261,18 +4933,17 @@ class Mixin:
     r"""
     Retrieve all settings for this company
     
-
     List all setting objects attached to this company.
-      A 'setting' is a piece of user-defined data that can be attached to a company, and it provides you the ability to store information
-      not defined or managed by Avalara.
-      You may create, update, and delete your own settings objects as required, and there is no mandatory data format for the 'name' and
-      'value' data fields.
-      To ensure correct operation of other programs or connectors, please create a new GUID for your application and use that value for
-      the 'set' data field.
+      The company settings system is a metadata system that you can use to store extra information
+      about a company. Your integration or connector could use this data storage to keep track of
+      preference information, reminders, or any other storage that would need to persist even if
+      the customer uninstalls your application.
+      A setting can refer to any type of data you need to remember about this company object.
+      When creating this object, you may define your own `set`, `name`, and `value` parameters.
+      To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param companyId [int] The ID of the company that owns these settings
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
@@ -5288,18 +4959,17 @@ class Mixin:
     r"""
     Retrieve all settings
     
-
     Get multiple setting objects across all companies.
-      A 'setting' is a piece of user-defined data that can be attached to a company, and it provides you the ability to store information
-      not defined or managed by Avalara.
-      You may create, update, and delete your own settings objects as required, and there is no mandatory data format for the 'name' and
-      'value' data fields.
-      To ensure correct operation of other programs or connectors, please create a new GUID for your application and use that value for
-      the 'set' data field.
+      The company settings system is a metadata system that you can use to store extra information
+      about a company. Your integration or connector could use this data storage to keep track of
+      preference information, reminders, or any other storage that would need to persist even if
+      the customer uninstalls your application.
+      A setting can refer to any type of data you need to remember about this company object.
+      When creating this object, you may define your own `set`, `name`, and `value` parameters.
+      To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -5314,18 +4984,17 @@ class Mixin:
     r"""
     Update a single setting
     
-
     Replace the existing setting object at this URL with an updated object.
-      A 'setting' is a piece of user-defined data that can be attached to a company, and it provides you the ability to store information
-      not defined or managed by Avalara.
-      You may create, update, and delete your own settings objects as required, and there is no mandatory data format for the 'name' and
-      'value' data fields.
-      To ensure correct operation of other programs or connectors, please create a new GUID for your application and use that value for
-      the 'set' data field.
-      All data from the existing object will be replaced with data in the object you PUT.
-      To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      The company settings system is a metadata system that you can use to store extra information
+      about a company. Your integration or connector could use this data storage to keep track of
+      preference information, reminders, or any other storage that would need to persist even if
+      the customer uninstalls your application.
+      A setting can refer to any type of data you need to remember about this company object.
+      When creating this object, you may define your own `set`, `name`, and `value` parameters.
+      To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
+      All data from the existing object will be replaced with data in the object you `PUT`.
+      To set a field's value to `null`, you may either set its value to `null` or omit that field from the object when calling update.
     
-
       :param companyId [int] The ID of the company that this setting belongs to.
       :param id_ [int] The ID of the setting you wish to update
       :param model [SettingModel] The setting you wish to update.
@@ -5338,12 +5007,10 @@ class Mixin:
     r"""
     Retrieve a single subscription
     
-
     Get the subscription object identified by this URL.
       A 'subscription' indicates a licensed subscription to a named Avalara service.
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
     
-
       :param accountId [int] The ID of the account that owns this subscription
       :param id_ [int] The primary key of this subscription
       :return SubscriptionModel
@@ -5355,14 +5022,12 @@ class Mixin:
     r"""
     Retrieve subscriptions for this account
     
-
     List all subscription objects attached to this account.
       A 'subscription' indicates a licensed subscription to a named Avalara service.
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param accountId [int] The ID of the account that owns these subscriptions
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -5377,14 +5042,12 @@ class Mixin:
     r"""
     Retrieve all subscriptions
     
-
     Get multiple subscription objects across all accounts.
       A 'subscription' indicates a licensed subscription to a named Avalara service.
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -5398,14 +5061,12 @@ class Mixin:
     r"""
     Create a new tax code
     
-
     Create one or more new taxcode objects attached to this company.
       A 'TaxCode' represents a uniquely identified type of product, good, or service.
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
       If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
       taxability rules for this product in all supported jurisdictions.
     
-
       :param companyId [int] The ID of the company that owns this tax code.
       :param model [TaxCodeModel] The tax code you wish to create.
       :return TaxCodeModel
@@ -5417,10 +5078,8 @@ class Mixin:
     r"""
     Delete a single tax code
     
-
     Marks the existing TaxCode object at this URL as deleted.
     
-
       :param companyId [int] The ID of the company that owns this tax code.
       :param id_ [int] The ID of the tax code you wish to delete.
       :return ErrorDetail
@@ -5432,14 +5091,12 @@ class Mixin:
     r"""
     Retrieve a single tax code
     
-
     Get the taxcode object identified by this URL.
       A 'TaxCode' represents a uniquely identified type of product, good, or service.
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
       If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
       taxability rules for this product in all supported jurisdictions.
     
-
       :param companyId [int] The ID of the company that owns this tax code
       :param id_ [int] The primary key of this tax code
       :return TaxCodeModel
@@ -5451,7 +5108,6 @@ class Mixin:
     r"""
     Retrieve tax codes for this company
     
-
     List all taxcode objects attached to this company.
       A 'TaxCode' represents a uniquely identified type of product, good, or service.
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
@@ -5460,7 +5116,6 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param companyId [int] The ID of the company that owns these tax codes
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
@@ -5476,7 +5131,6 @@ class Mixin:
     r"""
     Retrieve all tax codes
     
-
     Get multiple taxcode objects across all companies.
       A 'TaxCode' represents a uniquely identified type of product, good, or service.
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
@@ -5485,7 +5139,6 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -5500,7 +5153,6 @@ class Mixin:
     r"""
     Update a single tax code
     
-
     Replace the existing taxcode object at this URL with an updated object.
       A 'TaxCode' represents a uniquely identified type of product, good, or service.
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
@@ -5509,7 +5161,6 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
     
-
       :param companyId [int] The ID of the company that this tax code belongs to.
       :param id_ [int] The ID of the tax code you wish to update
       :param model [TaxCodeModel] The tax code you wish to update.
@@ -5522,7 +5173,6 @@ class Mixin:
     r"""
     Build a multi-location tax content file
     
-
     Builds a tax content file containing information useful for a retail point-of-sale solution.
       This file contains tax rates and rules for items and locations that can be used
       to correctly calculate tax in the event a point-of-sale device is not able to reach AvaTax.
@@ -5532,7 +5182,6 @@ class Mixin:
       file for a single location at a time, please use `BuildTaxContentFileForLocation`.
       NOTE: This API does not work for Tennessee tax holiday scenarios.
     
-
       :param model [PointOfSaleDataRequestModel] Parameters about the desired file format and report format, specifying which company, locations and TaxCodes to include.
       :return String
     """
@@ -5543,7 +5192,6 @@ class Mixin:
     r"""
     Build a tax content file for a single location
     
-
     Builds a tax content file containing information useful for a retail point-of-sale solution.
       This file contains tax rates and rules for all items for a single location. Data from this API
       can be used to correctly calculate tax in the event a point-of-sale device is not able to reach AvaTax.
@@ -5553,7 +5201,6 @@ class Mixin:
       file for a multiple locations in a single file, please use `BuildTaxContentFile`.
       NOTE: This API does not work for Tennessee tax holiday scenarios.
     
-
       :param companyId [int] The ID number of the company that owns this location.
       :param id_ [int] The ID number of the location to retrieve point-of-sale data.
       :param date [datetime] The date for which point-of-sale data would be calculated (today by default)
@@ -5569,7 +5216,6 @@ class Mixin:
     r"""
     Download a file listing tax rates by postal code
     
-
     Download a CSV file containing all five digit postal codes in the United States and their sales
       and use tax rates for tangible personal property.
       This rates file is intended to be used as a default for tax calculation when your software cannot
@@ -5584,25 +5230,23 @@ class Mixin:
       rate and the final transaction tax.
       For more detailed tax content, please use the `BuildTaxContentFile` API which allows usage of exact items and exact locations.
     
-
       :param date [datetime] The date for which point-of-sale data would be calculated (today by default). Example input: 2016-12-31
+      :param region [string] If the region is provided, this API is going to generate the tax rate per zipcode for only the region specified.
       :return String
     """
-    def download_tax_rates_by_zip_code(self, date):
+    def download_tax_rates_by_zip_code(self, date, include=None):
         return requests.get('{}/api/v2/taxratesbyzipcode/download/{}'.format(self.base_url, date),
-                               auth=self.auth, headers=self.client_header, params=None)
+                               auth=self.auth, headers=self.client_header, params=include)
 
     r"""
     Create a new tax rule
     
-
     Create one or more new taxrule objects attached to this company.
       A tax rule represents a custom taxability rule for a product or service sold by your company.
       If you have obtained a custom tax ruling from an auditor that changes the behavior of certain goods or services
       within certain taxing jurisdictions, or you have obtained special tax concessions for certain dates or locations,
       you may wish to create a TaxRule object to override the AvaTax engine's default behavior in those circumstances.
     
-
       :param companyId [int] The ID of the company that owns this tax rule.
       :param model [TaxRuleModel] The tax rule you wish to create.
       :return TaxRuleModel
@@ -5614,10 +5258,8 @@ class Mixin:
     r"""
     Delete a single tax rule
     
-
     Mark the TaxRule identified by this URL as deleted.
     
-
       :param companyId [int] The ID of the company that owns this tax rule.
       :param id_ [int] The ID of the tax rule you wish to delete.
       :return ErrorDetail
@@ -5629,14 +5271,12 @@ class Mixin:
     r"""
     Retrieve a single tax rule
     
-
     Get the taxrule object identified by this URL.
       A tax rule represents a custom taxability rule for a product or service sold by your company.
       If you have obtained a custom tax ruling from an auditor that changes the behavior of certain goods or services
       within certain taxing jurisdictions, or you have obtained special tax concessions for certain dates or locations,
       you may wish to create a TaxRule object to override the AvaTax engine's default behavior in those circumstances.
     
-
       :param companyId [int] The ID of the company that owns this tax rule
       :param id_ [int] The primary key of this tax rule
       :return TaxRuleModel
@@ -5648,7 +5288,6 @@ class Mixin:
     r"""
     Retrieve tax rules for this company
     
-
     List all taxrule objects attached to this company.
       A tax rule represents a custom taxability rule for a product or service sold by your company.
       If you have obtained a custom tax ruling from an auditor that changes the behavior of certain goods or services
@@ -5657,7 +5296,6 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param companyId [int] The ID of the company that owns these tax rules
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
@@ -5673,7 +5311,6 @@ class Mixin:
     r"""
     Retrieve all tax rules
     
-
     Get multiple taxrule objects across all companies.
       A tax rule represents a custom taxability rule for a product or service sold by your company.
       If you have obtained a custom tax ruling from an auditor that changes the behavior of certain goods or services
@@ -5682,7 +5319,6 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -5697,7 +5333,6 @@ class Mixin:
     r"""
     Update a single tax rule
     
-
     Replace the existing taxrule object at this URL with an updated object.
       A tax rule represents a custom taxability rule for a product or service sold by your company.
       If you have obtained a custom tax ruling from an auditor that changes the behavior of certain goods or services
@@ -5706,7 +5341,6 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
     
-
       :param companyId [int] The ID of the company that this tax rule belongs to.
       :param id_ [int] The ID of the tax rule you wish to update
       :param model [TaxRuleModel] The tax rule you wish to update.
@@ -5719,7 +5353,6 @@ class Mixin:
     r"""
     Add lines to an existing unlocked transaction
     
-
     Add lines to an existing unlocked transaction.
        The `AddLines` API allows you to add additional transaction lines to existing transaction, so that customer will
        be able to append multiple calls together and form an extremely large transaction. If customer does not specify line number
@@ -5737,7 +5370,6 @@ class Mixin:
       * LinesOnly (omit details - reduces API response size)
        If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
     
-
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [AddTransactionLineModel] information about the transaction and lines to be added
       :return TransactionModel
@@ -5749,7 +5381,6 @@ class Mixin:
     r"""
     Correct a previously created transaction
     
-
     Replaces the current transaction uniquely identified by this URL with a new transaction.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
@@ -5759,7 +5390,6 @@ class Mixin:
       Transactions that have been previously reported to a tax authority by Avalara Managed Returns are considered `locked` and are
       no longer available for adjustments.
     
-
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to adjust
       :param documentType [DocumentType] (Optional): The document type of the transaction to adjust. (See DocumentType::* for a list of allowable values)
@@ -5773,7 +5403,6 @@ class Mixin:
     r"""
     Get audit information about a transaction
     
-
     Retrieve audit information about a transaction stored in AvaTax.
       The `AuditTransaction` API retrieves audit information related to a specific transaction. This audit
       information includes the following:
@@ -5786,7 +5415,6 @@ class Mixin:
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
     
-
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
       :return AuditTransactionModel
@@ -5798,7 +5426,6 @@ class Mixin:
     r"""
     Get audit information about a transaction
     
-
     Retrieve audit information about a transaction stored in AvaTax.
       The `AuditTransaction` API retrieves audit information related to a specific transaction. This audit
       information includes the following:
@@ -5811,7 +5438,6 @@ class Mixin:
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
     
-
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
       :param documentType [DocumentType] The document type of the original transaction (See DocumentType::* for a list of allowable values)
@@ -5824,14 +5450,12 @@ class Mixin:
     r"""
     Lock a set of documents
     
-
     This API is available by invitation only.
       Lock a set of transactions uniquely identified by DocumentIds provided. This API allows locking multiple documents at once.
       After this API call succeeds, documents will be locked and can't be voided.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
     
-
       :param model [BulkLockTransactionModel] bulk lock request
       :return BulkLockTransactionResult
     """
@@ -5842,7 +5466,6 @@ class Mixin:
     r"""
     Change a transaction's code
     
-
     Renames a transaction uniquely identified by this URL by changing its `code` value.
       This API is available as long as the transaction is in `saved` or `posted` status. When a transaction
       is `committed`, it can be modified by using the [AdjustTransaction](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/AdjustTransaction/) method.
@@ -5851,7 +5474,6 @@ class Mixin:
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
     
-
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to change
       :param documentType [DocumentType] (Optional): The document type of the transaction to change document code. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -5865,7 +5487,6 @@ class Mixin:
     r"""
     Commit a transaction for reporting
     
-
     Marks a transaction by changing its status to `Committed`.
       Transactions that are committed are available to be reported to a tax authority by Avalara Managed Returns.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
@@ -5873,7 +5494,6 @@ class Mixin:
       If you have more than one document with the same `code`, specify the `documentType` parameter to choose between them.
       Any changes made to a committed transaction will generate a transaction history.
     
-
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to commit
       :param documentType [DocumentType] (Optional): The document type of the transaction to commit. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -5887,7 +5507,6 @@ class Mixin:
     r"""
     Create or adjust a transaction
     
-
     Records a new transaction or adjust an existing transaction in AvaTax.
       The `CreateOrAdjustTransaction` endpoint is used to create a new transaction or update an existing one. This API
       can help you create an idempotent service that creates transactions
@@ -5910,7 +5529,6 @@ class Mixin:
       * ForceTimeout - Simulates a timeout. This adds a 30 second delay and error to your API call. This can be used to test your code to ensure it can respond correctly in the case of a dropped connection.
       If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
     
-
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateOrAdjustTransactionModel] The transaction you wish to create or adjust
       :return TransactionModel
@@ -5922,7 +5540,6 @@ class Mixin:
     r"""
     Create a new transaction
     
-
     Records a new transaction in AvaTax.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
@@ -5949,7 +5566,6 @@ class Mixin:
       * ForceTimeout - Simulates a timeout. This adds a 30 second delay and error to your API call. This can be used to test your code to ensure it can respond correctly in the case of a dropped connection.
       If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
     
-
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateTransactionModel] The transaction you wish to create
       :return TransactionModel
@@ -5961,7 +5577,6 @@ class Mixin:
     r"""
     Remove lines from an existing unlocked transaction
     
-
     Remove lines to an existing unlocked transaction.
        The `DeleteLines` API allows you to remove transaction lines from existing unlocked transaction, so that customer will
        be able to delete transaction lines and adjust original transaction the way they like
@@ -5976,7 +5591,6 @@ class Mixin:
       * LinesOnly (omit details - reduces API response size)
        If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
     
-
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [RemoveTransactionLineModel] information about the transaction and lines to be removed
       :return TransactionModel
@@ -5987,9 +5601,6 @@ class Mixin:
 
     r"""
     Retrieve a single transaction by code
-
-
-
     
     Get the current transaction identified by this company code, transaction code, and document type.
       A transaction is uniquely identified by `companyCode`, `code` (often called Transaction Code), and `documentType`.
@@ -6005,7 +5616,6 @@ class Mixin:
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
     
-
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to retrieve
       :param documentType [DocumentType] (Optional): The document type of the transaction to retrieve (See DocumentType::* for a list of allowable values)
@@ -6021,17 +5631,6 @@ class Mixin:
     
     DEPRECATED: Please use the `GetTransactionByCode` API instead.
     
-
-
-
-
-
-
-
-
-
-
-
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to retrieve
       :param documentType [DocumentType] The transaction type to retrieve (See DocumentType::* for a list of allowable values)
@@ -6045,7 +5644,6 @@ class Mixin:
     r"""
     Retrieve a single transaction by ID
     
-
     Get the unique transaction identified by this URL.
       This endpoint retrieves the exact transaction identified by this ID number even if that transaction was later adjusted
       by using the `AdjustTransaction` endpoint.
@@ -6059,7 +5657,6 @@ class Mixin:
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
     
-
       :param id_ [int] The unique ID number of the transaction to retrieve
       :param include [string] Specifies objects to include in this fetch call
       :return TransactionModel
@@ -6071,7 +5668,6 @@ class Mixin:
     r"""
     Retrieve all transactions
     
-
     List all transactions attached to this company.
       This endpoint is limited to returning 1,000 transactions at a time maximum.
       When listing transactions, you must specify a `date` range filter. If you do not specify a `$filter` that includes a `date` field
@@ -6088,7 +5684,6 @@ class Mixin:
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
     
-
       :param companyCode [string] The company code of the company that recorded this transaction
       :param include [string] Specifies objects to include in this fetch call
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -6104,7 +5699,6 @@ class Mixin:
     r"""
     Lock a single transaction
     
-
     Lock a transaction uniquely identified by this URL.
       This API is mainly used for connector developer to simulate what happens when Returns product locks a document.
       After this API call succeeds, the document will be locked and can't be voided or adjusted.
@@ -6113,7 +5707,6 @@ class Mixin:
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
     
-
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to lock
       :param documentType [DocumentType] (Optional): The document type of the transaction to lock. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -6127,7 +5720,6 @@ class Mixin:
     r"""
     Create a refund for a transaction
     
-
     Create a refund for a transaction.
       The `RefundTransaction` API allows you to quickly and easily create a `ReturnInvoice` representing a refund
       for a previously created `SalesInvoice` transaction. You can choose to create a full or partial refund, and
@@ -6152,7 +5744,6 @@ class Mixin:
       * LinesOnly (omit details - reduces API response size)
       If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
     
-
       :param companyCode [string] The code of the company that made the original sale
       :param transactionCode [string] The transaction code of the original sale
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -6168,7 +5759,6 @@ class Mixin:
     r"""
     Perform multiple actions on a transaction
     
-
     Performs one or more actions against the current transaction uniquely identified by this URL.
       The `SettleTransaction` API call can perform the work of `ChangeCode`, `VerifyTransaction`, and `CommitTransaction`.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
@@ -6176,7 +5766,6 @@ class Mixin:
       If you have more than one document with the same `code`, specify the `documentType` parameter to choose between them.
       This API is available for users who want to execute more than one action at a time.
     
-
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to settle
       :param documentType [DocumentType] (Optional): The document type of the transaction to settle. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -6188,16 +5777,30 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=include, json=model)
 
     r"""
+    Uncommit a transaction for reporting
+    
+    Adjusts a transaction by changing it to an uncommitted status.
+      Transactions that have been previously reported to a tax authority by Avalara Managed Returns are considered `locked` and are
+      no longer available to be uncommitted.
+    
+      :param companyCode [string] The company code of the company that recorded this transaction
+      :param transactionCode [string] The transaction code to commit
+      :param documentType [DocumentType] (Optional): The document type of the transaction to commit. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
+      :return TransactionModel
+    """
+    def uncommit_transaction(self, companyCode, transactionCode, include=None):
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/uncommit'.format(self.base_url, companyCode, transactionCode),
+                               auth=self.auth, headers=self.client_header, params=include)
+
+    r"""
     Verify a transaction
     
-
     Verifies that the transaction uniquely identified by this URL matches certain expected values.
       If the transaction does not match these expected values, this API will return an error code indicating which value did not match.
       If you have more than one document with the same `code`, specify the `documentType` parameter to choose between them.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
     
-
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to settle
       :param documentType [DocumentType] (Optional): The document type of the transaction to verify. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -6211,7 +5814,6 @@ class Mixin:
     r"""
     Void a transaction
     
-
     Voids the current transaction uniquely identified by this URL.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
@@ -6219,7 +5821,6 @@ class Mixin:
       If you have more than one document with the same `code`, specify the `documentType` parameter to choose between them.
       Transactions that have been previously reported to a tax authority by Avalara Managed Returns are no longer available to be voided.
     
-
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to void
       :param documentType [DocumentType] (Optional): The document type of the transaction to void. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -6233,11 +5834,9 @@ class Mixin:
     r"""
     Create a new UPC
     
-
     Create one or more new UPC objects attached to this company.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
     
-
       :param companyId [int] The ID of the company that owns this UPC.
       :param model [UPCModel] The UPC you wish to create.
       :return UPCModel
@@ -6249,10 +5848,8 @@ class Mixin:
     r"""
     Delete a single UPC
     
-
     Marks the UPC object identified by this URL as deleted.
     
-
       :param companyId [int] The ID of the company that owns this UPC.
       :param id_ [int] The ID of the UPC you wish to delete.
       :return ErrorDetail
@@ -6264,11 +5861,9 @@ class Mixin:
     r"""
     Retrieve a single UPC
     
-
     Get the UPC object identified by this URL.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
     
-
       :param companyId [int] The ID of the company that owns this UPC
       :param id_ [int] The primary key of this UPC
       :return UPCModel
@@ -6280,13 +5875,11 @@ class Mixin:
     r"""
     Retrieve UPCs for this company
     
-
     List all UPC objects attached to this company.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param companyId [int] The ID of the company that owns these UPCs
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
@@ -6302,13 +5895,11 @@ class Mixin:
     r"""
     Retrieve all UPCs
     
-
     Get multiple UPC objects across all companies.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -6323,13 +5914,11 @@ class Mixin:
     r"""
     Update a single UPC
     
-
     Replace the existing UPC object at this URL with an updated object.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
     
-
       :param companyId [int] The ID of the company that this UPC belongs to.
       :param id_ [int] The ID of the UPC you wish to update
       :param model [UPCModel] The UPC you wish to update.
@@ -6342,7 +5931,6 @@ class Mixin:
     r"""
     Create new users
     
-
     Create one or more new user objects attached to this account.
       A user represents one person with access privileges to make API calls and work with a specific account.
       Users who are account administrators or company users are permitted to create user records to invite
@@ -6350,7 +5938,6 @@ class Mixin:
       A newly created user will receive an email inviting them to create their password. This means that you
       must provide a valid email address for all user accounts created.
     
-
       :param accountId [int] The unique ID number of the account where these users will be created.
       :param model [UserModel] The user or array of users you wish to create.
       :return UserModel
@@ -6362,11 +5949,9 @@ class Mixin:
     r"""
     Retrieve a single user
     
-
     Get the user object identified by this URL.
       A user represents one person with access privileges to make API calls and work with a specific account.
     
-
       :param id_ [int] The ID of the user to retrieve.
       :param accountId [int] The accountID of the user you wish to get.
       :param include [string] Optional fetch commands.
@@ -6379,7 +5964,6 @@ class Mixin:
     r"""
     Retrieve all entitlements for a single user
     
-
     Return a list of all entitlements to which this user has rights to access.
       Entitlements are a list of specified API calls the user is permitted to make, a list of identifier numbers for companies the user is
       allowed to use, and an access level identifier that indicates what types of access roles the user is allowed to use.
@@ -6394,7 +5978,6 @@ class Mixin:
       * If the 'permissions' array within entitlements does not contain 'AccountSvc.CompanySave', the call will fail.
       For a full list of defined permissions, please use '/api/v2/definitions/permissions' .
     
-
       :param id_ [int] The ID of the user to retrieve.
       :param accountId [int] The accountID of the user you wish to get.
       :return UserEntitlementModel
@@ -6420,7 +6003,6 @@ class Mixin:
     r"""
     Retrieve users for this account
     
-
     List all user objects attached to this account.
       A user represents one person with access privileges to make API calls and work with a specific account.
       When an API is called using a legacy AvaTax License Key, the API log entry is recorded as being performed by a special user attached to that license key.
@@ -6428,7 +6010,6 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param accountId [int] The accountID of the user you wish to list.
       :param include [string] Optional fetch commands.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -6444,7 +6025,6 @@ class Mixin:
     r"""
     Retrieve all users
     
-
     Get multiple user objects across all accounts.
       A user represents one person or set of credentials with access privileges to make API calls and work with a specific account. A user can be authenticated
       via either username / password authentication, an OpenID / OAuth Bearer Token, or a legacy AvaTax License Key.
@@ -6453,7 +6033,6 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
-
       :param include [string] Optional fetch commands.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
@@ -6468,13 +6047,11 @@ class Mixin:
     r"""
     Update a single user
     
-
     Replace the existing user object at this URL with an updated object.
       A user represents one person with access privileges to make API calls and work with a specific account.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
     
-
       :param id_ [int] The ID of the user you wish to update.
       :param accountId [int] The accountID of the user you wish to update.
       :param model [UserModel] The user object you wish to update.
@@ -6487,12 +6064,10 @@ class Mixin:
     r"""
     Checks if the current user is subscribed to a specific service
     
-
     Returns a subscription object for the current account, or 404 Not Found if this subscription is not enabled for this account.
       This API call is intended to allow you to identify whether you have the necessary account configuration to access certain
       features of AvaTax, and would be useful in debugging access privilege problems.
     
-
       :param serviceTypeId [ServiceTypeId] The service to check (See ServiceTypeId::* for a list of allowable values)
       :return SubscriptionModel
     """
@@ -6503,12 +6078,10 @@ class Mixin:
     r"""
     List all services to which the current user is subscribed
     
-
     Returns the list of all subscriptions enabled for the current account.
       This API is intended to help you determine whether you have the necessary subscription to use certain API calls
       within AvaTax.
     
-
       :return FetchResult
     """
     def list_my_subscriptions(self):
@@ -6518,14 +6091,12 @@ class Mixin:
     r"""
     Tests connectivity and version of the service
     
-
     This API helps diagnose connectivity problems between your application and AvaTax; you may call this API even
       if you do not have verified connection credentials.
       The results of this API call will help you determine whether your computer can contact AvaTax via the network,
       whether your authentication credentials are recognized, and the roundtrip time it takes to communicate with
       AvaTax.
     
-
       :return PingResultModel
     """
     def ping(self):
