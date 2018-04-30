@@ -70,7 +70,7 @@ Now we have a client object, we can ping the AvaTax REST V2 server to ensure con
   print(response.text())
 
   # to view json version of the response
-  print(respnse.json())
+  print(response.json())
 
   # to view the status code
   print(response.status_code())
