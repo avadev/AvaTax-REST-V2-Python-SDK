@@ -53,9 +53,9 @@ Create a new AvaTaxClient object:
                           'my test machine',
                           'sandbox')
 ```
-The client constructor takes four string parameters, in squence they are `app_name(required)`, `app_version(required)`, `achine_name(optional)`, and `environment(required)`. 
-The app_name, app_version, machine_name will be use to construct the [Client Header](https://developer.avalara.com/avatax/client-headers/) associated with each calls made by this client. Which will be return within the response object to help you keep track of the API calls.
-The `environment` variable can be either `"sandbox"` or `production`, they corresponds to the two different environment AvaTax service has.
+The client constructor takes four string parameters, in squence they are `app_name(required)`, `app_version(required)`, `machine_name(optional)`, and `environment(required)`.
+The app_name, app_version, machine_name will be used to construct the [Client Header](https://developer.avalara.com/avatax/client-headers/) associated with each call made by this client. It will be returned within the response object to help you keep track of the API calls.
+The `environment` variable can be either `"sandbox"` or `production`, they correspond to the two different environments for AvaTax service.
 If you are a regular or free trial customer please use `"production"`. If you don't have an account, you can sign up for a free trail account on our [developer site](https://developer.avalara.com/avatax/signup/), this will be a production account as well.
 If you wish to obtain a Sandbox account, please contact your [Customer Account Manager](https://help.avalara.com/Frequently_Asked_Questions/Avalara_AvaTax_FAQ/How_do_I_get_access_to_our_development%2F%2Fsandbox_account%3F)
 
