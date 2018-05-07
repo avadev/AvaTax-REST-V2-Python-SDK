@@ -4695,7 +4695,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_user(self, id_, accountId):
-        return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, id_, accountId),
+        return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None)
 
     r"""
