@@ -4695,7 +4695,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_user(self, id_, accountId):
-        return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, id_, accountId),
+        return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None)
 
     r"""
@@ -5958,7 +5958,7 @@ class Mixin:
       :return UserModel
     """
     def get_user(self, id_, accountId, include=None):
-        return requests.get('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, id_, accountId),
+        return requests.get('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=include)
 
     r"""
@@ -5983,7 +5983,7 @@ class Mixin:
       :return UserEntitlementModel
     """
     def get_user_entitlements(self, id_, accountId):
-        return requests.get('{}/api/v2/accounts/{}/users/{}/entitlements'.format(self.base_url, id_, accountId),
+        return requests.get('{}/api/v2/accounts/{}/users/{}/entitlements'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None)
 
     r"""
@@ -6058,7 +6058,7 @@ class Mixin:
       :return UserModel
     """
     def update_user(self, id_, accountId, model):
-        return requests.put('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, id_, accountId),
+        return requests.put('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model)
 
     r"""
