@@ -146,143 +146,6 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model)
 
     r"""
-    Approve an advanced rule script to run.
-    
-    This API is available by invite only and implementation support is required.
-      Please contact your Customer Account Manager if you are interested in using
-      Advanced Rules in your AvaTax integration.
-    
-      :param accountId [int] The ID of the account that owns the Advanced Rule.
-      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
-      :return AdvancedRuleScriptModel
-    """
-    def approve_advanced_rule_script(self, accountId, scriptType):
-        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/approve'.format(self.base_url, accountId, scriptType),
-                               auth=self.auth, headers=self.client_header, params=None)
-
-    r"""
-    Create an advanced rule.
-    
-    This API is available by invite only and implementation support is required.
-      Please contact your Customer Account Manager if you are interested in using
-      Advanced Rules in your AvaTax integration.
-    
-      :param accountId [int] The ID of the account that will own the Advanced Rule.
-      :param scriptType [AdvancedRuleScriptType] The script transform type, Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
-      :param crashBehavior [AdvancedRuleCrashBehavior] The behavior the script should take if it crashes: Fail or Proceed. (See AdvancedRuleCrashBehavior::* for a list of allowable values)
-      :param file [String] The JavaScript file containing the advanced rule.
-      :return string
-    """
-    def create_advanced_rule_script(self, accountId, scriptType, include=None):
-        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
-                               auth=self.auth, headers=self.client_header, params=include)
-
-    r"""
-    Create a lookup table for an advanced rule
-    
-    This API is available by invite only and implementation support is required.
-      Please contact your Customer Account Manager if you are interested in using
-      Advanced Rules in your AvaTax integration.
-    
-      :param accountId [int] The ID of the account that owns the Advanced Rule.
-      :param csvTableName [string] The name to assign the CSV lookup table.
-      :param file [String] A CSV file containing lookup data for an advanced rule.
-      :return string
-    """
-    def create_advanced_rule_table(self, accountId, csvTableName):
-        return requests.post('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
-                               auth=self.auth, headers=self.client_header, params=None)
-
-    r"""
-    Delete an account's active advanced rule
-    
-    This API is available by invite only and implementation support is required.
-      Please contact your Customer Account Manager if you are interested in using
-      Advanced Rules in your AvaTax integration.
-    
-      :param accountId [int] The ID of the account that owns the Advanced Rule.
-      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
-      :return ErrorDetail
-    """
-    def delete_advanced_rule_script(self, accountId, scriptType):
-        return requests.delete('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
-                               auth=self.auth, headers=self.client_header, params=None)
-
-    r"""
-    Delete a lookup table for an advanced rule.
-    
-    This API is available by invite only and implementation support is required.
-      Please contact your Customer Account Manager if you are interested in using
-      Advanced Rules in your AvaTax integration.
-    
-      :param accountId [int] The ID of the account that owns the Advanced Rule.
-      :param csvTableName [string] The name of the CSV lookup table to delete.
-      :return ErrorDetail
-    """
-    def delete_advanced_rule_table(self, accountId, csvTableName):
-        return requests.delete('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
-                               auth=self.auth, headers=self.client_header, params=None)
-
-    r"""
-    Get an account's advanced rule script.
-    
-    This API is available by invite only and implementation support is required.
-      Please contact your Customer Account Manager if you are interested in using
-      Advanced Rules in your AvaTax integration.
-    
-      :param accountId [int] The ID of the account that owns the Advanced Rule.
-      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
-      :return AdvancedRuleScriptModel
-    """
-    def get_advanced_rule_script(self, accountId, scriptType):
-        return requests.get('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
-                               auth=self.auth, headers=self.client_header, params=None)
-
-    r"""
-    Get an advanced rule lookup table for an account
-    
-    This API is available by invite only and implementation support is required.
-      Please contact your Customer Account Manager if you are interested in using
-      Advanced Rules in your AvaTax integration.
-    
-      :param accountId [int] The ID of the account that owns the Advanced Rule.
-      :param csvTableName [string] The name of the CSV lookup table to get.
-      :return AdvancedRuleTableModel
-    """
-    def get_advanced_rule_table(self, accountId, csvTableName):
-        return requests.get('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
-                               auth=self.auth, headers=self.client_header, params=None)
-
-    r"""
-    Get all advanced rule lookup tables for an account
-    
-    This API is available by invite only and implementation support is required.
-      Please contact your Customer Account Manager if you are interested in using
-      Advanced Rules in your AvaTax integration.
-    
-      :param accountId [int] The ID of the account that owns the Advanced Rule.
-      :return AdvancedRuleTableModel
-    """
-    def get_advanced_rule_tables(self, accountId):
-        return requests.get('{}/api/v2/accounts/{}/advancedruletables'.format(self.base_url, accountId),
-                               auth=self.auth, headers=self.client_header, params=None)
-
-    r"""
-    Unapprove an advanced rule script so that it cannot be run.
-    
-    This API is available by invite only and implementation support is required.
-      Please contact your Customer Account Manager if you are interested in using
-      Advanced Rules in your AvaTax integration.
-    
-      :param accountId [int] The ID of the account that owns the Advanced Rule.
-      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
-      :return AdvancedRuleScriptModel
-    """
-    def unapprove_advanced_rule_script(self, accountId, scriptType):
-        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/unapprove'.format(self.base_url, accountId, scriptType),
-                               auth=self.auth, headers=self.client_header, params=None)
-
-    r"""
     Create a new AvaFileForm
     
     Create one or more AvaFileForms
@@ -376,7 +239,14 @@ class Mixin:
     r"""
     Delete a single batch
     
-    
+    Marks the batch identified by this URL as deleted.
+      If you attempt to delete a batch that is being processed, you will receive an error message.
+      Deleting a batch does not delete any transactions that were created by importing the batch.
+      Because the batch system processes with a degree of concurrency, and
+      because of batch sizes in the queue vary, AvaTax API is unable to accurately
+      predict when a batch will complete. If high performance processing is
+      required, please use the
+      [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
     
       :param companyId [int] The ID of the company that owns this batch.
       :param id_ [int] The ID of the batch to delete.
@@ -1185,9 +1055,11 @@ class Mixin:
     Update a single company
     
     Replace the existing company object at this URL with an updated object.
-      A 'company' represents a single corporation or individual that is registered to handle transactional taxes.
+      A `CompanyModel` represents a single corporation or individual that is registered to handle transactional taxes.
       All data from the existing object will be replaced with data in the object you PUT.
-      To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      When calling `UpdateCompany`, you are permitted to update the company itself. Updates to the nested objects
+      such as contacts, locations, or settings are not permitted. To update the nested objects
+      To set a field's value to `null`, you may either set its value to `null` or omit that field from the object you PUT.
     
       :param id_ [int] The ID of the company you wish to update.
       :param model [CompanyModel] The company object you wish to update.
@@ -2176,10 +2048,8 @@ class Mixin:
     Returns the full list of Avalara-supported permission types.
       This API is intended to be useful to identify the capabilities of a particular user logon.
     
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
     def list_permissions(self, include=None):
@@ -2401,10 +2271,8 @@ class Mixin:
       A 'Tax Code Type' represents a broad category of tax codes, and is less detailed than a single TaxCode.
       This API is intended to be useful for broadly searching for tax codes by tax code type.
     
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return TaxCodeTypesModel
     """
     def list_tax_code_types(self, include=None):
@@ -2769,6 +2637,7 @@ class Mixin:
       are reviewed and validated by Avalara Compliance before being implemented.
     
       :param companyId [int] The ID of the company that owns these batches
+      :param filingCalendarId [int] Specific filing calendar id for the request
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -2832,6 +2701,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
+      :param filingCalendarId [int] Specific filing calendar id for the request
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
@@ -3377,15 +3247,13 @@ class Mixin:
     r"""
     FREE API - Request a free trial of AvaTax
     
-    Call this API to obtain a free AvaTax sandbox account.
-      This API is free to use. No authentication credentials are required to call this API. You must read and accept Avalara's terms and conditions.
-      The account will grant a full trial version of AvaTax (e.g. AvaTaxPro) for a limited period of time.
-      After this introductory period, you may continue to use the free TaxRates API.
-      Limitations on free trial accounts:
-      * Only one free trial per company.
-      * The free trial account does not expire.
-      * Includes a limited time free trial of AvaTaxPro; after that date, the free TaxRates API will continue to work.
-      * Each free trial account must have its own valid email address.
+    Call this API to obtain a free AvaTax account.
+      This API is free to use. No authentication credentials are required to call this API. You must read and
+      accept [Avalara's terms and conditions](https://www1.avalara.com/us/en/legal/terms.html) for the account to be
+      created.
+      If all conditions are met, this API will grant a free trial version of AvaTax. For a list of functionality
+      available in the free trial and its limitations, please see the [AvaTax Developer Website Free Trial page](https://developer.avalara.com/avatax/signup/).
+      After your free trial concludes, you will still be able to use the [Free AvaTax API Suite](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Free/).
     
       :param model [FreeTrialRequestModel] Required information to provision a free trial account.
       :return NewAccountModel
@@ -4278,6 +4146,23 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model)
 
     r"""
+    Delete a single notice.
+    
+    This API is available by invitation only.
+      'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param id_ [int] The ID of the notice you wish to delete the finance detail from.
+      :param commentDetailsId [int] The ID of the comment you wish to delete.
+      :return ErrorDetail
+    """
+    def comment_details_delete(self, companyId, id_, commentDetailsId):
+        return requests.delete('{}/api/v2/companies/{}/notices/{}/commentdetails/{}'.format(self.base_url, companyId, id_, commentDetailsId),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
     Create a new notice comment.
     
     This API is available by invitation only.
@@ -4424,6 +4309,24 @@ class Mixin:
     """
     def download_notice_attachment(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/notices/files/{}/attachment'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Delete a single notice.
+    
+    This API is available by invitation only.
+      'Notice finance details' is the categorical breakdown of the total charge levied by the tax authority on our customer,
+      as broken down in our "notice log" found in Workflow. Main examples of the categories are 'Tax Due', 'Interest', 'Penalty', 'Total Abated'.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param id_ [int] The ID of the notice you wish to delete the finance detail from.
+      :param financeDetailsId [int] The ID of the finance detail you wish to delete.
+      :return ErrorDetail
+    """
+    def financedetailsdelete(self, companyId, id_, financeDetailsId):
+        return requests.delete('{}/api/v2/companies/{}/notices/{}/financedetails/{}'.format(self.base_url, companyId, id_, financeDetailsId),
                                auth=self.auth, headers=self.client_header, params=None)
 
     r"""
@@ -5228,6 +5131,21 @@ class Mixin:
       If you use this file to provide default tax rates, please ensure that your software calls `CreateTransaction`
       to reconcile the actual transaction and determine the difference between the estimated general tax
       rate and the final transaction tax.
+      The file provided by this API is in CSV format with the following columns:
+      * ZIP_CODE - The five digit zip code for this record.
+      * STATE_ABBREV - A valid two character US state abbreviation for this record. Zip codes may span multiple states.
+      * COUNTY_NAME - A valid county name for this record. Zip codes may span multiple counties.
+      * CITY_NAME - A valid city name for this record. Zip codes may span multiple cities.
+      * STATE_SALES_TAX - The state component of the sales tax rate.
+      * STATE_USE_TAX - The state component of the use tax rate.
+      * COUNTY_SALES_TAX - The county component of the sales tax rate.
+      * COUNTY_USE_TAX - The county component of the use tax rate.
+      * CITY_SALES_TAX - The city component of the sales tax rate.
+      * CITY_USE_TAX - The city component of the use tax rate.
+      * TOTAL_SALES_TAX - The total tax rate for sales tax for this postal code. This value may not equal the sum of the state/county/city due to special tax jurisdiction rules.
+      * TOTAL_USE_TAX - The total tax rate for use tax for this postal code. This value may not equal the sum of the state/county/city due to special tax jurisdiction rules.
+      * TAX_SHIPPING_ALONE - This column contains 'Y' if shipping is taxable.
+      * TAX_SHIPPING_AND_HANDLING_TOGETHER - This column contains 'Y' if shipping and handling are taxable when sent together.
       For more detailed tax content, please use the `BuildTaxContentFile` API which allows usage of exact items and exact locations.
     
       :param date [datetime] The date for which point-of-sale data would be calculated (today by default). Example input: 2016-12-31
