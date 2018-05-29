@@ -146,6 +146,173 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model)
 
     r"""
+    Approve an advanced rule script to run.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return AdvancedRuleScriptModel
+    """
+    def approve_advanced_rule_script(self, accountId, scriptType):
+        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/approve'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Create an advanced rule.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that will own the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type, Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :param crashBehavior [AdvancedRuleCrashBehavior] The behavior the script should take if it crashes: Fail or Proceed. (See AdvancedRuleCrashBehavior::* for a list of allowable values)
+      :param file [String] The JavaScript file containing the advanced rule.
+      :return string
+    """
+    def create_advanced_rule_script(self, accountId, scriptType, include=None):
+        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=include)
+
+    r"""
+    Create a lookup table for an advanced rule
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param csvTableName [string] The name to assign the CSV lookup table.
+      :param file [String] A CSV file containing lookup data for an advanced rule.
+      :return string
+    """
+    def create_advanced_rule_table(self, accountId, csvTableName):
+        return requests.post('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Delete an account's active advanced rule
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return ErrorDetail
+    """
+    def delete_advanced_rule_script(self, accountId, scriptType):
+        return requests.delete('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Delete a lookup table for an advanced rule.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param csvTableName [string] The name of the CSV lookup table to delete.
+      :return ErrorDetail
+    """
+    def delete_advanced_rule_table(self, accountId, csvTableName):
+        return requests.delete('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Disable an advanced rule so that it cannot be run.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration. ///
+    
+      :param accountId [int] 
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return AdvancedRuleScriptModel
+    """
+    def disable_advanced_rule_script(self, accountId, scriptType):
+        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/disable'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Enable an approved advanced rule so that it can be run.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] 
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return AdvancedRuleScriptModel
+    """
+    def enable_advanced_rule_script(self, accountId, scriptType):
+        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/enable'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Get an account's advanced rule script.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return AdvancedRuleScriptModel
+    """
+    def get_advanced_rule_script(self, accountId, scriptType):
+        return requests.get('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Get an advanced rule lookup table for an account
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param csvTableName [string] The name of the CSV lookup table to get.
+      :return AdvancedRuleTableModel
+    """
+    def get_advanced_rule_table(self, accountId, csvTableName):
+        return requests.get('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Get all advanced rule lookup tables for an account
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :return AdvancedRuleTableModel
+    """
+    def get_advanced_rule_tables(self, accountId):
+        return requests.get('{}/api/v2/accounts/{}/advancedruletables'.format(self.base_url, accountId),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
+    Unapprove an advanced rule script so that it cannot be run.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return AdvancedRuleScriptModel
+    """
+    def unapprove_advanced_rule_script(self, accountId, scriptType):
+        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/unapprove'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None)
+
+    r"""
     Create a new AvaFileForm
     
     Create one or more AvaFileForms
