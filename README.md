@@ -99,7 +99,7 @@ To verify that you have added a valid credential, simply call the `ping` method 
 Now our client object is authenticated, we can call the create_transaction method which calls the [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/)
 ```
   transaction_response = client.create_transaction(tax_document)
-  print(transaction_reaponse.text())
+  print(transaction_response.text())
 
   tax_document = {
       'addresses': {'SingleLocation': {'city': 'Irvine',
