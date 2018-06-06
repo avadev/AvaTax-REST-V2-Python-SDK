@@ -19,12 +19,12 @@ class Mixin:
     
       :param id_ [int] The ID of the account you wish to update.
       :param model [ResetLicenseKeyModel] A request confirming that you wish to reset the license key of this account.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return LicenseKeyModel
     """
-    def account_reset_license_key(self, id_, model, t_limit=None):
+    def account_reset_license_key(self, id_, model):
         return requests.post('{}/api/v2/accounts/{}/resetlicensekey'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Activate an account by accepting terms and conditions
@@ -40,12 +40,12 @@ class Mixin:
       :param id_ [int] The ID of the account to activate
       :param include [string] Elements to include when fetching the account
       :param model [ActivateAccountModel] The activation request
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AccountModel
     """
-    def activate_account(self, id_, model, include=None, t_limit=None):
+    def activate_account(self, id_, model, include=None):
         return requests.post('{}/api/v2/accounts/{}/activate'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single account
@@ -57,12 +57,12 @@ class Mixin:
     
       :param id_ [int] The ID of the account to retrieve
       :param include [string] A comma separated list of special fetch options
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AccountModel
     """
-    def get_account(self, id_, include=None, t_limit=None):
+    def get_account(self, id_, include=None):
         return requests.get('{}/api/v2/accounts/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Get configuration settings for this account
@@ -78,12 +78,12 @@ class Mixin:
       tax calculation and address resolution, and should only be changed with care.
     
       :param id_ [int] 
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AccountConfigurationModel
     """
-    def get_account_configuration(self, id_, t_limit=None):
+    def get_account_configuration(self, id_):
         return requests.get('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Change configuration settings for this account
@@ -100,12 +100,12 @@ class Mixin:
     
       :param id_ [int] 
       :param model [AccountConfigurationModel] 
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AccountConfigurationModel
     """
-    def set_account_configuration(self, id_, model, t_limit=None):
+    def set_account_configuration(self, id_, model):
         return requests.post('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve geolocation information for a specified address
@@ -127,12 +127,12 @@ class Mixin:
       :param textCase [TextCase] selectable text case for address validation (See TextCase::* for a list of allowable values)
       :param latitude [decimal] Geospatial latitude measurement
       :param longitude [decimal] Geospatial longitude measurement
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AddressResolutionModel
     """
-    def resolve_address(self, include=None, t_limit=None):
+    def resolve_address(self, include=None):
         return requests.get('{}/api/v2/addresses/resolve'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve geolocation information for a specified address
@@ -145,12 +145,12 @@ class Mixin:
       Both verbs are supported to provide for flexible implementation.
     
       :param model [AddressValidationInfo] The address to resolve
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AddressResolutionModel
     """
-    def resolve_address_post(self, model, t_limit=None):
+    def resolve_address_post(self, model):
         return requests.post('{}/api/v2/addresses/resolve'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Approve an advanced rule script to run.
@@ -161,12 +161,12 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns the Advanced Rule.
       :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AdvancedRuleScriptModel
     """
-    def approve_advanced_rule_script(self, accountId, scriptType, t_limit=None):
+    def approve_advanced_rule_script(self, accountId, scriptType):
         return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/approve'.format(self.base_url, accountId, scriptType),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create an advanced rule.
@@ -179,12 +179,12 @@ class Mixin:
       :param scriptType [AdvancedRuleScriptType] The script transform type, Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
       :param crashBehavior [AdvancedRuleCrashBehavior] The behavior the script should take if it crashes: Fail or Proceed. (See AdvancedRuleCrashBehavior::* for a list of allowable values)
       :param file [String] The JavaScript file containing the advanced rule.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return string
     """
-    def create_advanced_rule_script(self, accountId, scriptType, include=None, t_limit=None):
+    def create_advanced_rule_script(self, accountId, scriptType, include=None):
         return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a lookup table for an advanced rule
@@ -196,12 +196,12 @@ class Mixin:
       :param accountId [int] The ID of the account that owns the Advanced Rule.
       :param csvTableName [string] The name to assign the CSV lookup table.
       :param file [String] A CSV file containing lookup data for an advanced rule.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return string
     """
-    def create_advanced_rule_table(self, accountId, csvTableName, t_limit=None):
+    def create_advanced_rule_table(self, accountId, csvTableName):
         return requests.post('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete an account's active advanced rule
@@ -212,12 +212,12 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns the Advanced Rule.
       :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_advanced_rule_script(self, accountId, scriptType, t_limit=None):
+    def delete_advanced_rule_script(self, accountId, scriptType):
         return requests.delete('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a lookup table for an advanced rule.
@@ -228,12 +228,12 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns the Advanced Rule.
       :param csvTableName [string] The name of the CSV lookup table to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_advanced_rule_table(self, accountId, csvTableName, t_limit=None):
+    def delete_advanced_rule_table(self, accountId, csvTableName):
         return requests.delete('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Disable an advanced rule so that it cannot be run.
@@ -244,12 +244,12 @@ class Mixin:
     
       :param accountId [int] 
       :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AdvancedRuleScriptModel
     """
-    def disable_advanced_rule_script(self, accountId, scriptType, t_limit=None):
+    def disable_advanced_rule_script(self, accountId, scriptType):
         return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/disable'.format(self.base_url, accountId, scriptType),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Enable an approved advanced rule so that it can be run.
@@ -260,12 +260,12 @@ class Mixin:
     
       :param accountId [int] 
       :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AdvancedRuleScriptModel
     """
-    def enable_advanced_rule_script(self, accountId, scriptType, t_limit=None):
+    def enable_advanced_rule_script(self, accountId, scriptType):
         return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/enable'.format(self.base_url, accountId, scriptType),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Get an account's advanced rule script.
@@ -276,12 +276,12 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns the Advanced Rule.
       :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AdvancedRuleScriptModel
     """
-    def get_advanced_rule_script(self, accountId, scriptType, t_limit=None):
+    def get_advanced_rule_script(self, accountId, scriptType):
         return requests.get('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Get an advanced rule lookup table for an account
@@ -292,12 +292,12 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns the Advanced Rule.
       :param csvTableName [string] The name of the CSV lookup table to get.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AdvancedRuleTableModel
     """
-    def get_advanced_rule_table(self, accountId, csvTableName, t_limit=None):
+    def get_advanced_rule_table(self, accountId, csvTableName):
         return requests.get('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Get all advanced rule lookup tables for an account
@@ -307,12 +307,12 @@ class Mixin:
       Advanced Rules in your AvaTax integration.
     
       :param accountId [int] The ID of the account that owns the Advanced Rule.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AdvancedRuleTableModel
     """
-    def get_advanced_rule_tables(self, accountId, t_limit=None):
+    def get_advanced_rule_tables(self, accountId):
         return requests.get('{}/api/v2/accounts/{}/advancedruletables'.format(self.base_url, accountId),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Unapprove an advanced rule script so that it cannot be run.
@@ -323,12 +323,12 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns the Advanced Rule.
       :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AdvancedRuleScriptModel
     """
-    def unapprove_advanced_rule_script(self, accountId, scriptType, t_limit=None):
+    def unapprove_advanced_rule_script(self, accountId, scriptType):
         return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/unapprove'.format(self.base_url, accountId, scriptType),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new AvaFileForm
@@ -337,12 +337,12 @@ class Mixin:
       A 'AvaFileForm' represents a form supported by our returns team
     
       :param model [AvaFileFormModel] The AvaFileForm you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AvaFileFormModel
     """
-    def create_ava_file_forms(self, model, t_limit=None):
+    def create_ava_file_forms(self, model):
         return requests.post('{}/api/v2/avafileforms'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single AvaFileForm
@@ -350,12 +350,12 @@ class Mixin:
     Marks the existing AvaFileForm object at this URL as deleted.
     
       :param id_ [int] The ID of the AvaFileForm you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_ava_file_form(self, id_, t_limit=None):
+    def delete_ava_file_form(self, id_):
         return requests.delete('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single AvaFileForm
@@ -363,12 +363,12 @@ class Mixin:
     Get the AvaFileForm object identified by this URL.
     
       :param id_ [string] The primary key of this AvaFileForm
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AvaFileFormModel
     """
-    def get_ava_file_form(self, id_, t_limit=None):
+    def get_ava_file_form(self, id_):
         return requests.get('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all AvaFileForms
@@ -381,12 +381,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_ava_file_forms(self, include=None, t_limit=None):
+    def query_ava_file_forms(self, include=None):
         return requests.get('{}/api/v2/avafileforms'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a AvaFileForm
@@ -396,12 +396,12 @@ class Mixin:
     
       :param id_ [int] The ID of the AvaFileForm you wish to update
       :param model [AvaFileFormModel] The AvaFileForm model you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AvaFileFormModel
     """
-    def update_ava_file_form(self, id_, model, t_limit=None):
+    def update_ava_file_form(self, id_, model):
         return requests.put('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new batch
@@ -420,12 +420,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this batch.
       :param model [BatchModel] The batch you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return BatchModel
     """
-    def create_batches(self, companyId, model, t_limit=None):
+    def create_batches(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single batch
@@ -441,12 +441,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this batch.
       :param id_ [int] The ID of the batch to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_batch(self, companyId, id_, t_limit=None):
+    def delete_batch(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Download a single batch file
@@ -456,12 +456,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this batch
       :param batchId [int] The ID of the batch object
       :param id_ [int] The primary key of this batch file object
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return String
     """
-    def download_batch(self, companyId, batchId, id_, t_limit=None):
+    def download_batch(self, companyId, batchId, id_):
         return requests.get('{}/api/v2/companies/{}/batches/{}/files/{}/attachment'.format(self.base_url, companyId, batchId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single batch
@@ -481,12 +481,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this batch
       :param id_ [int] The primary key of this batch
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return BatchModel
     """
-    def get_batch(self, companyId, id_, t_limit=None):
+    def get_batch(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all batches for this company
@@ -514,12 +514,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_batches_by_company(self, companyId, include=None, t_limit=None):
+    def list_batches_by_company(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all batches
@@ -544,12 +544,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_batches(self, include=None, t_limit=None):
+    def query_batches(self, include=None):
         return requests.get('{}/api/v2/batches'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a CertExpress invitation
@@ -570,12 +570,12 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that will record certificates
       :param customerCode [string] The number of the customer where the request is sent to
       :param model [CreateCertExpressInvitationModel] the requests to send out to customers
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CertExpressInvitationStatusModel
     """
-    def create_cert_express_invitation(self, companyId, customerCode, model, t_limit=None):
+    def create_cert_express_invitation(self, companyId, customerCode, model):
         return requests.post('{}/api/v2/companies/{}/customers/{}/certexpressinvites'.format(self.base_url, companyId, customerCode),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single CertExpress invitation
@@ -597,12 +597,12 @@ class Mixin:
       :param customerCode [string] The number of the customer where the request is sent to
       :param id_ [int] The unique ID number of this CertExpress invitation
       :param include [string] OPTIONAL: A comma separated list of special fetch options. No options are defined at this time.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CertExpressInvitationModel
     """
-    def get_cert_express_invitation(self, companyId, customerCode, id_, include=None, t_limit=None):
+    def get_cert_express_invitation(self, companyId, customerCode, id_, include=None):
         return requests.get('{}/api/v2/companies/{}/customers/{}/certexpressinvites/{}'.format(self.base_url, companyId, customerCode, id_),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List CertExpress invitations
@@ -626,12 +626,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_cert_express_invitations(self, companyId, include=None, t_limit=None):
+    def list_cert_express_invitations(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/certexpressinvites'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create certificates for this company
@@ -654,12 +654,12 @@ class Mixin:
     
       :param companyId [int] The ID number of the company recording this certificate
       :param model [CertificateModel] Certificates to be created
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CertificateModel
     """
-    def create_certificates(self, companyId, model, t_limit=None):
+    def create_certificates(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Revoke and delete a certificate
@@ -677,12 +677,12 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CertificateModel
     """
-    def delete_certificate(self, companyId, id_, t_limit=None):
+    def delete_certificate(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Download an image for this certificate
@@ -703,12 +703,12 @@ class Mixin:
       :param id_ [int] The unique ID number of this certificate
       :param page [int] If you choose `$type`=`Jpeg`, you must specify which page number to retrieve.
       :param type [CertificatePreviewType] The data format in which to retrieve the certificate image (See CertificatePreviewType::* for a list of allowable values)
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return String
     """
-    def download_certificate_image(self, companyId, id_, include=None, t_limit=None):
+    def download_certificate_image(self, companyId, id_, include=None):
         return requests.get('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single certificate
@@ -730,12 +730,12 @@ class Mixin:
       :param companyId [int] The ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * Customers - Retrieves the list of customers linked to the certificate.   * PoNumbers - Retrieves all PO numbers tied to the certificate.   * Attributes - Retrieves all attributes applied to the certificate.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CertificateModel
     """
-    def get_certificate(self, companyId, id_, include=None, t_limit=None):
+    def get_certificate(self, companyId, id_, include=None):
         return requests.get('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Check a company's exemption certificate status.
@@ -748,12 +748,12 @@ class Mixin:
       be configured with data storage in the auditable certificate system.
     
       :param companyId [int] The company ID to check
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ProvisionStatusModel
     """
-    def get_certificate_setup(self, companyId, t_limit=None):
+    def get_certificate_setup(self, companyId):
         return requests.get('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Link attributes to a certificate
@@ -773,12 +773,12 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [CertificateAttributeModel] The list of attributes to link to this certificate.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def link_attributes_to_certificate(self, companyId, id_, model, t_limit=None):
+    def link_attributes_to_certificate(self, companyId, id_, model):
         return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Link customers to a certificate
@@ -799,12 +799,12 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [LinkCustomersModel] The list of customers needed be added to the Certificate for exemption
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def link_customers_to_certificate(self, companyId, id_, model, t_limit=None):
+    def link_customers_to_certificate(self, companyId, id_, model):
         return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/link'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List all attributes applied to this certificate
@@ -823,12 +823,12 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_attributes_for_certificate(self, companyId, id_, t_limit=None):
+    def list_attributes_for_certificate(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/certificates/{}/attributes'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List customers linked to this certificate
@@ -848,12 +848,12 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param include [string] OPTIONAL: A comma separated list of special fetch options.    No options are currently available when fetching customers.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_customers_for_certificate(self, companyId, id_, include=None, t_limit=None):
+    def list_customers_for_certificate(self, companyId, id_, include=None):
         return requests.get('{}/api/v2/companies/{}/certificates/{}/customers'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List all certificates for a company
@@ -878,12 +878,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_certificates(self, companyId, include=None, t_limit=None):
+    def query_certificates(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Request setup of exemption certificates for this company.
@@ -897,12 +897,12 @@ class Mixin:
       This API will return the current status of exemption certificate setup for this company.
     
       :param companyId [int] 
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ProvisionStatusModel
     """
-    def request_certificate_setup(self, companyId, t_limit=None):
+    def request_certificate_setup(self, companyId):
         return requests.post('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Unlink attributes from a certificate
@@ -922,12 +922,12 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [CertificateAttributeModel] The list of attributes to unlink from this certificate.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def unlink_attributes_from_certificate(self, companyId, id_, model, t_limit=None):
+    def unlink_attributes_from_certificate(self, companyId, id_, model):
         return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Unlink customers from a certificate
@@ -949,12 +949,12 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [LinkCustomersModel] The list of customers to unlink from this certificate
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def unlink_customers_from_certificate(self, companyId, id_, model, t_limit=None):
+    def unlink_customers_from_certificate(self, companyId, id_, model):
         return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single certificate
@@ -972,12 +972,12 @@ class Mixin:
       :param companyId [int] The ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [CertificateModel] The new certificate object that will replace the existing one
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CertificateModel
     """
-    def update_certificate(self, companyId, id_, model, t_limit=None):
+    def update_certificate(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Upload an image or PDF attachment for this certificate
@@ -997,12 +997,12 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param file [String] The exemption certificate file you wanted to upload. Accepted formats are: PDF, JPEG, TIFF, PNG.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return string
     """
-    def upload_certificate_image(self, companyId, id_, t_limit=None):
+    def upload_certificate_image(self, companyId, id_):
         return requests.post('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Change the filing status of this company
@@ -1019,12 +1019,12 @@ class Mixin:
     
       :param id_ [int] 
       :param model [FilingStatusChangeModel] 
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return string
     """
-    def change_filing_status(self, id_, model, t_limit=None):
+    def change_filing_status(self, id_, model):
         return requests.post('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Quick setup for a company with a single physical address
@@ -1041,12 +1041,12 @@ class Mixin:
       Please allow 1 minute before making transactions using the company.
     
       :param model [CompanyInitializationModel] Information about the company you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CompanyModel
     """
-    def company_initialize(self, model, t_limit=None):
+    def company_initialize(self, model):
         return requests.post('{}/api/v2/companies/initialize'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create new companies
@@ -1056,12 +1056,12 @@ class Mixin:
       You may attach nested data objects such as contacts, locations, and nexus with this CREATE call, and those objects will be created with the company.
     
       :param model [CompanyModel] Either a single company object or an array of companies to create
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CompanyModel
     """
-    def create_companies(self, model, t_limit=None):
+    def create_companies(self, model):
         return requests.post('{}/api/v2/companies'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Request managed returns funding setup for a company
@@ -1079,12 +1079,12 @@ class Mixin:
     
       :param id_ [int] The unique identifier of the company
       :param model [FundingInitiateModel] The funding initialization request
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FundingStatusModel
     """
-    def create_funding_request(self, id_, model, t_limit=None):
+    def create_funding_request(self, id_, model):
         return requests.post('{}/api/v2/companies/{}/funding/setup'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single company
@@ -1092,12 +1092,12 @@ class Mixin:
     Deleting a company will delete all child companies, and all users attached to this company.
     
       :param id_ [int] The ID of the company you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_company(self, id_, t_limit=None):
+    def delete_company(self, id_):
         return requests.delete('{}/api/v2/companies/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Check the funding configuration of a company
@@ -1108,12 +1108,12 @@ class Mixin:
       .
     
       :param companyId [int] The unique identifier of the company
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FundingConfigurationModel
     """
-    def funding_configuration_by_company(self, companyId, t_limit=None):
+    def funding_configuration_by_company(self, companyId):
         return requests.get('{}/api/v2/companies/{}/funding/configuration'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Check the funding configuration of a company
@@ -1125,12 +1125,12 @@ class Mixin:
     
       :param companyId [int] The unique identifier of the company
       :param currency [string] The currency of the funding. USD and CAD are the only valid currencies
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FundingConfigurationModel
     """
-    def funding_configurations_by_company_and_currency(self, companyId, include=None, t_limit=None):
+    def funding_configurations_by_company_and_currency(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/funding/configurations'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single company
@@ -1149,12 +1149,12 @@ class Mixin:
     
       :param id_ [int] The ID of the company to retrieve.
       :param include [string] OPTIONAL: A comma separated list of special fetch options.       * Child objects - Specify one or more of the following to retrieve objects related to each company: "Contacts", "FilingCalendars", "Items", "Locations", "Nexus", "TaxCodes", or "TaxRules".   * Deleted objects - Specify "FetchDeleted" to retrieve information about previously deleted objects.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CompanyModel
     """
-    def get_company(self, id_, include=None, t_limit=None):
+    def get_company(self, id_, include=None):
         return requests.get('{}/api/v2/companies/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Get configuration settings for this company
@@ -1170,12 +1170,12 @@ class Mixin:
       processing, and should only be changed with care.
     
       :param id_ [int] 
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CompanyConfigurationModel
     """
-    def get_company_configuration(self, id_, t_limit=None):
+    def get_company_configuration(self, id_):
         return requests.get('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Get this company's filing status
@@ -1192,12 +1192,12 @@ class Mixin:
       * `Active` - The company is currently active and is filing tax returns via Avalara Managed Returns.
     
       :param id_ [int] 
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return string
     """
-    def get_filing_status(self, id_, t_limit=None):
+    def get_filing_status(self, id_):
         return requests.get('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Check managed returns funding status for a company
@@ -1208,12 +1208,12 @@ class Mixin:
       Each object in the result is a request that was made to setup or adjust funding status for this company.
     
       :param id_ [int] The unique identifier of the company
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FundingStatusModel
     """
-    def list_funding_requests_by_company(self, id_, t_limit=None):
+    def list_funding_requests_by_company(self, id_):
         return requests.get('{}/api/v2/companies/{}/funding'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a list of MRS Companies with account
@@ -1221,12 +1221,12 @@ class Mixin:
     This API is available by invitation only.
       Get a list of companies with an active MRS service.
     
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_mrs_companies(self, t_limit=None):
+    def list_mrs_companies(self):
         return requests.get('{}/api/v2/companies/mrs'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all companies
@@ -1250,12 +1250,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_companies(self, include=None, t_limit=None):
+    def query_companies(self, include=None):
         return requests.get('{}/api/v2/companies'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Change configuration settings for this account
@@ -1272,12 +1272,12 @@ class Mixin:
     
       :param id_ [int] 
       :param model [CompanyConfigurationModel] 
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CompanyConfigurationModel
     """
-    def set_company_configuration(self, id_, model, t_limit=None):
+    def set_company_configuration(self, id_, model):
         return requests.post('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single company
@@ -1291,12 +1291,12 @@ class Mixin:
     
       :param id_ [int] The ID of the company you wish to update.
       :param model [CompanyModel] The company object you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CompanyModel
     """
-    def update_company(self, id_, model, t_limit=None):
+    def update_company(self, id_, model):
         return requests.put('{}/api/v2/companies/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new contact
@@ -1307,12 +1307,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this contact.
       :param model [ContactModel] The contacts you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ContactModel
     """
-    def create_contacts(self, companyId, model, t_limit=None):
+    def create_contacts(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single contact
@@ -1321,12 +1321,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this contact.
       :param id_ [int] The ID of the contact you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_contact(self, companyId, id_, t_limit=None):
+    def delete_contact(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single contact
@@ -1337,12 +1337,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company for this contact
       :param id_ [int] The primary key of this contact
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ContactModel
     """
-    def get_contact(self, companyId, id_, t_limit=None):
+    def get_contact(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve contacts for this company
@@ -1357,12 +1357,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_contacts_by_company(self, companyId, include=None, t_limit=None):
+    def list_contacts_by_company(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all contacts
@@ -1378,12 +1378,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_contacts(self, include=None, t_limit=None):
+    def query_contacts(self, include=None):
         return requests.get('{}/api/v2/contacts'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single contact
@@ -1397,12 +1397,12 @@ class Mixin:
       :param companyId [int] The ID of the company that this contact belongs to.
       :param id_ [int] The ID of the contact you wish to update
       :param model [ContactModel] The contact you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ContactModel
     """
-    def update_contact(self, companyId, id_, model, t_limit=None):
+    def update_contact(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create customers for this company
@@ -1422,12 +1422,12 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param model [CustomerModel] The list of customer objects to be created
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CustomerModel
     """
-    def create_customers(self, companyId, model, t_limit=None):
+    def create_customers(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a customer record
@@ -1445,12 +1445,12 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CustomerModel
     """
-    def delete_customer(self, companyId, customerCode, t_limit=None):
+    def delete_customer(self, companyId, customerCode):
         return requests.delete('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single customer
@@ -1472,12 +1472,12 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param include [string] Specify optional additional objects to include in this fetch request
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CustomerModel
     """
-    def get_customer(self, companyId, customerCode, include=None, t_limit=None):
+    def get_customer(self, companyId, customerCode, include=None):
         return requests.get('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Link certificates to a customer
@@ -1496,12 +1496,12 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param model [LinkCertificatesModel] The list of certificates to link to this customer
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def link_certificates_to_customer(self, companyId, customerCode, model, t_limit=None):
+    def link_certificates_to_customer(self, companyId, customerCode, model):
         return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/link'.format(self.base_url, companyId, customerCode),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List certificates linked to a customer
@@ -1524,12 +1524,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_certificates_for_customer(self, companyId, customerCode, include=None, t_limit=None):
+    def list_certificates_for_customer(self, companyId, customerCode, include=None):
         return requests.get('{}/api/v2/companies/{}/customers/{}/certificates'.format(self.base_url, companyId, customerCode),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List active certificates for a location
@@ -1551,12 +1551,12 @@ class Mixin:
       :param customerCode [string] The unique code representing this customer
       :param country [string] Search for certificates matching this country. Uses the ISO 3166 two character country code.
       :param region [string] Search for certificates matching this region. Uses the ISO 3166 two or three character state, region, or province code.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ExemptionStatusModel
     """
-    def list_valid_certificates_for_customer(self, companyId, customerCode, country, region, t_limit=None):
+    def list_valid_certificates_for_customer(self, companyId, customerCode, country, region):
         return requests.get('{}/api/v2/companies/{}/customers/{}/certificates/{}/{}'.format(self.base_url, companyId, customerCode, country, region),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List all customers for this company
@@ -1580,12 +1580,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_customers(self, companyId, include=None, t_limit=None):
+    def query_customers(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Unlink certificates from a customer
@@ -1604,12 +1604,12 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param model [LinkCertificatesModel] The list of certificates to link to this customer
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def unlink_certificates_from_customer(self, companyId, customerCode, model, t_limit=None):
+    def unlink_certificates_from_customer(self, companyId, customerCode, model):
         return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(self.base_url, companyId, customerCode),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single customer
@@ -1628,12 +1628,12 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param model [CustomerModel] The new customer model that will replace the existing record at this URL
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CustomerModel
     """
-    def update_customer(self, companyId, customerCode, model, t_limit=None):
+    def update_customer(self, companyId, customerCode, model):
         return requests.put('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Lists all parents of an HS Code.
@@ -1648,12 +1648,12 @@ class Mixin:
     
       :param country [string] The name or code of the destination country.
       :param hsCode [string] The partial or full HS Code for which you would like to view all of the parents.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def get_cross_border_code(self, country, hsCode, t_limit=None):
+    def get_cross_border_code(self, country, hsCode):
         return requests.get('{}/api/v2/definitions/crossborder/{}/{}/hierarchy'.format(self.base_url, country, hsCode),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Test whether a form supports online login verification
@@ -1666,12 +1666,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def get_login_verifier_by_form(self, form, include=None, t_limit=None):
+    def get_login_verifier_by_form(self, form, include=None):
         return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers/{}'.format(self.base_url, form),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of the AvaFile Forms available
@@ -1685,12 +1685,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_ava_file_forms(self, include=None, t_limit=None):
+    def list_ava_file_forms(self, include=None):
         return requests.get('{}/api/v2/definitions/avafileforms'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List certificate attributes used by a company
@@ -1705,12 +1705,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_certificate_attributes(self, include=None, t_limit=None):
+    def list_certificate_attributes(self, include=None):
         return requests.get('{}/api/v2/definitions/certificateattributes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List the certificate exempt reasons defined by a company
@@ -1725,12 +1725,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_certificate_exempt_reasons(self, include=None, t_limit=None):
+    def list_certificate_exempt_reasons(self, include=None):
         return requests.get('{}/api/v2/definitions/certificateexemptreasons'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List certificate exposure zones used by a company
@@ -1745,12 +1745,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_certificate_exposure_zones(self, include=None, t_limit=None):
+    def list_certificate_exposure_zones(self, include=None):
         return requests.get('{}/api/v2/definitions/certificateexposurezones'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of communications service types
@@ -1762,12 +1762,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_communications_service_types(self, id_, include=None, t_limit=None):
+    def list_communications_service_types(self, id_, include=None):
         return requests.get('{}/api/v2/definitions/communications/transactiontypes/{}/servicetypes'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of communications transactiontypes
@@ -1779,12 +1779,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_communications_transaction_types(self, include=None, t_limit=None):
+    def list_communications_transaction_types(self, include=None):
         return requests.get('{}/api/v2/definitions/communications/transactiontypes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of communications transaction/service type pairs
@@ -1796,12 +1796,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_communications_t_s_pairs(self, include=None, t_limit=None):
+    def list_communications_t_s_pairs(self, include=None):
         return requests.get('{}/api/v2/definitions/communications/tspairs'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List all ISO 3166 countries
@@ -1814,12 +1814,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_countries(self, include=None, t_limit=None):
+    def list_countries(self, include=None):
         return requests.get('{}/api/v2/definitions/countries'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List certificate exposure zones used by a company
@@ -1835,12 +1835,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_cover_letters(self, include=None, t_limit=None):
+    def list_cover_letters(self, include=None):
         return requests.get('{}/api/v2/definitions/coverletters'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Lists the next level of HS Codes given a destination country and HS Code prefix.
@@ -1858,12 +1858,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_cross_border_codes(self, country, hsCode, include=None, t_limit=None):
+    def list_cross_border_codes(self, country, hsCode, include=None):
         return requests.get('{}/api/v2/definitions/crossborder/{}/{}'.format(self.base_url, country, hsCode),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List top level HS Code Sections.
@@ -1874,12 +1874,12 @@ class Mixin:
       This API is intended to be useful to identify the top level Sections for
       further LandedCost HS Code lookups.
     
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_cross_border_sections(self, t_limit=None):
+    def list_cross_border_sections(self):
         return requests.get('{}/api/v2/definitions/crossborder/sections'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List all ISO 4217 currencies supported by AvaTax.
@@ -1892,12 +1892,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_currencies(self, include=None, t_limit=None):
+    def list_currencies(self, include=None):
         return requests.get('{}/api/v2/definitions/currencies'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported entity use codes
@@ -1912,12 +1912,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_entity_use_codes(self, include=None, t_limit=None):
+    def list_entity_use_codes(self, include=None):
         return requests.get('{}/api/v2/definitions/entityusecodes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported filing frequencies.
@@ -1929,12 +1929,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_filing_frequencies(self, include=None, t_limit=None):
+    def list_filing_frequencies(self, include=None):
         return requests.get('{}/api/v2/definitions/filingfrequencies'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List jurisdictions based on the filter provided
@@ -1947,12 +1947,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_jurisdictions(self, include=None, t_limit=None):
+    def list_jurisdictions(self, include=None):
         return requests.get('{}/api/v2/definitions/jurisdictions'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List jurisdictions near a specific address
@@ -1974,12 +1974,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_jurisdictions_by_address(self, include=None, t_limit=None):
+    def list_jurisdictions_by_address(self, include=None):
         return requests.get('{}/api/v2/definitions/jurisdictionsnearaddress'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the list of questions that are required for a tax location
@@ -2004,12 +2004,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_location_questions_by_address(self, include=None, t_limit=None):
+    def list_location_questions_by_address(self, include=None):
         return requests.get('{}/api/v2/definitions/locationquestions'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List all forms where logins can be verified automatically
@@ -2022,12 +2022,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_login_verifiers(self, include=None, t_limit=None):
+    def list_login_verifiers(self, include=None):
         return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported nexus for all countries and regions.
@@ -2039,12 +2039,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_nexus(self, include=None, t_limit=None):
+    def list_nexus(self, include=None):
         return requests.get('{}/api/v2/definitions/nexus'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List all nexus that apply to a specific address.
@@ -2066,12 +2066,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_nexus_by_address(self, include=None, t_limit=None):
+    def list_nexus_by_address(self, include=None):
         return requests.get('{}/api/v2/definitions/nexus/byaddress'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported nexus for a country.
@@ -2084,12 +2084,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_nexus_by_country(self, country, include=None, t_limit=None):
+    def list_nexus_by_country(self, country, include=None):
         return requests.get('{}/api/v2/definitions/nexus/{}'.format(self.base_url, country),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported nexus for a country and region.
@@ -2103,12 +2103,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_nexus_by_country_and_region(self, country, region, include=None, t_limit=None):
+    def list_nexus_by_country_and_region(self, country, region, include=None):
         return requests.get('{}/api/v2/definitions/nexus/{}/{}'.format(self.base_url, country, region),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List nexus related to a tax form
@@ -2127,12 +2127,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NexusByTaxFormModel
     """
-    def list_nexus_by_form_code(self, formCode, include=None, t_limit=None):
+    def list_nexus_by_form_code(self, formCode, include=None):
         return requests.get('{}/api/v2/definitions/nexus/byform/{}'.format(self.base_url, formCode),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of nexus tax type groups
@@ -2144,12 +2144,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_nexus_tax_type_groups(self, include=None, t_limit=None):
+    def list_nexus_tax_type_groups(self, include=None):
         return requests.get('{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported tax notice customer funding options.
@@ -2161,12 +2161,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_notice_customer_funding_options(self, include=None, t_limit=None):
+    def list_notice_customer_funding_options(self, include=None):
         return requests.get('{}/api/v2/definitions/noticecustomerfundingoptions'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported tax notice customer types.
@@ -2178,12 +2178,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_notice_customer_types(self, include=None, t_limit=None):
+    def list_notice_customer_types(self, include=None):
         return requests.get('{}/api/v2/definitions/noticecustomertypes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported tax notice filing types.
@@ -2195,12 +2195,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_notice_filingtypes(self, include=None, t_limit=None):
+    def list_notice_filingtypes(self, include=None):
         return requests.get('{}/api/v2/definitions/noticefilingtypes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported tax notice priorities.
@@ -2212,12 +2212,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_notice_priorities(self, include=None, t_limit=None):
+    def list_notice_priorities(self, include=None):
         return requests.get('{}/api/v2/definitions/noticepriorities'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported tax notice reasons.
@@ -2229,12 +2229,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_notice_reasons(self, include=None, t_limit=None):
+    def list_notice_reasons(self, include=None):
         return requests.get('{}/api/v2/definitions/noticereasons'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported tax notice responsibility ids
@@ -2246,12 +2246,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_notice_responsibilities(self, include=None, t_limit=None):
+    def list_notice_responsibilities(self, include=None):
         return requests.get('{}/api/v2/definitions/noticeresponsibilities'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported tax notice root causes
@@ -2263,12 +2263,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_notice_root_causes(self, include=None, t_limit=None):
+    def list_notice_root_causes(self, include=None):
         return requests.get('{}/api/v2/definitions/noticerootcauses'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported tax notice statuses.
@@ -2280,12 +2280,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_notice_statuses(self, include=None, t_limit=None):
+    def list_notice_statuses(self, include=None):
         return requests.get('{}/api/v2/definitions/noticestatuses'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported tax notice types.
@@ -2297,12 +2297,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_notice_types(self, include=None, t_limit=None):
+    def list_notice_types(self, include=None):
         return requests.get('{}/api/v2/definitions/noticetypes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported extra parameters for creating transactions.
@@ -2315,12 +2315,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_parameters(self, include=None, t_limit=None):
+    def list_parameters(self, include=None):
         return requests.get('{}/api/v2/definitions/parameters'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported permissions
@@ -2330,12 +2330,12 @@ class Mixin:
     
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_permissions(self, include=None, t_limit=None):
+    def list_permissions(self, include=None):
         return requests.get('{}/api/v2/definitions/permissions'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported postal codes.
@@ -2346,12 +2346,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_postal_codes(self, include=None, t_limit=None):
+    def list_postal_codes(self, include=None):
         return requests.get('{}/api/v2/definitions/postalcodes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List all customs duty programs recognized by AvaTax
@@ -2368,12 +2368,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_preferred_programs(self, include=None, t_limit=None):
+    def list_preferred_programs(self, include=None):
         return requests.get('{}/api/v2/definitions/preferredprograms'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of rate types for each country
@@ -2386,12 +2386,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_rate_types_by_country(self, country, include=None, t_limit=None):
+    def list_rate_types_by_country(self, country, include=None):
         return requests.get('{}/api/v2/definitions/countries/{}/ratetypes'.format(self.base_url, country),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List all ISO 3166 regions
@@ -2404,12 +2404,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_regions(self, include=None, t_limit=None):
+    def list_regions(self, include=None):
         return requests.get('{}/api/v2/definitions/regions'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List all ISO 3166 regions for a country
@@ -2423,12 +2423,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_regions_by_country(self, country, include=None, t_limit=None):
+    def list_regions_by_country(self, country, include=None):
         return requests.get('{}/api/v2/definitions/countries/{}/regions'.format(self.base_url, country),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported resource file types
@@ -2440,12 +2440,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_resource_file_types(self, include=None, t_limit=None):
+    def list_resource_file_types(self, include=None):
         return requests.get('{}/api/v2/definitions/resourcefiletypes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported permissions
@@ -2458,12 +2458,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_security_roles(self, include=None, t_limit=None):
+    def list_security_roles(self, include=None):
         return requests.get('{}/api/v2/definitions/securityroles'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported subscription types
@@ -2477,12 +2477,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_subscription_types(self, include=None, t_limit=None):
+    def list_subscription_types(self, include=None):
         return requests.get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported tax authorities.
@@ -2494,12 +2494,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_tax_authorities(self, include=None, t_limit=None):
+    def list_tax_authorities(self, include=None):
         return requests.get('{}/api/v2/definitions/taxauthorities'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported forms for each tax authority.
@@ -2513,12 +2513,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_tax_authority_forms(self, include=None, t_limit=None):
+    def list_tax_authority_forms(self, include=None):
         return requests.get('{}/api/v2/definitions/taxauthorityforms'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported tax authority types.
@@ -2530,12 +2530,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_tax_authority_types(self, include=None, t_limit=None):
+    def list_tax_authority_types(self, include=None):
         return requests.get('{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported tax codes.
@@ -2550,12 +2550,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_tax_codes(self, include=None, t_limit=None):
+    def list_tax_codes(self, include=None):
         return requests.get('{}/api/v2/definitions/taxcodes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of Avalara-supported tax code types.
@@ -2566,12 +2566,12 @@ class Mixin:
     
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TaxCodeTypesModel
     """
-    def list_tax_code_types(self, include=None, t_limit=None):
+    def list_tax_code_types(self, include=None):
         return requests.get('{}/api/v2/definitions/taxcodetypes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of the Tax Forms available
@@ -2583,12 +2583,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_tax_forms(self, include=None, t_limit=None):
+    def list_tax_forms(self, include=None):
         return requests.get('{}/api/v2/definitions/taxforms'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of tax sub types
@@ -2600,12 +2600,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_tax_sub_types(self, include=None, t_limit=None):
+    def list_tax_sub_types(self, include=None):
         return requests.get('{}/api/v2/definitions/taxsubtypes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve the full list of tax type groups
@@ -2617,12 +2617,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_tax_type_groups(self, include=None, t_limit=None):
+    def list_tax_type_groups(self, include=None):
         return requests.get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List all defined units of measurement
@@ -2634,12 +2634,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_unit_of_measurement(self, include=None, t_limit=None):
+    def list_unit_of_measurement(self, include=None):
         return requests.get('{}/api/v2/definitions/unitofmeasurements'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create one or more DistanceThreshold objects
@@ -2651,12 +2651,12 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold
       :param model [CompanyDistanceThresholdModel] The DistanceThreshold object or objects you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CompanyDistanceThresholdModel
     """
-    def create_distance_threshold(self, companyId, model, t_limit=None):
+    def create_distance_threshold(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single DistanceThreshold object
@@ -2668,12 +2668,12 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold
       :param id_ [int] The unique ID number of the DistanceThreshold object you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_distance_threshold(self, companyId, id_, t_limit=None):
+    def delete_distance_threshold(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single DistanceThreshold
@@ -2685,12 +2685,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this DistanceThreshold object
       :param id_ [int] The unique ID number referring to this DistanceThreshold object
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CompanyDistanceThresholdModel
     """
-    def get_distance_threshold(self, companyId, id_, t_limit=None):
+    def get_distance_threshold(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all DistanceThresholds for this company.
@@ -2706,12 +2706,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_distance_thresholds(self, companyId, include=None, t_limit=None):
+    def list_distance_thresholds(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all DistanceThreshold objects
@@ -2728,12 +2728,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_distance_thresholds(self, include=None, t_limit=None):
+    def query_distance_thresholds(self, include=None):
         return requests.get('{}/api/v2/distancethresholds'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a DistanceThreshold object
@@ -2748,12 +2748,12 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold object.
       :param id_ [int] The unique ID number of the DistanceThreshold object to replace.
       :param model [CompanyDistanceThresholdModel] The new DistanceThreshold object to store.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CompanyDistanceThresholdModel
     """
-    def update_distance_threshold(self, companyId, id_, model, t_limit=None):
+    def update_distance_threshold(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Approve existing Filing Request
@@ -2765,12 +2765,12 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing request object
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingRequestModel
     """
-    def approve_filing_request(self, companyId, id_, t_limit=None):
+    def approve_filing_request(self, companyId, id_):
         return requests.post('{}/api/v2/companies/{}/filingrequests/{}/approve'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Cancel existing Filing Request
@@ -2781,12 +2781,12 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing request object
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingRequestModel
     """
-    def cancel_filing_request(self, companyId, id_, t_limit=None):
+    def cancel_filing_request(self, companyId, id_):
         return requests.post('{}/api/v2/companies/{}/filingrequests/{}/cancel'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new filing request to cancel a filing calendar
@@ -2798,12 +2798,12 @@ class Mixin:
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID number of the filing calendar to cancel
       :param model [FilingRequestModel] The cancellation request for this filing calendar
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingRequestModel
     """
-    def cancel_filing_requests(self, companyId, id_, model, t_limit=None):
+    def cancel_filing_requests(self, companyId, id_, model):
         return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/cancel/request'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a filing calendar
@@ -2813,12 +2813,12 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that will add the new filing calendar
       :param model [FilingCalendarModel] Filing calendars that will be added
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingCalendarModel
     """
-    def create_filing_calendars(self, companyId, model, t_limit=None):
+    def create_filing_calendars(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/filingcalendars'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new filing request to create a filing calendar
@@ -2829,12 +2829,12 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that will add the new filing calendar
       :param model [FilingRequestModel] Information about the proposed new filing calendar
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingRequestModel
     """
-    def create_filing_requests(self, companyId, model, t_limit=None):
+    def create_filing_requests(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/filingcalendars/add/request'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Returns a list of options for adding the specified form.
@@ -2843,12 +2843,12 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param formCode [string] The unique code of the form
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CycleAddOptionModel
     """
-    def cycle_safe_add(self, companyId, include=None, t_limit=None):
+    def cycle_safe_add(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/filingcalendars/add/options'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Indicates when changes are allowed to be made to a filing calendar.
@@ -2858,12 +2858,12 @@ class Mixin:
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID of the filing calendar object
       :param model [FilingCalendarEditModel] A list of filing calendar edits to be made
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CycleEditOptionModel
     """
-    def cycle_safe_edit(self, companyId, id_, model, t_limit=None):
+    def cycle_safe_edit(self, companyId, id_, model):
         return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/edit/options'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Returns a list of options for expiring a filing calendar
@@ -2872,12 +2872,12 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID of the filing calendar object
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return CycleExpireModel
     """
-    def cycle_safe_expiration(self, companyId, id_, t_limit=None):
+    def cycle_safe_expiration(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/filingcalendars/{}/cancel/options'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single filing calendar.
@@ -2889,12 +2889,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this filing calendar.
       :param id_ [int] The ID of the filing calendar you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_filing_calendar(self, companyId, id_, t_limit=None):
+    def delete_filing_calendar(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single filing calendar
@@ -2903,12 +2903,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this filing calendar
       :param id_ [int] The primary key of this filing calendar
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingCalendarModel
     """
-    def get_filing_calendar(self, companyId, id_, t_limit=None):
+    def get_filing_calendar(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single filing request
@@ -2919,12 +2919,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this filing calendar
       :param id_ [int] The primary key of this filing calendar
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingRequestModel
     """
-    def get_filing_request(self, companyId, id_, t_limit=None):
+    def get_filing_request(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/filingrequests/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all filing calendars for this company
@@ -2938,12 +2938,12 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param returnCountry [string] A comma separated list of countries
       :param returnRegion [string] A comma separated list of regions
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_filing_calendars(self, companyId, include=None, t_limit=None):
+    def list_filing_calendars(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/filingcalendars'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all filing requests for this company
@@ -2958,12 +2958,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_filing_requests(self, companyId, include=None, t_limit=None):
+    def list_filing_requests(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/filingrequests'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     New request for getting for validating customer's login credentials
@@ -2972,12 +2972,12 @@ class Mixin:
       This API verifies that a customer has submitted correct login credentials for a tax authority's online filing system.
     
       :param model [LoginVerificationInputModel] The model of the login information we are verifying
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return LoginVerificationOutputModel
     """
-    def login_verification_request(self, model, t_limit=None):
+    def login_verification_request(self, model):
         return requests.post('{}/api/v2/filingcalendars/credentials/verify'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Gets the request status and Login Result
@@ -2987,12 +2987,12 @@ class Mixin:
       that initially requested the login verification.
     
       :param jobId [int] The unique ID number of this login request
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return LoginVerificationOutputModel
     """
-    def login_verification_status(self, jobId, t_limit=None):
+    def login_verification_status(self, jobId):
         return requests.get('{}/api/v2/filingcalendars/credentials/{}'.format(self.base_url, jobId),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all filing calendars
@@ -3005,12 +3005,12 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param returnCountry [string] If specified, fetches only filing calendars that apply to tax filings in this specific country. Uses ISO 3166 country codes.
       :param returnRegion [string] If specified, fetches only filing calendars that apply to tax filings in this specific region. Uses ISO 3166 region codes.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_filing_calendars(self, include=None, t_limit=None):
+    def query_filing_calendars(self, include=None):
         return requests.get('{}/api/v2/filingcalendars'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all filing requests
@@ -3026,12 +3026,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_filing_requests(self, include=None, t_limit=None):
+    def query_filing_requests(self, include=None):
         return requests.get('{}/api/v2/filingrequests'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new filing request to edit a filing calendar
@@ -3045,12 +3045,12 @@ class Mixin:
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID number of the filing calendar to edit
       :param model [FilingRequestModel] A list of filing calendar edits to be made
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingRequestModel
     """
-    def request_filing_calendar_update(self, companyId, id_, model, t_limit=None):
+    def request_filing_calendar_update(self, companyId, id_, model):
         return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/edit/request'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Edit existing Filing Calendar
@@ -3060,12 +3060,12 @@ class Mixin:
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing calendar object
       :param model [FilingCalendarModel] The filing calendar model you are wishing to update with.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingCalendarModel
     """
-    def update_filing_calendar(self, companyId, id_, model, t_limit=None):
+    def update_filing_calendar(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Edit existing Filing Request
@@ -3077,12 +3077,12 @@ class Mixin:
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing request object
       :param model [FilingRequestModel] A list of filing calendar edits to be made
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingRequestModel
     """
-    def update_filing_request(self, companyId, id_, model, t_limit=None):
+    def update_filing_request(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/filingrequests/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Approve all filings for the specified company in the given filing period.
@@ -3099,12 +3099,12 @@ class Mixin:
       :param year [int] The year of the filing period to approve.
       :param month [int] The month of the filing period to approve.
       :param model [ApproveFilingsModel] The approve request you wish to execute.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingModel
     """
-    def approve_filings(self, companyId, year, month, model, t_limit=None):
+    def approve_filings(self, companyId, year, month, model):
         return requests.post('{}/api/v2/companies/{}/filings/{}/{}/approve'.format(self.base_url, companyId, year, month),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Approve all filings for the specified company in the given filing period and country.
@@ -3122,12 +3122,12 @@ class Mixin:
       :param month [int] The month of the filing period to approve.
       :param country [string] The two-character ISO-3166 code for the country.
       :param model [ApproveFilingsModel] The approve request you wish to execute.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingModel
     """
-    def approve_filings_country(self, companyId, year, month, country, model, t_limit=None):
+    def approve_filings_country(self, companyId, year, month, country, model):
         return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/approve'.format(self.base_url, companyId, year, month, country),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Approve all filings for the specified company in the given filing period, country and region.
@@ -3146,12 +3146,12 @@ class Mixin:
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
       :param model [ApproveFilingsModel] The approve request you wish to execute.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingModel
     """
-    def approve_filings_country_region(self, companyId, year, month, country, region, model, t_limit=None):
+    def approve_filings_country_region(self, companyId, year, month, country, region, model):
         return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/approve'.format(self.base_url, companyId, year, month, country, region),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Add an adjustment to a given filing.
@@ -3170,12 +3170,12 @@ class Mixin:
       :param region [string] The two or three character region code for the region.
       :param formCode [string] The unique code of the form being adjusted.
       :param model [FilingAdjustmentModel] A list of Adjustments to be created for the specified filing.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingAdjustmentModel
     """
-    def create_return_adjustment(self, companyId, year, month, country, region, formCode, model, t_limit=None):
+    def create_return_adjustment(self, companyId, year, month, country, region, formCode, model):
         return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/adjust'.format(self.base_url, companyId, year, month, country, region, formCode),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Add an augmentation for a given filing.
@@ -3193,12 +3193,12 @@ class Mixin:
       :param region [string] The two or three character region code for the region of the filing being changed.
       :param formCode [string] The unique code of the form being changed.
       :param model [FilingAugmentationModel] A list of augmentations to be created for the specified filing.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingAugmentationModel
     """
-    def create_return_augmentation(self, companyId, year, month, country, region, formCode, model, t_limit=None):
+    def create_return_augmentation(self, companyId, year, month, country, region, formCode, model):
         return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/augment'.format(self.base_url, companyId, year, month, country, region, formCode),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Add an payment to a given filing.
@@ -3217,12 +3217,12 @@ class Mixin:
       :param region [string] The two or three character region code for the region.
       :param formCode [string] The unique code of the form being adjusted.
       :param model [FilingPaymentModel] A list of Payments to be created for the specified filing.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingPaymentModel
     """
-    def create_return_payment(self, companyId, year, month, country, region, formCode, model, t_limit=None):
+    def create_return_payment(self, companyId, year, month, country, region, formCode, model):
         return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/payment'.format(self.base_url, companyId, year, month, country, region, formCode),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete an adjustment for a given filing.
@@ -3236,12 +3236,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the adjustment being deleted.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_return_adjustment(self, companyId, id_, t_limit=None):
+    def delete_return_adjustment(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/filings/adjust/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete an augmentation for a given filing.
@@ -3254,12 +3254,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns the filing being changed.
       :param id_ [int] The ID of the augmentation being added.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_return_augmentation(self, companyId, id_, t_limit=None):
+    def delete_return_augmentation(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/filings/augment/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete an payment for a given filing.
@@ -3273,12 +3273,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the payment being deleted.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_return_payment(self, companyId, id_, t_limit=None):
+    def delete_return_payment(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/filings/payment/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve worksheet checkup report for company and filing period.
@@ -3287,12 +3287,12 @@ class Mixin:
     
       :param filingsId [int] The unique id of the worksheet.
       :param companyId [int] The unique ID of the company that owns the worksheet.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingsCheckupModel
     """
-    def filings_checkup_report(self, filingsId, companyId, t_limit=None):
+    def filings_checkup_report(self, filingsId, companyId):
         return requests.get('{}/api/v2/companies/{}/filings/{}/checkup'.format(self.base_url, filingsId, companyId),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve worksheet checkup report for company and filing period.
@@ -3302,12 +3302,12 @@ class Mixin:
       :param companyId [int] The unique ID of the company that owns the worksheets object.
       :param year [int] The year of the filing period.
       :param month [int] The month of the filing period.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingsCheckupModel
     """
-    def filings_checkup_reports(self, companyId, year, month, t_limit=None):
+    def filings_checkup_reports(self, companyId, year, month):
         return requests.get('{}/api/v2/companies/{}/filings/{}/{}/checkup'.format(self.base_url, companyId, year, month),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single attachment for a filing
@@ -3317,12 +3317,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filings.
       :param filingReturnId [int] The unique id of the worksheet return.
       :param fileId [int] The unique id of the document you are downloading
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return String
     """
-    def get_filing_attachment(self, companyId, filingReturnId, include=None, t_limit=None):
+    def get_filing_attachment(self, companyId, filingReturnId, include=None):
         return requests.get('{}/api/v2/companies/{}/filings/{}/attachment'.format(self.base_url, companyId, filingReturnId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a list of filings for the specified company in the year and month of a given filing period.
@@ -3334,12 +3334,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return String
     """
-    def get_filing_attachments(self, companyId, year, month, t_limit=None):
+    def get_filing_attachments(self, companyId, year, month):
         return requests.get('{}/api/v2/companies/{}/filings/{}/{}/attachments'.format(self.base_url, companyId, year, month),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single trace file for a company filing period
@@ -3351,12 +3351,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return String
     """
-    def get_filing_attachments_trace_file(self, companyId, year, month, t_limit=None):
+    def get_filing_attachments_trace_file(self, companyId, year, month):
         return requests.get('{}/api/v2/companies/{}/filings/{}/{}/attachments/tracefile'.format(self.base_url, companyId, year, month),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a filing for the specified company and id.
@@ -3367,12 +3367,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns the filings.
       :param id_ [int] The id of the filing return your retrieving
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def get_filing_return(self, companyId, id_, t_limit=None):
+    def get_filing_return(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/filings/returns/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a list of filings for the specified company in the year and month of a given filing period.
@@ -3384,12 +3384,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def get_filings(self, companyId, year, month, t_limit=None):
+    def get_filings(self, companyId, year, month):
         return requests.get('{}/api/v2/companies/{}/filings/{}/{}'.format(self.base_url, companyId, year, month),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a list of filings for the specified company in the given filing period and country.
@@ -3402,12 +3402,12 @@ class Mixin:
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
       :param country [string] The two-character ISO-3166 code for the country.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def get_filings_by_country(self, companyId, year, month, country, t_limit=None):
+    def get_filings_by_country(self, companyId, year, month, country):
         return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}'.format(self.base_url, companyId, year, month, country),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a list of filings for the specified company in the filing period, country and region.
@@ -3421,12 +3421,12 @@ class Mixin:
       :param month [int] The two digit month of the filing period.
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def get_filings_by_country_region(self, companyId, year, month, country, region, t_limit=None):
+    def get_filings_by_country_region(self, companyId, year, month, country, region):
         return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}/{}'.format(self.base_url, companyId, year, month, country, region),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a list of filings for the specified company in the given filing period, country, region and form.
@@ -3441,12 +3441,12 @@ class Mixin:
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
       :param formCode [string] The unique code of the form.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def get_filings_by_return_name(self, companyId, year, month, country, region, formCode, t_limit=None):
+    def get_filings_by_return_name(self, companyId, year, month, country, region, formCode):
         return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}'.format(self.base_url, companyId, year, month, country, region, formCode),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a list of filings for the specified company in the year and month of a given filing period.
@@ -3462,12 +3462,12 @@ class Mixin:
       :param country [string] The country of the return(s) you are trying to retrieve
       :param region [string] The region of the return(s) you are trying to retrieve
       :param filingCalendarId [int] The filing calendar id of the return you are trying to retrieve
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def get_filings_returns(self, companyId, include=None, t_limit=None):
+    def get_filings_returns(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/filings/returns'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Rebuild a set of filings for the specified company in the given filing period.
@@ -3483,12 +3483,12 @@ class Mixin:
       :param year [int] The year of the filing period to be rebuilt.
       :param month [int] The month of the filing period to be rebuilt.
       :param model [RebuildFilingsModel] The rebuild request you wish to execute.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def rebuild_filings(self, companyId, year, month, model, t_limit=None):
+    def rebuild_filings(self, companyId, year, month, model):
         return requests.post('{}/api/v2/companies/{}/filings/{}/{}/rebuild'.format(self.base_url, companyId, year, month),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Rebuild a set of filings for the specified company in the given filing period and country.
@@ -3505,12 +3505,12 @@ class Mixin:
       :param month [int] The month of the filing period to be rebuilt.
       :param country [string] The two-character ISO-3166 code for the country.
       :param model [RebuildFilingsModel] The rebuild request you wish to execute.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def rebuild_filings_by_country(self, companyId, year, month, country, model, t_limit=None):
+    def rebuild_filings_by_country(self, companyId, year, month, country, model):
         return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Rebuild a set of filings for the specified company in the given filing period, country and region.
@@ -3528,12 +3528,12 @@ class Mixin:
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
       :param model [RebuildFilingsModel] The rebuild request you wish to execute.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def rebuild_filings_by_country_region(self, companyId, year, month, country, region, model, t_limit=None):
+    def rebuild_filings_by_country_region(self, companyId, year, month, country, region, model):
         return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country, region),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Edit an adjustment for a given filing.
@@ -3548,12 +3548,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the adjustment being edited.
       :param model [FilingAdjustmentModel] The updated Adjustment.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingAdjustmentModel
     """
-    def update_return_adjustment(self, companyId, id_, model, t_limit=None):
+    def update_return_adjustment(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/filings/adjust/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Edit an augmentation for a given filing.
@@ -3567,12 +3567,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filing being changed.
       :param id_ [int] The ID of the augmentation being edited.
       :param model [FilingAugmentationModel] The updated Augmentation.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingModel
     """
-    def update_return_augmentation(self, companyId, id_, model, t_limit=None):
+    def update_return_augmentation(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/filings/augment/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Edit an payment for a given filing.
@@ -3587,12 +3587,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the payment being edited.
       :param model [FilingPaymentModel] The updated Payment.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FilingPaymentModel
     """
-    def update_return_payment(self, companyId, id_, model, t_limit=None):
+    def update_return_payment(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/filings/payment/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     FREE API - Request a free trial of AvaTax
@@ -3606,12 +3606,12 @@ class Mixin:
       After your free trial concludes, you will still be able to use the [Free AvaTax API Suite](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Free/).
     
       :param model [FreeTrialRequestModel] Required information to provision a free trial account.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NewAccountModel
     """
-    def request_free_trial(self, model, t_limit=None):
+    def request_free_trial(self, model):
         return requests.post('{}/api/v2/accounts/freetrials/request'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     FREE API - Sales tax rates for a specified address
@@ -3643,12 +3643,12 @@ class Mixin:
       :param region [string] Name or ISO 3166 code identifying the region within the country.    This field supports many different region identifiers:   * Two and three character ISO 3166 region codes   * Fully spelled out names of the region in ISO supported languages   * Common alternative spellings for many regions    For a full list of all supported codes and names, please see the Definitions API `ListRegions`.
       :param postalCode [string] The postal code of the location.
       :param country [string] Name or ISO 3166 code identifying the country.    This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries    For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TaxRateModel
     """
-    def tax_rates_by_address(self, include=None, t_limit=None):
+    def tax_rates_by_address(self, include=None):
         return requests.get('{}/api/v2/taxrates/byaddress'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     FREE API - Sales tax rates for a specified country and postal code. This API is only available for US postal codes.
@@ -3676,12 +3676,12 @@ class Mixin:
     
       :param country [string] Name or ISO 3166 code identifying the country.    This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries    For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
       :param postalCode [string] The postal code of the location.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TaxRateModel
     """
-    def tax_rates_by_postal_code(self, include=None, t_limit=None):
+    def tax_rates_by_postal_code(self, include=None):
         return requests.get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Request the javascript for a funding setup widget
@@ -3700,12 +3700,12 @@ class Mixin:
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
     
       :param id_ [int] The unique ID number of this funding request
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FundingStatusModel
     """
-    def activate_funding_request(self, id_, t_limit=None):
+    def activate_funding_request(self, id_):
         return requests.get('{}/api/v2/fundingrequests/{}/widget'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve status about a funding setup request
@@ -3722,12 +3722,12 @@ class Mixin:
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
     
       :param id_ [int] The unique ID number of this funding request
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FundingStatusModel
     """
-    def funding_request_status(self, id_, t_limit=None):
+    def funding_request_status(self, id_):
         return requests.get('{}/api/v2/fundingrequests/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new item
@@ -3741,12 +3741,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this item.
       :param model [ItemModel] The item you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ItemModel
     """
-    def create_items(self, companyId, model, t_limit=None):
+    def create_items(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single item
@@ -3760,12 +3760,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this item.
       :param id_ [int] The ID of the item you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_item(self, companyId, id_, t_limit=None):
+    def delete_item(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single item
@@ -3779,12 +3779,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this item object
       :param id_ [int] The primary key of this item
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ItemModel
     """
-    def get_item(self, companyId, id_, t_limit=None):
+    def get_item(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve items for this company
@@ -3806,12 +3806,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_items_by_company(self, companyId, include=None, t_limit=None):
+    def list_items_by_company(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all items
@@ -3832,12 +3832,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_items(self, include=None, t_limit=None):
+    def query_items(self, include=None):
         return requests.get('{}/api/v2/items'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single item
@@ -3854,12 +3854,12 @@ class Mixin:
       :param companyId [int] The ID of the company that this item belongs to.
       :param id_ [int] The ID of the item you wish to update
       :param model [ItemModel] The item object you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ItemModel
     """
-    def update_item(self, companyId, id_, model, t_limit=None):
+    def update_item(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create one or more overrides
@@ -3872,12 +3872,12 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns this override
       :param model [JurisdictionOverrideModel] The jurisdiction override objects to create
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return JurisdictionOverrideModel
     """
-    def create_jurisdiction_overrides(self, accountId, model, t_limit=None):
+    def create_jurisdiction_overrides(self, accountId, model):
         return requests.post('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single override
@@ -3886,12 +3886,12 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns this override
       :param id_ [int] The ID of the override you wish to delete
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_jurisdiction_override(self, accountId, id_, t_limit=None):
+    def delete_jurisdiction_override(self, accountId, id_):
         return requests.delete('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single override
@@ -3904,12 +3904,12 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns this override
       :param id_ [int] The primary key of this override
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return JurisdictionOverrideModel
     """
-    def get_jurisdiction_override(self, accountId, id_, t_limit=None):
+    def get_jurisdiction_override(self, accountId, id_):
         return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve overrides for this account
@@ -3928,12 +3928,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_jurisdiction_overrides_by_account(self, accountId, include=None, t_limit=None):
+    def list_jurisdiction_overrides_by_account(self, accountId, include=None):
         return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all overrides
@@ -3951,12 +3951,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_jurisdiction_overrides(self, include=None, t_limit=None):
+    def query_jurisdiction_overrides(self, include=None):
         return requests.get('{}/api/v2/jurisdictionoverrides'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single jurisdictionoverride
@@ -3966,12 +3966,12 @@ class Mixin:
       :param accountId [int] The ID of the account that this jurisdictionoverride belongs to.
       :param id_ [int] The ID of the jurisdictionoverride you wish to update
       :param model [JurisdictionOverrideModel] The jurisdictionoverride object you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return JurisdictionOverrideModel
     """
-    def update_jurisdiction_override(self, accountId, id_, model, t_limit=None):
+    def update_jurisdiction_override(self, accountId, id_, model):
         return requests.put('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new location
@@ -3980,12 +3980,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this location.
       :param model [LocationModel] The location you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return LocationModel
     """
-    def create_locations(self, companyId, model, t_limit=None):
+    def create_locations(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single location
@@ -3994,12 +3994,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this location.
       :param id_ [int] The ID of the location you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_location(self, companyId, id_, t_limit=None):
+    def delete_location(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single location
@@ -4015,12 +4015,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
       :param include [string] A comma separated list of additional data to retrieve. You may specify `LocationSettings` to retrieve location settings.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return LocationModel
     """
-    def get_location(self, companyId, id_, include=None, t_limit=None):
+    def get_location(self, companyId, id_, include=None):
         return requests.get('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve locations for this company
@@ -4041,12 +4041,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_locations_by_company(self, companyId, include=None, t_limit=None):
+    def list_locations_by_company(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all locations
@@ -4066,12 +4066,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_locations(self, include=None, t_limit=None):
+    def query_locations(self, include=None):
         return requests.get('{}/api/v2/locations'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single location
@@ -4083,12 +4083,12 @@ class Mixin:
       :param companyId [int] The ID of the company that this location belongs to.
       :param id_ [int] The ID of the location you wish to update
       :param model [LocationModel] The location you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return LocationModel
     """
-    def update_location(self, companyId, id_, model, t_limit=None):
+    def update_location(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Validate the location against local requirements
@@ -4099,12 +4099,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return LocationValidationModel
     """
-    def validate_location(self, companyId, id_, t_limit=None):
+    def validate_location(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/locations/{}/validate'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Adjust a MultiDocument transaction
@@ -4120,12 +4120,12 @@ class Mixin:
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
       :param model [AdjustMultiDocumentModel] The adjust request you wish to execute
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return MultiDocumentModel
     """
-    def adjust_multi_document_transaction(self, code, type, model, include=None, t_limit=None):
+    def adjust_multi_document_transaction(self, code, type, model, include=None):
         return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/adjust'.format(self.base_url, code, type),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Get audit information about a MultiDocument transaction
@@ -4144,12 +4144,12 @@ class Mixin:
     
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AuditMultiDocumentModel
     """
-    def audit_multi_document_transaction(self, code, type, t_limit=None):
+    def audit_multi_document_transaction(self, code, type):
         return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}/audit'.format(self.base_url, code, type),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Commit a MultiDocument transaction
@@ -4161,12 +4161,12 @@ class Mixin:
       Any changes made to a committed transaction will generate a transaction history.
     
       :param model [CommitMultiDocumentModel] The commit request you wish to execute
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return MultiDocumentModel
     """
-    def commit_multi_document_transaction(self, model, t_limit=None):
+    def commit_multi_document_transaction(self, model):
         return requests.post('{}/api/v2/transactions/multidocument/commit'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new MultiDocument transaction
@@ -4198,12 +4198,12 @@ class Mixin:
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateMultiDocumentModel] the multi document transaction model
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return MultiDocumentModel
     """
-    def create_multi_document_transaction(self, model, include=None, t_limit=None):
+    def create_multi_document_transaction(self, model, include=None):
         return requests.post('{}/api/v2/transactions/multidocument'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a MultiDocument transaction
@@ -4221,12 +4221,12 @@ class Mixin:
       :param code [string] 
       :param type [DocumentType]  (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in the response after transaction is created
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return MultiDocumentModel
     """
-    def get_multi_document_transaction_by_code_and_type(self, code, type, include=None, t_limit=None):
+    def get_multi_document_transaction_by_code_and_type(self, code, type, include=None):
         return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}'.format(self.base_url, code, type),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a MultiDocument transaction by ID
@@ -4250,12 +4250,12 @@ class Mixin:
     
       :param id_ [int] The unique ID number of the MultiDocument transaction to retrieve
       :param include [string] Specifies objects to include in the response after transaction is created
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return MultiDocumentModel
     """
-    def get_multi_document_transaction_by_id(self, id_, include=None, t_limit=None):
+    def get_multi_document_transaction_by_id(self, id_, include=None):
         return requests.get('{}/api/v2/transactions/multidocument/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all MultiDocument transactions
@@ -4280,12 +4280,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_multi_document_transactions(self, include=None, t_limit=None):
+    def list_multi_document_transactions(self, include=None):
         return requests.get('{}/api/v2/transactions/multidocument'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a refund for a MultiDocument transaction
@@ -4322,12 +4322,12 @@ class Mixin:
       :param type [DocumentType] The type of this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [RefundTransactionModel] Information about the refund to create
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return MultiDocumentModel
     """
-    def refund_multi_document_transaction(self, code, type, model, include=None, t_limit=None):
+    def refund_multi_document_transaction(self, code, type, model, include=None):
         return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/refund'.format(self.base_url, code, type),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Verify a MultiDocument transaction
@@ -4338,12 +4338,12 @@ class Mixin:
       sales, purchases, inventory transfer, and returns (also called refunds).
     
       :param model [VerifyMultiDocumentModel] Information from your accounting system to verify against this MultiDocument transaction as it is stored in AvaTax
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return MultiDocumentModel
     """
-    def verify_multi_document_transaction(self, model, t_limit=None):
+    def verify_multi_document_transaction(self, model):
         return requests.post('{}/api/v2/transactions/multidocument/verify'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Void a MultiDocument transaction
@@ -4358,12 +4358,12 @@ class Mixin:
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :param model [VoidTransactionModel] The void request you wish to execute
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return MultiDocumentModel
     """
-    def void_multi_document_transaction(self, code, type, model, t_limit=None):
+    def void_multi_document_transaction(self, code, type, model):
         return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/void'.format(self.base_url, code, type),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new nexus
@@ -4380,12 +4380,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this nexus.
       :param model [NexusModel] The nexus you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NexusModel
     """
-    def create_nexus(self, companyId, model, t_limit=None):
+    def create_nexus(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Creates nexus for a list of addresses.
@@ -4404,12 +4404,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that will own this nexus.
       :param model [DeclareNexusByAddressModel] The nexus you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NexusByAddressModel
     """
-    def declare_nexus_by_address(self, companyId, model, t_limit=None):
+    def declare_nexus_by_address(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/nexus/byaddress'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single nexus
@@ -4419,12 +4419,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this nexus.
       :param id_ [int] The ID of the nexus you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_nexus(self, companyId, id_, t_limit=None):
+    def delete_nexus(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single nexus
@@ -4437,12 +4437,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this nexus object
       :param id_ [int] The primary key of this nexus
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NexusModel
     """
-    def get_nexus(self, companyId, id_, t_limit=None):
+    def get_nexus(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List company nexus related to a tax form
@@ -4458,12 +4458,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this nexus object
       :param formCode [string] The form code that we are looking up the nexus for
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NexusByTaxFormModel
     """
-    def get_nexus_by_form_code(self, companyId, formCode, t_limit=None):
+    def get_nexus_by_form_code(self, companyId, formCode):
         return requests.get('{}/api/v2/companies/{}/nexus/byform/{}'.format(self.base_url, companyId, formCode),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve nexus for this company
@@ -4482,12 +4482,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_nexus_by_company(self, companyId, include=None, t_limit=None):
+    def list_nexus_by_company(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all nexus
@@ -4505,12 +4505,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_nexus(self, include=None, t_limit=None):
+    def query_nexus(self, include=None):
         return requests.get('{}/api/v2/nexus'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single nexus
@@ -4530,12 +4530,12 @@ class Mixin:
       :param companyId [int] The ID of the company that this nexus belongs to.
       :param id_ [int] The ID of the nexus you wish to update
       :param model [NexusModel] The nexus object you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NexusModel
     """
-    def update_nexus(self, companyId, id_, model, t_limit=None):
+    def update_nexus(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single notice.
@@ -4548,12 +4548,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice you wish to delete the finance detail from.
       :param commentDetailsId [int] The ID of the comment you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def comment_details_delete(self, companyId, id_, commentDetailsId, t_limit=None):
+    def comment_details_delete(self, companyId, id_, commentDetailsId):
         return requests.delete('{}/api/v2/companies/{}/notices/{}/commentdetails/{}'.format(self.base_url, companyId, id_, commentDetailsId),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new notice comment.
@@ -4566,12 +4566,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the comment for.
       :param model [NoticeCommentModel] The notice comments you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NoticeCommentModel
     """
-    def create_notice_comment(self, companyId, id_, model, t_limit=None):
+    def create_notice_comment(self, companyId, id_, model):
         return requests.post('{}/api/v2/companies/{}/notices/{}/comments'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new notice finance details.
@@ -4585,12 +4585,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice added to the finance details.
       :param model [NoticeFinanceModel] The notice finance details you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NoticeFinanceModel
     """
-    def create_notice_finance_details(self, companyId, id_, model, t_limit=None):
+    def create_notice_finance_details(self, companyId, id_, model):
         return requests.post('{}/api/v2/companies/{}/notices/{}/financedetails'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new notice responsibility.
@@ -4603,12 +4603,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the responsibility for.
       :param model [NoticeResponsibilityDetailModel] The notice responsibilities you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NoticeResponsibilityDetailModel
     """
-    def create_notice_responsibilities(self, companyId, id_, model, t_limit=None):
+    def create_notice_responsibilities(self, companyId, id_, model):
         return requests.post('{}/api/v2/companies/{}/notices/{}/responsibilities'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new notice root cause.
@@ -4621,12 +4621,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the responsibility for.
       :param model [NoticeRootCauseDetailModel] The notice root causes you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NoticeRootCauseDetailModel
     """
-    def create_notice_root_causes(self, companyId, id_, model, t_limit=None):
+    def create_notice_root_causes(self, companyId, id_, model):
         return requests.post('{}/api/v2/companies/{}/notices/{}/rootcauses'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new notice.
@@ -4638,12 +4638,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this notice.
       :param model [NoticeModel] The notice object you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NoticeModel
     """
-    def create_notices(self, companyId, model, t_limit=None):
+    def create_notices(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/notices'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single notice.
@@ -4655,12 +4655,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_notice(self, companyId, id_, t_limit=None):
+    def delete_notice(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/notices/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single responsibility
@@ -4673,12 +4673,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this notice.
       :param noticeId [int] The ID of the notice you wish to delete.
       :param id_ [int] The ID of the responsibility you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_responsibilities(self, companyId, noticeId, id_, t_limit=None):
+    def delete_responsibilities(self, companyId, noticeId, id_):
         return requests.delete('{}/api/v2/companies/{}/notices/{}/responsibilities/{}'.format(self.base_url, companyId, noticeId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single root cause.
@@ -4691,12 +4691,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this notice.
       :param noticeId [int] The ID of the notice you wish to delete.
       :param id_ [int] The ID of the root cause you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_root_causes(self, companyId, noticeId, id_, t_limit=None):
+    def delete_root_causes(self, companyId, noticeId, id_):
         return requests.delete('{}/api/v2/companies/{}/notices/{}/rootcauses/{}'.format(self.base_url, companyId, noticeId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single attachment
@@ -4706,12 +4706,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company for this attachment.
       :param id_ [int] The ResourceFileId of the attachment to download.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return String
     """
-    def download_notice_attachment(self, companyId, id_, t_limit=None):
+    def download_notice_attachment(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/notices/files/{}/attachment'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single notice.
@@ -4725,12 +4725,12 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice you wish to delete the finance detail from.
       :param financeDetailsId [int] The ID of the finance detail you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def financedetailsdelete(self, companyId, id_, financeDetailsId, t_limit=None):
+    def financedetailsdelete(self, companyId, id_, financeDetailsId):
         return requests.delete('{}/api/v2/companies/{}/notices/{}/financedetails/{}'.format(self.base_url, companyId, id_, financeDetailsId),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single notice.
@@ -4742,12 +4742,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company for this notice.
       :param id_ [int] The ID of this notice.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NoticeModel
     """
-    def get_notice(self, companyId, id_, t_limit=None):
+    def get_notice(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/notices/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve notice comments for a specific notice.
@@ -4759,12 +4759,12 @@ class Mixin:
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def get_notice_comments(self, id_, companyId, t_limit=None):
+    def get_notice_comments(self, id_, companyId):
         return requests.get('{}/api/v2/companies/{}/notices/{}/comments'.format(self.base_url, id_, companyId),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve notice finance details for a specific notice.
@@ -4777,12 +4777,12 @@ class Mixin:
     
       :param id_ [int] The ID of the company that owns these notices.
       :param companyId [int] The ID of the company that owns these notices.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def get_notice_finance_details(self, id_, companyId, t_limit=None):
+    def get_notice_finance_details(self, id_, companyId):
         return requests.get('{}/api/v2/companies/{}/notices/{}/financedetails'.format(self.base_url, id_, companyId),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve notice responsibilities for a specific notice.
@@ -4794,12 +4794,12 @@ class Mixin:
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def get_notice_responsibilities(self, id_, companyId, t_limit=None):
+    def get_notice_responsibilities(self, id_, companyId):
         return requests.get('{}/api/v2/companies/{}/notices/{}/responsibilities'.format(self.base_url, id_, companyId),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve notice root causes for a specific notice.
@@ -4811,12 +4811,12 @@ class Mixin:
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def get_notice_root_causes(self, id_, companyId, t_limit=None):
+    def get_notice_root_causes(self, id_, companyId):
         return requests.get('{}/api/v2/companies/{}/notices/{}/rootcauses'.format(self.base_url, id_, companyId),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve notices for a company.
@@ -4834,12 +4834,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_notices_by_company(self, companyId, include=None, t_limit=None):
+    def list_notices_by_company(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/notices'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all notices.
@@ -4856,12 +4856,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_notices(self, include=None, t_limit=None):
+    def query_notices(self, include=None):
         return requests.get('{}/api/v2/notices'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single notice.
@@ -4876,12 +4876,12 @@ class Mixin:
       :param companyId [int] The ID of the company that this notice belongs to.
       :param id_ [int] The ID of the notice you wish to update.
       :param model [NoticeModel] The notice object you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NoticeModel
     """
-    def update_notice(self, companyId, id_, model, t_limit=None):
+    def update_notice(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/notices/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single attachment
@@ -4891,12 +4891,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company for this attachment.
       :param model [ResourceFileUploadRequestModel] The ResourceFileId of the attachment to download.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return String
     """
-    def upload_attachment(self, companyId, model, t_limit=None):
+    def upload_attachment(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/notices/files/attachment'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Request a new Avalara account
@@ -4914,12 +4914,12 @@ class Mixin:
       onto the AvaTax website and reviewing terms and conditions online.
     
       :param model [NewAccountRequestModel] Information about the account you wish to create and the selected product offerings.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return NewAccountModel
     """
-    def request_new_account(self, model, t_limit=None):
+    def request_new_account(self, model):
         return requests.post('{}/api/v2/accounts/request'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Change Password
@@ -4931,12 +4931,12 @@ class Mixin:
       different user than the one authenticating the current API call.
     
       :param model [PasswordChangeModel] An object containing your current password and the new password.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return string
     """
-    def change_password(self, model, t_limit=None):
+    def change_password(self, model):
         return requests.put('{}/api/v2/passwords'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new account
@@ -4947,12 +4947,12 @@ class Mixin:
       When creating an account object you may attach subscriptions and users as part of the 'Create' call.
     
       :param model [AccountModel] The account you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AccountModel
     """
-    def create_account(self, model, t_limit=None):
+    def create_account(self, model):
         return requests.post('{}/api/v2/accounts'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new subscription
@@ -4965,12 +4965,12 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns this subscription.
       :param model [SubscriptionModel] The subscription you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return SubscriptionModel
     """
-    def create_subscriptions(self, accountId, model, t_limit=None):
+    def create_subscriptions(self, accountId, model):
         return requests.post('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single account
@@ -4981,12 +4981,12 @@ class Mixin:
       Deleting an account will delete all companies and all account level users attached to this account.
     
       :param id_ [int] The ID of the account you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_account(self, id_, t_limit=None):
+    def delete_account(self, id_):
         return requests.delete('{}/api/v2/accounts/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single subscription
@@ -4997,12 +4997,12 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns this subscription.
       :param id_ [int] The ID of the subscription you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_subscription(self, accountId, id_, t_limit=None):
+    def delete_subscription(self, accountId, id_):
         return requests.delete('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single user
@@ -5013,12 +5013,12 @@ class Mixin:
     
       :param id_ [int] The ID of the user you wish to delete.
       :param accountId [int] The accountID of the user you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_user(self, id_, accountId, t_limit=None):
+    def delete_user(self, id_, accountId):
         return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all accounts
@@ -5038,12 +5038,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_accounts(self, include=None, t_limit=None):
+    def query_accounts(self, include=None):
         return requests.get('{}/api/v2/accounts'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Reset a user's password programmatically
@@ -5056,12 +5056,12 @@ class Mixin:
     
       :param userId [int] The unique ID of the user whose password will be changed
       :param model [SetPasswordModel] The new password for this user
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return string
     """
-    def reset_password(self, userId, model, t_limit=None):
+    def reset_password(self, userId, model):
         return requests.post('{}/api/v2/passwords/{}/reset'.format(self.base_url, userId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single account
@@ -5072,12 +5072,12 @@ class Mixin:
     
       :param id_ [int] The ID of the account you wish to update.
       :param model [AccountModel] The account object you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AccountModel
     """
-    def update_account(self, id_, model, t_limit=None):
+    def update_account(self, id_, model):
         return requests.put('{}/api/v2/accounts/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single subscription
@@ -5093,12 +5093,12 @@ class Mixin:
       :param accountId [int] The ID of the account that this subscription belongs to.
       :param id_ [int] The ID of the subscription you wish to update
       :param model [SubscriptionModel] The subscription you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return SubscriptionModel
     """
-    def update_subscription(self, accountId, id_, model, t_limit=None):
+    def update_subscription(self, accountId, id_, model):
         return requests.put('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Download a report
@@ -5115,12 +5115,12 @@ class Mixin:
       This API works for all report types.
     
       :param id_ [int] The unique ID number of this report
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return String
     """
-    def download_report(self, id_, t_limit=None):
+    def download_report(self, id_):
         return requests.get('{}/api/v2/reports/{}/attachment'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Intiate and download an ExportDocumentLine report
@@ -5134,12 +5134,12 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company to report on.
       :param model [ExportDocumentLineModel] Options that may be configured to customize the report.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return String
     """
-    def export_document_line(self, companyId, model, t_limit=None):
+    def export_document_line(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/reports/exportdocumentline'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single report
@@ -5154,12 +5154,12 @@ class Mixin:
       This API call returns information about any report type.
     
       :param id_ [int] The unique ID number of the report to retrieve
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ReportModel
     """
-    def get_report(self, id_, t_limit=None):
+    def get_report(self, id_):
         return requests.get('{}/api/v2/reports/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Initiate an ExportDocumentLine report task
@@ -5175,12 +5175,12 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company to report on.
       :param model [ExportDocumentLineModel] Options that may be configured to customize the report.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ReportModel
     """
-    def initiate_export_document_line_report(self, companyId, model, t_limit=None):
+    def initiate_export_document_line_report(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/reports/exportdocumentline/initiate'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List all report tasks for account
@@ -5194,12 +5194,12 @@ class Mixin:
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       This API call returns information about all report types across your entire account.
     
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_reports(self, t_limit=None):
+    def list_reports(self):
         return requests.get('{}/api/v2/reports'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new setting
@@ -5215,12 +5215,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this setting.
       :param model [SettingModel] The setting you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return SettingModel
     """
-    def create_settings(self, companyId, model, t_limit=None):
+    def create_settings(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single setting
@@ -5236,12 +5236,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this setting.
       :param id_ [int] The ID of the setting you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_setting(self, companyId, id_, t_limit=None):
+    def delete_setting(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single setting
@@ -5257,12 +5257,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this setting
       :param id_ [int] The primary key of this setting
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return SettingModel
     """
-    def get_setting(self, companyId, id_, t_limit=None):
+    def get_setting(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all settings for this company
@@ -5284,12 +5284,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_settings_by_company(self, companyId, include=None, t_limit=None):
+    def list_settings_by_company(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all settings
@@ -5310,12 +5310,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_settings(self, include=None, t_limit=None):
+    def query_settings(self, include=None):
         return requests.get('{}/api/v2/settings'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single setting
@@ -5334,12 +5334,12 @@ class Mixin:
       :param companyId [int] The ID of the company that this setting belongs to.
       :param id_ [int] The ID of the setting you wish to update
       :param model [SettingModel] The setting you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return SettingModel
     """
-    def update_setting(self, companyId, id_, model, t_limit=None):
+    def update_setting(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single subscription
@@ -5350,12 +5350,12 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns this subscription
       :param id_ [int] The primary key of this subscription
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return SubscriptionModel
     """
-    def get_subscription(self, accountId, id_, t_limit=None):
+    def get_subscription(self, accountId, id_):
         return requests.get('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve subscriptions for this account
@@ -5371,12 +5371,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_subscriptions_by_account(self, accountId, include=None, t_limit=None):
+    def list_subscriptions_by_account(self, accountId, include=None):
         return requests.get('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all subscriptions
@@ -5391,12 +5391,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_subscriptions(self, include=None, t_limit=None):
+    def query_subscriptions(self, include=None):
         return requests.get('{}/api/v2/subscriptions'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new tax code
@@ -5409,12 +5409,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this tax code.
       :param model [TaxCodeModel] The tax code you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TaxCodeModel
     """
-    def create_tax_codes(self, companyId, model, t_limit=None):
+    def create_tax_codes(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single tax code
@@ -5423,12 +5423,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this tax code.
       :param id_ [int] The ID of the tax code you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_tax_code(self, companyId, id_, t_limit=None):
+    def delete_tax_code(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single tax code
@@ -5441,12 +5441,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this tax code
       :param id_ [int] The primary key of this tax code
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TaxCodeModel
     """
-    def get_tax_code(self, companyId, id_, t_limit=None):
+    def get_tax_code(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve tax codes for this company
@@ -5465,12 +5465,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_tax_codes_by_company(self, companyId, include=None, t_limit=None):
+    def list_tax_codes_by_company(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all tax codes
@@ -5488,12 +5488,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_tax_codes(self, include=None, t_limit=None):
+    def query_tax_codes(self, include=None):
         return requests.get('{}/api/v2/taxcodes'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single tax code
@@ -5509,12 +5509,12 @@ class Mixin:
       :param companyId [int] The ID of the company that this tax code belongs to.
       :param id_ [int] The ID of the tax code you wish to update
       :param model [TaxCodeModel] The tax code you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TaxCodeModel
     """
-    def update_tax_code(self, companyId, id_, model, t_limit=None):
+    def update_tax_code(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Build a multi-location tax content file
@@ -5529,12 +5529,12 @@ class Mixin:
       NOTE: This API does not work for Tennessee tax holiday scenarios.
     
       :param model [PointOfSaleDataRequestModel] Parameters about the desired file format and report format, specifying which company, locations and TaxCodes to include.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return String
     """
-    def build_tax_content_file(self, model, t_limit=None):
+    def build_tax_content_file(self, model):
         return requests.post('{}/api/v2/pointofsaledata/build'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Build a tax content file for a single location
@@ -5554,12 +5554,12 @@ class Mixin:
       :param format [PointOfSaleFileType] The format of the file (JSON by default) (See PointOfSaleFileType::* for a list of allowable values)
       :param partnerId [PointOfSalePartnerId] If specified, requests a custom partner-formatted version of the file. (See PointOfSalePartnerId::* for a list of allowable values)
       :param includeJurisCodes [boolean] When true, the file will include jurisdiction codes in the result.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return String
     """
-    def build_tax_content_file_for_location(self, companyId, id_, include=None, t_limit=None):
+    def build_tax_content_file_for_location(self, companyId, id_, include=None):
         return requests.get('{}/api/v2/companies/{}/locations/{}/pointofsaledata'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Download a file listing tax rates by postal code
@@ -5595,12 +5595,12 @@ class Mixin:
     
       :param date [datetime] The date for which point-of-sale data would be calculated (today by default). Example input: 2016-12-31
       :param region [string] If the region is provided, this API is going to generate the tax rate per zipcode for only the region specified.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return String
     """
-    def download_tax_rates_by_zip_code(self, date, include=None, t_limit=None):
+    def download_tax_rates_by_zip_code(self, date, include=None):
         return requests.get('{}/api/v2/taxratesbyzipcode/download/{}'.format(self.base_url, date),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new tax rule
@@ -5613,12 +5613,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this tax rule.
       :param model [TaxRuleModel] The tax rule you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TaxRuleModel
     """
-    def create_tax_rules(self, companyId, model, t_limit=None):
+    def create_tax_rules(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single tax rule
@@ -5627,12 +5627,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this tax rule.
       :param id_ [int] The ID of the tax rule you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_tax_rule(self, companyId, id_, t_limit=None):
+    def delete_tax_rule(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single tax rule
@@ -5645,12 +5645,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this tax rule
       :param id_ [int] The primary key of this tax rule
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TaxRuleModel
     """
-    def get_tax_rule(self, companyId, id_, t_limit=None):
+    def get_tax_rule(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve tax rules for this company
@@ -5669,12 +5669,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_tax_rules(self, companyId, include=None, t_limit=None):
+    def list_tax_rules(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all tax rules
@@ -5692,12 +5692,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_tax_rules(self, include=None, t_limit=None):
+    def query_tax_rules(self, include=None):
         return requests.get('{}/api/v2/taxrules'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single tax rule
@@ -5713,12 +5713,12 @@ class Mixin:
       :param companyId [int] The ID of the company that this tax rule belongs to.
       :param id_ [int] The ID of the tax rule you wish to update
       :param model [TaxRuleModel] The tax rule you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TaxRuleModel
     """
-    def update_tax_rule(self, companyId, id_, model, t_limit=None):
+    def update_tax_rule(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Add lines to an existing unlocked transaction
@@ -5742,12 +5742,12 @@ class Mixin:
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [AddTransactionLineModel] information about the transaction and lines to be added
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def add_lines(self, model, include=None, t_limit=None):
+    def add_lines(self, model, include=None):
         return requests.post('{}/api/v2/companies/transactions/lines/add'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Correct a previously created transaction
@@ -5765,12 +5765,12 @@ class Mixin:
       :param transactionCode [string] The transaction code to adjust
       :param documentType [DocumentType] (Optional): The document type of the transaction to adjust. (See DocumentType::* for a list of allowable values)
       :param model [AdjustTransactionModel] The adjustment you wish to make
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def adjust_transaction(self, companyCode, transactionCode, model, include=None, t_limit=None):
+    def adjust_transaction(self, companyCode, transactionCode, model, include=None):
         return requests.post('{}/api/v2/companies/{}/transactions/{}/adjust'.format(self.base_url, companyCode, transactionCode),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Get audit information about a transaction
@@ -5789,12 +5789,12 @@ class Mixin:
     
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AuditTransactionModel
     """
-    def audit_transaction(self, companyCode, transactionCode, t_limit=None):
+    def audit_transaction(self, companyCode, transactionCode):
         return requests.get('{}/api/v2/companies/{}/transactions/{}/audit'.format(self.base_url, companyCode, transactionCode),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Get audit information about a transaction
@@ -5814,12 +5814,12 @@ class Mixin:
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
       :param documentType [DocumentType] The document type of the original transaction (See DocumentType::* for a list of allowable values)
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return AuditTransactionModel
     """
-    def audit_transaction_with_type(self, companyCode, transactionCode, documentType, t_limit=None):
+    def audit_transaction_with_type(self, companyCode, transactionCode, documentType):
         return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}/audit'.format(self.base_url, companyCode, transactionCode, documentType),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Lock a set of documents
@@ -5831,12 +5831,12 @@ class Mixin:
       sales, purchases, inventory transfer, and returns (also called refunds).
     
       :param model [BulkLockTransactionModel] bulk lock request
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return BulkLockTransactionResult
     """
-    def bulk_lock_transaction(self, model, t_limit=None):
+    def bulk_lock_transaction(self, model):
         return requests.post('{}/api/v2/transactions/lock'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Change a transaction's code
@@ -5853,12 +5853,12 @@ class Mixin:
       :param transactionCode [string] The transaction code to change
       :param documentType [DocumentType] (Optional): The document type of the transaction to change document code. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param model [ChangeTransactionCodeModel] The code change request you wish to execute
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def change_transaction_code(self, companyCode, transactionCode, model, include=None, t_limit=None):
+    def change_transaction_code(self, companyCode, transactionCode, model, include=None):
         return requests.post('{}/api/v2/companies/{}/transactions/{}/changecode'.format(self.base_url, companyCode, transactionCode),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Commit a transaction for reporting
@@ -5874,12 +5874,12 @@ class Mixin:
       :param transactionCode [string] The transaction code to commit
       :param documentType [DocumentType] (Optional): The document type of the transaction to commit. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param model [CommitTransactionModel] The commit request you wish to execute
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def commit_transaction(self, companyCode, transactionCode, model, include=None, t_limit=None):
+    def commit_transaction(self, companyCode, transactionCode, model, include=None):
         return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.format(self.base_url, companyCode, transactionCode),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create or adjust a transaction
@@ -5908,12 +5908,12 @@ class Mixin:
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateOrAdjustTransactionModel] The transaction you wish to create or adjust
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def create_or_adjust_transaction(self, model, include=None, t_limit=None):
+    def create_or_adjust_transaction(self, model, include=None):
         return requests.post('{}/api/v2/transactions/createoradjust'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new transaction
@@ -5946,12 +5946,12 @@ class Mixin:
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateTransactionModel] The transaction you wish to create
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def create_transaction(self, model, include=None, t_limit=None):
+    def create_transaction(self, model, include=None):
         return requests.post('{}/api/v2/transactions/create'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Remove lines from an existing unlocked transaction
@@ -5972,12 +5972,12 @@ class Mixin:
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [RemoveTransactionLineModel] information about the transaction and lines to be removed
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def delete_lines(self, model, include=None, t_limit=None):
+    def delete_lines(self, model, include=None):
         return requests.post('{}/api/v2/companies/transactions/lines/delete'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single transaction by code
@@ -6000,12 +6000,12 @@ class Mixin:
       :param transactionCode [string] The transaction code to retrieve
       :param documentType [DocumentType] (Optional): The document type of the transaction to retrieve (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def get_transaction_by_code(self, companyCode, transactionCode, include=None, t_limit=None):
+    def get_transaction_by_code(self, companyCode, transactionCode, include=None):
         return requests.get('{}/api/v2/companies/{}/transactions/{}'.format(self.base_url, companyCode, transactionCode),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single transaction by code
@@ -6016,12 +6016,12 @@ class Mixin:
       :param transactionCode [string] The transaction code to retrieve
       :param documentType [DocumentType] The transaction type to retrieve (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def get_transaction_by_code_and_type(self, companyCode, transactionCode, documentType, include=None, t_limit=None):
+    def get_transaction_by_code_and_type(self, companyCode, transactionCode, documentType, include=None):
         return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}'.format(self.base_url, companyCode, transactionCode, documentType),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single transaction by ID
@@ -6041,12 +6041,12 @@ class Mixin:
     
       :param id_ [int] The unique ID number of the transaction to retrieve
       :param include [string] Specifies objects to include in this fetch call
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def get_transaction_by_id(self, id_, include=None, t_limit=None):
+    def get_transaction_by_id(self, id_, include=None):
         return requests.get('{}/api/v2/transactions/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all transactions
@@ -6073,12 +6073,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_transactions_by_company(self, companyCode, include=None, t_limit=None):
+    def list_transactions_by_company(self, companyCode, include=None):
         return requests.get('{}/api/v2/companies/{}/transactions'.format(self.base_url, companyCode),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Lock a single transaction
@@ -6095,12 +6095,12 @@ class Mixin:
       :param transactionCode [string] The transaction code to lock
       :param documentType [DocumentType] (Optional): The document type of the transaction to lock. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param model [LockTransactionModel] The lock request you wish to execute
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def lock_transaction(self, companyCode, transactionCode, model, include=None, t_limit=None):
+    def lock_transaction(self, companyCode, transactionCode, model, include=None):
         return requests.post('{}/api/v2/companies/{}/transactions/{}/lock'.format(self.base_url, companyCode, transactionCode),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a refund for a transaction
@@ -6135,12 +6135,12 @@ class Mixin:
       :param documentType [DocumentType] (Optional): The document type of the transaction to refund. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param useTaxDateOverride [boolean] (Optional): If set to true, processes refund using taxDateOverride rather than taxAmountOverride (Note: taxAmountOverride is not allowed for SST states).
       :param model [RefundTransactionModel] Information about the refund to create
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def refund_transaction(self, companyCode, transactionCode, model, include=None, t_limit=None):
+    def refund_transaction(self, companyCode, transactionCode, model, include=None):
         return requests.post('{}/api/v2/companies/{}/transactions/{}/refund'.format(self.base_url, companyCode, transactionCode),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Perform multiple actions on a transaction
@@ -6156,12 +6156,12 @@ class Mixin:
       :param transactionCode [string] The transaction code to settle
       :param documentType [DocumentType] (Optional): The document type of the transaction to settle. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param model [SettleTransactionModel] The data from an external system to reconcile against AvaTax
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def settle_transaction(self, companyCode, transactionCode, model, include=None, t_limit=None):
+    def settle_transaction(self, companyCode, transactionCode, model, include=None):
         return requests.post('{}/api/v2/companies/{}/transactions/{}/settle'.format(self.base_url, companyCode, transactionCode),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Uncommit a transaction for reporting
@@ -6173,12 +6173,12 @@ class Mixin:
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to commit
       :param documentType [DocumentType] (Optional): The document type of the transaction to commit. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def uncommit_transaction(self, companyCode, transactionCode, include=None, t_limit=None):
+    def uncommit_transaction(self, companyCode, transactionCode, include=None):
         return requests.post('{}/api/v2/companies/{}/transactions/{}/uncommit'.format(self.base_url, companyCode, transactionCode),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Verify a transaction
@@ -6193,12 +6193,12 @@ class Mixin:
       :param transactionCode [string] The transaction code to settle
       :param documentType [DocumentType] (Optional): The document type of the transaction to verify. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param model [VerifyTransactionModel] The data from an external system to reconcile against AvaTax
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def verify_transaction(self, companyCode, transactionCode, model, include=None, t_limit=None):
+    def verify_transaction(self, companyCode, transactionCode, model, include=None):
         return requests.post('{}/api/v2/companies/{}/transactions/{}/verify'.format(self.base_url, companyCode, transactionCode),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Void a transaction
@@ -6214,12 +6214,12 @@ class Mixin:
       :param transactionCode [string] The transaction code to void
       :param documentType [DocumentType] (Optional): The document type of the transaction to void. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param model [VoidTransactionModel] The void request you wish to execute
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return TransactionModel
     """
-    def void_transaction(self, companyCode, transactionCode, model, include=None, t_limit=None):
+    def void_transaction(self, companyCode, transactionCode, model, include=None):
         return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(self.base_url, companyCode, transactionCode),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create a new UPC
@@ -6229,12 +6229,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this UPC.
       :param model [UPCModel] The UPC you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return UPCModel
     """
-    def create_u_p_cs(self, companyId, model, t_limit=None):
+    def create_u_p_cs(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Delete a single UPC
@@ -6243,12 +6243,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this UPC.
       :param id_ [int] The ID of the UPC you wish to delete.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return ErrorDetail
     """
-    def delete_u_p_c(self, companyId, id_, t_limit=None):
+    def delete_u_p_c(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single UPC
@@ -6258,12 +6258,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this UPC
       :param id_ [int] The primary key of this UPC
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return UPCModel
     """
-    def get_u_p_c(self, companyId, id_, t_limit=None):
+    def get_u_p_c(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve UPCs for this company
@@ -6279,12 +6279,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_u_p_cs_by_company(self, companyId, include=None, t_limit=None):
+    def list_u_p_cs_by_company(self, companyId, include=None):
         return requests.get('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all UPCs
@@ -6299,12 +6299,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_u_p_cs(self, include=None, t_limit=None):
+    def query_u_p_cs(self, include=None):
         return requests.get('{}/api/v2/upcs'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single UPC
@@ -6317,12 +6317,12 @@ class Mixin:
       :param companyId [int] The ID of the company that this UPC belongs to.
       :param id_ [int] The ID of the UPC you wish to update
       :param model [UPCModel] The UPC you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return UPCModel
     """
-    def update_u_p_c(self, companyId, id_, model, t_limit=None):
+    def update_u_p_c(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Create new users
@@ -6336,12 +6336,12 @@ class Mixin:
     
       :param accountId [int] The unique ID number of the account where these users will be created.
       :param model [UserModel] The user or array of users you wish to create.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return UserModel
     """
-    def create_users(self, accountId, model, t_limit=None):
+    def create_users(self, accountId, model):
         return requests.post('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve a single user
@@ -6352,12 +6352,12 @@ class Mixin:
       :param id_ [int] The ID of the user to retrieve.
       :param accountId [int] The accountID of the user you wish to get.
       :param include [string] Optional fetch commands.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return UserModel
     """
-    def get_user(self, id_, accountId, include=None, t_limit=None):
+    def get_user(self, id_, accountId, include=None):
         return requests.get('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all entitlements for a single user
@@ -6378,12 +6378,12 @@ class Mixin:
     
       :param id_ [int] The ID of the user to retrieve.
       :param accountId [int] The accountID of the user you wish to get.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return UserEntitlementModel
     """
-    def get_user_entitlements(self, id_, accountId, t_limit=None):
+    def get_user_entitlements(self, id_, accountId):
         return requests.get('{}/api/v2/accounts/{}/users/{}/entitlements'.format(self.base_url, accountId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Get information about a username.
@@ -6393,12 +6393,12 @@ class Mixin:
       Please ensure that the query string is url encoded if you wish to check information for a user that contains url-sensitive characters.
     
       :param username [string] The username to search.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return UsernameModel
     """
-    def get_username(self, include=None, t_limit=None):
+    def get_username(self, include=None):
         return requests.get('{}/api/v2/usernames'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve users for this account
@@ -6416,12 +6416,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_users_by_account(self, accountId, include=None, t_limit=None):
+    def list_users_by_account(self, accountId, include=None):
         return requests.get('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Retrieve all users
@@ -6439,12 +6439,12 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def query_users(self, include=None, t_limit=None):
+    def query_users(self, include=None):
         return requests.get('{}/api/v2/users'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Update a single user
@@ -6457,12 +6457,12 @@ class Mixin:
       :param id_ [int] The ID of the user you wish to update.
       :param accountId [int] The accountID of the user you wish to update.
       :param model [UserModel] The user object you wish to update.
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return UserModel
     """
-    def update_user(self, id_, accountId, model, t_limit=None):
+    def update_user(self, id_, accountId, model):
         return requests.put('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Checks if the current user is subscribed to a specific service
@@ -6472,12 +6472,12 @@ class Mixin:
       features of AvaTax, and would be useful in debugging access privilege problems.
     
       :param serviceTypeId [ServiceTypeId] The service to check (See ServiceTypeId::* for a list of allowable values)
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return SubscriptionModel
     """
-    def get_my_subscription(self, serviceTypeId, t_limit=None):
+    def get_my_subscription(self, serviceTypeId):
         return requests.get('{}/api/v2/utilities/subscriptions/{}'.format(self.base_url, serviceTypeId),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     List all services to which the current user is subscribed
@@ -6486,12 +6486,12 @@ class Mixin:
       This API is intended to help you determine whether you have the necessary subscription to use certain API calls
       within AvaTax.
     
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return FetchResult
     """
-    def list_my_subscriptions(self, t_limit=None):
+    def list_my_subscriptions(self):
         return requests.get('{}/api/v2/utilities/subscriptions'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
     Tests connectivity and version of the service
@@ -6502,10 +6502,10 @@ class Mixin:
       whether your authentication credentials are recognized, and the roundtrip time it takes to communicate with
       AvaTax.
     
-      :t_limit [float] (Optinal) The timeout limit for this request call in second(s), default to 10 sec.
       :return PingResultModel
     """
-    def ping(self, t_limit=None):
+    def ping(self):
         return requests.get('{}/api/v2/utilities/ping'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=None, timeout=t_limit if t_limit else 10)
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
  
