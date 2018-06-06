@@ -6028,7 +6028,7 @@ class Mixin:
       :return UserModel
     """
     def create_users(self, accountId, model):
-        return requests.post('{}/api/v2/accounts/{}/users'.format(self.base_url, id_),
+        return requests.post('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model)
 
     r"""
@@ -6104,7 +6104,7 @@ class Mixin:
       :return FetchResult
     """
     def list_users_by_account(self, accountId, include=None):
-        return requests.get('{}/api/v2/accounts/{}/users'.format(self.base_url, id_),
+        return requests.get('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include)
 
     r"""
