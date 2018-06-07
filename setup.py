@@ -4,7 +4,7 @@ from setuptools import setup
 
 pkg_description = ''
 with open('README.md') as f:
-    pkg_description = file.read(f)
+    pkg_description = f.read()
 
 
 setup(
