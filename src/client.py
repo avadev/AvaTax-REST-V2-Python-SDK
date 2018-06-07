@@ -25,7 +25,7 @@ class AvataxClient(client_methods.Mixin):
     """Class for our Avatax client."""
 
     def __init__(self, app_name=None, app_version=None, machine_name=None,
-                 environment=None):
+                 environment=None, timeout_limit=None):
         """
         Initialize the sandbox client.
 
@@ -37,6 +37,7 @@ class AvataxClient(client_methods.Mixin):
             :param  string  machine_name: Name of machine you are working on
             :param  string  enviroment: Default enviroment is production,
                 input sandbox, for the sandbox API
+            :param  int/float The timeout limit for every call made by this client instance. (default: 10 sec)
         :return: object
         """
         if not all(isinstance(i, str_type) for i in [app_name,
@@ -53,10 +54,11 @@ class AvataxClient(client_methods.Mixin):
         self.app_name = app_name
         self.app_version = app_version
         self.machine_name = machine_name
-        self.client_id = '{}; {}; Python SDK; 18.2; {};'.format(app_name,
+        self.client_id = '{}; {}; Python SDK; 18.5; {};'.format(app_name,
                                                                 app_version,
                                                                 machine_name)
         self.client_header = {'X-Avalara-Client': self.client_id}
+        self.timeout_limit = timeout_limit 
 
     def add_credentials(self, username=None, password=None):
         """
