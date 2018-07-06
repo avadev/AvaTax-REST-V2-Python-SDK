@@ -86,6 +86,30 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Retrieve all accounts
+    
+    List all account objects that can be seen by the current user.
+      This API lists all accounts you are allowed to see. In general, most users will only be able to see their own account.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Subscriptions
+      * Users
+      For more information about filtering in REST, please see the documentation at http://developer.avalara.com/avatax/filtering-in-rest/ .
+    
+      :param include [string] A comma separated list of objects to fetch underneath this account. Any object with a URL path underneath this account can be fetched by specifying its name.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def query_accounts(self, include=None):
+        return requests.get('{}/api/v2/accounts'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Change configuration settings for this account
     
     Update configuration settings tied to this account.
@@ -811,7 +835,7 @@ class Mixin:
     
     Retrieve the list of attributes that are linked to this certificate.
       A certificate may have multiple attributes that control its behavior. You may link or unlink attributes to a
-      certificate at any time. The full list of defined attributes may be found using `/api/v2/definitions/certificateattributes`.
+      certificate at any time. The full list of defined attributes may be found using [ListCertificateAttributes](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Definitions/ListCertificateAttributes/) API.
       A certificate is a document stored in either AvaTax Exemptions or CertCapture. The certificate document
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
       criteria you specify when you store the certificate. To view or manage your certificates directly, please
@@ -1232,7 +1256,7 @@ class Mixin:
     Retrieve all companies
     
     Get multiple company objects.
-      A 'company' represents a single corporation or individual that is registered to handle transactional taxes.
+      A `company` represents a single corporation or individual that is registered to handle transactional taxes.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
@@ -4538,24 +4562,6 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Delete a single notice.
-    
-    This API is available by invitation only.
-      'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
-      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
-      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
-    
-      :param companyId [int] The ID of the company that owns this notice.
-      :param id_ [int] The ID of the notice you wish to delete the finance detail from.
-      :param commentDetailsId [int] The ID of the comment you wish to delete.
-      :return ErrorDetail
-    """
-    def comment_details_delete(self, companyId, id_, commentDetailsId):
-        return requests.delete('{}/api/v2/companies/{}/notices/{}/commentdetails/{}'.format(self.base_url, companyId, id_, commentDetailsId),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Create a new notice comment.
     
     This API is available by invitation only.
@@ -4649,6 +4655,43 @@ class Mixin:
     Delete a single notice.
     
     This API is available by invitation only.
+      'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param id_ [int] The ID of the notice you wish to delete the finance detail from.
+      :param commentDetailsId [int] The ID of the comment you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_comment_details(self, companyId, id_, commentDetailsId):
+        return requests.delete('{}/api/v2/companies/{}/notices/{}/commentdetails/{}'.format(self.base_url, companyId, id_, commentDetailsId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Delete a single notice.
+    
+    This API is available by invitation only.
+      'Notice finance details' is the categorical breakdown of the total charge levied by the tax authority on our customer,
+      as broken down in our "notice log" found in Workflow. Main examples of the categories are 'Tax Due', 'Interest', 'Penalty', 'Total Abated'.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param id_ [int] The ID of the notice you wish to delete the finance detail from.
+      :param financeDetailsId [int] The ID of the finance detail you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_finance_details(self, companyId, id_, financeDetailsId):
+        return requests.delete('{}/api/v2/companies/{}/notices/{}/financedetails/{}'.format(self.base_url, companyId, id_, financeDetailsId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Delete a single notice.
+    
+    This API is available by invitation only.
       Mark the existing notice object at this URL as deleted.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
@@ -4710,25 +4753,6 @@ class Mixin:
     """
     def download_notice_attachment(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/notices/files/{}/attachment'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Delete a single notice.
-    
-    This API is available by invitation only.
-      'Notice finance details' is the categorical breakdown of the total charge levied by the tax authority on our customer,
-      as broken down in our "notice log" found in Workflow. Main examples of the categories are 'Tax Due', 'Interest', 'Penalty', 'Total Abated'.
-      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
-      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
-    
-      :param companyId [int] The ID of the company that owns this notice.
-      :param id_ [int] The ID of the notice you wish to delete the finance detail from.
-      :param financeDetailsId [int] The ID of the finance detail you wish to delete.
-      :return ErrorDetail
-    """
-    def financedetailsdelete(self, companyId, id_, financeDetailsId):
-        return requests.delete('{}/api/v2/companies/{}/notices/{}/financedetails/{}'.format(self.base_url, companyId, id_, financeDetailsId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
@@ -4864,6 +4888,24 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Update a single notice finance detail.
+    
+    This API is available by invitation only.
+      All data from the existing object will be replaced with data in the object you PUT.
+      To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+    
+      :param companyId [int] The ID of the company that this notice finance detail belongs to.
+      :param noticeid [int] The ID of the notice finance detail you wish to update.
+      :param financeDetailsId [int] The ID of the finance detail you wish to delete.
+      :param model [NoticeFinanceModel] The notice finance detail object you wish to update.
+      :return NoticeFinanceModel
+    """
+    def update_finance_details(self, companyId, noticeid, financeDetailsId, model):
+        return requests.put('{}/api/v2/companies/{}/notices/{}/financedetails/{}'.format(self.base_url, companyId, noticeid, financeDetailsId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Update a single notice.
     
     This API is available by invitation only.
@@ -4884,6 +4926,24 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Update a single notice comment.
+    
+    This API is available by invitation only.
+      All data from the existing object will be replaced with data in the object you PUT.
+      To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+    
+      :param companyId [int] The ID of the company that this notice comment belongs to.
+      :param noticeid [int] The ID of the notice you wish to update.
+      :param commentDetailsId [int] The ID of the comment you wish to update.
+      :param model [NoticeCommentModel] The notice comment object you wish to update.
+      :return NoticeCommentModel
+    """
+    def update_notice_comments(self, companyId, noticeid, commentDetailsId, model):
+        return requests.put('{}/api/v2/companies/{}/notices/{}/commentdetails/{}'.format(self.base_url, companyId, noticeid, commentDetailsId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Retrieve a single attachment
     
     This API is available by invitation only.
@@ -4896,6 +4956,68 @@ class Mixin:
     def upload_attachment(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/notices/files/attachment'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Mark a single notification as dismissed.
+    
+    Marks the notification identified by this URL as dismissed.
+      A notification is a message from Avalara that may have relevance to your business. You may want
+      to regularly review notifications and then dismiss them when you are certain that you have addressed
+      any relevant concerns raised by this notification.
+      An example of a notification would be a message about new software, or a change to AvaTax that may
+      affect you, or a potential issue with your company's tax profile.
+      When you dismiss a notification, the notification will track the user and time when it was
+      dismissed. You can then later review which employees of your company dismissed notifications to
+      determine if they were resolved appropriately.
+    
+      :param id_ [int] The id of the notification you wish to mark as dismissed.
+      :return NotificationModel
+    """
+    def dismiss_notification(self, id_):
+        return requests.put('{}/api/v2/notifications/{}/dismiss'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Retrieve a single notification.
+    
+    Retrieve a single notification by its unique ID number.
+      A notification is a message from Avalara that may have relevance to your business. You may want
+      to regularly review notifications and then dismiss them when you are certain that you have addressed
+      any relevant concerns raised by this notification.
+      An example of a notification would be a message about new software, or a change to AvaTax that may
+      affect you, or a potential issue with your company's tax profile.
+    
+      :param id_ [int] The id of the notification to retrieve.
+      :return NotificationModel
+    """
+    def get_notification(self, id_):
+        return requests.get('{}/api/v2/notifications/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    List all notifications.
+    
+    List all notifications.
+      A notification is a message from Avalara that may have relevance to your business. You may want
+      to regularly review notifications and then dismiss them when you are certain that you have addressed
+      any relevant concerns raised by this notification.
+      An example of a notification would be a message about new software, or a change to AvaTax that may
+      affect you, or a potential issue with your company's tax profile.
+      You may search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_notifications(self, include=None):
+        return requests.get('{}/api/v2/notifications'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -4919,6 +5041,21 @@ class Mixin:
     def request_new_account(self, model):
         return requests.post('{}/api/v2/accounts/request'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Request a new entitilement to an existing customer
+    
+    This API is for use by partner onboarding services customers only. This will allow the partners to allow
+      the add new entitlement to an existing customer
+    
+      :param id_ [int] The avatax account id of the customer
+      :param offer [string] The offer to be added to an already existing customer
+      :return OfferModel
+    """
+    def request_new_entitlement(self, id_, offer):
+        return requests.post('{}/api/v2/accounts/{}/entitlements/{}'.format(self.base_url, id_, offer),
+                               auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -4951,6 +5088,25 @@ class Mixin:
     """
     def create_account(self, model):
         return requests.post('{}/api/v2/accounts'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Create new notifications.
+    
+    This API is available by invitation only.
+      Create a single notification.
+      A notification is a message from Avalara that may have relevance to your business. You may want
+      to regularly review notifications and then dismiss them when you are certain that you have addressed
+      any relevant concerns raised by this notification.
+      An example of a notification would be a message about new software, or a change to AvaTax that may
+      affect you, or a potential issue with your company's tax profile.
+    
+      :param model [NotificationModel] The notifications you wish to create.
+      :return NotificationModel
+    """
+    def create_notifications(self, model):
+        return requests.post('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
@@ -4989,6 +5145,25 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Delete a single notification.
+    
+    This API is available by invitation only.
+      Delete the existing notification identified by this URL.
+      A notification is a message from Avalara that may have relevance to your business. You may want
+      to regularly review notifications and then dismiss them when you are certain that you have addressed
+      any relevant concerns raised by this notification.
+      An example of a notification would be a message about new software, or a change to AvaTax that may
+      affect you, or a potential issue with your company's tax profile.
+    
+      :param id_ [int] The id of the notification you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_notification(self, id_):
+        return requests.delete('{}/api/v2/notifications/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Delete a single subscription
     
     # For Registrar Use Only
@@ -5018,31 +5193,6 @@ class Mixin:
     def delete_user(self, id_, accountId):
         return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all accounts
-    
-    # For Registrar Use Only
-      This API is for use by Avalara Registrar administrative users only.
-      Get multiple account objects.
-      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
-      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
-      * Subscriptions
-      * Users
-      For more information about filtering in REST, please see the documentation at http://developer.avalara.com/avatax/filtering-in-rest/ .
-    
-      :param include [string] A comma separated list of objects to fetch underneath this account. Any object with a URL path underneath this account can be fetched by specifying its name.
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
-    """
-    def query_accounts(self, include=None):
-        return requests.get('{}/api/v2/accounts'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -5076,6 +5226,26 @@ class Mixin:
     """
     def update_account(self, id_, model):
         return requests.put('{}/api/v2/accounts/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Update a single notification.
+    
+    This API is available by invitation only.
+      Replaces the notification identified by this URL with a new notification.
+      A notification is a message from Avalara that may have relevance to your business. You may want
+      to regularly review notifications and then dismiss them when you are certain that you have addressed
+      any relevant concerns raised by this notification.
+      An example of a notification would be a message about new software, or a change to AvaTax that may
+      affect you, or a potential issue with your company's tax profile.
+    
+      :param id_ [int] The id of the notification you wish to update.
+      :param model [NotificationModel] The notification object you wish to update.
+      :return NotificationModel
+    """
+    def update_notification(self, id_, model):
+        return requests.put('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
@@ -5520,8 +5690,12 @@ class Mixin:
     Build a multi-location tax content file
     
     Builds a tax content file containing information useful for a retail point-of-sale solution.
-      This file contains tax rates and rules for items and locations that can be used
-      to correctly calculate tax in the event a point-of-sale device is not able to reach AvaTax.
+      A TaxContent file contains a matrix of the taxes that would be charged when you sell any of your
+      Items at any of your Locations. To create items, use `CreateItems()`. To create locations, use
+      `CreateLocations()`. The file is built by looking up the tax profile for your location and your
+      item and calculating taxes for each in turn. To include a custom `TaxCode` in this tax content
+      file, first create the custom tax code using `CreateTaxCodes()` to create the custom tax code,
+      then use `CreateItems()` to create an item that uses the custom tax code.
       This data file can be customized for specific partner devices and usage conditions.
       The result of this API is the file you requested in the format you requested using the `responseType` field.
       This API builds the file on demand, and is limited to files with no more than 7500 scenarios. To build a tax content
@@ -5540,8 +5714,12 @@ class Mixin:
     Build a tax content file for a single location
     
     Builds a tax content file containing information useful for a retail point-of-sale solution.
-      This file contains tax rates and rules for all items for a single location. Data from this API
-      can be used to correctly calculate tax in the event a point-of-sale device is not able to reach AvaTax.
+      A TaxContent file contains a matrix of the taxes that would be charged when you sell any of your
+      Items at any of your Locations. To create items, use `CreateItems()`. To create locations, use
+      `CreateLocations()`. The file is built by looking up the tax profile for your location and your
+      item and calculating taxes for each in turn. To include a custom `TaxCode` in this tax content
+      file, first create the custom tax code using `CreateTaxCodes()` to create the custom tax code,
+      then use `CreateItems()` to create an item that uses the custom tax code.
       This data file can be customized for specific partner devices and usage conditions.
       The result of this API is the file you requested in the format you requested using the `responseType` field.
       This API builds the file on demand, and is limited to files with no more than 7500 scenarios. To build a tax content
