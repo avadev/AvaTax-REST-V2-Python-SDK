@@ -30,7 +30,7 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.6'
     ],
-    install_requires=['requests', 'ipython'],
+    install_requires=['requests'],
     extras_require={
         "test": ['pytest', 'pytest-cov', 'tox']
     })
