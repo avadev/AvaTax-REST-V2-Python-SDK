@@ -91,7 +91,7 @@ To add credential on the current client object:
 ```
 The `add_credential` method will hash your username/password, or account_id/license_key pair and attach to every call made by your client object, meaning you only have to add credential once to each client you prepare to use.
 
-To verify that you have added a valid credential, simply call the `ping` method again, this time in the response text you should see "authenticated: true".
+To verify that you have added a valid credential, simply call the `ping` method again, this time in the response text you should see `"authenticated": true`.
 
 
 **To create a transaction using your client object**
