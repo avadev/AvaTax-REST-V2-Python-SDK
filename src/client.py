@@ -29,13 +29,13 @@ class AvataxClient(client_methods.Mixin):
         """
         Initialize the sandbox client.
 
-        By default the client object enviroment will be production. For
-        sandbox API, set the enviroment variable to sandbox.
+        By default the client object environment will be production. For
+        sandbox API, set the envirnoment variable to sandbox.
 
             :param  string  app_name: The name of your Application
             :param  string/integer  app_version:  Version of your Application
             :param  string  machine_name: Name of machine you are working on
-            :param  string  enviroment: Default enviroment is production,
+            :param  string  environment: Default environment is production,
                 input sandbox, for the sandbox API
             :param  int/float The timeout limit for every call made by this client instance. (default: 10 sec)
         :return: object
