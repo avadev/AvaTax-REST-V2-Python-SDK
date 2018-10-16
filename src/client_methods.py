@@ -48,6 +48,32 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Retrieve audit history for an account.
+    
+    Retrieve audit trace history for an account.
+      Your audit trace history contains a record of all API calls made against the AvaTax REST API. You can use this API to investigate
+      problems and see exactly what information was sent back and forth between your code and AvaTax.
+      When specifying a start and end datetime, please include a valid timezone indicator, such as the "Z" present in the examples for the start and end query parameters.
+      You can learn more about valid time zone designators at https://en.wikipedia.org/wiki/ISO_8601#Time_zone_designators.
+      This API enforces limits to the amount of data retrieved. These limits are subject to change.
+      * You may request data from a maximum of a one-hour time period.
+      * The amount of data and number of API calls returned by this API are limited and may be adjusted at any time.
+      * Old records may be migrated out of immediately available storage. To request older data, please contact your account manager.
+      * New records must migrate to available storage before they can be retrieved. You may need to wait a period of time before newly created records can be fetched.
+    
+      :param id_ [int] The ID of the account you wish to audit.
+      :param start [datetime] The start datetime of audit history you with to retrieve, e.g. "2018-06-08T17:00:00Z". Defaults to the past 15 minutes.
+      :param end [datetime] The end datetime of audit history you with to retrieve, e.g. "2018-06-08T17:15:00Z. Defaults to the current time. Maximum of an hour after the start time.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :return FetchResult
+    """
+    def audit_account(self, id_, include=None):
+        return requests.get('{}/api/v2/accounts/{}/audit'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Retrieve a single account
     
     Get the account object identified by this URL.
@@ -83,6 +109,30 @@ class Mixin:
     def get_account_configuration(self, id_):
         return requests.get('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Retrieve all accounts
+    
+    List all account objects that can be seen by the current user.
+      This API lists all accounts you are allowed to see. In general, most users will only be able to see their own account.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Subscriptions
+      * Users
+      For more information about filtering in REST, please see the documentation at http://developer.avalara.com/avatax/filtering-in-rest/ .
+    
+      :param include [string] A comma separated list of objects to fetch underneath this account. Any object with a URL path underneath this account can be fetched by specifying its name.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def query_accounts(self, include=None):
+        return requests.get('{}/api/v2/accounts'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -125,8 +175,6 @@ class Mixin:
       :param postalCode [string] Postal Code / Zip Code
       :param country [string] Two character ISO 3166 Country Code (see /api/v2/definitions/countries for a full list)
       :param textCase [TextCase] selectable text case for address validation (See TextCase::* for a list of allowable values)
-      :param latitude [decimal] Geospatial latitude measurement
-      :param longitude [decimal] Geospatial longitude measurement
       :return AddressResolutionModel
     """
     def resolve_address(self, include=None):
@@ -378,8 +426,8 @@ class Mixin:
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -511,8 +559,8 @@ class Mixin:
       :param companyId [int] The ID of the company that owns these batches
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -541,8 +589,8 @@ class Mixin:
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -623,8 +671,8 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that issued this invitation
       :param include [string] OPTIONAL: A comma separated list of special fetch options.       No options are defined at this time.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -811,7 +859,7 @@ class Mixin:
     
     Retrieve the list of attributes that are linked to this certificate.
       A certificate may have multiple attributes that control its behavior. You may link or unlink attributes to a
-      certificate at any time. The full list of defined attributes may be found using `/api/v2/definitions/certificateattributes`.
+      certificate at any time. The full list of defined attributes may be found using [ListCertificateAttributes](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Definitions/ListCertificateAttributes/) API.
       A certificate is a document stored in either AvaTax Exemptions or CertCapture. The certificate document
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
       criteria you specify when you store the certificate. To view or manage your certificates directly, please
@@ -875,8 +923,8 @@ class Mixin:
       :param companyId [int] The ID number of the company to search
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * Customers - Retrieves the list of customers linked to the certificate.   * PoNumbers - Retrieves all PO numbers tied to the certificate.   * Attributes - Retrieves all attributes applied to the certificate.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1232,7 +1280,7 @@ class Mixin:
     Retrieve all companies
     
     Get multiple company objects.
-      A 'company' represents a single corporation or individual that is registered to handle transactional taxes.
+      A `company` represents a single corporation or individual that is registered to handle transactional taxes.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
@@ -1247,8 +1295,8 @@ class Mixin:
     
       :param include [string] A comma separated list of objects to fetch underneath this company. Any object with a URL path underneath this company can be fetched by specifying its name.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1354,8 +1402,8 @@ class Mixin:
       :param companyId [int] The ID of the company that owns these contacts
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1375,8 +1423,8 @@ class Mixin:
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1504,6 +1552,30 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Link two customer records together
+    
+    Links a Ship-To customer record with a Bill-To customer record.
+      Customer records represent businesses or individuals who can provide exemption certificates. Some customers
+      may have certificates that are linked to their shipping address or their billing address. To group these
+      customer records together, you may link multiple bill-to and ship-to addresses together to represent a single
+      entity that has multiple different addresses of different kinds.
+      In general, a customer will have only one primary billing address and multiple ship-to addresses, representing
+      all of the different locations where they receive goods. To facilitate this type of customer, you can send in
+      one bill-to customer code and multiple ship-to customer codes in a single API call.
+      Note that you can only link a ship-to customer record to a bill-to customer record. You may not link two customers
+      of the same kind together.
+    
+      :param companyId [int] The unique ID number of the company defining customers.
+      :param code [string] The code of the bill-to customer to link.
+      :param model [LinkCustomersModel] A list of information about ship-to customers to link to this bill-to customer.
+      :return CustomerModel
+    """
+    def link_ship_to_customers_to_bill_customer(self, companyId, code, model):
+        return requests.post('{}/api/v2/companies/{}/customers/billto/{}/shipto/link'.format(self.base_url, companyId, code),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     List certificates linked to a customer
     
     List all certificates linked to a customer.
@@ -1521,8 +1593,8 @@ class Mixin:
       :param customerCode [string] The unique code representing this customer
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * Customers - Retrieves the list of customers linked to the certificate.   * PoNumbers - Retrieves all PO numbers tied to the certificate.   * Attributes - Retrieves all attributes applied to the certificate.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1577,8 +1649,8 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param include [string] OPTIONAL - You can specify the value `certificates` to fetch information about certificates linked to the customer.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1636,6 +1708,98 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Create and store new datasources for the respective companies.
+    
+    Create one or more datasource objects.
+    
+      :param companyId [int] The id of the company you which to create the datasources
+      :param model [DataSourceModel] 
+      :return DataSourceModel
+    """
+    def create_data_sources(self, companyId, model):
+        return requests.post('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Delete a datasource by datasource id for a company.
+    
+    Marks the existing datasource for a company as deleted.
+    
+      :param companyId [int] The id of the company the datasource belongs to.
+      :param id_ [int] The id of the datasource you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_data_source(self, companyId, id_):
+        return requests.delete('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Get data source by data source id
+    
+    Retrieve the data source by its unique ID number.
+    
+      :param companyId [int] 
+      :param id_ [int] data source id
+      :return DataSourceModel
+    """
+    def get_data_source_by_id(self, companyId, id_):
+        return requests.get('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Retrieve all datasources for this company
+    
+    Gets multiple datasource objects for a given company.
+    
+      :param companyId [int] The id of the company you wish to retrieve the datasources.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_data_sources(self, companyId, include=None):
+        return requests.get('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Retrieve all datasources
+    
+    Get multiple datasource objects across all companies.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def query_data_sources(self, include=None):
+        return requests.get('{}/api/v2/datasources'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Update a datasource identified by id for a company
+    
+    Updates a datasource for a company.
+    
+      :param companyId [int] The id of the company the datasource belongs to.
+      :param id_ [int] The id of the datasource you wish to delete.
+      :param model [DataSourceModel] 
+      :return DataSourceModel
+    """
+    def update_data_source(self, companyId, id_, model):
+        return requests.put('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Lists all parents of an HS Code.
     
     Retrieves the specified HS code and all of its parents, reflecting all sections, chapters, headings, and subheadings
@@ -1663,8 +1827,8 @@ class Mixin:
     
       :param form [string] The name of the form you would like to verify. This can be the tax form code or the legacy return name
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1682,8 +1846,8 @@ class Mixin:
       This API is intended to be useful to identify all the different AvaFile Forms
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1702,8 +1866,8 @@ class Mixin:
       check and provision account.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1722,8 +1886,8 @@ class Mixin:
       check and provision account.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1742,8 +1906,8 @@ class Mixin:
       check and provision account.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1759,8 +1923,8 @@ class Mixin:
     
       :param id_ [int] The transaction type ID to examine
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1776,8 +1940,8 @@ class Mixin:
       are accepted in communication tax calculation requests.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1793,8 +1957,8 @@ class Mixin:
       are accepted in communication tax calculation requests.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1811,8 +1975,8 @@ class Mixin:
       a shipping address.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1832,8 +1996,8 @@ class Mixin:
       check and provision account.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1855,8 +2019,8 @@ class Mixin:
       :param country [string] The name or code of the destination country.
       :param hsCode [string] The Section or partial HS Code for which you would like to view the next level of HS Code detail, if more detail is available.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1889,8 +2053,8 @@ class Mixin:
       `currencyCode` field in a `CreateTransactionModel`.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1909,8 +2073,8 @@ class Mixin:
       all transactions that are exempt.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1926,8 +2090,8 @@ class Mixin:
       This API is intended to be useful to identify all the different filing frequencies that can be used in notices.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1944,8 +2108,8 @@ class Mixin:
       SQL-like query for fetching only the ones you concerned about. For example: effectiveDate &gt; '2016-01-01'
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -1971,8 +2135,8 @@ class Mixin:
       :param postalCode [string] The postal code or zip code portion of this address.
       :param country [string] The two-character ISO-3166 code of the country portion of this address.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2001,8 +2165,8 @@ class Mixin:
       :param latitude [decimal] Optionally identify the location via latitude/longitude instead of via address.
       :param longitude [decimal] Optionally identify the location via latitude/longitude instead of via address.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2019,8 +2183,8 @@ class Mixin:
       to automatically verify their login and password.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2036,8 +2200,8 @@ class Mixin:
       This API is intended to be useful if your user interface needs to display a selectable list of nexus.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2063,8 +2227,8 @@ class Mixin:
       :param postalCode [string] The postal code or zip code portion of this address.
       :param country [string] Name or ISO 3166 code identifying the country portion of this address.      This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries      For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2081,8 +2245,8 @@ class Mixin:
     
       :param country [string] The country in which you want to fetch the system nexus
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2100,8 +2264,8 @@ class Mixin:
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2123,15 +2287,11 @@ class Mixin:
       form in order to better understand how the form will be filled out.
     
       :param formCode [string] The form code that we are looking up the nexus for
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return NexusByTaxFormModel
     """
-    def list_nexus_by_form_code(self, formCode, include=None):
+    def list_nexus_by_form_code(self, formCode):
         return requests.get('{}/api/v2/definitions/nexus/byform/{}'.format(self.base_url, formCode),
-                               auth=self.auth, headers=self.client_header, params=include, 
+                               auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -2141,8 +2301,8 @@ class Mixin:
       This API is intended to be useful to identify all the different tax sub-types.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2158,8 +2318,8 @@ class Mixin:
       This API is intended to be useful to identify all the different notice customer funding options that can be used in notices.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2175,8 +2335,8 @@ class Mixin:
       This API is intended to be useful to identify all the different notice customer types.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2192,8 +2352,8 @@ class Mixin:
       This API is intended to be useful to identify all the different notice filing types that can be used in notices.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2209,8 +2369,8 @@ class Mixin:
       This API is intended to be useful to identify all the different notice priorities that can be used in notices.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2226,8 +2386,8 @@ class Mixin:
       This API is intended to be useful to identify all the different tax notice reasons.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2243,8 +2403,8 @@ class Mixin:
       This API is intended to be useful to identify all the different tax notice responsibilities.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2260,8 +2420,8 @@ class Mixin:
       This API is intended to be useful to identify all the different tax notice root causes.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2277,8 +2437,8 @@ class Mixin:
       This API is intended to be useful to identify all the different tax notice statuses.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2294,8 +2454,8 @@ class Mixin:
       This API is intended to be useful to identify all the different notice types that can be used in notices.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2312,8 +2472,8 @@ class Mixin:
       Some parameters are only available for use if you have subscribed to certain features of AvaTax.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2328,8 +2488,8 @@ class Mixin:
     Returns the full list of Avalara-supported permission types.
       This API is intended to be useful to identify the capabilities of a particular user logon.
     
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :return FetchResult
     """
     def list_permissions(self, include=None):
@@ -2343,8 +2503,8 @@ class Mixin:
     Retrieves the list of Avalara-supported postal codes.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2365,8 +2525,8 @@ class Mixin:
       the program.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2383,8 +2543,8 @@ class Mixin:
     
       :param country [string] The country to examine for rate types
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2401,8 +2561,8 @@ class Mixin:
       within the country for a shipping addresses.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2420,8 +2580,8 @@ class Mixin:
     
       :param country [string] The country of which you want to fetch ISO 3166 regions
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2437,8 +2597,8 @@ class Mixin:
       This API is intended to be useful to identify all the different resource file types.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2455,8 +2615,8 @@ class Mixin:
       Some security roles are restricted for Avalara internal use.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2474,8 +2634,8 @@ class Mixin:
       You cannot change your subscriptions directly through the API.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2491,8 +2651,8 @@ class Mixin:
       This API is intended to be useful to identify all the different authorities that receive tax.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2510,8 +2670,8 @@ class Mixin:
       based on the customer's AvaTax data.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2527,8 +2687,8 @@ class Mixin:
       This API is intended to be useful to identify all the different authority types.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2547,8 +2707,8 @@ class Mixin:
       taxability rules for this product in all supported jurisdictions.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2564,8 +2724,8 @@ class Mixin:
       A 'Tax Code Type' represents a broad category of tax codes, and is less detailed than a single TaxCode.
       This API is intended to be useful for broadly searching for tax codes by tax code type.
     
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :return TaxCodeTypesModel
     """
     def list_tax_code_types(self, include=None):
@@ -2580,8 +2740,8 @@ class Mixin:
       This API is intended to be useful to identify all the different Tax Forms
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2597,8 +2757,8 @@ class Mixin:
       This API is intended to be useful to identify all the different tax sub-types.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2614,8 +2774,8 @@ class Mixin:
       This API is intended to be useful to identify all the different tax type groups.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2631,8 +2791,8 @@ class Mixin:
       A unit of measurement system is a method of measuring a quantity, such as distance, mass, or others.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2703,8 +2863,8 @@ class Mixin:
       :param companyId [int] The ID of the company whose DistanceThreshold objects you wish to list.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2725,8 +2885,8 @@ class Mixin:
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -2933,8 +3093,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns these batches
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param returnCountry [string] A comma separated list of countries
       :param returnRegion [string] A comma separated list of regions
@@ -2955,8 +3115,8 @@ class Mixin:
       :param companyId [int] The ID of the company that owns these batches
       :param filingCalendarId [int] Specific filing calendar id for the request
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -3000,8 +3160,8 @@ class Mixin:
     This API is available by invitation only.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param returnCountry [string] If specified, fetches only filing calendars that apply to tax filings in this specific country. Uses ISO 3166 country codes.
       :param returnRegion [string] If specified, fetches only filing calendars that apply to tax filings in this specific region. Uses ISO 3166 region codes.
@@ -3023,8 +3183,8 @@ class Mixin:
     
       :param filingCalendarId [int] Specific filing calendar id for the request
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -3367,11 +3527,12 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns the filings.
       :param id_ [int] The id of the filing return your retrieving
+      :param details [boolean] Indicates if you would like the credit details returned
       :return FetchResult
     """
-    def get_filing_return(self, companyId, id_):
+    def get_filing_return(self, companyId, id_, include=None):
         return requests.get('{}/api/v2/companies/{}/filings/returns/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -3770,7 +3931,7 @@ class Mixin:
     r"""
     Retrieve a single item
     
-    Get the item object identified by this URL.
+    Get the `Item` object identified by this URL.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
       and other data fields. AvaTax will automatically look up each `itemCode` and apply the correct tax codes and parameters
@@ -3803,8 +3964,8 @@ class Mixin:
       :param companyId [int] The ID of the company that defined these items
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -3829,8 +3990,8 @@ class Mixin:
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -3848,8 +4009,8 @@ class Mixin:
       and other data fields. AvaTax will automatically look up each `itemCode` and apply the correct tax codes and parameters
       from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
-      All data from the existing object will be replaced with data in the object you PUT.
-      To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      All data from the existing object will be replaced with data in the object you PUT. To set a field's value to null,
+      you may either set its value to null or omit that field from the object you post.
     
       :param companyId [int] The ID of the company that this item belongs to.
       :param id_ [int] The ID of the item you wish to update
@@ -3925,8 +4086,8 @@ class Mixin:
       :param accountId [int] The ID of the account that owns this override
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -3948,8 +4109,8 @@ class Mixin:
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -4038,8 +4199,8 @@ class Mixin:
       :param companyId [int] The ID of the company that owns these locations
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve. You may specify `LocationSettings` to retrieve location settings.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -4063,8 +4224,8 @@ class Mixin:
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve. You may specify `LocationSettings` to retrieve location settings.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -4277,8 +4438,8 @@ class Mixin:
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] Specifies objects to include in the response after transaction is created
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -4368,15 +4529,20 @@ class Mixin:
     r"""
     Create a new nexus
     
-    Creates one or more new nexus objects attached to this company.
-      The concept of 'Nexus' indicates a place where your company has sufficient physical presence and is obligated
-      to collect and remit transaction-based taxes.
-      When defining companies in AvaTax, you must declare nexus for your company in order to correctly calculate tax
-      in all jurisdictions affected by your transactions.
-      Note that not all fields within a nexus can be updated; Avalara publishes a list of all defined nexus at the
-      '/api/v2/definitions/nexus' endpoint.
-      You may only define nexus matching the official list of declared nexus.
-      Please allow 1 minute before using the created nexus in your transactions.
+    Creates one or more new nexus declarations attached to this company.
+      The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
+      taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
+      accountant or lawyer prior to declaring nexus.
+      To create a nexus declaration for your company, you must first call the Definitions API `ListNexus` to obtain a
+      list of Avalara-defined nexus. Once you have determined which nexus you wish to declare, you should customize
+      only the user-selectable fields in this object.
+      The user selectable fields for the nexus object are `companyId`, `effectiveDate`, `endDate`, `localNexusTypeId`,
+      `taxId`, `nexusTypeId`, `hasPermanentEstablishment`, and `isSellerImporterOfRecord`.
+      When calling `CreateNexus` or `UpdateNexus`, all values in your nexus object except for the user-selectable fields
+      must match an Avalara-defined system nexus object. You can retrieve a list of Avalara-defined system nexus objects
+      by calling `ListNexus`. If any data does not match, AvaTax may not recognize your nexus declaration.
+      Please note that nexus changes may not take effect immediately and you should plan to update your nexus settings in advance
+      of calculating tax for a location.
     
       :param companyId [int] The ID of the company that owns this nexus.
       :param model [NexusModel] The nexus you wish to create.
@@ -4393,14 +4559,14 @@ class Mixin:
     This call is intended to simplify adding all applicable nexus to a company, for an address or addresses. Calling this
       API declares nexus for this company, for the list of addresses provided,
       for the date range provided. You may also use this API to extend effective date on an already-declared nexus.
-      The concept of 'Nexus' indicates a place where your company has sufficient physical presence and is obligated
-      to collect and remit transaction-based taxes.
-      When defining companies in AvaTax, you must declare nexus for your company in order to correctly calculate tax
-      in all jurisdictions affected by your transactions.
+      The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
+      taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
+      accountant or lawyer prior to declaring nexus.
       Note that not all fields within a nexus can be updated; Avalara publishes a list of all defined nexus at the
       '/api/v2/definitions/nexus' endpoint.
       You may only define nexus matching the official list of declared nexus.
-      Please allow 1 minute before using the created nexus in your transactions.
+      Please note that nexus changes may not take effect immediately and you should plan to update your nexus settings in advance
+      of calculating tax for a location.
     
       :param companyId [int] The ID of the company that will own this nexus.
       :param model [DeclareNexusByAddressModel] The nexus you wish to create.
@@ -4415,7 +4581,11 @@ class Mixin:
     Delete a single nexus
     
     Marks the existing nexus object at this URL as deleted.
-      Please allow 1 minute to stop collecting tax in your transaction on the deleted Nexus.
+      The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
+      taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
+      accountant or lawyer prior to declaring nexus.
+      Please note that nexus changes may not take effect immediately and you should plan to update your nexus settings in advance
+      of calculating tax for a location.
     
       :param companyId [int] The ID of the company that owns this nexus.
       :param id_ [int] The ID of the nexus you wish to delete.
@@ -4430,10 +4600,9 @@ class Mixin:
     Retrieve a single nexus
     
     Get the nexus object identified by this URL.
-      The concept of 'Nexus' indicates a place where your company has sufficient physical presence and is obligated
-      to collect and remit transaction-based taxes.
-      When defining companies in AvaTax, you must declare nexus for your company in order to correctly calculate tax
-      in all jurisdictions affected by your transactions.
+      The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
+      taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
+      accountant or lawyer prior to declaring nexus.
     
       :param companyId [int] The ID of the company that owns this nexus object
       :param id_ [int] The primary key of this nexus
@@ -4448,10 +4617,9 @@ class Mixin:
     List company nexus related to a tax form
     
     Retrieves a list of nexus related to a tax form.
-      The concept of `Nexus` indicates a place where your company has sufficient physical presence and is obligated
-      to collect and remit transaction-based taxes.
-      When defining companies in AvaTax, you must declare nexus for your company in order to correctly calculate tax
-      in all jurisdictions affected by your transactions.
+      The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
+      taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
+      accountant or lawyer prior to declaring nexus.
       This API is intended to provide useful information when examining a tax form. If you are about to begin filing
       a tax form, you may want to know whether you have declared nexus in all the jurisdictions related to that tax
       form in order to better understand how the form will be filled out.
@@ -4469,18 +4637,17 @@ class Mixin:
     Retrieve nexus for this company
     
     List all nexus objects defined for this company.
-      The concept of 'Nexus' indicates a place where your company has sufficient physical presence and is obligated
-      to collect and remit transaction-based taxes.
-      When defining companies in AvaTax, you must declare nexus for your company in order to correctly calculate tax
-      in all jurisdictions affected by your transactions.
+      The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
+      taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
+      accountant or lawyer prior to declaring nexus.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
       :param companyId [int] The ID of the company that owns these nexus objects
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -4493,17 +4660,16 @@ class Mixin:
     Retrieve all nexus
     
     Get multiple nexus objects across all companies.
-      The concept of 'Nexus' indicates a place where your company has sufficient physical presence and is obligated
-      to collect and remit transaction-based taxes.
-      When defining companies in AvaTax, you must declare nexus for your company in order to correctly calculate tax
-      in all jurisdictions affected by your transactions.
+      The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
+      taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
+      accountant or lawyer prior to declaring nexus.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -4515,17 +4681,20 @@ class Mixin:
     r"""
     Update a single nexus
     
-    Replace the existing nexus object at this URL with an updated object.
-      The concept of 'Nexus' indicates a place where your company has sufficient physical presence and is obligated
-      to collect and remit transaction-based taxes.
-      When defining companies in AvaTax, you must declare nexus for your company in order to correctly calculate tax
-      in all jurisdictions affected by your transactions.
-      Note that not all fields within a nexus can be updated; Avalara publishes a list of all defined nexus at the
-      '/api/v2/definitions/nexus' endpoint.
-      You may only define nexus matching the official list of declared nexus.
-      All data from the existing object will be replaced with data in the object you PUT.
-      To set a field's value to null, you may either set its value to null or omit that field from the object you post.
-      Please allow 1 minute for your updated Nexus to take effect on your transactions.
+    Replace the existing nexus declaration object at this URL with an updated object.
+      The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
+      taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
+      accountant or lawyer prior to declaring nexus.
+      To create a nexus declaration for your company, you must first call the Definitions API `ListNexus` to obtain a
+      list of Avalara-defined nexus. Once you have determined which nexus you wish to declare, you should customize
+      only the user-selectable fields in this object.
+      The user selectable fields for the nexus object are `companyId`, `effectiveDate`, `endDate`, `localNexusTypeId`,
+      `taxId`, `nexusTypeId`, `hasPermanentEstablishment`, and `isSellerImporterOfRecord`.
+      When calling `CreateNexus` or `UpdateNexus`, all values in your nexus object except for the user-selectable fields
+      must match an Avalara-defined system nexus object. You can retrieve a list of Avalara-defined system nexus objects
+      by calling `ListNexus`. If any data does not match, AvaTax may not recognize your nexus declaration.
+      Please note that nexus changes may not take effect immediately and you should plan to update your nexus settings in advance
+      of calculating tax for a location.
     
       :param companyId [int] The ID of the company that this nexus belongs to.
       :param id_ [int] The ID of the nexus you wish to update
@@ -4535,24 +4704,6 @@ class Mixin:
     def update_nexus(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Delete a single notice.
-    
-    This API is available by invitation only.
-      'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
-      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
-      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
-    
-      :param companyId [int] The ID of the company that owns this notice.
-      :param id_ [int] The ID of the notice you wish to delete the finance detail from.
-      :param commentDetailsId [int] The ID of the comment you wish to delete.
-      :return ErrorDetail
-    """
-    def comment_details_delete(self, companyId, id_, commentDetailsId):
-        return requests.delete('{}/api/v2/companies/{}/notices/{}/commentdetails/{}'.format(self.base_url, companyId, id_, commentDetailsId),
-                               auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -4649,6 +4800,43 @@ class Mixin:
     Delete a single notice.
     
     This API is available by invitation only.
+      'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param id_ [int] The ID of the notice you wish to delete the finance detail from.
+      :param commentDetailsId [int] The ID of the comment you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_comment_details(self, companyId, id_, commentDetailsId):
+        return requests.delete('{}/api/v2/companies/{}/notices/{}/commentdetails/{}'.format(self.base_url, companyId, id_, commentDetailsId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Delete a single notice.
+    
+    This API is available by invitation only.
+      'Notice finance details' is the categorical breakdown of the total charge levied by the tax authority on our customer,
+      as broken down in our "notice log" found in Workflow. Main examples of the categories are 'Tax Due', 'Interest', 'Penalty', 'Total Abated'.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param id_ [int] The ID of the notice you wish to delete the finance detail from.
+      :param financeDetailsId [int] The ID of the finance detail you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_finance_details(self, companyId, id_, financeDetailsId):
+        return requests.delete('{}/api/v2/companies/{}/notices/{}/financedetails/{}'.format(self.base_url, companyId, id_, financeDetailsId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Delete a single notice.
+    
+    This API is available by invitation only.
       Mark the existing notice object at this URL as deleted.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
@@ -4710,25 +4898,6 @@ class Mixin:
     """
     def download_notice_attachment(self, companyId, id_):
         return requests.get('{}/api/v2/companies/{}/notices/files/{}/attachment'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Delete a single notice.
-    
-    This API is available by invitation only.
-      'Notice finance details' is the categorical breakdown of the total charge levied by the tax authority on our customer,
-      as broken down in our "notice log" found in Workflow. Main examples of the categories are 'Tax Due', 'Interest', 'Penalty', 'Total Abated'.
-      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
-      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
-    
-      :param companyId [int] The ID of the company that owns this notice.
-      :param id_ [int] The ID of the notice you wish to delete the finance detail from.
-      :param financeDetailsId [int] The ID of the finance detail you wish to delete.
-      :return ErrorDetail
-    """
-    def financedetailsdelete(self, companyId, id_, financeDetailsId):
-        return requests.delete('{}/api/v2/companies/{}/notices/{}/financedetails/{}'.format(self.base_url, companyId, id_, financeDetailsId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
@@ -4831,8 +5000,8 @@ class Mixin:
       :param companyId [int] The ID of the company that owns these notices.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -4853,14 +5022,32 @@ class Mixin:
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
     def query_notices(self, include=None):
         return requests.get('{}/api/v2/notices'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Update a single notice finance detail.
+    
+    This API is available by invitation only.
+      All data from the existing object will be replaced with data in the object you PUT.
+      To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+    
+      :param companyId [int] The ID of the company that this notice finance detail belongs to.
+      :param noticeid [int] The ID of the notice finance detail you wish to update.
+      :param financeDetailsId [int] The ID of the finance detail you wish to delete.
+      :param model [NoticeFinanceModel] The notice finance detail object you wish to update.
+      :return NoticeFinanceModel
+    """
+    def update_finance_details(self, companyId, noticeid, financeDetailsId, model):
+        return requests.put('{}/api/v2/companies/{}/notices/{}/financedetails/{}'.format(self.base_url, companyId, noticeid, financeDetailsId),
+                               auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -4884,6 +5071,24 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Update a single notice comment.
+    
+    This API is available by invitation only.
+      All data from the existing object will be replaced with data in the object you PUT.
+      To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+    
+      :param companyId [int] The ID of the company that this notice comment belongs to.
+      :param noticeid [int] The ID of the notice you wish to update.
+      :param commentDetailsId [int] The ID of the comment you wish to update.
+      :param model [NoticeCommentModel] The notice comment object you wish to update.
+      :return NoticeCommentModel
+    """
+    def update_notice_comments(self, companyId, noticeid, commentDetailsId, model):
+        return requests.put('{}/api/v2/companies/{}/notices/{}/commentdetails/{}'.format(self.base_url, companyId, noticeid, commentDetailsId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Retrieve a single attachment
     
     This API is available by invitation only.
@@ -4896,6 +5101,68 @@ class Mixin:
     def upload_attachment(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/notices/files/attachment'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Mark a single notification as dismissed.
+    
+    Marks the notification identified by this URL as dismissed.
+      A notification is a message from Avalara that may have relevance to your business. You may want
+      to regularly review notifications and then dismiss them when you are certain that you have addressed
+      any relevant concerns raised by this notification.
+      An example of a notification would be a message about new software, or a change to AvaTax that may
+      affect you, or a potential issue with your company's tax profile.
+      When you dismiss a notification, the notification will track the user and time when it was
+      dismissed. You can then later review which employees of your company dismissed notifications to
+      determine if they were resolved appropriately.
+    
+      :param id_ [int] The id of the notification you wish to mark as dismissed.
+      :return NotificationModel
+    """
+    def dismiss_notification(self, id_):
+        return requests.put('{}/api/v2/notifications/{}/dismiss'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Retrieve a single notification.
+    
+    Retrieve a single notification by its unique ID number.
+      A notification is a message from Avalara that may have relevance to your business. You may want
+      to regularly review notifications and then dismiss them when you are certain that you have addressed
+      any relevant concerns raised by this notification.
+      An example of a notification would be a message about new software, or a change to AvaTax that may
+      affect you, or a potential issue with your company's tax profile.
+    
+      :param id_ [int] The id of the notification to retrieve.
+      :return NotificationModel
+    """
+    def get_notification(self, id_):
+        return requests.get('{}/api/v2/notifications/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    List all notifications.
+    
+    List all notifications.
+      A notification is a message from Avalara that may have relevance to your business. You may want
+      to regularly review notifications and then dismiss them when you are certain that you have addressed
+      any relevant concerns raised by this notification.
+      An example of a notification would be a message about new software, or a change to AvaTax that may
+      affect you, or a potential issue with your company's tax profile.
+      You may search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_notifications(self, include=None):
+        return requests.get('{}/api/v2/notifications'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -4922,20 +5189,18 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Change Password
+    Request a new entitilement to an existing customer
     
-    # For Registrar Use Only
-      This API is for use by Avalara Registrar administrative users only.
-      Allows a user to change their password via the API.
-      This API only allows the currently authenticated user to change their password; it cannot be used to apply to a
-      different user than the one authenticating the current API call.
+    This API is for use by partner onboarding services customers only. This will allow the partners to allow
+      the add new entitlement to an existing customer
     
-      :param model [PasswordChangeModel] An object containing your current password and the new password.
-      :return string
+      :param id_ [int] The avatax account id of the customer
+      :param offer [string] The offer to be added to an already existing customer
+      :return OfferModel
     """
-    def change_password(self, model):
-        return requests.put('{}/api/v2/passwords'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, 
+    def request_new_entitlement(self, id_, offer):
+        return requests.post('{}/api/v2/accounts/{}/entitlements/{}'.format(self.base_url, id_, offer),
+                               auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -4951,6 +5216,25 @@ class Mixin:
     """
     def create_account(self, model):
         return requests.post('{}/api/v2/accounts'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Create new notifications.
+    
+    This API is available by invitation only.
+      Create a single notification.
+      A notification is a message from Avalara that may have relevance to your business. You may want
+      to regularly review notifications and then dismiss them when you are certain that you have addressed
+      any relevant concerns raised by this notification.
+      An example of a notification would be a message about new software, or a change to AvaTax that may
+      affect you, or a potential issue with your company's tax profile.
+    
+      :param model [NotificationModel] The notifications you wish to create.
+      :return NotificationModel
+    """
+    def create_notifications(self, model):
+        return requests.post('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
@@ -4989,6 +5273,25 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Delete a single notification.
+    
+    This API is available by invitation only.
+      Delete the existing notification identified by this URL.
+      A notification is a message from Avalara that may have relevance to your business. You may want
+      to regularly review notifications and then dismiss them when you are certain that you have addressed
+      any relevant concerns raised by this notification.
+      An example of a notification would be a message about new software, or a change to AvaTax that may
+      affect you, or a potential issue with your company's tax profile.
+    
+      :param id_ [int] The id of the notification you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_notification(self, id_):
+        return requests.delete('{}/api/v2/notifications/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Delete a single subscription
     
     # For Registrar Use Only
@@ -5002,47 +5305,6 @@ class Mixin:
     def delete_subscription(self, accountId, id_):
         return requests.delete('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Delete a single user
-    
-    # For Registrar Use Only
-      This API is for use by Avalara Registrar administrative users only.
-      Mark the user object identified by this URL as deleted.
-    
-      :param id_ [int] The ID of the user you wish to delete.
-      :param accountId [int] The accountID of the user you wish to delete.
-      :return ErrorDetail
-    """
-    def delete_user(self, id_, accountId):
-        return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all accounts
-    
-    # For Registrar Use Only
-      This API is for use by Avalara Registrar administrative users only.
-      Get multiple account objects.
-      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
-      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
-      * Subscriptions
-      * Users
-      For more information about filtering in REST, please see the documentation at http://developer.avalara.com/avatax/filtering-in-rest/ .
-    
-      :param include [string] A comma separated list of objects to fetch underneath this account. Any object with a URL path underneath this account can be fetched by specifying its name.
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
-    """
-    def query_accounts(self, include=None):
-        return requests.get('{}/api/v2/accounts'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -5076,6 +5338,26 @@ class Mixin:
     """
     def update_account(self, id_, model):
         return requests.put('{}/api/v2/accounts/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Update a single notification.
+    
+    This API is available by invitation only.
+      Replaces the notification identified by this URL with a new notification.
+      A notification is a message from Avalara that may have relevance to your business. You may want
+      to regularly review notifications and then dismiss them when you are certain that you have addressed
+      any relevant concerns raised by this notification.
+      An example of a notification would be a message about new software, or a change to AvaTax that may
+      affect you, or a potential issue with your company's tax profile.
+    
+      :param id_ [int] The id of the notification you wish to update.
+      :param model [NotificationModel] The notification object you wish to update.
+      :return NotificationModel
+    """
+    def update_notification(self, id_, model):
+        return requests.put('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
@@ -5281,8 +5563,8 @@ class Mixin:
       :param companyId [int] The ID of the company that owns these settings
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -5307,8 +5589,8 @@ class Mixin:
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -5368,8 +5650,8 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns these subscriptions
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -5388,8 +5670,8 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -5462,8 +5744,8 @@ class Mixin:
       :param companyId [int] The ID of the company that owns these tax codes
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -5485,8 +5767,8 @@ class Mixin:
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -5520,8 +5802,17 @@ class Mixin:
     Build a multi-location tax content file
     
     Builds a tax content file containing information useful for a retail point-of-sale solution.
-      This file contains tax rates and rules for items and locations that can be used
-      to correctly calculate tax in the event a point-of-sale device is not able to reach AvaTax.
+      Since tax rates may change based on decisions made by a variety of tax authorities, we recommend
+      that users of this tax content API download new data every day. Many tax authorities may finalize
+      decisions on tax changes at unexpected times and may make changes in response to legal issues or
+      governmental priorities. Any tax content downloaded for future time periods is subject to change
+      if tax rates or tax laws change.
+      A TaxContent file contains a matrix of the taxes that would be charged when you sell any of your
+      Items at any of your Locations. To create items, use `CreateItems()`. To create locations, use
+      `CreateLocations()`. The file is built by looking up the tax profile for your location and your
+      item and calculating taxes for each in turn. To include a custom `TaxCode` in this tax content
+      file, first create the custom tax code using `CreateTaxCodes()` to create the custom tax code,
+      then use `CreateItems()` to create an item that uses the custom tax code.
       This data file can be customized for specific partner devices and usage conditions.
       The result of this API is the file you requested in the format you requested using the `responseType` field.
       This API builds the file on demand, and is limited to files with no more than 7500 scenarios. To build a tax content
@@ -5540,8 +5831,17 @@ class Mixin:
     Build a tax content file for a single location
     
     Builds a tax content file containing information useful for a retail point-of-sale solution.
-      This file contains tax rates and rules for all items for a single location. Data from this API
-      can be used to correctly calculate tax in the event a point-of-sale device is not able to reach AvaTax.
+      Since tax rates may change based on decisions made by a variety of tax authorities, we recommend
+      that users of this tax content API download new data every day. Many tax authorities may finalize
+      decisions on tax changes at unexpected times and may make changes in response to legal issues or
+      governmental priorities. Any tax content downloaded for future time periods is subject to change
+      if tax rates or tax laws change.
+      A TaxContent file contains a matrix of the taxes that would be charged when you sell any of your
+      Items at any of your Locations. To create items, use `CreateItems()`. To create locations, use
+      `CreateLocations()`. The file is built by looking up the tax profile for your location and your
+      item and calculating taxes for each in turn. To include a custom `TaxCode` in this tax content
+      file, first create the custom tax code using `CreateTaxCodes()` to create the custom tax code,
+      then use `CreateItems()` to create an item that uses the custom tax code.
       This data file can be customized for specific partner devices and usage conditions.
       The result of this API is the file you requested in the format you requested using the `responseType` field.
       This API builds the file on demand, and is limited to files with no more than 7500 scenarios. To build a tax content
@@ -5566,6 +5866,11 @@ class Mixin:
     
     Download a CSV file containing all five digit postal codes in the United States and their sales
       and use tax rates for tangible personal property.
+      Since tax rates may change based on decisions made by a variety of tax authorities, we recommend
+      that users of this tax content API download new data every day. Many tax authorities may finalize
+      decisions on tax changes at unexpected times and may make changes in response to legal issues or
+      governmental priorities. Any tax content downloaded for future time periods is subject to change
+      if tax rates or tax laws change.
       This rates file is intended to be used as a default for tax calculation when your software cannot
       call the `CreateTransaction` API call. When using this file, your software will be unable to
       handle complex tax rules such as:
@@ -5605,11 +5910,16 @@ class Mixin:
     r"""
     Create a new tax rule
     
-    Create one or more new taxrule objects attached to this company.
-      A tax rule represents a custom taxability rule for a product or service sold by your company.
-      If you have obtained a custom tax ruling from an auditor that changes the behavior of certain goods or services
-      within certain taxing jurisdictions, or you have obtained special tax concessions for certain dates or locations,
-      you may wish to create a TaxRule object to override the AvaTax engine's default behavior in those circumstances.
+    Create one or more custom tax rules attached to this company.
+      A tax rule represents a rule that changes the default AvaTax behavior for a product or jurisdiction. Custom tax rules
+      can be used to change the taxability of an item, to change the tax base of an item, or to change the tax rate
+      charged when selling an item. Tax rules can also change tax behavior depending on the `entityUseCode` value submitted
+      with the transaction.
+      You can create custom tax rules to customize the behavior of AvaTax to match specific rules that are custom to your
+      business. If you have obtained a ruling from a tax auditor that requires custom tax calculations, you can use
+      custom tax rules to redefine the behavior for your company or item.
+      Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
+      auditor, legal representative, and accounting team.
     
       :param companyId [int] The ID of the company that owns this tax rule.
       :param model [TaxRuleModel] The tax rule you wish to create.
@@ -5623,7 +5933,16 @@ class Mixin:
     r"""
     Delete a single tax rule
     
-    Mark the TaxRule identified by this URL as deleted.
+    Mark the custom tax rule identified by this URL as deleted.
+      A tax rule represents a rule that changes the default AvaTax behavior for a product or jurisdiction. Custom tax rules
+      can be used to change the taxability of an item, to change the tax base of an item, or to change the tax rate
+      charged when selling an item. Tax rules can also change tax behavior depending on the `entityUseCode` value submitted
+      with the transaction.
+      You can create custom tax rules to customize the behavior of AvaTax to match specific rules that are custom to your
+      business. If you have obtained a ruling from a tax auditor that requires custom tax calculations, you can use
+      custom tax rules to redefine the behavior for your company or item.
+      Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
+      auditor, legal representative, and accounting team.
     
       :param companyId [int] The ID of the company that owns this tax rule.
       :param id_ [int] The ID of the tax rule you wish to delete.
@@ -5638,10 +5957,15 @@ class Mixin:
     Retrieve a single tax rule
     
     Get the taxrule object identified by this URL.
-      A tax rule represents a custom taxability rule for a product or service sold by your company.
-      If you have obtained a custom tax ruling from an auditor that changes the behavior of certain goods or services
-      within certain taxing jurisdictions, or you have obtained special tax concessions for certain dates or locations,
-      you may wish to create a TaxRule object to override the AvaTax engine's default behavior in those circumstances.
+      A tax rule represents a rule that changes the default AvaTax behavior for a product or jurisdiction. Custom tax rules
+      can be used to change the taxability of an item, to change the tax base of an item, or to change the tax rate
+      charged when selling an item. Tax rules can also change tax behavior depending on the `entityUseCode` value submitted
+      with the transaction.
+      You can create custom tax rules to customize the behavior of AvaTax to match specific rules that are custom to your
+      business. If you have obtained a ruling from a tax auditor that requires custom tax calculations, you can use
+      custom tax rules to redefine the behavior for your company or item.
+      Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
+      auditor, legal representative, and accounting team.
     
       :param companyId [int] The ID of the company that owns this tax rule
       :param id_ [int] The primary key of this tax rule
@@ -5656,18 +5980,23 @@ class Mixin:
     Retrieve tax rules for this company
     
     List all taxrule objects attached to this company.
-      A tax rule represents a custom taxability rule for a product or service sold by your company.
-      If you have obtained a custom tax ruling from an auditor that changes the behavior of certain goods or services
-      within certain taxing jurisdictions, or you have obtained special tax concessions for certain dates or locations,
-      you may wish to create a TaxRule object to override the AvaTax engine's default behavior in those circumstances.
+      A tax rule represents a rule that changes the default AvaTax behavior for a product or jurisdiction. Custom tax rules
+      can be used to change the taxability of an item, to change the tax base of an item, or to change the tax rate
+      charged when selling an item. Tax rules can also change tax behavior depending on the `entityUseCode` value submitted
+      with the transaction.
+      You can create custom tax rules to customize the behavior of AvaTax to match specific rules that are custom to your
+      business. If you have obtained a ruling from a tax auditor that requires custom tax calculations, you can use
+      custom tax rules to redefine the behavior for your company or item.
+      Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
+      auditor, legal representative, and accounting team.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
       :param companyId [int] The ID of the company that owns these tax rules
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -5680,17 +6009,22 @@ class Mixin:
     Retrieve all tax rules
     
     Get multiple taxrule objects across all companies.
-      A tax rule represents a custom taxability rule for a product or service sold by your company.
-      If you have obtained a custom tax ruling from an auditor that changes the behavior of certain goods or services
-      within certain taxing jurisdictions, or you have obtained special tax concessions for certain dates or locations,
-      you may wish to create a TaxRule object to override the AvaTax engine's default behavior in those circumstances.
+      A tax rule represents a rule that changes the default AvaTax behavior for a product or jurisdiction. Custom tax rules
+      can be used to change the taxability of an item, to change the tax base of an item, or to change the tax rate
+      charged when selling an item. Tax rules can also change tax behavior depending on the `entityUseCode` value submitted
+      with the transaction.
+      You can create custom tax rules to customize the behavior of AvaTax to match specific rules that are custom to your
+      business. If you have obtained a ruling from a tax auditor that requires custom tax calculations, you can use
+      custom tax rules to redefine the behavior for your company or item.
+      Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
+      auditor, legal representative, and accounting team.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -5702,13 +6036,16 @@ class Mixin:
     r"""
     Update a single tax rule
     
-    Replace the existing taxrule object at this URL with an updated object.
-      A tax rule represents a custom taxability rule for a product or service sold by your company.
-      If you have obtained a custom tax ruling from an auditor that changes the behavior of certain goods or services
-      within certain taxing jurisdictions, or you have obtained special tax concessions for certain dates or locations,
-      you may wish to create a TaxRule object to override the AvaTax engine's default behavior in those circumstances.
-      All data from the existing object will be replaced with data in the object you PUT.
-      To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+    Replace the existing custom tax rule object at this URL with an updated object.
+      A tax rule represents a rule that changes the default AvaTax behavior for a product or jurisdiction. Custom tax rules
+      can be used to change the taxability of an item, to change the tax base of an item, or to change the tax rate
+      charged when selling an item. Tax rules can also change tax behavior depending on the `entityUseCode` value submitted
+      with the transaction.
+      You can create custom tax rules to customize the behavior of AvaTax to match specific rules that are custom to your
+      business. If you have obtained a ruling from a tax auditor that requires custom tax calculations, you can use
+      custom tax rules to redefine the behavior for your company or item.
+      Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
+      auditor, legal representative, and accounting team.
     
       :param companyId [int] The ID of the company that this tax rule belongs to.
       :param id_ [int] The ID of the tax rule you wish to update
@@ -5942,6 +6279,7 @@ class Mixin:
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
       * ForceTimeout - Simulates a timeout. This adds a 30 second delay and error to your API call. This can be used to test your code to ensure it can respond correctly in the case of a dropped connection.
+      * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
       If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
     
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -6070,8 +6408,8 @@ class Mixin:
       :param companyCode [string] The company code of the company that recorded this transaction
       :param include [string] Specifies objects to include in this fetch call
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -6276,8 +6614,8 @@ class Mixin:
       :param companyId [int] The ID of the company that owns these UPCs
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -6296,8 +6634,8 @@ class Mixin:
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -6325,6 +6663,23 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Change Password
+    
+    Allows a user to change their password via an API call.
+      This API allows an authenticated user to change their password via an API call. This feature is only available
+      for accounts that do not use SAML integrated password validation.
+      This API only allows the currently authenticated user to change their password; it cannot be used to apply to a
+      different user than the one authenticating the current API call.
+    
+      :param model [PasswordChangeModel] An object containing your current password and the new password.
+      :return string
+    """
+    def change_password(self, model):
+        return requests.put('{}/api/v2/passwords'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Create new users
     
     Create one or more new user objects attached to this account.
@@ -6341,6 +6696,23 @@ class Mixin:
     def create_users(self, accountId, model):
         return requests.post('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Delete a single user
+    
+    Mark the user object identified by this URL as deleted.
+      This API is available for use by account and company administrators only.
+      Account and company administrators may only delete users within the appropriate organizations
+      they control.
+    
+      :param id_ [int] The ID of the user you wish to delete.
+      :param accountId [int] The accountID of the user you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_user(self, id_, accountId):
+        return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -6386,21 +6758,6 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Get information about a username.
-    
-    You may call this API prior to creating a user, to check if a particular username is available for use. Using this API, you can
-      present a friendly experience prior to attempting to create a new user object.
-      Please ensure that the query string is url encoded if you wish to check information for a user that contains url-sensitive characters.
-    
-      :param username [string] The username to search.
-      :return UsernameModel
-    """
-    def get_username(self, include=None):
-        return requests.get('{}/api/v2/usernames'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Retrieve users for this account
     
     List all user objects attached to this account.
@@ -6413,8 +6770,8 @@ class Mixin:
       :param accountId [int] The accountID of the user you wish to list.
       :param include [string] Optional fetch commands.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -6436,8 +6793,8 @@ class Mixin:
     
       :param include [string] Optional fetch commands.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      :param top [int] If nonzero, return no more than this number of results. Used with $skip to provide pagination for large datasets.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with $top to provide pagination for large datasets.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
@@ -6468,8 +6825,11 @@ class Mixin:
     Checks if the current user is subscribed to a specific service
     
     Returns a subscription object for the current account, or 404 Not Found if this subscription is not enabled for this account.
-      This API call is intended to allow you to identify whether you have the necessary account configuration to access certain
-      features of AvaTax, and would be useful in debugging access privilege problems.
+      This API will return an error if it is called with invalid authentication credentials.
+      This API is intended to help you determine whether you have the necessary subscription to use certain API calls
+      within AvaTax. You can examine the subscriptions returned from this API call to look for a particular product
+      or subscription to provide useful information to the current user as to whether they are entitled to use
+      specific features of AvaTax.
     
       :param serviceTypeId [ServiceTypeId] The service to check (See ServiceTypeId::* for a list of allowable values)
       :return SubscriptionModel
@@ -6482,9 +6842,12 @@ class Mixin:
     r"""
     List all services to which the current user is subscribed
     
-    Returns the list of all subscriptions enabled for the current account.
+    Returns the list of all subscriptions enabled for the currently logged in user.
+      This API will return an error if it is called with invalid authentication credentials.
       This API is intended to help you determine whether you have the necessary subscription to use certain API calls
-      within AvaTax.
+      within AvaTax. You can examine the subscriptions returned from this API call to look for a particular product
+      or subscription to provide useful information to the current user as to whether they are entitled to use
+      specific features of AvaTax.
     
       :return FetchResult
     """
@@ -6496,11 +6859,19 @@ class Mixin:
     r"""
     Tests connectivity and version of the service
     
-    This API helps diagnose connectivity problems between your application and AvaTax; you may call this API even
-      if you do not have verified connection credentials.
-      The results of this API call will help you determine whether your computer can contact AvaTax via the network,
-      whether your authentication credentials are recognized, and the roundtrip time it takes to communicate with
-      AvaTax.
+    Check connectivity to AvaTax and return information about the AvaTax API server.
+      This API is intended to help you verify that your connection is working. This API will always succeed and will
+      never return a error. It provides basic information about the server you connect to:
+      * `version` - The version number of the AvaTax API server that responded to your request. The AvaTax API version number is updated once per month during Avalara's update process.
+      * `authenticated` - A boolean flag indicating whether or not you sent valid credentials with your API request.
+      * `authenticationType` - If you provided valid credentials to the API, this field will tell you whether you used Bearer, Username, or LicenseKey authentication.
+      * `authenticatedUserName` - If you provided valid credentials to the API, this field will tell you the username of the currently logged in user.
+      * `authenticatedUserId` - If you provided valid credentials to the API, this field will tell you the user ID of the currently logged in user.
+      * `authenticatedAccountId` - If you provided valid credentials to the API, this field will contain the account ID of the currently logged in user.
+      This API helps diagnose connectivity problems between your application and AvaTax; you may call this API even
+      if you do not have verified connection credentials. If this API fails, either your computer is not connected to
+      the internet, or there is a routing problem between your office and Avalara, or the Avalara server is not available.
+      For more information on the uptime of AvaTax, please see [Avalara's AvaTax Status Page](https://status.avalara.com/).
     
       :return PingResultModel
     """
