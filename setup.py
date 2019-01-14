@@ -19,7 +19,7 @@ setup(
         'transaction_builder_methods',
         '_str_version'
     ],
-    author='Han Bao, Adrienne Karnoski, Robert Bronson, Philip Werner',
+    author='Han Bao, Adrienne Karnoski, Robert Bronson, Philip Werner, Genevieve Conty',
     author_email='han.bao@avalara.com',
     description='Avalara Tax Python SDK.',
     long_description=pkg_description,
