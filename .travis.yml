@@ -3,8 +3,10 @@ python:
 - '2.7'
 - '3.6'
 install:
-- pip install .[test]
+- pip install -e .[test]
 - pip install -e .
+- pip install pip install pytest-cov
+= 
 script: py.test --cov=. --cov-report term-missing
 env:
   global:
