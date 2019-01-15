@@ -5,8 +5,7 @@ python:
 install:
 - pip install -e .[test]
 - pip install -e .
-- pip install pip install pytest-cov
-= 
+- pip install pytest-cov 
 script: py.test --cov=. --cov-report term-missing
 env:
   global:
