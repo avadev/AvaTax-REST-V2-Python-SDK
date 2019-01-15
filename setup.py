@@ -9,7 +9,7 @@ with open('README.md') as f:
 
 setup(
     name='Avalara',
-    version='18.10.3',
+    version='18.12.0',
     url='https://github.com/avadev/AvaTax-REST-V2-Python-SDK',
     package_dir={'': 'src'},
     py_modules=[
@@ -19,7 +19,7 @@ setup(
         'transaction_builder_methods',
         '_str_version'
     ],
-    author='Han Bao, Adrienne Karnoski, Robert Bronson, Philip Werner',
+    author='Han Bao, Adrienne Karnoski, Robert Bronson, Philip Werner, Genevieve Conty',
     author_email='han.bao@avalara.com',
     description='Avalara Tax Python SDK.',
     long_description=pkg_description,

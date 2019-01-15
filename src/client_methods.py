@@ -38,13 +38,12 @@ class Mixin:
       unchanged account model.
     
       :param id_ [int] The ID of the account to activate
-      :param include [string] Elements to include when fetching the account
       :param model [ActivateAccountModel] The activation request
       :return AccountModel
     """
-    def activate_account(self, id_, model, include=None):
+    def activate_account(self, id_, model):
         return requests.post('{}/api/v2/accounts/{}/activate'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -410,7 +409,7 @@ class Mixin:
     
     Get the AvaFileForm object identified by this URL.
     
-      :param id_ [string] The primary key of this AvaFileForm
+      :param id_ [int] The primary key of this AvaFileForm
       :return AvaFileFormModel
     """
     def get_ava_file_form(self, id_):
@@ -701,12 +700,13 @@ class Mixin:
       storage for this company, call `RequestCertificateSetup`.
     
       :param companyId [int] The ID number of the company recording this certificate
+      :param preValidatedExemptionReason [boolean] If set to true, the certificate will bypass the human verification process.
       :param model [CertificateModel] Certificates to be created
       :return CertificateModel
     """
-    def create_certificates(self, companyId, model):
+    def create_certificates(self, companyId, model, include=None):
         return requests.post('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, 
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -1209,13 +1209,13 @@ class Mixin:
     
     Retrieve a list of all configuration settings tied to this company.
       Configuration settings provide you with the ability to control features of your account and of your
-      tax software. The category names `AvaCertServiceConfig` is reserved for
-      Avalara internal software configuration values; to store your own account-level settings, please
+      tax software. The category name `AvaCertServiceConfig` is reserved for
+      Avalara internal software configuration values; to store your own company-level settings, please
       create a new category name that begins with `X-`, for example, `X-MyCustomCategory`.
       Company settings are permanent settings that cannot be deleted. You can set the value of a
-      company setting to null if desired.
-      Avalara-based account settings for `AvaCertServiceConfig` affect your account's exemption certificate
-      processing, and should only be changed with care.
+      company setting to null if desired and if the particular setting supports it.
+      Avalara-based company settings for `AvaCertServiceConfig` affect your company's exemption certificate
+      processing, and should be changed with care.
     
       :param id_ [int] 
       :return CompanyConfigurationModel
@@ -1306,17 +1306,17 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Change configuration settings for this account
+    Change configuration settings for this company
     
-    Update configuration settings tied to this account.
+    Update configuration settings tied to this company.
       Configuration settings provide you with the ability to control features of your account and of your
       tax software. The category names `AvaCertServiceConfig` is reserved for
-      Avalara internal software configuration values; to store your own account-level settings, please
+      Avalara internal software configuration values; to store your own company-level settings, please
       create a new category name that begins with `X-`, for example, `X-MyCustomCategory`.
       Company settings are permanent settings that cannot be deleted. You can set the value of a
-      company setting to null if desired.
-      Avalara-based account settings for `AvaCertServiceConfig` affect your account's exemption certificate
-      processing, and should only be changed with care.
+      company setting to null if desired and if the particular setting supports it.
+      Avalara-based company settings for `AvaCertServiceConfig` affect your company's exemption certificate
+      processing, and should be changed with care.
     
       :param id_ [int] 
       :param model [CompanyConfigurationModel] 
@@ -1823,9 +1823,9 @@ class Mixin:
     Test whether a form supports online login verification
     
     This API is intended to be useful to identify whether the user should be allowed
-      to automatically verify their login and password.
+      to automatically verify their login and password. This API will provide a result only if the form supports automatic online login verification.
     
-      :param form [string] The name of the form you would like to verify. This can be the tax form code or the legacy return name
+      :param form [string] The name of the form you would like to verify. This is the tax form code
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -2483,6 +2483,24 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Retrieve the parameters by companyCode and itemCode.
+    
+    Returns the list of parameters based on the company country and state jurisdiction and the item code.
+    
+      :param companyCode [string] Company code.
+      :param itemCode [string] Item code.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_parameters_by_item(self, companyCode, itemCode, include=None):
+        return requests.get('{}/api/v2/definitions/parameters/byitem/{}/{}'.format(self.base_url, companyCode, itemCode),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Retrieve the full list of Avalara-supported permissions
     
     Returns the full list of Avalara-supported permission types.
@@ -2532,6 +2550,43 @@ class Mixin:
     """
     def list_preferred_programs(self, include=None):
         return requests.get('{}/api/v2/definitions/preferredprograms'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    List all available product classification systems.
+    
+    List all available product classification systems.
+      Tax authorities use product classification systems as a way to identify products and associate them with a tax rate.
+      More than one tax authority might use the same product classification system, but they might charge different tax rates for products.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_product_classification_systems(self, include=None):
+        return requests.get('{}/api/v2/definitions/productclassificationsystems'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    List all product classification systems available to a company based on its nexus.
+    
+    Lists all product classification systems available to a company based on its nexus.
+      Tax authorities use product classification systems as a way to identify products and associate them with a tax rate.
+      More than one tax authority might use the same product classification system, but they might charge different tax rates for products.
+    
+      :param companyCode [string] The company code.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_product_classification_systems_by_company(self, companyCode, include=None):
+        return requests.get('{}/api/v2/definitions/productclassificationsystems/bycompany/{}'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
@@ -3528,7 +3583,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filings.
       :param id_ [int] The id of the filing return your retrieving
       :param details [boolean] Indicates if you would like the credit details returned
-      :return FetchResult
+      :return FilingReturnModel
     """
     def get_filing_return(self, companyId, id_, include=None):
         return requests.get('{}/api/v2/companies/{}/filings/returns/{}'.format(self.base_url, companyId, id_),
@@ -3891,6 +3946,44 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Add classifications to an item.
+    
+    Add classifications to an item.
+      A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
+      When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
+      An item may only have one classification per tax system.
+    
+      :param companyId [int] The company id.
+      :param itemId [int] The item id.
+      :param model [ItemClassificationInputModel] The item classifications you wish to create.
+      :return ItemClassificationOutputModel
+    """
+    def create_item_classifications(self, companyId, itemId, model):
+        return requests.post('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Add parameters to an item.
+    
+    Add parameters to an item.
+      Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
+      A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
+      To see available parameters for this item, call `/api/v2/definitions/parameters?$filter=attributeType eq Product`
+      Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
+    
+      :param companyId [int] The ID of the company that owns this item parameter.
+      :param itemId [int] The item id.
+      :param model [ItemParameterModel] The item parameters you wish to create.
+      :return ItemParameterModel
+    """
+    def create_item_parameters(self, companyId, itemId, model):
+        return requests.post('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Create a new item
     
     Creates one or more new item objects attached to this company.
@@ -3899,6 +3992,7 @@ class Mixin:
       and other data fields. AvaTax will automatically look up each `itemCode` and apply the correct tax codes and parameters
       from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
+      The tax code takes precedence over the tax code id if both are provided.
     
       :param companyId [int] The ID of the company that owns this item.
       :param model [ItemModel] The item you wish to create.
@@ -3912,12 +4006,13 @@ class Mixin:
     r"""
     Delete a single item
     
-    Marks the item object at this URL as deleted.
+    Deletes the item object at this URL.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
       and other data fields. AvaTax will automatically look up each `itemCode` and apply the correct tax codes and parameters
       from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
+      Deleting an item will also delete the parameters and classifications associated with that item.
     
       :param companyId [int] The ID of the company that owns this item.
       :param id_ [int] The ID of the item you wish to delete.
@@ -3925,6 +4020,41 @@ class Mixin:
     """
     def delete_item(self, companyId, id_):
         return requests.delete('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Delete a single item classification.
+    
+    Delete a single item classification.
+      A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
+      When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
+    
+      :param companyId [int] The company id.
+      :param itemId [int] The item id.
+      :param id_ [int] The item classification id.
+      :return ErrorDetail
+    """
+    def delete_item_classification(self, companyId, itemId, id_):
+        return requests.delete('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Delete a single item parameter
+    
+    Delete a single item parameter.
+      Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
+      A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
+    
+      :param companyId [int] The company id
+      :param itemId [int] The item id
+      :param id_ [int] The parameter id
+      :return ErrorDetail
+    """
+    def delete_item_parameter(self, companyId, itemId, id_):
+        return requests.delete('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
@@ -3940,11 +4070,92 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this item object
       :param id_ [int] The primary key of this item
+      :param include [string] A comma separated list of additional data to retrieve.
       :return ItemModel
     """
-    def get_item(self, companyId, id_):
+    def get_item(self, companyId, id_, include=None):
         return requests.get('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Retrieve a single item classification.
+    
+    Retrieve a single item classification.
+      A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
+      When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
+    
+      :param companyId [int] The company id.
+      :param itemId [int] The item id.
+      :param id_ [int] The item classification id.
+      :return ItemClassificationOutputModel
+    """
+    def get_item_classification(self, companyId, itemId, id_):
+        return requests.get('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Retrieve a single item parameter
+    
+    Retrieve a single item parameter.
+      Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
+      A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
+    
+      :param companyId [int] The company id
+      :param itemId [int] The item id
+      :param id_ [int] The parameter id
+      :return ItemParameterModel
+    """
+    def get_item_parameter(self, companyId, itemId, id_):
+        return requests.get('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Retrieve classifications for an item.
+    
+    List classifications for an item.
+      A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
+      When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
+      Search for specific objects using the criteria in the `$filter` classification; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` classifications.
+    
+      :param companyId [int] The company id.
+      :param itemId [int] The item id.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_item_classifications(self, companyId, itemId, include=None):
+        return requests.get('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Retrieve parameters for an item
+    
+    List parameters for an item.
+      Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
+      A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+    
+      :param companyId [int] The company id
+      :param itemId [int] The item id
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_item_parameters(self, companyId, itemId, include=None):
+        return requests.get('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -3959,7 +4170,8 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
-      * Attributes
+      * Parameters
+      * Classifications
     
       :param companyId [int] The ID of the company that defined these items
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -3985,8 +4197,6 @@ class Mixin:
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
-      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
-      * Attributes
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       :param include [string] A comma separated list of additional data to retrieve.
@@ -4011,6 +4221,7 @@ class Mixin:
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
       All data from the existing object will be replaced with data in the object you PUT. To set a field's value to null,
       you may either set its value to null or omit that field from the object you post.
+      The tax code takes precedence over the tax code id if both are provided.
     
       :param companyId [int] The ID of the company that this item belongs to.
       :param id_ [int] The ID of the item you wish to update
@@ -4019,6 +4230,44 @@ class Mixin:
     """
     def update_item(self, companyId, id_, model):
         return requests.put('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Update an item classification.
+    
+    Update an item classification.
+      A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
+      When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
+      An item may only have one classification per tax system.
+    
+      :param companyId [int] The company id.
+      :param itemId [int] The item id.
+      :param id_ [int] The item classification id.
+      :param model [ItemClassificationInputModel] The item object you wish to update.
+      :return ItemClassificationOutputModel
+    """
+    def update_item_classification(self, companyId, itemId, id_, model):
+        return requests.put('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Update an item parameter
+    
+    Update an item parameter.
+      Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
+      A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
+    
+      :param companyId [int] The company id.
+      :param itemId [int] The item id
+      :param id_ [int] The item parameter id
+      :param model [ItemParameterModel] The item object you wish to update.
+      :return ItemParameterModel
+    """
+    def update_item_parameter(self, companyId, itemId, id_, model):
+        return requests.put('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
@@ -5317,12 +5566,13 @@ class Mixin:
       user based on internal Avalara business processes.
     
       :param userId [int] The unique ID of the user whose password will be changed
+      :param unmigrateFromAi [boolean] If user's password was migrated to AI, undo this.
       :param model [SetPasswordModel] The new password for this user
       :return string
     """
-    def reset_password(self, userId, model):
+    def reset_password(self, userId, model, include=None):
         return requests.post('{}/api/v2/passwords/{}/reset'.format(self.base_url, userId),
-                               auth=self.auth, headers=self.client_header, json=model, 
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -6376,6 +6626,7 @@ class Mixin:
       * Addresses
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
+      * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
     
       :param id_ [int] The unique ID number of the transaction to retrieve
       :param include [string] Specifies objects to include in this fetch call
@@ -6551,7 +6802,7 @@ class Mixin:
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to void
       :param documentType [DocumentType] (Optional): The document type of the transaction to void. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
-      :param model [VoidTransactionModel] The void request you wish to execute
+      :param model [VoidTransactionModel] The void request you wish to execute. To void a transaction the code must be set to 'DocVoided'
       :return TransactionModel
     """
     def void_transaction(self, companyCode, transactionCode, model, include=None):
