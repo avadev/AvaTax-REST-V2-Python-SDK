@@ -3686,6 +3686,26 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Retrieve a list of filings for the specified company in the year and month of a given filing period.
+    
+    This API is available by invitation only.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period.
+      :param month [int] The two digit month of the filing period.
+      :param country [string] The two-character ISO-3166 code for the country.
+      :param region [string] The two or three character region code for the region.
+      :param formCode [string] The unique code of the form.
+      :return FetchResult
+    """
+    def get_tax_filings(self, companyId, include=None):
+        return requests.get('{}/api/v2/companies/{}/filings'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Rebuild a set of filings for the specified company in the given filing period.
     
     This API is available by invitation only.
