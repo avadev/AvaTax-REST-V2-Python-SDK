@@ -16,8 +16,8 @@ file that was distributed with this source code.
 @link       https://github.com/avadev/AvaTax-REST-V2-Python-SDK
 """
 from requests.auth import HTTPBasicAuth
-from _str_version import str_type
-import client_methods
+from ._str_version import str_type
+from . import client_methods
 import os
 
 
