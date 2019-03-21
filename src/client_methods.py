@@ -200,6 +200,184 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Approve an advanced rule script to run.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return AdvancedRuleScriptModel
+    """
+    def approve_advanced_rule_script(self, accountId, scriptType):
+        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/approve'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Create an advanced rule.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that will own the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type, Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :param crashBehavior [AdvancedRuleCrashBehavior] The behavior the script should take if it crashes: Fail or Proceed. (See AdvancedRuleCrashBehavior::* for a list of allowable values)
+      :param file [String] The JavaScript file containing the advanced rule.
+      :return string
+    """
+    def create_advanced_rule_script(self, accountId, scriptType, include=None):
+        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Create a lookup table for an advanced rule
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param csvTableName [string] The name to assign the CSV lookup table.
+      :param file [String] A CSV file containing lookup data for an advanced rule.
+      :return string
+    """
+    def create_advanced_rule_table(self, accountId, csvTableName):
+        return requests.post('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Delete an account's active advanced rule
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return ErrorDetail
+    """
+    def delete_advanced_rule_script(self, accountId, scriptType):
+        return requests.delete('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Delete a lookup table for an advanced rule.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param csvTableName [string] The name of the CSV lookup table to delete.
+      :return ErrorDetail
+    """
+    def delete_advanced_rule_table(self, accountId, csvTableName):
+        return requests.delete('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Disable an advanced rule so that it cannot be run.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration. ///
+    
+      :param accountId [int] 
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return AdvancedRuleScriptModel
+    """
+    def disable_advanced_rule_script(self, accountId, scriptType):
+        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/disable'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Enable an approved advanced rule so that it can be run.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] 
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return AdvancedRuleScriptModel
+    """
+    def enable_advanced_rule_script(self, accountId, scriptType):
+        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/enable'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Get an account's advanced rule script.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return AdvancedRuleScriptModel
+    """
+    def get_advanced_rule_script(self, accountId, scriptType):
+        return requests.get('{}/api/v2/accounts/{}/advancedrulescripts/{}'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Get an advanced rule lookup table for an account
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param csvTableName [string] The name of the CSV lookup table to get.
+      :return AdvancedRuleTableModel
+    """
+    def get_advanced_rule_table(self, accountId, csvTableName):
+        return requests.get('{}/api/v2/accounts/{}/advancedruletables/{}'.format(self.base_url, accountId, csvTableName),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Get all advanced rule lookup tables for an account
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :return AdvancedRuleTableModel
+    """
+    def get_advanced_rule_tables(self, accountId):
+        return requests.get('{}/api/v2/accounts/{}/advancedruletables'.format(self.base_url, accountId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Unapprove an advanced rule script so that it cannot be run.
+    
+    This API is available by invite only and implementation support is required.
+      Please contact your Customer Account Manager if you are interested in using
+      Advanced Rules in your AvaTax integration.
+    
+      :param accountId [int] The ID of the account that owns the Advanced Rule.
+      :param scriptType [AdvancedRuleScriptType] The script transform type: Request or Response. (See AdvancedRuleScriptType::* for a list of allowable values)
+      :return AdvancedRuleScriptModel
+    """
+    def unapprove_advanced_rule_script(self, accountId, scriptType):
+        return requests.post('{}/api/v2/accounts/{}/advancedrulescripts/{}/unapprove'.format(self.base_url, accountId, scriptType),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Create a new AvaFileForm
     
     Create one or more AvaFileForms
@@ -1018,7 +1196,7 @@ class Mixin:
        * UPC
     
       :param id_ [int] The ID of the company to retrieve.
-      :param include [string] OPTIONAL: A comma separated list of special fetch options.      * Child objects - Specify one or more of the following to retrieve objects related to each company: "Contacts", "FilingCalendars", "Items", "Locations", "Nexus", "TaxCodes", or "TaxRules".   * Deleted objects - Specify "FetchDeleted" to retrieve information about previously deleted objects.
+      :param include [string] OPTIONAL: A comma separated list of special fetch options.       * Child objects - Specify one or more of the following to retrieve objects related to each company: "Contacts", "FilingCalendars", "Items", "Locations", "Nexus", "TaxCodes", or "TaxRules".   * Deleted objects - Specify "FetchDeleted" to retrieve information about previously deleted objects.
       :return CompanyModel
     """
     def get_company(self, id_, include=None):
@@ -1165,138 +1343,6 @@ class Mixin:
     """
     def update_company(self, id_, model):
         return requests.put('{}/api/v2/companies/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a single tax rate.
-    
-    This API is available by invitation only.
-    
-      :param id_ [int] The ID of the tax rate to retrieve.
-      :return ComplianceTaxRateModel
-    """
-    def get_tax_rate(self, id_):
-        return requests.get('{}/api/v2/compliance/taxrates/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a single tax region.
-    
-    This API is available by invitation only.
-    
-      :param id_ [int] The ID of the tax region to retrieve.
-      :return TaxRegionModel
-    """
-    def get_tax_region(self, id_):
-        return requests.get('{}/api/v2/compliance/taxregions/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve jurisdictions and rates in a combined format.
-    
-    This API is available by invitation only.
-    
-      :param effectiveDate [datetime] Used to limit the jurisdictions returned.
-      :param endDate [datetime] Used to limit the jurisdictions returned.
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] A comma separated list of objects to fetch underneath this jurisdiction.
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ComplianceJurisdictionRateModel
-    """
-    def query_jurisdiction_rates(self, include=None):
-        return requests.get('{}/api/v2/compliance/jurisdictionrates'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all unique jurisdictions.
-    
-    This API is available by invitation only.
-      You may specify one or more of the following values in the '$include' parameter to fetch additional nested data, using commas to separate multiple values:
-      * TaxRates
-    
-      :param country [string] The two-character ISO-3166 code for the country.
-      :param region [string] The two or three character region code for the region.
-      :param effectiveDate [datetime] Used to limit the jurisdictions or rates returned.
-      :param endDate [datetime] Used to limit the jurisdictions or rates returned.
-      :param aggregationOption [StackAggregationOption] Aggregation method used if rates are returned using the '$include' parameter. (See StackAggregationOption::* for a list of allowable values)
-      :param include [string] A comma separated list of objects to fetch underneath this tax rate.
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :return ComplianceJurisdictionModel
-    """
-    def query_jurisdictions(self, country, region, include=None):
-        return requests.get('{}/api/v2/compliance/jurisdictions/{}/{}'.format(self.base_url, country, region),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all tax rates.
-    
-    This API is available by invitation only.
-    
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] A comma separated list of objects to fetch underneath this tax rate.
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ComplianceTaxRateModel
-    """
-    def query_tax_rates(self, include=None):
-        return requests.get('{}/api/v2/compliance/taxrates'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all tax region jurisdictions.
-    
-    This API is available by invitation only.
-    
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] A comma separated list of objects to fetch underneath this tax region jurisdiction.
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxRegionJurisdictionModel
-    """
-    def query_tax_region_jurisdictions(self, include=None):
-        return requests.get('{}/api/v2/compliance/taxregionjurisdictions'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all tax regions.
-    
-    This API is available by invitation only.
-    
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] A comma separated list of objects to fetch underneath this tax region.
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxRegionModel
-    """
-    def query_tax_regions(self, include=None):
-        return requests.get('{}/api/v2/compliance/taxregions'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    API to modify the reference fields at the document and the line level.
-    
-    
-    
-      :param companyId [int] 
-      :param model [TransactionReferenceFieldModel] 
-      :return FetchResult
-    """
-    def tag_transaction(self, companyId, model):
-        return requests.put('{}/api/v2/companies/{}/transactions/tag'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
@@ -2925,83 +2971,6 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Bridge API for integration of validated certificates
-    
-    This API is for use by invitation only.
-    
-      :param model [EcmsModel] Either a single exempt certificate or an array of certificates to create
-      :return EcmsModel
-    """
-    def cert_capture_bridge(self, model):
-        return requests.post('{}/api/v2/certcapturebridge'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Get an ECMS identified by company id and ECMS id
-    
-    Get an ECMS identified by company id and ECMS id.
-      An ECMS data represents a documentation based on which companies can claim tax exemption
-      You may attach nested data objects such as exempt cert detail, and those objects will be created with certificate.
-      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
-      * Details
-    
-      :param companyId [int] company to retrieve exempt certificate for
-      :param ecmsId [int] exempt certificate Id
-      :param include [string] 
-      :return EcmsModel
-    """
-    def get_e_c_m_s_by_id(self, companyId, ecmsId, include=None):
-        return requests.get('{}/api/v2/companies/{}/ecms/{}'.format(self.base_url, companyId, ecmsId),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Get list of ECMS data for this company
-    
-    Get list of ECMS data for this company
-      An ECMS data represents a documentation based on which companies can claim tax exemption
-      You may attach nested data objects such as ECMS detail, and those objects will be created with certificate.
-      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
-      * Details
-    
-      :param companyId [int] which company to retrieve certificates from
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] 
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return EcmsModel
-    """
-    def list_e_c_m_s_by_company(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/ecms'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Get all exempt certificates
-    
-    Get all ECMS currently available in database.
-      An ECMS data represents a documentation based on which companies can claim tax exemption
-      You may attach nested data objects such as ECMS detail, and those objects will be created with certificate.
-      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
-      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
-      * Details
-    
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] 
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return EcmsModel
-    """
-    def query_e_c_m_s(self, include=None):
-        return requests.get('{}/api/v2/ecms'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Approve existing Filing Request
     
     This API is available by invitation only.
@@ -3244,7 +3213,6 @@ class Mixin:
     Retrieve all filing calendars
     
     This API is available by invitation only.
-      This API is deprecated - please use POST `/api/v2/filingrequests/query` API.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* formCountry, formRegion, taxFormCode, taxAuthorityId, taxAuthorityName, taxAuthorityType, settings
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -3260,27 +3228,9 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Retrieve all filing calendars
-    
-    This API is available by invitation only.
-      This API is intended to replace the GET `/api/v2/filingcalendars` API. The fetch request object is posted on the body of the request instead of the URI, so it's not limited by a set number of characters.
-      The documentation of the GET API shows how filtering, sorting and pagination works.
-    
-      :param returnCountry [string] If specified, fetches only filing calendars that apply to tax filings in this specific country. Uses ISO 3166 country codes.
-      :param returnRegion [string] If specified, fetches only filing calendars that apply to tax filings in this specific region. Uses ISO 3166 region codes.
-      :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
-      :return FetchResult
-    """
-    def query_filing_calendars_post(self, model, include=None):
-        return requests.post('{}/api/v2/filingcalendars/query'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Retrieve all filing requests
     
     This API is available by invitation only.
-      This API is deprecated - please use POST `/api/v2/filingrequests/query` API.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -3296,22 +3246,6 @@ class Mixin:
     def query_filing_requests(self, include=None):
         return requests.get('{}/api/v2/filingrequests'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all filing requests
-    
-    This API is available by invitation only.
-      This API is intended to replace the GET `/api/v2/filingrequests` API. The fetch request object is posted on the body of the request instead of the URI, so it's not limited by a set number of characters.
-      The documentation of the GET API shows how filtering, sorting and pagination works.
-    
-      :param filingCalendarId [int] Specific filing calendar id for the request
-      :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
-      :return FetchResult
-    """
-    def query_filing_requests_post(self, model, include=None):
-        return requests.post('{}/api/v2/filingrequests/query'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -3338,7 +3272,7 @@ class Mixin:
     
     This API is available by invitation only.
     
-      :param companyId [int] The unique ID of the company that owns the filing calendar object
+      :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing calendar object
       :param model [FilingCalendarModel] The filing calendar model you are wishing to update with.
       :return FilingCalendarModel
@@ -3587,20 +3521,6 @@ class Mixin:
     """
     def filings_checkup_reports(self, companyId, year, month):
         return requests.get('{}/api/v2/companies/{}/filings/{}/{}/checkup'.format(self.base_url, companyId, year, month),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a list of filings for the specified accrual return.
-    
-    
-    
-      :param companyId [int] The ID of the company that owns these batches
-      :param filingReturnId [int] The ID of the accrual return
-      :return FetchResult
-    """
-    def get_accrual_fillings(self, companyId, filingReturnId):
-        return requests.get('{}/api/v2/companies/{}/filings/accrual/{}'.format(self.base_url, companyId, filingReturnId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
@@ -4311,28 +4231,6 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Sync items from a product catalog
-    
-    Syncs a list of items with AvaTax without waiting for them to be created. It is ideal for syncing large product catalogs
-      with AvaTax.
-      Any invalid or duplicate items will be ignored. To diagnose why an item is not created, use the normal create transaction API to receive validation information.
-      This API is currently limited to 1000 items per call (the limit is subject to change).
-      Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
-      can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
-      and other data fields. AvaTax will automatically look up each `itemCode` and apply the correct tax codes and parameters
-      from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
-      team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
-    
-      :param companyId [int] The ID of the company that owns this item.
-      :param model [SyncItemsRequestModel] The request object.
-      :return SyncItemsResponseModel
-    """
-    def sync_items(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/items/sync'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Update a single item
     
     Replace the existing `Item` object at this URL with an updated object.
@@ -5028,25 +4926,6 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Summarize nexus by NexusTaxTypeGroup for this company
-    
-    Provides a summary of nexus information useful for quickly displaying key information.
-      The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
-      taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
-      accountant or lawyer prior to declaring nexus.
-      This API produces only basic information about your company's nexus declarations. For example, it will show
-      the number of nexus declarations of each tax type. To request more information about your company's nexus
-      declarations, please use `QueryNexus` or `ListNexusByCompany`.
-    
-      :param companyId [int] The ID of the company that owns these nexus objects
-      :return NexusSummaryModel
-    """
-    def nexus_summary(self, companyId):
-        return requests.get('{}/api/v2/companies/{}/nexus/summary'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Retrieve all nexus
     
     Get multiple nexus objects across all companies.
@@ -5404,7 +5283,6 @@ class Mixin:
     Retrieve all notices.
     
     This API is available by invitation only.
-      This API is deprecated - please use POST `/api/v2/notices/query` API.
       Get multiple notice objects across all companies.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
@@ -5421,21 +5299,6 @@ class Mixin:
     def query_notices(self, include=None):
         return requests.get('{}/api/v2/notices'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all notices.
-    
-    This API is available by invitation only.
-      This API is intended to replace the GET `/api/v2/notices` API. The fetch request object is posted on the body of the request instead of the URI, so it's not limited by a set number of characters.
-      The documentation of the GET API shows how filtering, sorting and pagination works.
-    
-      :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
-      :return FetchResult
-    """
-    def query_notices_post(self, model):
-        return requests.post('{}/api/v2/notices/query'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -5502,7 +5365,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company for this attachment.
       :param model [ResourceFileUploadRequestModel] The ResourceFileId of the attachment to download.
-      :return ResourceFileUploadResultModel
+      :return String
     """
     def upload_attachment(self, companyId, model):
         return requests.post('{}/api/v2/companies/{}/notices/files/attachment'.format(self.base_url, companyId),
@@ -6269,23 +6132,6 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Retrieve send-sale tax content for this company.
-    
-    This API is available by invitation only.
-    
-      :param date [datetime] The date for which we are fetching tax content.
-      :param taxCode [string] The tax code for which we are fetching tax content.
-      :param companyId [int] The unique ID number of the company which is fetching tax content.
-      :param format [SendSalesOutputFileFormat] Requests a specific data format for this content file. (See SendSalesOutputFileFormat::* for a list of allowable values)
-      :param type [SendSalesFileType] Requests a specific encoding for this content file. (See SendSalesFileType::* for a list of allowable values)
-      :return String
-    """
-    def download_send_sales_rate_file(self, date, taxCode, companyId, include=None):
-        return requests.get('{}/api/v2/sendsalescontent/download/{}/{}/{}'.format(self.base_url, date, taxCode, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Download a file listing tax rates by postal code
     
     Download a CSV file containing all five digit postal codes in the United States and their sales
@@ -6329,40 +6175,6 @@ class Mixin:
     def download_tax_rates_by_zip_code(self, date, include=None):
         return requests.get('{}/api/v2/taxratesbyzipcode/download/{}'.format(self.base_url, date),
                                auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Export the tax profile of this company to a backup file
-    
-    Exports the tax profile of a company to a file, containing all information that affects tax calculation for this company.
-      A tax profile is a series of decisions and configuration choices that affect your company's tax calculation. These decisions
-      include your nexus declarations, your item catalog, your custom tax rules, and so on.
-      This API can be used to export a complete zip file containing your company's current tax profile, and you can then restore this
-      profile to a different company or compare it over time to see if your profile has been changed.
-    
-      :param companyId [int] The unique ID number of the company whose profile you wish to retrieve.
-      :return String
-    """
-    def export_tax_profile(self, companyId):
-        return requests.get('{}/api/v2/companies/{}/taxprofile'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Import a tax profile.
-    
-    Imports a tax profile to a new company, along with the option to import account settings.
-    
-      :param accountId [int] The account id of the account to which the tax profile will be imported.
-      :param newCompanyCode [string] The companyCode to use for the imported company.
-      :param replaceAccountSettings [boolean] Replace the current account settings with the ones in the tax profile.
-      :param bypassNexusValidation [boolean] Enable invalid nexus to be imported.
-      :param taxProfile [String] The taxProfile
-      :return String
-    """
-    def import_tax_profile(self):
-        return requests.post('{}/api/v2/taxprofile'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -7215,21 +7027,6 @@ class Mixin:
     def get_user_entitlements(self, id_, accountId):
         return requests.get('{}/api/v2/accounts/{}/users/{}/entitlements'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Get information about a username.
-    
-    You may call this API prior to creating a user, to check if a particular username is available for use. Using this API, you can
-      present a friendly experience prior to attempting to create a new user object.
-      Please ensure that the query string is url encoded if you wish to check information for a user that contains url-sensitive characters.
-    
-      :param username [string] The username to search.
-      :return UsernameModel
-    """
-    def get_username(self, include=None):
-        return requests.get('{}/api/v2/usernames'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
