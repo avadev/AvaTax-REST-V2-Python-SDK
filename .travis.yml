@@ -5,7 +5,7 @@ python:
 install:
 - pip install -e .[test]
 - pip install -e .
-- pip install pytest-cov 
+- pip install pytest-cov
 script: py.test --cov=. --cov-report term-missing
 env:
   global:
@@ -25,7 +25,7 @@ deploy:
   provider: pypi
   user: Avalara
   password:
-    secure: cbYSHbXiwpTi9SmiJkXfGxliyC78BPM69ij2/kvpfJPMDka4NmqURqtlZ8xylFFeyoRAs9i78OMbJewImjtIC9w/4JkHCd3sl0XbCeOJl9VRyBd6B9TTRaKldHUKuA0j/uRgn5O4lV/Ic6NKIVUByj944OQEhZAlPCemm50K+c5fN51VFRHJttKXThmWxsZug4fUuNdlJkwn7Rj7ChLJnliwe29GtL2zHLCXw1rONltmxLiAQJv0E3Ph6Bn+sCnWtCD4PQklAQ+G+481mRX1enjOjkJiGtIkZYcOknoQuOzEa0BJ2ReonvOf3ZPXdJNr94WmRjXiV4K4pvd957le4Owavnk2nU2+QyOvDTReSxVMCp2YHBSdk6ZmbI3aGWIzP5uFJCRna7ulTFbo/iXN7byLq+XfmTRaYZYcStBqY0/yu5qN9vxE+aKufLpnBjXw+BZBj4CNpl4PncPEx/5mLefipRLyEN2EwM1T7a3bbSeeKVs2HHZ6wn0pMK1kE4Om5JKGj3hDCSfQuSIdSmZz6JxiJlLwXRNBtmRjIQKDD6skV66juct8EekYoYXwwE9T8PSvJNEhFLceLegj3Sc68sTbqPKJNg+34N5z4/QhkR98Ped9QccyRhfVNsPwaRSbLtgLTSndRoSQvr4sRby1AJ3XJeYVUaBjxoJVJfP0YOI=
+    secure: di7X9tU5//ZBO475+Sh1qtH/Tb5+bPzQKJiW5vnGRr+/6Pv5WRp3waT4u0ibr8dD5rOVuYrNEYANtHlHqEGS8ytayfk5MXLipFEMeOuHZw+uUZ9ZSV2deJOsivkVISqVdBORlhfgAnINjBAgX2skIgxpP4ffiBm35fVciVbmUxoBIDS/NVom2c8tBCjNt4VhUdLn9ZtvoOXhmbLE5K3KHGVDIzibMWrZS0YxluuN38QaNs+mmiikCNsOVO/cebMi21f9S4v+VWZ+Aqi+k/HA52Gb7NJDLz2Ai7tTwuiVF+H/EjkAZlEM/pkhvP/GZIb6bCqZYx9qNbg9zDe+gpGK87sioxjTRv/IJTqw4T9g2kzhm5Mmpgz61WYacTBXj4q2Yt/M0i6L08oqsAw4RVn8D7e6KfmpAW4t2CsiQshPKS+CkB6uoluuzu2czdKBWVgtmhjCswe5JBOh2F1na432Iz/zIovXo7dkketc6/t6qTcv5MvcNEDSFkzmEpgmLieizyVNvr0S6yNVnoQ5AwWMb0mOJPZlqrSaJ6Y+tE/dFux3mqREqKLR28aOpw8eAZ5JFeUFAsxtuZNYb7dJ+6zyQY3oqkw1U4L4LmbiMoiwkZKUWdiLFvZ9Pxss6GVVSJX4G0B7YNjiOjyrnAlOwL9Cu6xl6x86K+XlgW44qrZKD58=
   on:
     tag: true
     branch: master
