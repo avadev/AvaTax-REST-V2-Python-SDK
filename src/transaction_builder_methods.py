@@ -129,7 +129,7 @@ class Mixin:
         the default item (P0000000) is assumed.
         :return:  TransactionBuilder
         """
-        if line_number is not None
+        if line_number is not None:
             self.line_num = line_number;
         
         temp = {
