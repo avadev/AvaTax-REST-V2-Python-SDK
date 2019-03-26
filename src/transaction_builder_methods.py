@@ -140,7 +140,7 @@ class Mixin:
         self.line_num += 1
         return self
 
-    def with_exempt_line(self, amount, item_code, exemption_code):
+    def with_exempt_line(self, amount, item_code, exemption_code, line_number):
         """
         Add a line with an exemption to this transaction.
 
@@ -149,6 +149,9 @@ class Mixin:
         :param   string  exemption_code:  The exemption code for this line item
         :return:  TransactionBuilder
         """
+        if line_number is not None
+            self.line_num = line_number;
+
         temp = {
             'number': str(self.line_num),
             'quantity': 1,
