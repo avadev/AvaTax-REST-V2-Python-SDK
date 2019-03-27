@@ -118,7 +118,7 @@ class Mixin:
                                                         'longitude': float(long_)}
         return self
 
-    def with_line(self, amount, quantity, item_code, tax_code):
+    def with_line(self, amount, quantity, item_code, tax_code, line_number=None):
         r"""
         Add a line to the transaction.
 
@@ -127,8 +127,12 @@ class Mixin:
         :param  string  item_code: Code of the item.
         :param  string  tax_code:  Tax Code of the item. If left blank, \
         the default item (P0000000) is assumed.
+        :param  [int]  line_number: Value of the line number.
         :return:  TransactionBuilder
         """
+        if line_number is not None:
+            self.line_num = line_number;
+        
         temp = {
             'number': str(self.line_num),
             'amount': amount,
@@ -149,6 +153,7 @@ class Mixin:
         :param   string  exemption_code:  The exemption code for this line item
         :return:  TransactionBuilder
         """
+
         temp = {
             'number': str(self.line_num),
             'quantity': 1,

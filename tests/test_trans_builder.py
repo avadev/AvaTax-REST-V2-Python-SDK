@@ -59,6 +59,17 @@ def test_with_line_method(mt_trans):
     trans = mt_trans.with_line(20, 100, 'ITEM2001', 1234567)
     assert trans.create_model['lines'][-1] == temp
 
+def test_with_line_method_line_number_not_null(mt_trans):
+    """Test method functionality of the Transaction Builder."""
+    temp = {
+        'amount': 20,
+        'number': '2',
+        'quantity': 100,
+        'itemCode': 'ITEM2001',
+        'taxCode': '1234567'
+    }
+    trans = mt_trans.with_line(20, 100, 'ITEM2001', 1234567, 2)
+    assert trans.create_model['lines'][-1] == temp
 
 def test_with_exempt_line_method(mt_trans):
     """Test method functionality of the Transaction Builder."""
