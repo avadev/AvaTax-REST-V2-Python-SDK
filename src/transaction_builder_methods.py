@@ -127,6 +127,7 @@ class Mixin:
         :param  string  item_code: Code of the item.
         :param  string  tax_code:  Tax Code of the item. If left blank, \
         the default item (P0000000) is assumed.
+        :param  [int]  line_number: Value of the line number.
         :return:  TransactionBuilder
         """
         if line_number is not None:
