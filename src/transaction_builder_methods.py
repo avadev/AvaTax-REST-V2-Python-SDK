@@ -118,7 +118,7 @@ class Mixin:
                                                         'longitude': float(long_)}
         return self
 
-    def with_line(self, amount, quantity, item_code, tax_code, line_number):
+    def with_line(self, amount, quantity, item_code, tax_code, line_number=None):
         r"""
         Add a line to the transaction.
 
