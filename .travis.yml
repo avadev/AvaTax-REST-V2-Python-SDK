@@ -2,7 +2,7 @@ language: python
 python:
 - '2.7'
 - '3.6'
-install:
+install: 
 - pip install -e .[test]
 - pip install -e .
 - pip install pytest-cov
