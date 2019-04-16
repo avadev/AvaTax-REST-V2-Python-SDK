@@ -16,6 +16,8 @@ class Mixin:
       Resetting a license key cannot be undone. Any previous license keys will immediately cease to work when a new key is created.
       When you call this API, all account administrators for this account will receive an email with the newly updated license key.
       The email will specify which user reset the license key and it will contain the new key to use to update your connectors.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the account you wish to update.
       :param model [ResetLicenseKeyModel] A request confirming that you wish to reset the license key of this account.
@@ -36,6 +38,8 @@ class Mixin:
       a license key for your account.
       If you have not read or accepted the terms and conditions, this API call will return the
       unchanged account model.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the account to activate
       :param model [ActivateAccountModel] The activation request
@@ -59,6 +63,8 @@ class Mixin:
       * The amount of data and number of API calls returned by this API are limited and may be adjusted at any time.
       * Old records may be migrated out of immediately available storage. To request older data, please contact your account manager.
       * New records must migrate to available storage before they can be retrieved. You may need to wait a period of time before newly created records can be fetched.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the account you wish to audit.
       :param start [datetime] The start datetime of audit history you with to retrieve, e.g. "2018-06-08T17:00:00Z". Defaults to the past 15 minutes.
@@ -79,6 +85,8 @@ class Mixin:
       You may use the '$include' parameter to fetch additional nested data:
       * Subscriptions
       * Users
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the account to retrieve
       :param include [string] A comma separated list of special fetch options
@@ -101,6 +109,8 @@ class Mixin:
       account setting to null if desired.
       Avalara-based account settings for `TaxServiceConfig` and `AddressServiceConfig` affect your account's
       tax calculation and address resolution, and should only be changed with care.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] 
       :return AccountConfigurationModel
@@ -121,6 +131,8 @@ class Mixin:
       * Subscriptions
       * Users
       For more information about filtering in REST, please see the documentation at http://developer.avalara.com/avatax/filtering-in-rest/ .
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param include [string] A comma separated list of objects to fetch underneath this account. Any object with a URL path underneath this account can be fetched by specifying its name.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* subscriptions, users
@@ -146,6 +158,8 @@ class Mixin:
       account setting to null if desired.
       Avalara-based account settings for `TaxServiceConfig` and `AddressServiceConfig` affect your account's
       tax calculation and address resolution, and should only be changed with care.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
       :param model [AccountConfigurationModel] 
@@ -165,6 +179,9 @@ class Mixin:
       'messages' structure to learn more about problems with this address.
       This is the same API as the POST /api/v2/addresses/resolve endpoint.
       Both verbs are supported to provide for flexible implementation.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AutoAddress.
     
       :param line1 [string] Line 1
       :param line2 [string] Line 2
@@ -190,6 +207,9 @@ class Mixin:
       'messages' structure to learn more about problems with this address.
       This is the same API as the GET /api/v2/addresses/resolve endpoint.
       Both verbs are supported to provide for flexible implementation.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AutoAddress.
     
       :param model [AddressValidationInfo] The address to resolve
       :return AddressResolutionModel
@@ -204,6 +224,10 @@ class Mixin:
     
     Create one or more AvaFileForms
       A 'AvaFileForm' represents a form supported by our returns team
+      ### Security Policies
+      * This API requires the user role Compliance Root User.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param model [AvaFileFormModel] The AvaFileForm you wish to create.
       :return AvaFileFormModel
@@ -217,6 +241,10 @@ class Mixin:
     Delete a single AvaFileForm
     
     Marks the existing AvaFileForm object at this URL as deleted.
+      ### Security Policies
+      * This API requires one of the following user roles: Compliance Root User, ComplianceUser, FirmAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param id_ [int] The ID of the AvaFileForm you wish to delete.
       :return ErrorDetail
@@ -230,6 +258,10 @@ class Mixin:
     Retrieve a single AvaFileForm
     
     Get the AvaFileForm object identified by this URL.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
     
       :param id_ [int] The primary key of this AvaFileForm
       :return AvaFileFormModel
@@ -244,6 +276,10 @@ class Mixin:
     
     Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* outletTypeId
       :param include [string] A comma separated list of additional data to retrieve.
@@ -262,6 +298,10 @@ class Mixin:
     
     All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires the user role Compliance Root User.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param id_ [int] The ID of the AvaFileForm you wish to update
       :param model [AvaFileFormModel] The AvaFileForm model you wish to update.
@@ -286,6 +326,8 @@ class Mixin:
       predict when a batch will complete. If high performance processing is
       required, please use the
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this batch.
       :param model [BatchModel] The batch you wish to create.
@@ -307,6 +349,8 @@ class Mixin:
       predict when a batch will complete. If high performance processing is
       required, please use the
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
+      ### Security Policies
+      * This API requires one of the following user roles: CSPAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this batch.
       :param id_ [int] The ID of the batch to delete.
@@ -321,6 +365,8 @@ class Mixin:
     Download a single batch file
     
     Download a single batch file identified by this URL.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this batch
       :param batchId [int] The ID of the batch object
@@ -347,6 +393,8 @@ class Mixin:
       predict when a batch will complete. If high performance processing is
       required, please use the
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this batch
       :param id_ [int] The primary key of this batch
@@ -376,6 +424,8 @@ class Mixin:
       predict when a batch will complete. If high performance processing is
       required, please use the
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these batches
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* files
@@ -407,6 +457,8 @@ class Mixin:
       predict when a batch will complete. If high performance processing is
       required, please use the
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* files
       :param include [string] A comma separated list of additional data to retrieve.
@@ -435,6 +487,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that will record certificates
       :param customerCode [string] The number of the customer where the request is sent to
@@ -461,6 +516,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that issued this invitation
       :param customerCode [string] The number of the customer where the request is sent to
@@ -488,6 +546,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that issued this invitation
       :param include [string] OPTIONAL: A comma separated list of special fetch options.       No options are defined at this time.
@@ -520,6 +581,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company recording this certificate
       :param preValidatedExemptionReason [boolean] If set to true, the certificate will bypass the human verification process.
@@ -544,6 +608,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -568,6 +635,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -596,6 +666,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -616,6 +689,9 @@ class Mixin:
       `GetCertificateSetup` to see if your company is configured to use the exemption certificate
       document store. To request setup, please call `RequestCertificateSetup` and your company will
       be configured with data storage in the auditable certificate system.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The company ID to check
       :return ProvisionStatusModel
@@ -639,6 +715,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -665,6 +744,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -690,6 +772,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -714,10 +799,13 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
-      :param include [string] OPTIONAL: A comma separated list of special fetch options.    No options are currently available when fetching customers.
+      :param include [string] OPTIONAL: A comma separated list of special fetch options.   No options are currently available when fetching customers.
       :return FetchResult
     """
     def list_customers_for_certificate(self, companyId, id_, include=None):
@@ -741,6 +829,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company to search
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.
@@ -765,6 +856,9 @@ class Mixin:
       document store. To request setup, please call `RequestCertificateSetup` and your company will
       be configured with data storage in the auditable certificate system.
       This API will return the current status of exemption certificate setup for this company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] 
       :return ProvisionStatusModel
@@ -788,6 +882,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -815,6 +912,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -838,6 +938,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -863,6 +966,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -886,6 +992,8 @@ class Mixin:
       * Avalara compliance team members may change a company from `FilingRequested` to `FirstFiling`.
       * Avalara compliance team members may change a company from `FirstFiling` to `Active`.
       All other status changes must be requested through the Avalara customer support team.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
       :param model [FilingStatusChangeModel] 
@@ -909,6 +1017,8 @@ class Mixin:
       This API only provides a limited subset of functionality compared to the 'Create Company' API call.
       If you need additional features or options not present in this 'Quick Setup' API call, please use the full 'Create Company' call instead.
       Please allow 1 minute before making transactions using the company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param model [CompanyInitializationModel] Information about the company you wish to create.
       :return CompanyModel
@@ -924,6 +1034,8 @@ class Mixin:
     Create one or more new company objects.
       A 'company' represents a single corporation or individual that is registered to handle transactional taxes.
       You may attach nested data objects such as contacts, locations, and nexus with this CREATE call, and those objects will be created with the company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param model [CompanyModel] Either a single company object or an array of companies to create
       :return CompanyModel
@@ -946,6 +1058,8 @@ class Mixin:
       before approval.
       This API records that an ambedded HTML funding setup widget was activated.
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The unique identifier of the company
       :param model [FundingInitiateModel] The funding initialization request
@@ -960,6 +1074,8 @@ class Mixin:
     Delete a single company
     
     Deleting a company will delete all child companies, and all users attached to this company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the company you wish to delete.
       :return ErrorDetail
@@ -976,6 +1092,10 @@ class Mixin:
       Requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       Returns the funding configuration of the requested company.
       .
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique identifier of the company
       :return FundingConfigurationModel
@@ -992,6 +1112,10 @@ class Mixin:
       Requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       Returns the funding configuration of the requested company.
       .
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique identifier of the company
       :param currency [string] The currency of the funding. USD and CAD are the only valid currencies
@@ -1016,9 +1140,11 @@ class Mixin:
        * TaxCodes
        * TaxRules
        * UPC
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the company to retrieve.
-      :param include [string] OPTIONAL: A comma separated list of special fetch options.      * Child objects - Specify one or more of the following to retrieve objects related to each company: "Contacts", "FilingCalendars", "Items", "Locations", "Nexus", "TaxCodes", or "TaxRules".   * Deleted objects - Specify "FetchDeleted" to retrieve information about previously deleted objects.
+      :param include [string] OPTIONAL: A comma separated list of special fetch options.      * Child objects - Specify one or more of the following to retrieve objects related to each company: "Contacts", "FilingCalendars", "Items", "Locations", "Nexus", "TaxCodes", "NonReportingChildren" or "TaxRules".   * Deleted objects - Specify "FetchDeleted" to retrieve information about previously deleted objects.
       :return CompanyModel
     """
     def get_company(self, id_, include=None):
@@ -1038,6 +1164,8 @@ class Mixin:
       company setting to null if desired and if the particular setting supports it.
       Avalara-based company settings for `AvaCertServiceConfig` affect your company's exemption certificate
       processing, and should be changed with care.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] 
       :return CompanyConfigurationModel
@@ -1060,6 +1188,8 @@ class Mixin:
       * `FilingRequested` - The company has requested to begin filing tax returns, but Avalara's compliance team has not yet begun filing.
       * `FirstFiling` - The company has recently filing tax returns and is in a new status.
       * `Active` - The company is currently active and is filing tax returns via Avalara Managed Returns.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] 
       :return string
@@ -1076,6 +1206,8 @@ class Mixin:
       Requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       Returns a list of funding setup requests and their current status.
       Each object in the result is a request that was made to setup or adjust funding status for this company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The unique identifier of the company
       :return FundingStatusModel
@@ -1090,6 +1222,8 @@ class Mixin:
     
     This API is available by invitation only.
       Get a list of companies with an active MRS service.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :return FetchResult
     """
@@ -1114,9 +1248,11 @@ class Mixin:
       * TaxCodes
       * TaxRules
       * UPC
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param include [string] A comma separated list of objects to fetch underneath this company. Any object with a URL path underneath this company can be fetched by specifying its name.
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* contacts, items, locations, nexus, settings, taxCodes, taxRules, upcs, exemptCerts
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* contacts, items, locations, nexus, settings, taxCodes, taxRules, upcs, nonReportingChildCompanies, exemptCerts
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -1139,6 +1275,8 @@ class Mixin:
       company setting to null if desired and if the particular setting supports it.
       Avalara-based company settings for `AvaCertServiceConfig` affect your company's exemption certificate
       processing, and should be changed with care.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
       :param model [CompanyConfigurationModel] 
@@ -1158,6 +1296,8 @@ class Mixin:
       When calling `UpdateCompany`, you are permitted to update the company itself. Updates to the nested objects
       such as contacts, locations, or settings are not permitted. To update the nested objects
       To set a field's value to `null`, you may either set its value to `null` or omit that field from the object you PUT.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the company you wish to update.
       :param model [CompanyModel] The company object you wish to update.
@@ -1169,143 +1309,13 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Retrieve a single tax rate.
-    
-    This API is available by invitation only.
-    
-      :param id_ [int] The ID of the tax rate to retrieve.
-      :return ComplianceTaxRateModel
-    """
-    def get_tax_rate(self, id_):
-        return requests.get('{}/api/v2/compliance/taxrates/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a single tax region.
-    
-    This API is available by invitation only.
-    
-      :param id_ [int] The ID of the tax region to retrieve.
-      :return TaxRegionModel
-    """
-    def get_tax_region(self, id_):
-        return requests.get('{}/api/v2/compliance/taxregions/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve jurisdictions and rates in a combined format.
-    
-    This API is available by invitation only.
-    
-      :param effectiveDate [datetime] Used to limit the jurisdictions returned.
-      :param endDate [datetime] Used to limit the jurisdictions returned.
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] A comma separated list of objects to fetch underneath this jurisdiction.
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ComplianceJurisdictionRateModel
-    """
-    def query_jurisdiction_rates(self, include=None):
-        return requests.get('{}/api/v2/compliance/jurisdictionrates'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all unique jurisdictions.
-    
-    This API is available by invitation only.
-      You may specify one or more of the following values in the '$include' parameter to fetch additional nested data, using commas to separate multiple values:
-      * TaxRates
-    
-      :param country [string] The two-character ISO-3166 code for the country.
-      :param region [string] The two or three character region code for the region.
-      :param effectiveDate [datetime] Used to limit the jurisdictions or rates returned.
-      :param endDate [datetime] Used to limit the jurisdictions or rates returned.
-      :param aggregationOption [StackAggregationOption] Aggregation method used if rates are returned using the '$include' parameter. (See StackAggregationOption::* for a list of allowable values)
-      :param include [string] A comma separated list of objects to fetch underneath this tax rate.
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :return ComplianceJurisdictionModel
-    """
-    def query_jurisdictions(self, country, region, include=None):
-        return requests.get('{}/api/v2/compliance/jurisdictions/{}/{}'.format(self.base_url, country, region),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all tax rates.
-    
-    This API is available by invitation only.
-    
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] A comma separated list of objects to fetch underneath this tax rate.
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ComplianceTaxRateModel
-    """
-    def query_tax_rates(self, include=None):
-        return requests.get('{}/api/v2/compliance/taxrates'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all tax region jurisdictions.
-    
-    This API is available by invitation only.
-    
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] A comma separated list of objects to fetch underneath this tax region jurisdiction.
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxRegionJurisdictionModel
-    """
-    def query_tax_region_jurisdictions(self, include=None):
-        return requests.get('{}/api/v2/compliance/taxregionjurisdictions'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all tax regions.
-    
-    This API is available by invitation only.
-    
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] A comma separated list of objects to fetch underneath this tax region.
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxRegionModel
-    """
-    def query_tax_regions(self, include=None):
-        return requests.get('{}/api/v2/compliance/taxregions'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    API to modify the reference fields at the document and the line level.
-    
-    
-    
-      :param companyId [int] 
-      :param model [TransactionReferenceFieldModel] 
-      :return FetchResult
-    """
-    def tag_transaction(self, companyId, model):
-        return requests.put('{}/api/v2/companies/{}/transactions/tag'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Create a new contact
     
     Create one or more new contact objects.
       A 'contact' is a person associated with a company who is designated to handle certain responsibilities of
       a tax collecting and filing entity.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this contact.
       :param model [ContactModel] The contacts you wish to create.
@@ -1320,6 +1330,8 @@ class Mixin:
     Delete a single contact
     
     Mark the existing contact object at this URL as deleted.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this contact.
       :param id_ [int] The ID of the contact you wish to delete.
@@ -1336,6 +1348,8 @@ class Mixin:
     Get the contact object identified by this URL.
       A 'contact' is a person associated with a company who is designated to handle certain responsibilities of
       a tax collecting and filing entity.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company for this contact
       :param id_ [int] The primary key of this contact
@@ -1352,6 +1366,8 @@ class Mixin:
     List all contact objects assigned to this company.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns these contacts
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -1374,6 +1390,8 @@ class Mixin:
       a tax collecting and filing entity.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
@@ -1395,6 +1413,8 @@ class Mixin:
       a tax collecting and filing entity.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this contact belongs to.
       :param id_ [int] The ID of the contact you wish to update
@@ -1421,6 +1441,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param model [CustomerModel] The list of customer objects to be created
@@ -1444,6 +1467,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1470,6 +1496,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1494,6 +1523,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1518,6 +1550,9 @@ class Mixin:
       one bill-to customer code and multiple ship-to customer codes in a single API call.
       Note that you can only link a ship-to customer record to a bill-to customer record. You may not link two customers
       of the same kind together.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company defining customers.
       :param code [string] The code of the bill-to customer to link.
@@ -1542,6 +1577,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1572,6 +1610,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1599,6 +1640,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param include [string] OPTIONAL - You can specify the value `certificates` to fetch information about certificates linked to the customer.
@@ -1626,6 +1670,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1650,6 +1697,9 @@ class Mixin:
       Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
       certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
       storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1665,6 +1715,9 @@ class Mixin:
     Create and store new datasources for the respective companies.
     
     Create one or more datasource objects.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The id of the company you which to create the datasources
       :param model [DataSourceModel] 
@@ -1679,6 +1732,9 @@ class Mixin:
     Delete a datasource by datasource id for a company.
     
     Marks the existing datasource for a company as deleted.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The id of the company the datasource belongs to.
       :param id_ [int] The id of the datasource you wish to delete.
@@ -1693,6 +1749,9 @@ class Mixin:
     Get data source by data source id
     
     Retrieve the data source by its unique ID number.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] 
       :param id_ [int] data source id
@@ -1707,6 +1766,9 @@ class Mixin:
     Retrieve all datasources for this company
     
     Gets multiple datasource objects for a given company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The id of the company you wish to retrieve the datasources.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isEnabled, isSynced, isAuthorized
@@ -1726,6 +1788,9 @@ class Mixin:
     Get multiple datasource objects across all companies.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isEnabled, isSynced, isAuthorized
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -1742,6 +1807,9 @@ class Mixin:
     Update a datasource identified by id for a company
     
     Updates a datasource for a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The id of the company the datasource belongs to.
       :param id_ [int] The id of the datasource you wish to delete.
@@ -1763,6 +1831,8 @@ class Mixin:
       but can contain information relevant to deciding the correct HS Code.
       This API is intended to be useful to review the descriptive hierarchy of an HS Code, which can be particularly helpful
       when HS Codes can have multiple levels of generic descriptions.
+      ### Security Policies
+      * This API depends on the following active services<br />*Required* (all): AvaTaxGlobal.
     
       :param country [string] The name or code of the destination country.
       :param hsCode [string] The partial or full HS Code for which you would like to view all of the parents.
@@ -1969,6 +2039,8 @@ class Mixin:
       An HS Code describes an item and its eligibility/rate for tariffs. HS Codes are organized by
       Section/Chapter/Heading/Subheading/Classification.
       This API is intended to be useful to identify the correct HS Code to use for your item.
+      ### Security Policies
+      * This API depends on the following active services<br />*Required* (all): AvaTaxGlobal.
     
       :param country [string] The name or code of the destination country.
       :param hsCode [string] The Section or partial HS Code for which you would like to view the next level of HS Code detail, if more detail is available.
@@ -1991,6 +2063,8 @@ class Mixin:
       by Section/Chapter/Heading/Subheading/Classification.
       This API is intended to be useful to identify the top level Sections for
       further LandedCost HS Code lookups.
+      ### Security Policies
+      * This API depends on the following active services<br />*Required* (all): AvaTaxGlobal.
     
       :return FetchResult
     """
@@ -2153,7 +2227,7 @@ class Mixin:
     Returns the full list of all Avalara-supported nexus for all countries and regions.
       This API is intended to be useful if your user interface needs to display a selectable list of nexus.
     
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, taxAuthorityId
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -2180,7 +2254,7 @@ class Mixin:
       :param region [string] Name or ISO 3166 code identifying the region portion of the address.      This field supports many different region identifiers:   * Two and three character ISO 3166 region codes   * Fully spelled out names of the region in ISO supported languages   * Common alternative spellings for many regions      For a full list of all supported codes and names, please see the Definitions API `ListRegions`.
       :param postalCode [string] The postal code or zip code portion of this address.
       :param country [string] Name or ISO 3166 code identifying the country portion of this address.      This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries      For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, taxAuthorityId
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -2198,7 +2272,7 @@ class Mixin:
       This API is intended to be useful if your user interface needs to display a selectable list of nexus filtered by country.
     
       :param country [string] The country in which you want to fetch the system nexus
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, taxAuthorityId
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -2217,7 +2291,7 @@ class Mixin:
     
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, taxAuthorityId
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -2239,6 +2313,8 @@ class Mixin:
       This API is intended to provide useful information when examining a tax form. If you are about to begin filing
       a tax form, you may want to know whether you have declared nexus in all the jurisdictions related to that tax
       form in order to better understand how the form will be filled out.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param formCode [string] The form code that we are looking up the nexus for
       :return NexusByTaxFormModel
@@ -2440,6 +2516,8 @@ class Mixin:
     Retrieve the parameters by companyCode and itemCode.
     
     Returns the list of parameters based on the company country and state jurisdiction and the item code.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyCode [string] Company code.
       :param itemCode [string] Item code.
@@ -2714,6 +2792,8 @@ class Mixin:
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
       If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
       taxability rules for this product in all supported jurisdictions.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -2817,6 +2897,8 @@ class Mixin:
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold
       :param model [CompanyDistanceThresholdModel] The DistanceThreshold object or objects you wish to create.
@@ -2834,6 +2916,8 @@ class Mixin:
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold
       :param id_ [int] The unique ID number of the DistanceThreshold object you wish to delete.
@@ -2851,6 +2935,8 @@ class Mixin:
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns this DistanceThreshold object
       :param id_ [int] The unique ID number referring to this DistanceThreshold object
@@ -2868,6 +2954,8 @@ class Mixin:
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company whose DistanceThreshold objects you wish to list.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -2891,6 +2979,8 @@ class Mixin:
       to correctly calculate some value-added taxes.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
@@ -2913,6 +3003,8 @@ class Mixin:
       to correctly calculate some value-added taxes.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold object.
       :param id_ [int] The unique ID number of the DistanceThreshold object to replace.
@@ -2925,89 +3017,16 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Bridge API for integration of validated certificates
-    
-    This API is for use by invitation only.
-    
-      :param model [EcmsModel] Either a single exempt certificate or an array of certificates to create
-      :return EcmsModel
-    """
-    def cert_capture_bridge(self, model):
-        return requests.post('{}/api/v2/certcapturebridge'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Get an ECMS identified by company id and ECMS id
-    
-    Get an ECMS identified by company id and ECMS id.
-      An ECMS data represents a documentation based on which companies can claim tax exemption
-      You may attach nested data objects such as exempt cert detail, and those objects will be created with certificate.
-      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
-      * Details
-    
-      :param companyId [int] company to retrieve exempt certificate for
-      :param ecmsId [int] exempt certificate Id
-      :param include [string] 
-      :return EcmsModel
-    """
-    def get_e_c_m_s_by_id(self, companyId, ecmsId, include=None):
-        return requests.get('{}/api/v2/companies/{}/ecms/{}'.format(self.base_url, companyId, ecmsId),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Get list of ECMS data for this company
-    
-    Get list of ECMS data for this company
-      An ECMS data represents a documentation based on which companies can claim tax exemption
-      You may attach nested data objects such as ECMS detail, and those objects will be created with certificate.
-      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
-      * Details
-    
-      :param companyId [int] which company to retrieve certificates from
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] 
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return EcmsModel
-    """
-    def list_e_c_m_s_by_company(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/ecms'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Get all exempt certificates
-    
-    Get all ECMS currently available in database.
-      An ECMS data represents a documentation based on which companies can claim tax exemption
-      You may attach nested data objects such as ECMS detail, and those objects will be created with certificate.
-      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
-      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
-      * Details
-    
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] 
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return EcmsModel
-    """
-    def query_e_c_m_s(self, include=None):
-        return requests.get('{}/api/v2/ecms'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Approve existing Filing Request
     
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
       The filing request must be in the "ChangeRequest" status to be approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing request object
@@ -3024,6 +3043,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing request object
@@ -3040,6 +3063,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID number of the filing calendar to cancel
@@ -3056,6 +3083,10 @@ class Mixin:
     
     This API is available by invitation only and only available for users with Compliance access
       A "filing request" represents information that compliance uses to file a return
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique ID of the company that will add the new filing calendar
       :param model [FilingCalendarModel] Filing calendars that will be added
@@ -3072,6 +3103,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique ID of the company that will add the new filing calendar
       :param model [FilingRequestModel] Information about the proposed new filing calendar
@@ -3086,6 +3121,10 @@ class Mixin:
     Returns a list of options for adding the specified form.
     
     This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param formCode [string] The unique code of the form
@@ -3100,6 +3139,10 @@ class Mixin:
     Indicates when changes are allowed to be made to a filing calendar.
     
     This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID of the filing calendar object
@@ -3115,6 +3158,10 @@ class Mixin:
     Returns a list of options for expiring a filing calendar
     
     This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID of the filing calendar object
@@ -3132,6 +3179,10 @@ class Mixin:
       Mark the existing notice object at this URL as deleted.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns this filing calendar.
       :param id_ [int] The ID of the filing calendar you wish to delete.
@@ -3146,6 +3197,10 @@ class Mixin:
     Retrieve a single filing calendar
     
     This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns this filing calendar
       :param id_ [int] The primary key of this filing calendar
@@ -3162,6 +3217,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns this filing calendar
       :param id_ [int] The primary key of this filing calendar
@@ -3176,6 +3235,10 @@ class Mixin:
     Retrieve all filing calendars for this company
     
     This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns these batches
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* formCountry, formRegion, taxFormCode, taxAuthorityId, taxAuthorityName, taxAuthorityType, settings
@@ -3197,6 +3260,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns these batches
       :param filingCalendarId [int] Specific filing calendar id for the request
@@ -3216,6 +3283,10 @@ class Mixin:
     
     This API is available by invitation only.
       This API verifies that a customer has submitted correct login credentials for a tax authority's online filing system.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param model [LoginVerificationInputModel] The model of the login information we are verifying
       :return LoginVerificationOutputModel
@@ -3231,6 +3302,10 @@ class Mixin:
     This API is available by invitation only.
       This API checks the status of a login verification request. It may only be called by authorized users from the account
       that initially requested the login verification.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param jobId [int] The unique ID number of this login request
       :return LoginVerificationOutputModel
@@ -3245,6 +3320,10 @@ class Mixin:
     
     This API is available by invitation only.
       This API is deprecated - please use POST `/api/v2/filingrequests/query` API.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* formCountry, formRegion, taxFormCode, taxAuthorityId, taxAuthorityName, taxAuthorityType, settings
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -3265,6 +3344,10 @@ class Mixin:
     This API is available by invitation only.
       This API is intended to replace the GET `/api/v2/filingcalendars` API. The fetch request object is posted on the body of the request instead of the URI, so it's not limited by a set number of characters.
       The documentation of the GET API shows how filtering, sorting and pagination works.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param returnCountry [string] If specified, fetches only filing calendars that apply to tax filings in this specific country. Uses ISO 3166 country codes.
       :param returnRegion [string] If specified, fetches only filing calendars that apply to tax filings in this specific region. Uses ISO 3166 region codes.
@@ -3285,6 +3368,10 @@ class Mixin:
       are reviewed and validated by Avalara Compliance before being implemented.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param filingCalendarId [int] Specific filing calendar id for the request
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -3304,6 +3391,10 @@ class Mixin:
     This API is available by invitation only.
       This API is intended to replace the GET `/api/v2/filingrequests` API. The fetch request object is posted on the body of the request instead of the URI, so it's not limited by a set number of characters.
       The documentation of the GET API shows how filtering, sorting and pagination works.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param filingCalendarId [int] Specific filing calendar id for the request
       :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
@@ -3322,6 +3413,10 @@ class Mixin:
       are reviewed and validated by Avalara Compliance before being implemented.
       Certain users may not update filing calendars directly. Instead, they may submit an edit request
       to modify the value of a filing calendar using this API.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID number of the filing calendar to edit
@@ -3337,6 +3432,10 @@ class Mixin:
     Edit existing Filing Calendar
     
     This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID of the filing calendar object
@@ -3354,6 +3453,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing request" represents a request to change an existing filing calendar. Filing requests
       are reviewed and validated by Avalara Compliance before being implemented.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing request object
@@ -3375,6 +3478,10 @@ class Mixin:
       Sometimes Compliance has to manually unapprove and reapprove to modify liability or filing for the customer.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to approve.
@@ -3397,6 +3504,10 @@ class Mixin:
       Sometimes Compliance has to manually unapprove and reapprove to modify liability or filing for the customer.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to approve.
@@ -3420,6 +3531,10 @@ class Mixin:
       Sometimes Compliance has to manually unapprove and reapprove to modify liability or filing for the customer.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to approve.
@@ -3443,6 +3558,10 @@ class Mixin:
       Sometimes may be a manual change in tax liability similar to an augmentation.
       This API creates a new adjustment for an existing tax filing.
       This API can only be used when the filing has not yet been approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param year [int] The year of the filing's filing period being adjusted.
@@ -3466,6 +3585,10 @@ class Mixin:
       usually due to customer wanting to report tax Avatax does not support, e.g. bad debts, rental tax.
       This API creates a new augmentation for an existing tax filing.
       This API can only be used when the filing has not been approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filing being changed.
       :param year [int] The month of the filing's filing period being changed.
@@ -3490,6 +3613,10 @@ class Mixin:
       Sometimes may be a manual change in tax liability similar to an augmentation.
       This API creates a new payment for an existing tax filing.
       This API can only be used when the filing has not yet been approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param year [int] The year of the filing's filing period being adjusted.
@@ -3514,6 +3641,10 @@ class Mixin:
       Sometimes may be a manual change in tax liability similar to an augmentation.
       This API deletes an adjustment for an existing tax filing.
       This API can only be used when the filing has been unapproved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the adjustment being deleted.
@@ -3532,6 +3663,10 @@ class Mixin:
       usually due to customer wanting to report tax Avatax does not support, e.g. bad debts, rental tax.
       This API deletes an augmentation for an existing tax filing.
       This API can only be used when the filing has been unapproved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filing being changed.
       :param id_ [int] The ID of the augmentation being added.
@@ -3551,6 +3686,10 @@ class Mixin:
       Sometimes may be a manual change in tax liability similar to an augmentation.
       This API deletes an payment for an existing tax filing.
       This API can only be used when the filing has been unapproved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the payment being deleted.
@@ -3565,6 +3704,10 @@ class Mixin:
     Retrieve worksheet checkup report for company and filing period.
     
     This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param filingsId [int] The unique id of the worksheet.
       :param companyId [int] The unique ID of the company that owns the worksheet.
@@ -3579,6 +3722,10 @@ class Mixin:
     Retrieve worksheet checkup report for company and filing period.
     
     This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The unique ID of the company that owns the worksheets object.
       :param year [int] The year of the filing period.
@@ -3593,7 +3740,8 @@ class Mixin:
     r"""
     Retrieve a list of filings for the specified accrual return.
     
-    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns these batches
       :param filingReturnId [int] The ID of the accrual return
@@ -3608,6 +3756,10 @@ class Mixin:
     Retrieve a single attachment for a filing
     
     This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param filingReturnId [int] The unique id of the worksheet return.
@@ -3625,6 +3777,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
@@ -3642,6 +3798,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
@@ -3659,6 +3819,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param id_ [int] The id of the filing return your retrieving
@@ -3676,6 +3840,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
@@ -3693,6 +3861,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
@@ -3711,6 +3883,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
@@ -3730,6 +3906,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
@@ -3748,7 +3928,10 @@ class Mixin:
     Retrieve a list of filings for the specified company in the year and month of a given filing period.
       This gets the basic information from the filings and doesn't include anything extra.
     
-    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
     
       :param companyId [int] The ID of the company that owns these batches
       :param endPeriodMonth [int] The month of the period you are trying to retrieve
@@ -3771,6 +3954,10 @@ class Mixin:
     This API is available by invitation only.
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
@@ -3794,6 +3981,10 @@ class Mixin:
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
       This API requires filing to be unapproved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to be rebuilt.
@@ -3815,6 +4006,10 @@ class Mixin:
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
       This API requires filing to be unapproved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to be rebuilt.
@@ -3837,6 +4032,10 @@ class Mixin:
       A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
       based on filing frequency of filing.
       This API requires filing to be unapproved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to be rebuilt.
@@ -3860,6 +4059,10 @@ class Mixin:
       Sometimes may be a manual change in tax liability similar to an augmentation.
       This API modifies an adjustment for an existing tax filing.
       This API can only be used when the filing has not yet been approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the adjustment being edited.
@@ -3879,6 +4082,10 @@ class Mixin:
       usually due to customer wanting to report tax Avatax does not support, e.g. bad debts, rental tax.
       This API modifies an augmentation for an existing tax filing.
       This API can only be used when the filing has not been approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filing being changed.
       :param id_ [int] The ID of the augmentation being edited.
@@ -3899,6 +4106,10 @@ class Mixin:
       Sometimes may be a manual change in tax liability similar to an augmentation.
       This API modifies an payment for an existing tax filing.
       This API can only be used when the filing has not yet been approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the payment being edited.
@@ -3920,6 +4131,8 @@ class Mixin:
       If all conditions are met, this API will grant a free trial version of AvaTax. For a list of functionality
       available in the free trial and its limitations, please see the [AvaTax Developer Website Free Trial page](https://developer.avalara.com/avatax/signup/).
       After your free trial concludes, you will still be able to use the [Free AvaTax API Suite](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Free/).
+      ### Security Policies
+      * This API may be called without providing authentication credentials.
     
       :param model [FreeTrialRequestModel] Required information to provision a free trial account.
       :return NewAccountModel
@@ -4014,6 +4227,10 @@ class Mixin:
       JavaScript funding setup widget inline.
       Use the 'methodReturn.javaScript' return value to insert this widget into your HTML page.
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param id_ [int] The unique ID number of this funding request
       :return FundingStatusModel
@@ -4036,6 +4253,10 @@ class Mixin:
       before approval.
       This API checks the status on an existing funding request.
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param id_ [int] The unique ID number of this funding request
       :return FundingStatusModel
@@ -4052,6 +4273,8 @@ class Mixin:
       A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
       An item may only have one classification per tax system.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id.
       :param itemId [int] The item id.
@@ -4072,6 +4295,8 @@ class Mixin:
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
       To see available parameters for this item, call `/api/v2/definitions/parameters?$filter=attributeType eq Product`
       Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this item parameter.
       :param itemId [int] The item id.
@@ -4093,6 +4318,8 @@ class Mixin:
       from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
       The tax code takes precedence over the tax code id if both are provided.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this item.
       :param model [ItemModel] The item you wish to create.
@@ -4113,6 +4340,8 @@ class Mixin:
       from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
       Deleting an item will also delete the parameters and classifications associated with that item.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this item.
       :param id_ [int] The ID of the item you wish to delete.
@@ -4129,6 +4358,8 @@ class Mixin:
     Delete a single item classification.
       A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id.
       :param itemId [int] The item id.
@@ -4147,6 +4378,8 @@ class Mixin:
       Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id
       :param itemId [int] The item id
@@ -4167,6 +4400,8 @@ class Mixin:
       and other data fields. AvaTax will automatically look up each `itemCode` and apply the correct tax codes and parameters
       from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this item object
       :param id_ [int] The primary key of this item
@@ -4184,6 +4419,8 @@ class Mixin:
     Retrieve a single item classification.
       A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The company id.
       :param itemId [int] The item id.
@@ -4202,6 +4439,8 @@ class Mixin:
       Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The company id
       :param itemId [int] The item id
@@ -4221,6 +4460,8 @@ class Mixin:
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
       Search for specific objects using the criteria in the `$filter` classification; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` classifications.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The company id.
       :param itemId [int] The item id.
@@ -4244,6 +4485,8 @@ class Mixin:
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The company id
       :param itemId [int] The item id
@@ -4272,6 +4515,8 @@ class Mixin:
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * Parameters
       * Classifications
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that defined these items
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, classifications, parameters
@@ -4297,6 +4542,8 @@ class Mixin:
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, classifications, parameters
       :param include [string] A comma separated list of additional data to retrieve.
@@ -4311,28 +4558,6 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Sync items from a product catalog
-    
-    Syncs a list of items with AvaTax without waiting for them to be created. It is ideal for syncing large product catalogs
-      with AvaTax.
-      Any invalid or duplicate items will be ignored. To diagnose why an item is not created, use the normal create transaction API to receive validation information.
-      This API is currently limited to 1000 items per call (the limit is subject to change).
-      Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
-      can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
-      and other data fields. AvaTax will automatically look up each `itemCode` and apply the correct tax codes and parameters
-      from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
-      team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
-    
-      :param companyId [int] The ID of the company that owns this item.
-      :param model [SyncItemsRequestModel] The request object.
-      :return SyncItemsResponseModel
-    """
-    def sync_items(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/items/sync'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Update a single item
     
     Replace the existing `Item` object at this URL with an updated object.
@@ -4344,6 +4569,8 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT. To set a field's value to null,
       you may either set its value to null or omit that field from the object you post.
       The tax code takes precedence over the tax code id if both are provided.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this item belongs to.
       :param id_ [int] The ID of the item you wish to update
@@ -4362,6 +4589,8 @@ class Mixin:
       A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
       An item may only have one classification per tax system.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id.
       :param itemId [int] The item id.
@@ -4381,6 +4610,8 @@ class Mixin:
       Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id.
       :param itemId [int] The item id
@@ -4401,6 +4632,8 @@ class Mixin:
       jurisdiction for a specific address. If you encounter an address that is on the boundary
       between two different jurisdictions, you can choose to set up a jurisdiction override
       to switch this address to use different taxing jurisdictions.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that owns this override
       :param model [JurisdictionOverrideModel] The jurisdiction override objects to create
@@ -4415,6 +4648,8 @@ class Mixin:
     Delete a single override
     
     Marks the item object at this URL as deleted.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that owns this override
       :param id_ [int] The ID of the override you wish to delete
@@ -4433,6 +4668,8 @@ class Mixin:
       jurisdiction for a specific address. If you encounter an address that is on the boundary
       between two different jurisdictions, you can choose to set up a jurisdiction override
       to switch this address to use different taxing jurisdictions.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param accountId [int] The ID of the account that owns this override
       :param id_ [int] The primary key of this override
@@ -4453,6 +4690,8 @@ class Mixin:
       to switch this address to use different taxing jurisdictions.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param accountId [int] The ID of the account that owns this override
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* country, Jurisdictions
@@ -4477,6 +4716,8 @@ class Mixin:
       to switch this address to use different taxing jurisdictions.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* country, Jurisdictions
       :param include [string] A comma separated list of additional data to retrieve.
@@ -4494,6 +4735,8 @@ class Mixin:
     Update a single jurisdictionoverride
     
     Replace the existing jurisdictionoverride object at this URL with an updated object.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that this jurisdictionoverride belongs to.
       :param id_ [int] The ID of the jurisdictionoverride you wish to update
@@ -4509,6 +4752,8 @@ class Mixin:
     Create a new location
     
     Create one or more new location objects attached to this company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this location.
       :param model [LocationModel] The location you wish to create.
@@ -4523,6 +4768,8 @@ class Mixin:
     Delete a single location
     
     Mark the location object at this URL as deleted.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this location.
       :param id_ [int] The ID of the location you wish to delete.
@@ -4543,6 +4790,8 @@ class Mixin:
       For more information on metadata requirements, see the '/api/v2/definitions/locationquestions' API.
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * LocationSettings
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
@@ -4566,6 +4815,8 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * LocationSettings
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns these locations
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* settings
@@ -4592,6 +4843,8 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * LocationSettings
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* settings
       :param include [string] A comma separated list of additional data to retrieve. You may specify `LocationSettings` to retrieve location settings.
@@ -4611,6 +4864,8 @@ class Mixin:
     Replace the existing location object at this URL with an updated object.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this location belongs to.
       :param id_ [int] The ID of the location you wish to update
@@ -4628,6 +4883,8 @@ class Mixin:
     Returns validation information for this location.
       This API call is intended to compare this location against the currently known taxing authority rules and regulations,
       and provide information about what additional work is required to completely setup this location.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
@@ -4647,6 +4904,9 @@ class Mixin:
       When you adjust a transaction, that transaction's status is recorded as `Adjusted`.
       Both the revisions will be available for retrieval based on their code and ID numbers. Only transactions in Committed status can be reported on a tax filing by Avalara's Managed Returns Service.
       Transactions that have been previously reported to a tax authority by Avalara Managed Returns are considered locked and are no longer available for adjustments.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
@@ -4673,6 +4933,9 @@ class Mixin:
       * A reconstructed API call showing what the original create call looked like
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
@@ -4691,6 +4954,9 @@ class Mixin:
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
       Any changes made to a committed transaction will generate a transaction history.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param model [CommitMultiDocumentModel] The commit request you wish to execute
       :return MultiDocumentModel
@@ -4727,6 +4993,9 @@ class Mixin:
       * LinesOnly (omit details - reduces API response size)
       * ForceTimeout - Simulates a timeout. This adds a 30 second delay and error to your API call. This can be used to test your code to ensure it can respond correctly in the case of a dropped connection.
       If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateMultiDocumentModel] the multi document transaction model
@@ -4749,6 +5018,9 @@ class Mixin:
       * Addresses
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param code [string] 
       :param type [DocumentType]  (See DocumentType::* for a list of allowable values)
@@ -4779,6 +5051,9 @@ class Mixin:
       * Addresses
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param id_ [int] The unique ID number of the MultiDocument transaction to retrieve
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -4806,6 +5081,9 @@ class Mixin:
       * Addresses
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* documents
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -4849,6 +5127,9 @@ class Mixin:
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
       If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param code [string] The code of this MultiDocument transaction
       :param type [DocumentType] The type of this MultiDocument transaction (See DocumentType::* for a list of allowable values)
@@ -4868,6 +5149,9 @@ class Mixin:
       If the transaction does not match these expected values, this API will return an error code indicating which value did not match.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param model [VerifyMultiDocumentModel] Information from your accounting system to verify against this MultiDocument transaction as it is stored in AvaTax
       :return MultiDocumentModel
@@ -4886,6 +5170,9 @@ class Mixin:
       When you void a transaction, that transaction's status is recorded as `DocVoided`.
       Transactions that have been previously reported to a tax authority by Avalara Managed Returns Service are considered `locked`,
       and they are no longer available to be voided.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
@@ -4914,6 +5201,8 @@ class Mixin:
       by calling `ListNexus`. If any data does not match, AvaTax may not recognize your nexus declaration.
       Please note that nexus changes may not take effect immediately and you should plan to update your nexus settings in advance
       of calculating tax for a location.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this nexus.
       :param model [NexusModel] The nexus you wish to create.
@@ -4938,6 +5227,8 @@ class Mixin:
       You may only define nexus matching the official list of declared nexus.
       Please note that nexus changes may not take effect immediately and you should plan to update your nexus settings in advance
       of calculating tax for a location.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that will own this nexus.
       :param model [DeclareNexusByAddressModel] The nexus you wish to create.
@@ -4957,6 +5248,8 @@ class Mixin:
       accountant or lawyer prior to declaring nexus.
       Please note that nexus changes may not take effect immediately and you should plan to update your nexus settings in advance
       of calculating tax for a location.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this nexus.
       :param id_ [int] The ID of the nexus you wish to delete.
@@ -4974,6 +5267,8 @@ class Mixin:
       The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
       taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
       accountant or lawyer prior to declaring nexus.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this nexus object
       :param id_ [int] The primary key of this nexus
@@ -4994,6 +5289,8 @@ class Mixin:
       This API is intended to provide useful information when examining a tax form. If you are about to begin filing
       a tax form, you may want to know whether you have declared nexus in all the jurisdictions related to that tax
       form in order to better understand how the form will be filled out.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this nexus object
       :param formCode [string] The form code that we are looking up the nexus for
@@ -5013,9 +5310,11 @@ class Mixin:
       accountant or lawyer prior to declaring nexus.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these nexus objects
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, taxAuthorityId
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5028,25 +5327,6 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Summarize nexus by NexusTaxTypeGroup for this company
-    
-    Provides a summary of nexus information useful for quickly displaying key information.
-      The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
-      taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
-      accountant or lawyer prior to declaring nexus.
-      This API produces only basic information about your company's nexus declarations. For example, it will show
-      the number of nexus declarations of each tax type. To request more information about your company's nexus
-      declarations, please use `QueryNexus` or `ListNexusByCompany`.
-    
-      :param companyId [int] The ID of the company that owns these nexus objects
-      :return NexusSummaryModel
-    """
-    def nexus_summary(self, companyId):
-        return requests.get('{}/api/v2/companies/{}/nexus/summary'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Retrieve all nexus
     
     Get multiple nexus objects across all companies.
@@ -5055,8 +5335,10 @@ class Mixin:
       accountant or lawyer prior to declaring nexus.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, taxAuthorityId
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5085,6 +5367,8 @@ class Mixin:
       by calling `ListNexus`. If any data does not match, AvaTax may not recognize your nexus declaration.
       Please note that nexus changes may not take effect immediately and you should plan to update your nexus settings in advance
       of calculating tax for a location.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this nexus belongs to.
       :param id_ [int] The ID of the nexus you wish to update
@@ -5103,6 +5387,10 @@ class Mixin:
       'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the comment for.
@@ -5122,6 +5410,10 @@ class Mixin:
       as broken down in our "notice log" found in Workflow. Main examples of the categories are 'Tax Due', 'Interest', 'Penalty', 'Total Abated'.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice added to the finance details.
@@ -5140,6 +5432,10 @@ class Mixin:
       'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the responsibility for.
@@ -5158,6 +5454,10 @@ class Mixin:
       'Notice root causes' are are those who are responsible for the notice.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the responsibility for.
@@ -5176,6 +5476,10 @@ class Mixin:
       Create one or more new notice objects.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param model [NoticeModel] The notice object you wish to create.
@@ -5193,6 +5497,10 @@ class Mixin:
       'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice you wish to delete the finance detail from.
@@ -5212,6 +5520,10 @@ class Mixin:
       as broken down in our "notice log" found in Workflow. Main examples of the categories are 'Tax Due', 'Interest', 'Penalty', 'Total Abated'.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice you wish to delete the finance detail from.
@@ -5230,6 +5542,10 @@ class Mixin:
       Mark the existing notice object at this URL as deleted.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice you wish to delete.
@@ -5247,6 +5563,10 @@ class Mixin:
       Mark the existing notice object at this URL as deleted.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param noticeId [int] The ID of the notice you wish to delete.
@@ -5265,6 +5585,10 @@ class Mixin:
       Mark the existing notice object at this URL as deleted.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param noticeId [int] The ID of the notice you wish to delete.
@@ -5281,6 +5605,10 @@ class Mixin:
     
     This API is available by invitation only.
       Get the file attachment identified by this URL.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company for this attachment.
       :param id_ [int] The ResourceFileId of the attachment to download.
@@ -5298,6 +5626,10 @@ class Mixin:
       Get the tax notice object identified by this URL.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company for this notice.
       :param id_ [int] The ID of this notice.
@@ -5315,6 +5647,10 @@ class Mixin:
       'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
@@ -5333,6 +5669,10 @@ class Mixin:
       as broken down in our "notice log" found in Workflow. Main examples of the categories are 'Tax Due', 'Interest', 'Penalty', 'Total Abated'.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param id_ [int] The ID of the company that owns these notices.
       :param companyId [int] The ID of the company that owns these notices.
@@ -5350,6 +5690,10 @@ class Mixin:
       'Notice responsibilities' are are those who are responsible for the notice.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
@@ -5367,6 +5711,10 @@ class Mixin:
       'Notice root causes' are are those who are responsible for the notice.
       A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
@@ -5386,6 +5734,10 @@ class Mixin:
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that owns these notices.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* status, totalRemit, ticketReferenceNo, ticketReferenceUrl, reason, type, createdByUserName, documentReference, jurisdictionName, jurisdictionType, comments, finances, responsibility, rootCause
@@ -5410,6 +5762,10 @@ class Mixin:
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* status, totalRemit, ticketReferenceNo, ticketReferenceUrl, reason, type, createdByUserName, documentReference, jurisdictionName, jurisdictionType, comments, finances, responsibility, rootCause
       :param include [string] A comma separated list of additional data to retrieve.
@@ -5429,6 +5785,10 @@ class Mixin:
     This API is available by invitation only.
       This API is intended to replace the GET `/api/v2/notices` API. The fetch request object is posted on the body of the request instead of the URI, so it's not limited by a set number of characters.
       The documentation of the GET API shows how filtering, sorting and pagination works.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
       :return FetchResult
@@ -5444,6 +5804,10 @@ class Mixin:
     This API is available by invitation only.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that this notice finance detail belongs to.
       :param noticeid [int] The ID of the notice finance detail you wish to update.
@@ -5465,6 +5829,10 @@ class Mixin:
       Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that this notice belongs to.
       :param id_ [int] The ID of the notice you wish to update.
@@ -5482,6 +5850,10 @@ class Mixin:
     This API is available by invitation only.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company that this notice comment belongs to.
       :param noticeid [int] The ID of the notice you wish to update.
@@ -5498,10 +5870,14 @@ class Mixin:
     Retrieve a single attachment
     
     This API is available by invitation only.
-      Get the file attachment identified by this URL.
+      Uploads a file attachment for a tax notice.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param companyId [int] The ID of the company for this attachment.
-      :param model [ResourceFileUploadRequestModel] The ResourceFileId of the attachment to download.
+      :param model [ResourceFileUploadRequestModel] The upload request.
       :return ResourceFileUploadResultModel
     """
     def upload_attachment(self, companyId, model):
@@ -5521,6 +5897,8 @@ class Mixin:
       When you dismiss a notification, the notification will track the user and time when it was
       dismissed. You can then later review which employees of your company dismissed notifications to
       determine if they were resolved appropriately.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The id of the notification you wish to mark as dismissed.
       :return NotificationModel
@@ -5539,6 +5917,8 @@ class Mixin:
       any relevant concerns raised by this notification.
       An example of a notification would be a message about new software, or a change to AvaTax that may
       affect you, or a potential issue with your company's tax profile.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The id of the notification to retrieve.
       :return NotificationModel
@@ -5559,6 +5939,8 @@ class Mixin:
       affect you, or a potential issue with your company's tax profile.
       You may search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -5585,6 +5967,10 @@ class Mixin:
       API will be created in `Active` status. If the customer has not yet read and accepted these terms and
       conditions, the account will be created in `New` status and they can receive a license key by logging
       onto the AvaTax website and reviewing terms and conditions online.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Onboarding] for your servers.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Onboarding:RequestNewAccount].
     
       :param model [NewAccountRequestModel] Information about the account you wish to create and the selected product offerings.
       :return NewAccountModel
@@ -5599,6 +5985,10 @@ class Mixin:
     
     This API is for use by partner onboarding services customers only. This will allow the partners to allow
       the add new entitlement to an existing customer
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Onboarding] for your servers.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Onboarding:RequestNewAccount].
     
       :param id_ [int] The avatax account id of the customer
       :param offer [string] The offer to be added to an already existing customer
@@ -5616,6 +6006,8 @@ class Mixin:
       This API is for use by Avalara Registrar administrative users only.
       Create a single new account object.
       When creating an account object you may attach subscriptions and users as part of the 'Create' call.
+      ### Security Policies
+      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param model [AccountModel] The account you wish to create.
       :return AccountModel
@@ -5635,6 +6027,9 @@ class Mixin:
       any relevant concerns raised by this notification.
       An example of a notification would be a message about new software, or a change to AvaTax that may
       affect you, or a potential issue with your company's tax profile.
+      ### Security Policies
+      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [NotificationsAPI:Create].
     
       :param model [NotificationModel] The notifications you wish to create.
       :return NotificationModel
@@ -5647,11 +6042,12 @@ class Mixin:
     r"""
     Create a new subscription
     
-    # For Registrar Use Only
-      This API is for use by Avalara Registrar administrative users only.
+    This API is for use by Avalara Registrar administrative users only.
       Create one or more new subscription objects attached to this account.
       A 'subscription' indicates a licensed subscription to a named Avalara service.
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
+      ### Security Policies
+      * This API requires one of the following user roles: Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that owns this subscription.
       :param model [SubscriptionModel] The subscription you wish to create.
@@ -5669,6 +6065,8 @@ class Mixin:
       This API is for use by Avalara Registrar administrative users only.
       Delete an account.
       Deleting an account will delete all companies and all account level users attached to this account.
+      ### Security Policies
+      * This API requires the user role SystemAdmin.
     
       :param id_ [int] The ID of the account you wish to delete.
       :return ErrorDetail
@@ -5688,6 +6086,9 @@ class Mixin:
       any relevant concerns raised by this notification.
       An example of a notification would be a message about new software, or a change to AvaTax that may
       affect you, or a potential issue with your company's tax profile.
+      ### Security Policies
+      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [NotificationsAPI:Create].
     
       :param id_ [int] The id of the notification you wish to delete.
       :return ErrorDetail
@@ -5703,6 +6104,8 @@ class Mixin:
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Mark the existing account identified by this URL as deleted.
+      ### Security Policies
+      * This API requires one of the following user roles: Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that owns this subscription.
       :param id_ [int] The ID of the subscription you wish to delete.
@@ -5721,6 +6124,9 @@ class Mixin:
       Allows a system admin to reset the password for a specific user via the API.
       This API is only available for Avalara Registrar Admins, and can be used to reset the password of any
       user based on internal Avalara business processes.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API is available to Avalara system-level (registrar-level) users only.
     
       :param userId [int] The unique ID of the user whose password will be changed
       :param unmigrateFromAi [boolean] If user's password was migrated to AI, undo this.
@@ -5738,6 +6144,8 @@ class Mixin:
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Replace an existing account object with an updated account object.
+      ### Security Policies
+      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the account you wish to update.
       :param model [AccountModel] The account object you wish to update.
@@ -5758,6 +6166,9 @@ class Mixin:
       any relevant concerns raised by this notification.
       An example of a notification would be a message about new software, or a change to AvaTax that may
       affect you, or a potential issue with your company's tax profile.
+      ### Security Policies
+      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [NotificationsAPI:Create].
     
       :param id_ [int] The id of the notification you wish to update.
       :param model [NotificationModel] The notification object you wish to update.
@@ -5778,6 +6189,8 @@ class Mixin:
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires one of the following user roles: Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that this subscription belongs to.
       :param id_ [int] The ID of the subscription you wish to update
@@ -5802,6 +6215,8 @@ class Mixin:
       * Check the status of a report by calling `GetReport` and passing in the report's `id` value.
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       This API works for all report types.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] The unique ID number of this report
       :return String
@@ -5820,6 +6235,8 @@ class Mixin:
       * In the result of the Initiate API, you receive back a report's `id` value.
       * Check the status of a report by calling `GetReport` and passing in the report's `id` value.
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The unique ID number of the company to report on.
       :param model [ExportDocumentLineModel] Options that may be configured to customize the report.
@@ -5861,6 +6278,8 @@ class Mixin:
       * Check the status of a report by calling `GetReport` and passing in the report's `id` value.
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       The `ExportDocumentLine` report produces information about invoice lines recorded within your account.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The unique ID number of the company to report on.
       :param model [ExportDocumentLineModel] Options that may be configured to customize the report.
@@ -5882,6 +6301,8 @@ class Mixin:
       * Check the status of a report by calling `GetReport` and passing in the report's `id` value.
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       This API call returns information about all report types across your entire account.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :return FetchResult
     """
@@ -5901,6 +6322,8 @@ class Mixin:
       A setting can refer to any type of data you need to remember about this company object.
       When creating this object, you may define your own `set`, `name`, and `value` parameters.
       To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this setting.
       :param model [SettingModel] The setting you wish to create.
@@ -5922,6 +6345,8 @@ class Mixin:
       A setting can refer to any type of data you need to remember about this company object.
       When creating this object, you may define your own `set`, `name`, and `value` parameters.
       To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this setting.
       :param id_ [int] The ID of the setting you wish to delete.
@@ -5943,6 +6368,8 @@ class Mixin:
       A setting can refer to any type of data you need to remember about this company object.
       When creating this object, you may define your own `set`, `name`, and `value` parameters.
       To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this setting
       :param id_ [int] The primary key of this setting
@@ -5966,6 +6393,8 @@ class Mixin:
       To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these settings
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -5993,6 +6422,8 @@ class Mixin:
       To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
@@ -6019,6 +6450,8 @@ class Mixin:
       To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
       All data from the existing object will be replaced with data in the object you `PUT`.
       To set a field's value to `null`, you may either set its value to `null` or omit that field from the object when calling update.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this setting belongs to.
       :param id_ [int] The ID of the setting you wish to update
@@ -6036,6 +6469,8 @@ class Mixin:
     Get the subscription object identified by this URL.
       A 'subscription' indicates a licensed subscription to a named Avalara service.
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param accountId [int] The ID of the account that owns this subscription
       :param id_ [int] The primary key of this subscription
@@ -6054,6 +6489,8 @@ class Mixin:
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param accountId [int] The ID of the account that owns these subscriptions
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* subscriptionDescription
@@ -6075,6 +6512,8 @@ class Mixin:
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* subscriptionDescription
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -6095,6 +6534,8 @@ class Mixin:
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
       If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
       taxability rules for this product in all supported jurisdictions.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this tax code.
       :param model [TaxCodeModel] The tax code you wish to create.
@@ -6109,6 +6550,8 @@ class Mixin:
     Delete a single tax code
     
     Marks the existing TaxCode object at this URL as deleted.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this tax code.
       :param id_ [int] The ID of the tax code you wish to delete.
@@ -6127,6 +6570,8 @@ class Mixin:
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
       If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
       taxability rules for this product in all supported jurisdictions.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this tax code
       :param id_ [int] The primary key of this tax code
@@ -6147,6 +6592,8 @@ class Mixin:
       taxability rules for this product in all supported jurisdictions.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these tax codes
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -6171,6 +6618,8 @@ class Mixin:
       taxability rules for this product in all supported jurisdictions.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
@@ -6194,6 +6643,8 @@ class Mixin:
       taxability rules for this product in all supported jurisdictions.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this tax code belongs to.
       :param id_ [int] The ID of the tax code you wish to update
@@ -6225,6 +6676,9 @@ class Mixin:
       This API builds the file on demand, and is limited to files with no more than 7500 scenarios. To build a tax content
       file for a single location at a time, please use `BuildTaxContentFileForLocation`.
       NOTE: This API does not work for Tennessee tax holiday scenarios.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param model [PointOfSaleDataRequestModel] Parameters about the desired file format and report format, specifying which company, locations and TaxCodes to include.
       :return String
@@ -6254,6 +6708,9 @@ class Mixin:
       This API builds the file on demand, and is limited to files with no more than 7500 scenarios. To build a tax content
       file for a multiple locations in a single file, please use `BuildTaxContentFile`.
       NOTE: This API does not work for Tennessee tax holiday scenarios.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company that owns this location.
       :param id_ [int] The ID number of the location to retrieve point-of-sale data.
@@ -6265,23 +6722,6 @@ class Mixin:
     """
     def build_tax_content_file_for_location(self, companyId, id_, include=None):
         return requests.get('{}/api/v2/companies/{}/locations/{}/pointofsaledata'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve send-sale tax content for this company.
-    
-    This API is available by invitation only.
-    
-      :param date [datetime] The date for which we are fetching tax content.
-      :param taxCode [string] The tax code for which we are fetching tax content.
-      :param companyId [int] The unique ID number of the company which is fetching tax content.
-      :param format [SendSalesOutputFileFormat] Requests a specific data format for this content file. (See SendSalesOutputFileFormat::* for a list of allowable values)
-      :param type [SendSalesFileType] Requests a specific encoding for this content file. (See SendSalesFileType::* for a list of allowable values)
-      :return String
-    """
-    def download_send_sales_rate_file(self, date, taxCode, companyId, include=None):
-        return requests.get('{}/api/v2/sendsalescontent/download/{}/{}/{}'.format(self.base_url, date, taxCode, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
@@ -6321,6 +6761,8 @@ class Mixin:
       * TAX_SHIPPING_ALONE - This column contains 'Y' if shipping is taxable.
       * TAX_SHIPPING_AND_HANDLING_TOGETHER - This column contains 'Y' if shipping and handling are taxable when sent together.
       For more detailed tax content, please use the `BuildTaxContentFile` API which allows usage of exact items and exact locations.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param date [datetime] The date for which point-of-sale data would be calculated (today by default). Example input: 2016-12-31
       :param region [string] If the region is provided, this API is going to generate the tax rate per zipcode for only the region specified.
@@ -6329,40 +6771,6 @@ class Mixin:
     def download_tax_rates_by_zip_code(self, date, include=None):
         return requests.get('{}/api/v2/taxratesbyzipcode/download/{}'.format(self.base_url, date),
                                auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Export the tax profile of this company to a backup file
-    
-    Exports the tax profile of a company to a file, containing all information that affects tax calculation for this company.
-      A tax profile is a series of decisions and configuration choices that affect your company's tax calculation. These decisions
-      include your nexus declarations, your item catalog, your custom tax rules, and so on.
-      This API can be used to export a complete zip file containing your company's current tax profile, and you can then restore this
-      profile to a different company or compare it over time to see if your profile has been changed.
-    
-      :param companyId [int] The unique ID number of the company whose profile you wish to retrieve.
-      :return String
-    """
-    def export_tax_profile(self, companyId):
-        return requests.get('{}/api/v2/companies/{}/taxprofile'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Import a tax profile.
-    
-    Imports a tax profile to a new company, along with the option to import account settings.
-    
-      :param accountId [int] The account id of the account to which the tax profile will be imported.
-      :param newCompanyCode [string] The companyCode to use for the imported company.
-      :param replaceAccountSettings [boolean] Replace the current account settings with the ones in the tax profile.
-      :param bypassNexusValidation [boolean] Enable invalid nexus to be imported.
-      :param taxProfile [String] The taxProfile
-      :return String
-    """
-    def import_tax_profile(self):
-        return requests.post('{}/api/v2/taxprofile'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -6378,6 +6786,8 @@ class Mixin:
       custom tax rules to redefine the behavior for your company or item.
       Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
       auditor, legal representative, and accounting team.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this tax rule.
       :param model [TaxRuleModel] The tax rule you wish to create.
@@ -6401,6 +6811,8 @@ class Mixin:
       custom tax rules to redefine the behavior for your company or item.
       Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
       auditor, legal representative, and accounting team.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this tax rule.
       :param id_ [int] The ID of the tax rule you wish to delete.
@@ -6424,6 +6836,8 @@ class Mixin:
       custom tax rules to redefine the behavior for your company or item.
       Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
       auditor, legal representative, and accounting team.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this tax rule
       :param id_ [int] The primary key of this tax rule
@@ -6449,6 +6863,8 @@ class Mixin:
       auditor, legal representative, and accounting team.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these tax rules
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, rateTypeCode, taxTypeGroup, taxSubType
@@ -6478,6 +6894,8 @@ class Mixin:
       auditor, legal representative, and accounting team.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, rateTypeCode, taxTypeGroup, taxSubType
       :param include [string] A comma separated list of additional data to retrieve.
@@ -6504,6 +6922,8 @@ class Mixin:
       custom tax rules to redefine the behavior for your company or item.
       Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
       auditor, legal representative, and accounting team.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this tax rule belongs to.
       :param id_ [int] The ID of the tax rule you wish to update
@@ -6534,6 +6954,9 @@ class Mixin:
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
        If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [AddTransactionLineModel] information about the transaction and lines to be added
@@ -6555,10 +6978,22 @@ class Mixin:
       Only transactions in `Committed` status are reported by Avalara Managed Returns.
       Transactions that have been previously reported to a tax authority by Avalara Managed Returns are considered `locked` and are
       no longer available for adjustments.
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Lines
+      * Details (implies lines)
+      * Summary (implies details)
+      * Addresses
+      * SummaryOnly (omit lines and details - reduces API response size)
+      * LinesOnly (omit details - reduces API response size)
+      * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to adjust
       :param documentType [DocumentType] (Optional): The document type of the transaction to adjust. (See DocumentType::* for a list of allowable values)
+      :param include [string] Specifies objects to include in this fetch call
       :param model [AdjustTransactionModel] The adjustment you wish to make
       :return TransactionModel
     """
@@ -6581,6 +7016,9 @@ class Mixin:
       This API can be used to examine information about a previously created transaction.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
@@ -6605,6 +7043,9 @@ class Mixin:
       This API can be used to examine information about a previously created transaction.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
@@ -6624,6 +7065,9 @@ class Mixin:
       After this API call succeeds, documents will be locked and can't be voided.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
+      ### Security Policies
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
     
       :param model [BulkLockTransactionModel] bulk lock request
       :return BulkLockTransactionResult
@@ -6643,10 +7087,22 @@ class Mixin:
       If you have more than one document with the same `code`, specify the `documentType` parameter to choose between them.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Lines
+      * Details (implies lines)
+      * Summary (implies details)
+      * Addresses
+      * SummaryOnly (omit lines and details - reduces API response size)
+      * LinesOnly (omit details - reduces API response size)
+      * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, AvaTaxST.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to change
       :param documentType [DocumentType] (Optional): The document type of the transaction to change document code. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
+      :param include [string] Specifies objects to include in this fetch call
       :param model [ChangeTransactionCodeModel] The code change request you wish to execute
       :return TransactionModel
     """
@@ -6664,10 +7120,21 @@ class Mixin:
       sales, purchases, inventory transfer, and returns (also called refunds).
       If you have more than one document with the same `code`, specify the `documentType` parameter to choose between them.
       Any changes made to a committed transaction will generate a transaction history.
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Lines
+      * Details (implies lines)
+      * Summary (implies details)
+      * Addresses
+      * SummaryOnly (omit lines and details - reduces API response size)
+      * LinesOnly (omit details - reduces API response size)
+      * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to commit
       :param documentType [DocumentType] (Optional): The document type of the transaction to commit. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
+      :param include [string] Specifies objects to include in this fetch call
       :param model [CommitTransactionModel] The commit request you wish to execute
       :return TransactionModel
     """
@@ -6700,6 +7167,9 @@ class Mixin:
       * LinesOnly (omit details - reduces API response size)
       * ForceTimeout - Simulates a timeout. This adds a 30 second delay and error to your API call. This can be used to test your code to ensure it can respond correctly in the case of a dropped connection.
       If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateOrAdjustTransactionModel] The transaction you wish to create or adjust
@@ -6739,6 +7209,9 @@ class Mixin:
       * ForceTimeout - Simulates a timeout. This adds a 30 second delay and error to your API call. This can be used to test your code to ensure it can respond correctly in the case of a dropped connection.
       * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
       If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateTransactionModel] The transaction you wish to create
@@ -6765,6 +7238,9 @@ class Mixin:
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
        If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [RemoveTransactionLineModel] information about the transaction and lines to be removed
@@ -6791,6 +7267,9 @@ class Mixin:
       * Addresses
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to retrieve
@@ -6807,6 +7286,9 @@ class Mixin:
     Retrieve a single transaction by code
     
     DEPRECATED: Please use the `GetTransactionByCode` API instead.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to retrieve
@@ -6835,6 +7317,9 @@ class Mixin:
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
       * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param id_ [int] The unique ID number of the transaction to retrieve
       :param include [string] Specifies objects to include in this fetch call
@@ -6863,6 +7348,9 @@ class Mixin:
       * Addresses
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param dataSourceId [int] Optionally filter transactions to those from a specific data source.
@@ -6888,10 +7376,22 @@ class Mixin:
       If you have more than one document with the same `code`, specify the `documentType` parameter to choose between them.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Lines
+      * Details (implies lines)
+      * Summary (implies details)
+      * Addresses
+      * SummaryOnly (omit lines and details - reduces API response size)
+      * LinesOnly (omit details - reduces API response size)
+      * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to lock
       :param documentType [DocumentType] (Optional): The document type of the transaction to lock. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
+      :param include [string] Specifies objects to include in this fetch call
       :param model [LockTransactionModel] The lock request you wish to execute
       :return TransactionModel
     """
@@ -6925,7 +7425,11 @@ class Mixin:
       * Addresses
       * SummaryOnly (omit lines and details - reduces API response size)
       * LinesOnly (omit details - reduces API response size)
+      * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
       If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyCode [string] The code of the company that made the original sale
       :param transactionCode [string] The transaction code of the original sale
@@ -6949,10 +7453,21 @@ class Mixin:
       sales, purchases, inventory transfer, and returns (also called refunds).
       If you have more than one document with the same `code`, specify the `documentType` parameter to choose between them.
       This API is available for users who want to execute more than one action at a time.
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Lines
+      * Details (implies lines)
+      * Summary (implies details)
+      * Addresses
+      * SummaryOnly (omit lines and details - reduces API response size)
+      * LinesOnly (omit details - reduces API response size)
+      * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to settle
       :param documentType [DocumentType] (Optional): The document type of the transaction to settle. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
+      :param include [string] Specifies objects to include in this fetch call
       :param model [SettleTransactionModel] The data from an external system to reconcile against AvaTax
       :return TransactionModel
     """
@@ -6967,10 +7482,22 @@ class Mixin:
     Adjusts a transaction by changing it to an uncommitted status.
       Transactions that have been previously reported to a tax authority by Avalara Managed Returns are considered `locked` and are
       no longer available to be uncommitted.
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Lines
+      * Details (implies lines)
+      * Summary (implies details)
+      * Addresses
+      * SummaryOnly (omit lines and details - reduces API response size)
+      * LinesOnly (omit details - reduces API response size)
+      * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to commit
       :param documentType [DocumentType] (Optional): The document type of the transaction to commit. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
+      :param include [string] Specifies objects to include in this fetch call
       :return TransactionModel
     """
     def uncommit_transaction(self, companyCode, transactionCode, include=None):
@@ -6986,10 +7513,22 @@ class Mixin:
       If you have more than one document with the same `code`, specify the `documentType` parameter to choose between them.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Lines
+      * Details (implies lines)
+      * Summary (implies details)
+      * Addresses
+      * SummaryOnly (omit lines and details - reduces API response size)
+      * LinesOnly (omit details - reduces API response size)
+      * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to settle
       :param documentType [DocumentType] (Optional): The document type of the transaction to verify. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
+      :param include [string] Specifies objects to include in this fetch call
       :param model [VerifyTransactionModel] The data from an external system to reconcile against AvaTax
       :return TransactionModel
     """
@@ -7007,10 +7546,22 @@ class Mixin:
       When you void a transaction, that transaction's status is recorded as `DocVoided`.
       If you have more than one document with the same `code`, specify the `documentType` parameter to choose between them.
       Transactions that have been previously reported to a tax authority by Avalara Managed Returns are no longer available to be voided.
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Lines
+      * Details (implies lines)
+      * Summary (implies details)
+      * Addresses
+      * SummaryOnly (omit lines and details - reduces API response size)
+      * LinesOnly (omit details - reduces API response size)
+      * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to void
       :param documentType [DocumentType] (Optional): The document type of the transaction to void. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
+      :param include [string] Specifies objects to include in this fetch call
       :param model [VoidTransactionModel] The void request you wish to execute. To void a transaction the code must be set to 'DocVoided'
       :return TransactionModel
     """
@@ -7024,6 +7575,9 @@ class Mixin:
     
     Create one or more new UPC objects attached to this company.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that owns this UPC.
       :param model [UPCModel] The UPC you wish to create.
@@ -7038,6 +7592,9 @@ class Mixin:
     Delete a single UPC
     
     Marks the UPC object identified by this URL as deleted.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that owns this UPC.
       :param id_ [int] The ID of the UPC you wish to delete.
@@ -7053,6 +7610,9 @@ class Mixin:
     
     Get the UPC object identified by this URL.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that owns this UPC
       :param id_ [int] The primary key of this UPC
@@ -7070,6 +7630,9 @@ class Mixin:
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that owns these UPCs
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -7091,6 +7654,9 @@ class Mixin:
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaUpc.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
@@ -7111,6 +7677,9 @@ class Mixin:
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that this UPC belongs to.
       :param id_ [int] The ID of the UPC you wish to update
@@ -7130,6 +7699,8 @@ class Mixin:
       for accounts that do not use SAML integrated password validation.
       This API only allows the currently authenticated user to change their password; it cannot be used to apply to a
       different user than the one authenticating the current API call.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param model [PasswordChangeModel] An object containing your current password and the new password.
       :return string
@@ -7148,6 +7719,8 @@ class Mixin:
       additional team members to work with AvaTax.
       A newly created user will receive an email inviting them to create their password. This means that you
       must provide a valid email address for all user accounts created.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param accountId [int] The unique ID number of the account where these users will be created.
       :param model [UserModel] The user or array of users you wish to create.
@@ -7165,6 +7738,8 @@ class Mixin:
       This API is available for use by account and company administrators only.
       Account and company administrators may only delete users within the appropriate organizations
       they control.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, CSPTester, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TreasuryAdmin.
     
       :param id_ [int] The ID of the user you wish to delete.
       :param accountId [int] The accountID of the user you wish to delete.
@@ -7180,6 +7755,10 @@ class Mixin:
     
     Get the user object identified by this URL.
       A user represents one person with access privileges to make API calls and work with a specific account.
+       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * FetchDeleted
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the user to retrieve.
       :param accountId [int] The accountID of the user you wish to get.
@@ -7207,6 +7786,8 @@ class Mixin:
        table does not contain the ID number 12345.
       * If the 'permissions' array within entitlements does not contain 'AccountSvc.CompanySave', the call will fail.
       For a full list of defined permissions, please use '/api/v2/definitions/permissions' .
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the user to retrieve.
       :param accountId [int] The accountID of the user you wish to get.
@@ -7218,21 +7799,6 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Get information about a username.
-    
-    You may call this API prior to creating a user, to check if a particular username is available for use. Using this API, you can
-      present a friendly experience prior to attempting to create a new user object.
-      Please ensure that the query string is url encoded if you wish to check information for a user that contains url-sensitive characters.
-    
-      :param username [string] The username to search.
-      :return UsernameModel
-    """
-    def get_username(self, include=None):
-        return requests.get('{}/api/v2/usernames'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Retrieve users for this account
     
     List all user objects attached to this account.
@@ -7241,6 +7807,10 @@ class Mixin:
       By default, this API will not return a listing of license key users. Users with registrar-level security may call this API to list license key users.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * FetchDeleted
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param accountId [int] The accountID of the user you wish to list.
       :param include [string] Optional fetch commands.
@@ -7265,6 +7835,10 @@ class Mixin:
       By default, this API will not return a listing of license key users. Users with registrar-level security may call this API to list license key users.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * FetchDeleted
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param include [string] Optional fetch commands.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -7285,6 +7859,8 @@ class Mixin:
       A user represents one person with access privileges to make API calls and work with a specific account.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the user you wish to update.
       :param accountId [int] The accountID of the user you wish to update.
@@ -7347,6 +7923,8 @@ class Mixin:
       if you do not have verified connection credentials. If this API fails, either your computer is not connected to
       the internet, or there is a routing problem between your office and Avalara, or the Avalara server is not available.
       For more information on the uptime of AvaTax, please see [Avalara's AvaTax Status Page](https://status.avalara.com/).
+      ### Security Policies
+      * This API may be called without providing authentication credentials.
     
       :return PingResultModel
     """
