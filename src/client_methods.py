@@ -220,99 +220,6 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Create a new AvaFileForm
-    
-    Create one or more AvaFileForms
-      A 'AvaFileForm' represents a form supported by our returns team
-      ### Security Policies
-      * This API requires the user role Compliance Root User.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param model [AvaFileFormModel] The AvaFileForm you wish to create.
-      :return AvaFileFormModel
-    """
-    def create_ava_file_forms(self, model):
-        return requests.post('{}/api/v2/avafileforms'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Delete a single AvaFileForm
-    
-    Marks the existing AvaFileForm object at this URL as deleted.
-      ### Security Policies
-      * This API requires one of the following user roles: Compliance Root User, ComplianceUser, FirmAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param id_ [int] The ID of the AvaFileForm you wish to delete.
-      :return ErrorDetail
-    """
-    def delete_ava_file_form(self, id_):
-        return requests.delete('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a single AvaFileForm
-    
-    Get the AvaFileForm object identified by this URL.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-    
-      :param id_ [int] The primary key of this AvaFileForm
-      :return AvaFileFormModel
-    """
-    def get_ava_file_form(self, id_):
-        return requests.get('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all AvaFileForms
-    
-    Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* outletTypeId
-      :param include [string] A comma separated list of additional data to retrieve.
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
-    """
-    def query_ava_file_forms(self, include=None):
-        return requests.get('{}/api/v2/avafileforms'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Update a AvaFileForm
-    
-    All data from the existing object will be replaced with data in the object you PUT.
-      To set a field's value to null, you may either set its value to null or omit that field from the object you post.
-      ### Security Policies
-      * This API requires the user role Compliance Root User.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param id_ [int] The ID of the AvaFileForm you wish to update
-      :param model [AvaFileFormModel] The AvaFileForm model you wish to update.
-      :return AvaFileFormModel
-    """
-    def update_ava_file_form(self, id_, model):
-        return requests.put('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Create a new batch
     
     Create one or more new batch objects attached to this company.
@@ -551,7 +458,7 @@ class Mixin:
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that issued this invitation
-      :param include [string] OPTIONAL: A comma separated list of special fetch options.       No options are defined at this time.
+      :param include [string] OPTIONAL: A comma separated list of special fetch options.      No options are defined at this time.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* companyId, customer, coverLetter, exposureZones, exemptReasons, requestLink
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -993,7 +900,7 @@ class Mixin:
       * Avalara compliance team members may change a company from `FirstFiling` to `Active`.
       All other status changes must be requested through the Avalara customer support team.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] 
       :param model [FilingStatusChangeModel] 
@@ -1059,7 +966,7 @@ class Mixin:
       This API records that an ambedded HTML funding setup widget was activated.
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The unique identifier of the company
       :param model [FundingInitiateModel] The funding initialization request
@@ -1095,7 +1002,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The unique identifier of the company
       :return FundingConfigurationModel
@@ -1115,7 +1022,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The unique identifier of the company
       :param currency [string] The currency of the funding. USD and CAD are the only valid currencies
@@ -1371,7 +1278,6 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns these contacts
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -1394,7 +1300,6 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -3017,761 +2922,6 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
-    Approve existing Filing Request
-    
-    This API is available by invitation only.
-      A "filing request" represents a request to change an existing filing calendar. Filing requests
-      are reviewed and validated by Avalara Compliance before being implemented.
-      The filing request must be in the "ChangeRequest" status to be approved.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The unique ID of the company that owns the filing request object
-      :param id_ [int] The unique ID of the filing request object
-      :return FilingRequestModel
-    """
-    def approve_filing_request(self, companyId, id_):
-        return requests.post('{}/api/v2/companies/{}/filingrequests/{}/approve'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Cancel existing Filing Request
-    
-    This API is available by invitation only.
-      A "filing request" represents a request to change an existing filing calendar. Filing requests
-      are reviewed and validated by Avalara Compliance before being implemented.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The unique ID of the company that owns the filing request object
-      :param id_ [int] The unique ID of the filing request object
-      :return FilingRequestModel
-    """
-    def cancel_filing_request(self, companyId, id_):
-        return requests.post('{}/api/v2/companies/{}/filingrequests/{}/cancel'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Create a new filing request to cancel a filing calendar
-    
-    This API is available by invitation only.
-      A "filing request" represents a request to change an existing filing calendar. Filing requests
-      are reviewed and validated by Avalara Compliance before being implemented.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The unique ID of the company that owns the filing calendar object
-      :param id_ [int] The unique ID number of the filing calendar to cancel
-      :param model [FilingRequestModel] The cancellation request for this filing calendar
-      :return FilingRequestModel
-    """
-    def cancel_filing_requests(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/cancel/request'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Create a filing calendar
-    
-    This API is available by invitation only and only available for users with Compliance access
-      A "filing request" represents information that compliance uses to file a return
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The unique ID of the company that will add the new filing calendar
-      :param model [FilingCalendarModel] Filing calendars that will be added
-      :return FilingCalendarModel
-    """
-    def create_filing_calendars(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/filingcalendars'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Create a new filing request to create a filing calendar
-    
-    This API is available by invitation only.
-      A "filing request" represents a request to change an existing filing calendar. Filing requests
-      are reviewed and validated by Avalara Compliance before being implemented.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The unique ID of the company that will add the new filing calendar
-      :param model [FilingRequestModel] Information about the proposed new filing calendar
-      :return FilingRequestModel
-    """
-    def create_filing_requests(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/filingcalendars/add/request'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Returns a list of options for adding the specified form.
-    
-    This API is available by invitation only.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The unique ID of the company that owns the filing calendar object
-      :param formCode [string] The unique code of the form
-      :return CycleAddOptionModel
-    """
-    def cycle_safe_add(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/filingcalendars/add/options'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Indicates when changes are allowed to be made to a filing calendar.
-    
-    This API is available by invitation only.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The unique ID of the company that owns the filing calendar object
-      :param id_ [int] The unique ID of the filing calendar object
-      :param model [FilingCalendarEditModel] A list of filing calendar edits to be made
-      :return CycleEditOptionModel
-    """
-    def cycle_safe_edit(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/edit/options'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Returns a list of options for expiring a filing calendar
-    
-    This API is available by invitation only.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The unique ID of the company that owns the filing calendar object
-      :param id_ [int] The unique ID of the filing calendar object
-      :return CycleExpireModel
-    """
-    def cycle_safe_expiration(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/filingcalendars/{}/cancel/options'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Delete a single filing calendar.
-    
-    This API is available by invitation only.
-      Mark the existing notice object at this URL as deleted.
-      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
-      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns this filing calendar.
-      :param id_ [int] The ID of the filing calendar you wish to delete.
-      :return ErrorDetail
-    """
-    def delete_filing_calendar(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a single filing calendar
-    
-    This API is available by invitation only.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns this filing calendar
-      :param id_ [int] The primary key of this filing calendar
-      :return FilingCalendarModel
-    """
-    def get_filing_calendar(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a single filing request
-    
-    This API is available by invitation only.
-      A "filing request" represents a request to change an existing filing calendar. Filing requests
-      are reviewed and validated by Avalara Compliance before being implemented.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns this filing calendar
-      :param id_ [int] The primary key of this filing calendar
-      :return FilingRequestModel
-    """
-    def get_filing_request(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/filingrequests/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all filing calendars for this company
-    
-    This API is available by invitation only.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns these batches
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* formCountry, formRegion, taxFormCode, taxAuthorityId, taxAuthorityName, taxAuthorityType, settings
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :param returnCountry [string] A comma separated list of countries
-      :param returnRegion [string] A comma separated list of regions
-      :return FetchResult
-    """
-    def list_filing_calendars(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/filingcalendars'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all filing requests for this company
-    
-    This API is available by invitation only.
-      A "filing request" represents a request to change an existing filing calendar. Filing requests
-      are reviewed and validated by Avalara Compliance before being implemented.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns these batches
-      :param filingCalendarId [int] Specific filing calendar id for the request
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
-    """
-    def list_filing_requests(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/filingrequests'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    New request for getting for validating customer's login credentials
-    
-    This API is available by invitation only.
-      This API verifies that a customer has submitted correct login credentials for a tax authority's online filing system.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param model [LoginVerificationInputModel] The model of the login information we are verifying
-      :return LoginVerificationOutputModel
-    """
-    def login_verification_request(self, model):
-        return requests.post('{}/api/v2/filingcalendars/credentials/verify'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Gets the request status and Login Result
-    
-    This API is available by invitation only.
-      This API checks the status of a login verification request. It may only be called by authorized users from the account
-      that initially requested the login verification.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param jobId [int] The unique ID number of this login request
-      :return LoginVerificationOutputModel
-    """
-    def login_verification_status(self, jobId):
-        return requests.get('{}/api/v2/filingcalendars/credentials/{}'.format(self.base_url, jobId),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all filing calendars
-    
-    This API is available by invitation only.
-      This API is deprecated - please use POST `/api/v2/filingrequests/query` API.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* formCountry, formRegion, taxFormCode, taxAuthorityId, taxAuthorityName, taxAuthorityType, settings
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :param returnCountry [string] If specified, fetches only filing calendars that apply to tax filings in this specific country. Uses ISO 3166 country codes.
-      :param returnRegion [string] If specified, fetches only filing calendars that apply to tax filings in this specific region. Uses ISO 3166 region codes.
-      :return FetchResult
-    """
-    def query_filing_calendars(self, include=None):
-        return requests.get('{}/api/v2/filingcalendars'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all filing calendars
-    
-    This API is available by invitation only.
-      This API is intended to replace the GET `/api/v2/filingcalendars` API. The fetch request object is posted on the body of the request instead of the URI, so it's not limited by a set number of characters.
-      The documentation of the GET API shows how filtering, sorting and pagination works.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param returnCountry [string] If specified, fetches only filing calendars that apply to tax filings in this specific country. Uses ISO 3166 country codes.
-      :param returnRegion [string] If specified, fetches only filing calendars that apply to tax filings in this specific region. Uses ISO 3166 region codes.
-      :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
-      :return FetchResult
-    """
-    def query_filing_calendars_post(self, model, include=None):
-        return requests.post('{}/api/v2/filingcalendars/query'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all filing requests
-    
-    This API is available by invitation only.
-      This API is deprecated - please use POST `/api/v2/filingrequests/query` API.
-      A "filing request" represents a request to change an existing filing calendar. Filing requests
-      are reviewed and validated by Avalara Compliance before being implemented.
-      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
-      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param filingCalendarId [int] Specific filing calendar id for the request
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
-    """
-    def query_filing_requests(self, include=None):
-        return requests.get('{}/api/v2/filingrequests'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve all filing requests
-    
-    This API is available by invitation only.
-      This API is intended to replace the GET `/api/v2/filingrequests` API. The fetch request object is posted on the body of the request instead of the URI, so it's not limited by a set number of characters.
-      The documentation of the GET API shows how filtering, sorting and pagination works.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param filingCalendarId [int] Specific filing calendar id for the request
-      :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
-      :return FetchResult
-    """
-    def query_filing_requests_post(self, model, include=None):
-        return requests.post('{}/api/v2/filingrequests/query'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Create a new filing request to edit a filing calendar
-    
-    This API is available by invitation only.
-      A "filing request" represents a request to change an existing filing calendar. Filing requests
-      are reviewed and validated by Avalara Compliance before being implemented.
-      Certain users may not update filing calendars directly. Instead, they may submit an edit request
-      to modify the value of a filing calendar using this API.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The unique ID of the company that owns the filing calendar object
-      :param id_ [int] The unique ID number of the filing calendar to edit
-      :param model [FilingRequestModel] A list of filing calendar edits to be made
-      :return FilingRequestModel
-    """
-    def request_filing_calendar_update(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/edit/request'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Edit existing Filing Calendar
-    
-    This API is available by invitation only.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The unique ID of the company that owns the filing calendar object
-      :param id_ [int] The unique ID of the filing calendar object
-      :param model [FilingCalendarModel] The filing calendar model you are wishing to update with.
-      :return FilingCalendarModel
-    """
-    def update_filing_calendar(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Edit existing Filing Request
-    
-    This API is available by invitation only.
-      A "filing request" represents a request to change an existing filing calendar. Filing requests
-      are reviewed and validated by Avalara Compliance before being implemented.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The unique ID of the company that owns the filing request object
-      :param id_ [int] The unique ID of the filing request object
-      :param model [FilingRequestModel] A list of filing calendar edits to be made
-      :return FilingRequestModel
-    """
-    def update_filing_request(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/filingrequests/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Approve all filings for the specified company in the given filing period.
-    
-    This API is available by invitation only.
-      Approving a return means the customer is ready to let Avalara file that return.
-      Customer either approves themselves from admin console,
-      else system auto-approves the night before the filing cycle.
-      Sometimes Compliance has to manually unapprove and reapprove to modify liability or filing for the customer.
-      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
-      based on filing frequency of filing.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filings.
-      :param year [int] The year of the filing period to approve.
-      :param month [int] The month of the filing period to approve.
-      :param model [ApproveFilingsModel] The approve request you wish to execute.
-      :return FilingModel
-    """
-    def approve_filings(self, companyId, year, month, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/approve'.format(self.base_url, companyId, year, month),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Approve all filings for the specified company in the given filing period and country.
-    
-    This API is available by invitation only.
-      Approving a return means the customer is ready to let Avalara file that return.
-      Customer either approves themselves from admin console,
-      else system auto-approves the night before the filing cycle.
-      Sometimes Compliance has to manually unapprove and reapprove to modify liability or filing for the customer.
-      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
-      based on filing frequency of filing.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filings.
-      :param year [int] The year of the filing period to approve.
-      :param month [int] The month of the filing period to approve.
-      :param country [string] The two-character ISO-3166 code for the country.
-      :param model [ApproveFilingsModel] The approve request you wish to execute.
-      :return FilingModel
-    """
-    def approve_filings_country(self, companyId, year, month, country, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/approve'.format(self.base_url, companyId, year, month, country),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Approve all filings for the specified company in the given filing period, country and region.
-    
-    This API is available by invitation only.
-      Approving a return means the customer is ready to let Avalara file that return.
-      Customer either approves themselves from admin console,
-      else system auto-approves the night before the filing cycle
-      Sometimes Compliance has to manually unapprove and reapprove to modify liability or filing for the customer.
-      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
-      based on filing frequency of filing.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filings.
-      :param year [int] The year of the filing period to approve.
-      :param month [int] The month of the filing period to approve.
-      :param country [string] The two-character ISO-3166 code for the country.
-      :param region [string] The two or three character region code for the region.
-      :param model [ApproveFilingsModel] The approve request you wish to execute.
-      :return FilingModel
-    """
-    def approve_filings_country_region(self, companyId, year, month, country, region, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/approve'.format(self.base_url, companyId, year, month, country, region),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Add an adjustment to a given filing.
-    
-    This API is available by invitation only.
-      An "Adjustment" is usually an increase or decrease to customer funding to Avalara,
-      such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
-      Sometimes may be a manual change in tax liability similar to an augmentation.
-      This API creates a new adjustment for an existing tax filing.
-      This API can only be used when the filing has not yet been approved.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filing being adjusted.
-      :param year [int] The year of the filing's filing period being adjusted.
-      :param month [int] The month of the filing's filing period being adjusted.
-      :param country [string] The two-character ISO-3166 code for the country of the filing being adjusted.
-      :param region [string] The two or three character region code for the region.
-      :param formCode [string] The unique code of the form being adjusted.
-      :param model [FilingAdjustmentModel] A list of Adjustments to be created for the specified filing.
-      :return FilingAdjustmentModel
-    """
-    def create_return_adjustment(self, companyId, year, month, country, region, formCode, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/adjust'.format(self.base_url, companyId, year, month, country, region, formCode),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Add an augmentation for a given filing.
-    
-    This API is available by invitation only.
-      An "Augmentation" is a manually added increase or decrease in tax liability, by either customer or Avalara
-      usually due to customer wanting to report tax Avatax does not support, e.g. bad debts, rental tax.
-      This API creates a new augmentation for an existing tax filing.
-      This API can only be used when the filing has not been approved.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filing being changed.
-      :param year [int] The month of the filing's filing period being changed.
-      :param month [int] The month of the filing's filing period being changed.
-      :param country [string] The two-character ISO-3166 code for the country of the filing being changed.
-      :param region [string] The two or three character region code for the region of the filing being changed.
-      :param formCode [string] The unique code of the form being changed.
-      :param model [FilingAugmentationModel] A list of augmentations to be created for the specified filing.
-      :return FilingAugmentationModel
-    """
-    def create_return_augmentation(self, companyId, year, month, country, region, formCode, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/augment'.format(self.base_url, companyId, year, month, country, region, formCode),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Add an payment to a given filing.
-    
-    This API is available by invitation only.
-      An "Payment" is usually an increase or decrease to customer funding to Avalara,
-      such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
-      Sometimes may be a manual change in tax liability similar to an augmentation.
-      This API creates a new payment for an existing tax filing.
-      This API can only be used when the filing has not yet been approved.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filing being adjusted.
-      :param year [int] The year of the filing's filing period being adjusted.
-      :param month [int] The month of the filing's filing period being adjusted.
-      :param country [string] The two-character ISO-3166 code for the country of the filing being adjusted.
-      :param region [string] The two or three character region code for the region.
-      :param formCode [string] The unique code of the form being adjusted.
-      :param model [FilingPaymentModel] A list of Payments to be created for the specified filing.
-      :return FilingPaymentModel
-    """
-    def create_return_payment(self, companyId, year, month, country, region, formCode, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/payment'.format(self.base_url, companyId, year, month, country, region, formCode),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Delete an adjustment for a given filing.
-    
-    This API is available by invitation only.
-      An "Adjustment" is usually an increase or decrease to customer funding to Avalara,
-      such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
-      Sometimes may be a manual change in tax liability similar to an augmentation.
-      This API deletes an adjustment for an existing tax filing.
-      This API can only be used when the filing has been unapproved.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filing being adjusted.
-      :param id_ [int] The ID of the adjustment being deleted.
-      :return ErrorDetail
-    """
-    def delete_return_adjustment(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/filings/adjust/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Delete an augmentation for a given filing.
-    
-    This API is available by invitation only.
-      An "Augmentation" is a manually added increase or decrease in tax liability, by either customer or Avalara
-      usually due to customer wanting to report tax Avatax does not support, e.g. bad debts, rental tax.
-      This API deletes an augmentation for an existing tax filing.
-      This API can only be used when the filing has been unapproved.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filing being changed.
-      :param id_ [int] The ID of the augmentation being added.
-      :return ErrorDetail
-    """
-    def delete_return_augmentation(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/filings/augment/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Delete an payment for a given filing.
-    
-    This API is available by invitation only.
-      An "Payment" is usually an increase or decrease to customer funding to Avalara,
-      such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
-      Sometimes may be a manual change in tax liability similar to an augmentation.
-      This API deletes an payment for an existing tax filing.
-      This API can only be used when the filing has been unapproved.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filing being adjusted.
-      :param id_ [int] The ID of the payment being deleted.
-      :return ErrorDetail
-    """
-    def delete_return_payment(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/filings/payment/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve worksheet checkup report for company and filing period.
-    
-    This API is available by invitation only.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param filingsId [int] The unique id of the worksheet.
-      :param companyId [int] The unique ID of the company that owns the worksheet.
-      :return FilingsCheckupModel
-    """
-    def filings_checkup_report(self, filingsId, companyId):
-        return requests.get('{}/api/v2/companies/{}/filings/{}/checkup'.format(self.base_url, filingsId, companyId),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve worksheet checkup report for company and filing period.
-    
-    This API is available by invitation only.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The unique ID of the company that owns the worksheets object.
-      :param year [int] The year of the filing period.
-      :param month [int] The month of the filing period.
-      :return FilingsCheckupModel
-    """
-    def filings_checkup_reports(self, companyId, year, month):
-        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/checkup'.format(self.base_url, companyId, year, month),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a list of filings for the specified accrual return.
-    
-    ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
-      :param companyId [int] The ID of the company that owns these batches
-      :param filingReturnId [int] The ID of the accrual return
-      :return FetchResult
-    """
-    def get_accrual_fillings(self, companyId, filingReturnId):
-        return requests.get('{}/api/v2/companies/{}/filings/accrual/{}'.format(self.base_url, companyId, filingReturnId),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a single attachment for a filing
-    
-    This API is available by invitation only.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filings.
-      :param filingReturnId [int] The unique id of the worksheet return.
-      :param fileId [int] The unique id of the document you are downloading
-      :return String
-    """
-    def get_filing_attachment(self, companyId, filingReturnId, include=None):
-        return requests.get('{}/api/v2/companies/{}/filings/{}/attachment'.format(self.base_url, companyId, filingReturnId),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
     Retrieve a list of filings for the specified company in the year and month of a given filing period.
     
     This API is available by invitation only.
@@ -3780,7 +2930,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
@@ -3801,7 +2951,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
@@ -3811,314 +2961,6 @@ class Mixin:
     def get_filing_attachments_trace_file(self, companyId, year, month):
         return requests.get('{}/api/v2/companies/{}/filings/{}/{}/attachments/tracefile'.format(self.base_url, companyId, year, month),
                                auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a filing for the specified company and id.
-    
-    This API is available by invitation only.
-      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
-      based on filing frequency of filing.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filings.
-      :param id_ [int] The id of the filing return your retrieving
-      :param details [boolean] Indicates if you would like the credit details returned
-      :return FilingReturnModel
-    """
-    def get_filing_return(self, companyId, id_, include=None):
-        return requests.get('{}/api/v2/companies/{}/filings/returns/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a list of filings for the specified company in the year and month of a given filing period.
-    
-    This API is available by invitation only.
-      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
-      based on filing frequency of filing.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-    
-      :param companyId [int] The ID of the company that owns the filings.
-      :param year [int] The year of the filing period.
-      :param month [int] The two digit month of the filing period.
-      :return FetchResult
-    """
-    def get_filings(self, companyId, year, month):
-        return requests.get('{}/api/v2/companies/{}/filings/{}/{}'.format(self.base_url, companyId, year, month),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a list of filings for the specified company in the given filing period and country.
-    
-    This API is available by invitation only.
-      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
-      based on filing frequency of filing.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-    
-      :param companyId [int] The ID of the company that owns the filings.
-      :param year [int] The year of the filing period.
-      :param month [int] The two digit month of the filing period.
-      :param country [string] The two-character ISO-3166 code for the country.
-      :return FetchResult
-    """
-    def get_filings_by_country(self, companyId, year, month, country):
-        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}'.format(self.base_url, companyId, year, month, country),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a list of filings for the specified company in the filing period, country and region.
-    
-    This API is available by invitation only.
-      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
-      based on filing frequency of filing.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-    
-      :param companyId [int] The ID of the company that owns the filings.
-      :param year [int] The year of the filing period.
-      :param month [int] The two digit month of the filing period.
-      :param country [string] The two-character ISO-3166 code for the country.
-      :param region [string] The two or three character region code for the region.
-      :return FetchResult
-    """
-    def get_filings_by_country_region(self, companyId, year, month, country, region):
-        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}/{}'.format(self.base_url, companyId, year, month, country, region),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a list of filings for the specified company in the given filing period, country, region and form.
-    
-    This API is available by invitation only.
-      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
-      based on filing frequency of filing.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-    
-      :param companyId [int] The ID of the company that owns the filings.
-      :param year [int] The year of the filing period.
-      :param month [int] The two digit month of the filing period.
-      :param country [string] The two-character ISO-3166 code for the country.
-      :param region [string] The two or three character region code for the region.
-      :param formCode [string] The unique code of the form.
-      :return FetchResult
-    """
-    def get_filings_by_return_name(self, companyId, year, month, country, region, formCode):
-        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}'.format(self.base_url, companyId, year, month, country, region, formCode),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a list of filings for the specified company in the year and month of a given filing period.
-      This gets the basic information from the filings and doesn't include anything extra.
-    
-    ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-    
-      :param companyId [int] The ID of the company that owns these batches
-      :param endPeriodMonth [int] The month of the period you are trying to retrieve
-      :param endPeriodYear [int] The year of the period you are trying to retrieve
-      :param frequency [FilingFrequencyId] The frequency of the return you are trying to retrieve (See FilingFrequencyId::* for a list of allowable values)
-      :param status [FilingStatusId] The status of the return(s) you are trying to retrieve (See FilingStatusId::* for a list of allowable values)
-      :param country [string] The country of the return(s) you are trying to retrieve
-      :param region [string] The region of the return(s) you are trying to retrieve
-      :param filingCalendarId [int] The filing calendar id of the return you are trying to retrieve
-      :return FetchResult
-    """
-    def get_filings_returns(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/filings/returns'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve a list of filings for the specified company in the year and month of a given filing period.
-    
-    This API is available by invitation only.
-      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
-      based on filing frequency of filing.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filings.
-      :param year [int] The year of the filing period.
-      :param month [int] The two digit month of the filing period.
-      :param country [string] The two-character ISO-3166 code for the country.
-      :param region [string] The two or three character region code for the region.
-      :param formCode [string] The unique code of the form.
-      :return FetchResult
-    """
-    def get_tax_filings(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/filings'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Rebuild a set of filings for the specified company in the given filing period.
-    
-    This API is available by invitation only.
-      Rebuilding a return means re-creating or updating the amounts to be filed (worksheet) for a filing.
-      Rebuilding has to be done whenever a customer adds transactions to a filing.
-      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
-      based on filing frequency of filing.
-      This API requires filing to be unapproved.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-    
-      :param companyId [int] The ID of the company that owns the filings.
-      :param year [int] The year of the filing period to be rebuilt.
-      :param month [int] The month of the filing period to be rebuilt.
-      :param model [RebuildFilingsModel] The rebuild request you wish to execute.
-      :return FetchResult
-    """
-    def rebuild_filings(self, companyId, year, month, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/rebuild'.format(self.base_url, companyId, year, month),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Rebuild a set of filings for the specified company in the given filing period and country.
-    
-    This API is available by invitation only.
-      Rebuilding a return means re-creating or updating the amounts to be filed (worksheet) for a filing.
-      Rebuilding has to be done whenever a customer adds transactions to a filing.
-      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
-      based on filing frequency of filing.
-      This API requires filing to be unapproved.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-    
-      :param companyId [int] The ID of the company that owns the filings.
-      :param year [int] The year of the filing period to be rebuilt.
-      :param month [int] The month of the filing period to be rebuilt.
-      :param country [string] The two-character ISO-3166 code for the country.
-      :param model [RebuildFilingsModel] The rebuild request you wish to execute.
-      :return FetchResult
-    """
-    def rebuild_filings_by_country(self, companyId, year, month, country, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Rebuild a set of filings for the specified company in the given filing period, country and region.
-    
-    This API is available by invitation only.audit.CheckAuthorizationReturns(null, companyId);
-      Rebuilding a return means re-creating or updating the amounts to be filed for a filing.
-      Rebuilding has to be done whenever a customer adds transactions to a filing.
-      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
-      based on filing frequency of filing.
-      This API requires filing to be unapproved.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-    
-      :param companyId [int] The ID of the company that owns the filings.
-      :param year [int] The year of the filing period to be rebuilt.
-      :param month [int] The month of the filing period to be rebuilt.
-      :param country [string] The two-character ISO-3166 code for the country.
-      :param region [string] The two or three character region code for the region.
-      :param model [RebuildFilingsModel] The rebuild request you wish to execute.
-      :return FetchResult
-    """
-    def rebuild_filings_by_country_region(self, companyId, year, month, country, region, model):
-        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country, region),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Edit an adjustment for a given filing.
-    
-    This API is available by invitation only.
-      An "Adjustment" is usually an increase or decrease to customer funding to Avalara,
-      such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
-      Sometimes may be a manual change in tax liability similar to an augmentation.
-      This API modifies an adjustment for an existing tax filing.
-      This API can only be used when the filing has not yet been approved.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filing being adjusted.
-      :param id_ [int] The ID of the adjustment being edited.
-      :param model [FilingAdjustmentModel] The updated Adjustment.
-      :return FilingAdjustmentModel
-    """
-    def update_return_adjustment(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/filings/adjust/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Edit an augmentation for a given filing.
-    
-    This API is available by invitation only.
-      An "Augmentation" is a manually added increase or decrease in tax liability, by either customer or Avalara
-      usually due to customer wanting to report tax Avatax does not support, e.g. bad debts, rental tax.
-      This API modifies an augmentation for an existing tax filing.
-      This API can only be used when the filing has not been approved.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filing being changed.
-      :param id_ [int] The ID of the augmentation being edited.
-      :param model [FilingAugmentationModel] The updated Augmentation.
-      :return FilingModel
-    """
-    def update_return_augmentation(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/filings/augment/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Edit an payment for a given filing.
-    
-    This API is available by invitation only.
-      An "Payment" is usually an increase or decrease to customer funding to Avalara,
-      such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
-      Sometimes may be a manual change in tax liability similar to an augmentation.
-      This API modifies an payment for an existing tax filing.
-      This API can only be used when the filing has not yet been approved.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param companyId [int] The ID of the company that owns the filing being adjusted.
-      :param id_ [int] The ID of the payment being edited.
-      :param model [FilingPaymentModel] The updated Payment.
-      :return FilingPaymentModel
-    """
-    def update_return_payment(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/filings/payment/{}'.format(self.base_url, companyId, id_),
-                               auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -4169,9 +3011,9 @@ class Mixin:
       :param line2 [string] The street address of the location.
       :param line3 [string] The street address of the location.
       :param city [string] The city name of the location.
-      :param region [string] Name or ISO 3166 code identifying the region within the country.    This field supports many different region identifiers:   * Two and three character ISO 3166 region codes   * Fully spelled out names of the region in ISO supported languages   * Common alternative spellings for many regions    For a full list of all supported codes and names, please see the Definitions API `ListRegions`.
+      :param region [string] Name or ISO 3166 code identifying the region within the country.     This field supports many different region identifiers:   * Two and three character ISO 3166 region codes   * Fully spelled out names of the region in ISO supported languages   * Common alternative spellings for many regions     For a full list of all supported codes and names, please see the Definitions API `ListRegions`.
       :param postalCode [string] The postal code of the location.
-      :param country [string] Name or ISO 3166 code identifying the country.    This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries    For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
+      :param country [string] Name or ISO 3166 code identifying the country.     This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries     For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
       :return TaxRateModel
     """
     def tax_rates_by_address(self, include=None):
@@ -4203,67 +3045,13 @@ class Mixin:
       Please see [Estimating Tax with REST v2](http://developer.avalara.com/blog/2016/11/04/estimating-tax-with-rest-v2/)
       for information on how to upgrade to the full AvaTax CreateTransaction API.
     
-      :param country [string] Name or ISO 3166 code identifying the country.    This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries    For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
+      :param country [string] Name or ISO 3166 code identifying the country.     This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries     For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
       :param postalCode [string] The postal code of the location.
       :return TaxRateModel
     """
     def tax_rates_by_postal_code(self, include=None):
         return requests.get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Request the javascript for a funding setup widget
-    
-    This API is available by invitation only.
-      Companies that use the Avalara Managed Returns or the SST Certified Service Provider services are
-      required to setup their funding configuration before Avalara can begin filing tax returns on their
-      behalf.
-      Funding configuration for each company is set up by submitting a funding setup request, which can
-      be sent either via email or via an embedded HTML widget.
-      When the funding configuration is submitted to Avalara, it will be reviewed by treasury team members
-      before approval.
-      This API returns back the actual javascript code to insert into your application to render the
-      JavaScript funding setup widget inline.
-      Use the 'methodReturn.javaScript' return value to insert this widget into your HTML page.
-      This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param id_ [int] The unique ID number of this funding request
-      :return FundingStatusModel
-    """
-    def activate_funding_request(self, id_):
-        return requests.get('{}/api/v2/fundingrequests/{}/widget'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 10)
-
-    r"""
-    Retrieve status about a funding setup request
-    
-    This API is available by invitation only.
-      Companies that use the Avalara Managed Returns or the SST Certified Service Provider services are
-      required to setup their funding configuration before Avalara can begin filing tax returns on their
-      behalf.
-      Funding configuration for each company is set up by submitting a funding setup request, which can
-      be sent either via email or via an embedded HTML widget.
-      When the funding configuration is submitted to Avalara, it will be reviewed by treasury team members
-      before approval.
-      This API checks the status on an existing funding request.
-      This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
-      ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
-    
-      :param id_ [int] The unique ID number of this funding request
-      :return FundingStatusModel
-    """
-    def funding_request_status(self, id_):
-        return requests.get('{}/api/v2/fundingrequests/{}'.format(self.base_url, id_),
-                               auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -5390,7 +4178,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the comment for.
@@ -5413,7 +4201,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice added to the finance details.
@@ -5435,7 +4223,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the responsibility for.
@@ -5457,7 +4245,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the responsibility for.
@@ -5479,7 +4267,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param model [NoticeModel] The notice object you wish to create.
@@ -5500,7 +4288,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice you wish to delete the finance detail from.
@@ -5523,7 +4311,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice you wish to delete the finance detail from.
@@ -5545,7 +4333,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice you wish to delete.
@@ -5566,7 +4354,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param noticeId [int] The ID of the notice you wish to delete.
@@ -5588,7 +4376,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this notice.
       :param noticeId [int] The ID of the notice you wish to delete.
@@ -5608,7 +4396,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company for this attachment.
       :param id_ [int] The ResourceFileId of the attachment to download.
@@ -5629,7 +4417,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company for this notice.
       :param id_ [int] The ID of this notice.
@@ -5650,7 +4438,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
@@ -5672,7 +4460,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] The ID of the company that owns these notices.
       :param companyId [int] The ID of the company that owns these notices.
@@ -5693,7 +4481,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
@@ -5714,7 +4502,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
@@ -5737,7 +4525,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these notices.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* status, totalRemit, ticketReferenceNo, ticketReferenceUrl, reason, type, createdByUserName, documentReference, jurisdictionName, jurisdictionType, comments, finances, responsibility, rootCause
@@ -5765,7 +4553,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* status, totalRemit, ticketReferenceNo, ticketReferenceUrl, reason, type, createdByUserName, documentReference, jurisdictionName, jurisdictionType, comments, finances, responsibility, rootCause
       :param include [string] A comma separated list of additional data to retrieve.
@@ -5788,7 +4576,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
       :return FetchResult
@@ -5807,7 +4595,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that this notice finance detail belongs to.
       :param noticeid [int] The ID of the notice finance detail you wish to update.
@@ -5832,7 +4620,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that this notice belongs to.
       :param id_ [int] The ID of the notice you wish to update.
@@ -5853,7 +4641,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that this notice comment belongs to.
       :param noticeid [int] The ID of the notice you wish to update.
@@ -5874,7 +4662,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company for this attachment.
       :param model [ResourceFileUploadRequestModel] The upload request.
@@ -5898,7 +4686,7 @@ class Mixin:
       dismissed. You can then later review which employees of your company dismissed notifications to
       determine if they were resolved appropriately.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The id of the notification you wish to mark as dismissed.
       :return NotificationModel
@@ -5969,7 +4757,7 @@ class Mixin:
       onto the AvaTax website and reviewing terms and conditions online.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Onboarding] for your servers.
+      * This API is available by invitation only.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Onboarding:RequestNewAccount].
     
       :param model [NewAccountRequestModel] Information about the account you wish to create and the selected product offerings.
@@ -5987,7 +4775,7 @@ class Mixin:
       the add new entitlement to an existing customer
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Onboarding] for your servers.
+      * This API is available by invitation only.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Onboarding:RequestNewAccount].
     
       :param id_ [int] The avatax account id of the customer
@@ -6304,11 +5092,15 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* reportType, parameters, createdUser, completedDate
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_reports(self):
+    def list_reports(self, include=None):
         return requests.get('{}/api/v2/reports'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=None, 
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
@@ -6677,7 +5469,7 @@ class Mixin:
       file for a single location at a time, please use `BuildTaxContentFileForLocation`.
       NOTE: This API does not work for Tennessee tax holiday scenarios.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param model [PointOfSaleDataRequestModel] Parameters about the desired file format and report format, specifying which company, locations and TaxCodes to include.
@@ -6709,7 +5501,7 @@ class Mixin:
       file for a multiple locations in a single file, please use `BuildTaxContentFile`.
       NOTE: This API does not work for Tennessee tax holiday scenarios.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company that owns this location.
@@ -6762,7 +5554,7 @@ class Mixin:
       * TAX_SHIPPING_AND_HANDLING_TOGETHER - This column contains 'Y' if shipping and handling are taxable when sent together.
       For more detailed tax content, please use the `BuildTaxContentFile` API which allows usage of exact items and exact locations.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param date [datetime] The date for which point-of-sale data would be calculated (today by default). Example input: 2016-12-31
       :param region [string] If the region is provided, this API is going to generate the tax rate per zipcode for only the region specified.
@@ -7066,8 +5858,9 @@ class Mixin:
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
       ### Security Policies
+      * This API requires the user role Compliance Root User.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request host address whitelisting for [Returns] for your servers.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param model [BulkLockTransactionModel] bulk lock request
       :return BulkLockTransactionResult
@@ -7502,6 +6295,33 @@ class Mixin:
     """
     def uncommit_transaction(self, companyCode, transactionCode, include=None):
         return requests.post('{}/api/v2/companies/{}/transactions/{}/uncommit'.format(self.base_url, companyCode, transactionCode),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
+    Unvoids a transaction
+    
+    Unvoids a voided transaction
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Lines
+      * Details (implies lines)
+      * Summary (implies details)
+      * Addresses
+      * SummaryOnly (omit lines and details - reduces API response size)
+      * LinesOnly (omit details - reduces API response size)
+      * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+    
+      :param companyCode [string] The company code of the company that recorded this transaction
+      :param transactionCode [string] The transaction code to commit
+      :param documentType [DocumentType] (Optional): The document type of the transaction to commit. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
+      :param include [string] Specifies objects to include in this fetch call
+      :return TransactionModel
+    """
+    def unvoid_transaction(self, companyCode, transactionCode, include=None):
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/unvoid'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
