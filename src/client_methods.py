@@ -2922,6 +2922,27 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Checks to see if the company has a valid POA for a tax form code
+    
+    This API is available by invitation only.
+      This API fetches valid POA's for a company by TaxFormCode or by country/region
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API is available by invitation only.
+    
+      :param companyId [int] The company id that we are checking about
+      :param taxFormCode [string] The tax form code that we are checking
+      :param country [string] The country we are fetching POAs for
+      :param region [string] The region we are fetching POAs for
+      :return PowerOfAttorneyCheckModel
+    """
+    def active_power_of_attorney(self, companyId, include=None):
+        return requests.get('{}/api/v2/companies/{}/filingcalendars/powerofattorney'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Retrieve a list of filings for the specified company in the year and month of a given filing period.
     
     This API is available by invitation only.
