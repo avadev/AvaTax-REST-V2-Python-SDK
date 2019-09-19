@@ -47,6 +47,6 @@ class TransactionBuilder(transaction_builder_methods.Mixin):
             'companyCode': comp_code,
             'customerCode': cust_code,
             'type': type_,
-            'date': '{}'.format(datetime.utcnow()),
+            'date': '{}'.format(datetime.now()),
             'lines': []
         }
