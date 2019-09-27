@@ -1,16 +1,25 @@
 """
 AvaTax Software Development Kit for Python.
 
-(c) 2004-2017 Avalara, Inc.
+   Copyright 2019 Avalara, Inc.
 
-For the full copyright and license information, please view the LICENSE
-file that was distributed with this source code.
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
 
 @author     Robert Bronson
 @author     Phil Werner
 @author     Adrienne Karnoski
 @author     Han Bao
-@copyright  2004-2017 Avalara, Inc.
+@copyright  2019 Avalara, Inc.
 @license    https://www.apache.org/licenses/LICENSE-2.0
 @version    TBD
 @link       https://github.com/avadev/AvaTax-REST-V2-Python-SDK
