@@ -9,7 +9,7 @@ with open('README.md') as f:
 
 setup(
     name='Avalara',
-    version='19.9.1',
+    version='19.9.1.1',
     url='https://github.com/avadev/AvaTax-REST-V2-Python-SDK',
     package_dir={'': 'src'},
     py_modules=[
