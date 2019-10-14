@@ -21,3 +21,11 @@ notifications:
     on_failure: never
     template:
     - Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch}%{result}
+before_deploy:	
+- python3 setup.py sdist
+deploy:	
+  provider: script	
+  script: twine upload dist/*
+  on:
+    tags: true
+    branch: master
