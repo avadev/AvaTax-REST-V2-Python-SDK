@@ -31,6 +31,15 @@ Transaction Builder methods(to be auto generated)
 class Mixin:
     """Mixin containing methods attached to TransactionBuilder Class."""
 
+    @property
+    def line_num(self):
+        return len(self.create_model.get('lines', []))
+
+    def _get_line_number(self, line_number=None):
+        if line_number is None:
+            line_number = self.line_num
+        return str(line_number)
+
     def with_commit(self):
         """
         Set the commit flag of the transaction.
@@ -127,7 +136,14 @@ class Mixin:
                                                         'longitude': float(long_)}
         return self
 
-    def with_line(self, amount, quantity, item_code, tax_code, line_number=None):
+    def with_line(
+            self,
+            amount,
+            quantity,
+            item_code,
+            tax_code,
+            line_number=None,
+    ):
         r"""
         Add a line to the transaction.
 
@@ -136,42 +152,45 @@ class Mixin:
         :param  string  item_code: Code of the item.
         :param  string  tax_code:  Tax Code of the item. If left blank, \
         the default item (P0000000) is assumed.
-        :param  [int]  line_number: Value of the line number.
+        :param  str  line_number: Value of the line number.
         :return:  TransactionBuilder
         """
-        if line_number is not None:
-            self.line_num = line_number;
-        
+
         temp = {
-            'number': str(self.line_num),
+            'number': self._get_line_number(line_number),
             'amount': amount,
             'quantity': quantity,
             'itemCode': str(item_code),
             'taxCode': str(tax_code)
         }
         self.create_model['lines'].append(temp)
-        self.line_num += 1
         return self
 
-    def with_exempt_line(self, amount, item_code, exemption_code):
+    def with_exempt_line(
+            self,
+            amount,
+            item_code,
+            exemption_code,
+            line_number=None,
+    ):
         """
         Add a line with an exemption to this transaction.
 
         :param   float   amount:         The amount of this line item
         :param   string  item_code:      The code for the item
         :param   string  exemption_code:  The exemption code for this line item
+        :param   str     line_number:    Value of the line number.
         :return:  TransactionBuilder
         """
 
         temp = {
-            'number': str(self.line_num),
+            'number': self._get_line_number(line_number),
             'quantity': 1,
             'amount': amount,
             'exemptionCode': str(exemption_code),
             'itemCode': str(item_code)
         }
         self.create_model['lines'].append(temp)
-        self.line_num += 1
         return self
 
     def with_diagnostics(self):
@@ -298,7 +317,13 @@ class Mixin:
         }
         return self
 
-    def with_separate_address_line(self, amount, type_, address):
+    def with_separate_address_line(
+            self,
+            amount,
+            type_,
+            address,
+            line_number=None,
+    ):
         r"""
         Add a line to this transaction.
 
@@ -316,10 +341,11 @@ class Mixin:
             region        State or Region of the location.
             postal_code    Postal/zip code of the location.
             country       The two-letter country code of the location.
+        :param  str  line_number: Value of the line number.
         :return: TransactionBuilder
         """
         temp = {
-            'number': self.line_num,
+            'number': self._get_line_number(line_number),
             'quantity': 1,
             'amount': amount,
             'addresses': {
@@ -328,7 +354,6 @@ class Mixin:
         }
 
         self.create_model['lines'].append(temp)
-        self.line_num += 1
         return self
 
     def create_adjustment_request(self, desc, reason):
