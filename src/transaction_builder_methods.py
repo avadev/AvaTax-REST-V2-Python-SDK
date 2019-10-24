@@ -241,13 +241,12 @@ class Mixin:
             raise Exception('No lines have been added. The {} method applies to the most recent line. To use this function, first add a line.'.format(member_name))
         return line[-1]
 
-    def create(self):
+    def create(self, include=None):
         """
         Create this transaction.
 
         :return: TransactionModel
         """
-        include = None
         return self.client.create_transaction(self.create_model, include)
 
     def with_line_tax_override(self, type_, reason, tax_amount, tax_date):
