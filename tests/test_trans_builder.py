@@ -1,5 +1,5 @@
 """Test Transactin Builder class."""
-from transaction_builder import TransactionBuilder
+from avalara.transaction_builder import TransactionBuilder
 
 
 def test_initialize_builder_object(auth_client):

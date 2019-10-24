@@ -28,7 +28,7 @@ TransactionBuilder helps you construct a new transaction using a literate
 interface
 """
 from datetime import datetime
-import transaction_builder_methods
+from . import transaction_builder_methods
 
 
 class TransactionBuilder(transaction_builder_methods.Mixin):

@@ -1,5 +1,5 @@
 """Test the client model."""
-from client import AvataxClient
+from avalara.client import AvataxClient
 
 
 def test_client_can_be_created(unauth_client):

@@ -12,13 +12,7 @@ setup(
     version='19.9.1.1',
     url='https://github.com/avadev/AvaTax-REST-V2-Python-SDK',
     package_dir={'': 'src'},
-    py_modules=[
-        'client',
-        'client_methods',
-        'transaction_builder',
-        'transaction_builder_methods',
-        '_str_version'
-    ],
+    packages=['avalara'],
     author='Han Bao, Adrienne Karnoski, Robert Bronson, Philip Werner, Genevieve Conty',
     author_email='han.bao@avalara.com',
     description='Avalara Tax Python SDK.',

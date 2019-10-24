@@ -17,7 +17,7 @@ AvaTax Software Development Kit for Python.
 """
 
 import requests
-from _str_version import str_type
+from ._str_version import str_type
 
 
 class Mixin:
