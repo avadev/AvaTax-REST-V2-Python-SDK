@@ -7,7 +7,7 @@ import pytest
 
 @pytest.fixture(scope='function')
 def unauth_client():
-    """Create an instance of SanboxClient without authentification."""
+    """Create an instance of SandboxClient without authentification."""
     return AvataxClient('test app', 'ver 0.0', 'test machine', 'sandbox')
 
 
