@@ -6,6 +6,7 @@ install:
 - pip install -e .[test]
 - pip install -e .
 - pip install pytest-cov
+script: py.test --cov=. --cov-report term-missing
 env:
   global:
   - CI=true
@@ -22,8 +23,6 @@ notifications:
     - Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch}%{result}
 jobs:
   include:
-  - stage: Py Test 
-    script: py.test --cov=. --cov-report term-missing
   - python: 3.6  
     stage: Deploy
     before_deploy:
