@@ -21,7 +21,7 @@ notifications:
     - Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch}%{result}
 jobs:
   include:
-  - stage: Test 
+  - stage: Py Test 
     script: py.test --cov=. --cov-report term-missing
   - stage: Deploy
     before_deploy:
