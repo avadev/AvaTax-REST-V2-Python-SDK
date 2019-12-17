@@ -231,7 +231,6 @@ class Mixin:
       ### Security Policies
       * This API requires the user role Compliance Root User.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param model [AvaFileFormModel] The AvaFileForm you wish to create.
       :return AvaFileFormModel
@@ -248,7 +247,6 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: Compliance Root User, ComplianceUser, FirmAdmin.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] The ID of the AvaFileForm you wish to delete.
       :return ErrorDetail
@@ -264,7 +262,6 @@ class Mixin:
     Get the AvaFileForm object identified by this URL.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
-      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The primary key of this AvaFileForm
@@ -283,7 +280,6 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* outletTypeId
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -304,7 +300,6 @@ class Mixin:
       ### Security Policies
       * This API requires the user role Compliance Root User.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] The ID of the AvaFileForm you wish to update
       :param model [AvaFileFormModel] The AvaFileForm model you wish to update.
@@ -1141,7 +1136,6 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The unique identifier of the company
       :return FundingConfigurationModel
@@ -1161,7 +1155,6 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The unique identifier of the company
       :param currency [string] The currency of the funding. USD and CAD are the only valid currencies
@@ -1533,7 +1526,7 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
-      :return ErrorDetail
+      :return CustomerModel
     """
     def delete_customer(self, companyId, customerCode):
         return requests.delete('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
@@ -2031,12 +2024,13 @@ class Mixin:
     r"""
     List certificate attributes used by a company
     
-    List the certificate attributes defined by a company.
+    List the certificate attributes defined by a company either specified by the user or the user's default company.
       A certificate may have multiple attributes that control its behavior. You may apply or remove attributes to a
       certificate at any time.
       If you see the 'CertCaptureNotConfiguredError', please use CheckProvision and RequestProvision endpoints to
       check and provision account.
     
+      :param companyid [int] Id of the company the user wish to fetch the certificates' attributes from. If not specified the API will use user's default company.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3166,6 +3160,30 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Retrieve a list of filed returns for the specified company in the year and month of a given filing period.
+    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser, CompanyUser, AccountUser, CompanyAdmin, AccountAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns these batches
+      :param endPeriodMonth [int] The month of the period you are trying to retrieve
+      :param endPeriodYear [int] The year of the period you are trying to retrieve
+      :param frequency [FilingFrequencyId] The frequency of the return you are trying to retrieve (See FilingFrequencyId::* for a list of allowable values)
+      :param status [FilingStatusId] The status of the return(s) you are trying to retrieve (See FilingStatusId::* for a list of allowable values)
+      :param country [string] The country of the return(s) you are trying to retrieve
+      :param region [string] The region of the return(s) you are trying to retrieve
+      :param filingCalendarId [int] The filing calendar id of the return you are trying to retrieve
+      :param taxformCode [string] The unique tax form code of the form.
+      :return FetchResult
+    """
+    def get_filed_returns(self, companyId, include=None):
+        return requests.get('{}/api/v2/companies/{}/filings/returns/filed'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Approves linkage to a firm for a client account
     
     This API enables the account admin of a client account to approve linkage request by a firm.
@@ -3415,7 +3433,6 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] The unique ID number of this funding request
       :return FundingStatusModel
@@ -3441,7 +3458,6 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] The unique ID number of this funding request
       :return FundingStatusModel
@@ -4698,7 +4714,7 @@ class Mixin:
     r"""
     Request a new Avalara account
     
-    This API is for use by partner onboarding services customers only.
+    This API is for use by partner provisioning services customers only.
       Avalara invites select partners to refer new customers to the AvaTax service using the onboarding features
       of AvaTax. These partners can create accounts for new customers using this API.
       Calling this API creates an account with the specified product subscriptions, but does not configure billing.
@@ -4712,7 +4728,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API is available by invitation only.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Onboarding:RequestNewAccount].
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Provisioning:RequestNewAccount].
     
       :param model [NewAccountRequestModel] Information about the account you wish to create and the selected product offerings.
       :return NewAccountModel
@@ -4725,12 +4741,12 @@ class Mixin:
     r"""
     Request a new entitilement to an existing customer
     
-    This API is for use by partner onboarding services customers only. This will allow the partners to allow
+    This API is for use by partner provisioning services customers only. This will allow the partners to allow
       the add new entitlement to an existing customer
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API is available by invitation only.
-      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Onboarding:RequestNewAccount].
+      * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Provisioning:RequestNewAccount].
     
       :param id_ [int] The avatax account id of the customer
       :param offer [string] The offer to be added to an already existing customer
@@ -5807,7 +5823,6 @@ class Mixin:
       ### Security Policies
       * This API requires the user role Compliance Root User.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param model [BulkLockTransactionModel] bulk lock request
       :return BulkLockTransactionResult
@@ -6705,7 +6720,7 @@ class Mixin:
       or subscription to provide useful information to the current user as to whether they are entitled to use
       specific features of AvaTax.
     
-      :param serviceTypeId [ServiceTypeId] The service to check (See ServiceTypeId::* for a list of allowable values)
+      :param serviceTypeId [string] The service to check
       :return SubscriptionModel
     """
     def get_my_subscription(self, serviceTypeId):
