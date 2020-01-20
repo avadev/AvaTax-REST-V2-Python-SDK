@@ -41,7 +41,7 @@ AvaTax-REST-V2-Python-SDK $ source ENV/bin/activate
 First thing to do is to import the AvataxClient constructor module to your name space, or your python script.
 
 ```
-from client import AvataxClient
+from avalara import AvataxClient
 ```
 
 **Now we are ready to construct a client object**
@@ -137,7 +137,7 @@ To learn more about integrating our REST API into your system, visit our [develo
 
 We realize that having to format the TransactionModel can be complicated and time consuming, thus we created a tool called Transaction Builder to help you put together a transaction model, and create it!
 First import the transaction builder constructor into your name space:
-```from transaction_builder import TransactionBuilder```
+```from avalara.transaction_builder import TransactionBuilder```
 
 Then, let's create a transaction builder object:
 ```
