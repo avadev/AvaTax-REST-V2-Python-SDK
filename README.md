@@ -36,7 +36,7 @@ AvaTax-REST-V2-Python-SDK $ source ENV/bin/activate
 ### Create a transaction
 
 
-**Import the AvataxClient from the avalara package**
+**Import the AvataxClient from the avalara module**
 
 First thing to do is to import the AvataxClient constructor module to your name space, or your python script.
 
