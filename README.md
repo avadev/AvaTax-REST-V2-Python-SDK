@@ -12,20 +12,20 @@ Install simply with pip.
 
 **OR**
 
-Clone this repository to your local machine.
+1. Clone this repository to your local machine.
 ```
 $ git clone https://github.com/avadev/AvaTax-REST-V2-Python-SDK.git
 ```
-Once downloaded, cd into the ```AvaTax-REST-V2-Python-SDK``` directory.
+2. Once downloaded, cd into the ```AvaTax-REST-V2-Python-SDK``` directory.
 ```
 $ cd AvaTax-REST-V2-Python-SDK
 ```
-Begin a new virtual environment with Python 3 and activate it.
+3. Begin a new virtual environment with Python 3 and activate it.
 ```
 AvaTax-REST-V2-Python-SDK $ python3 -m venv ENV
 AvaTax-REST-V2-Python-SDK $ source ENV/bin/activate
 ```
-[pip](https://pip.pypa.io/en/stable) install this package as well as the testing set of extras into your virtual enviroment.
+4. [pip](https://pip.pypa.io/en/stable) install this package as well as the testing set of extras into your virtual enviroment.
 ```
 (ENV) AvaTax-REST-V2-Python-SDK $ pip install -e .
 (ENV) AvaTax-REST-V2-Python-SDK $ pip install -e .[testing]
@@ -36,12 +36,12 @@ AvaTax-REST-V2-Python-SDK $ source ENV/bin/activate
 ### Create a transaction
 
 
-**Import the AvataxClient from the client module**
+**Import the AvataxClient from the avalara module**
 
 First thing to do is to import the AvataxClient constructor module to your name space, or your python script.
 
 ```
-from client import AvataxClient
+from avalara import AvataxClient
 ```
 
 **Now we are ready to construct a client object**
@@ -137,7 +137,7 @@ To learn more about integrating our REST API into your system, visit our [develo
 
 We realize that having to format the TransactionModel can be complicated and time consuming, thus we created a tool called Transaction Builder to help you put together a transaction model, and create it!
 First import the transaction builder constructor into your name space:
-```from transaction_builder import TransactionBuilder```
+```from avalara.transaction_builder import TransactionBuilder```
 
 Then, let's create a transaction builder object:
 ```
