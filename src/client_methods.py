@@ -325,6 +325,21 @@ class Mixin:
                                timeout=self.timeout_limit if self.timeout_limit else 10)
 
     r"""
+    Get audit records by account id and date range.
+    
+    
+    
+      :param accountId [int] The ID of the account
+      :param fromDate [string] Date
+      :param toDate [string] Date
+      :return AdvancedRuleLookupFileModel
+    """
+    def get_audit_records(self, accountId, fromDate, toDate):
+        return requests.get('{}/api/v2/advancedrules/audits/accounts/{}/from/{}/to/{}'.format(self.base_url, accountId, fromDate, toDate),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 10)
+
+    r"""
     Get the lookup files for a company
     
     
@@ -2057,7 +2072,7 @@ class Mixin:
     Create one or more datasource objects.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company you which to create the datasources
       :param model [DataSourceModel] 
@@ -2074,7 +2089,7 @@ class Mixin:
     Marks the existing datasource for a company as deleted.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company the datasource belongs to.
       :param id_ [int] The id of the datasource you wish to delete.
@@ -2091,7 +2106,7 @@ class Mixin:
     Retrieve the data source by its unique ID number.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] 
       :param id_ [int] data source id
@@ -2108,7 +2123,7 @@ class Mixin:
     Gets multiple datasource objects for a given company.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company you wish to retrieve the datasources.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isEnabled, isSynced, isAuthorized, name, externalState
@@ -2130,7 +2145,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isEnabled, isSynced, isAuthorized, name, externalState
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -2149,7 +2164,7 @@ class Mixin:
     Updates a datasource for a company.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company the datasource belongs to.
       :param id_ [int] The id of the datasource you wish to delete.
@@ -2972,6 +2987,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :param countryCode [string] If not null, return all records with this code.
       :return FetchResult
     """
     def list_product_classification_systems(self, include=None):
@@ -2991,6 +3007,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :param countryCode [string] If not null, return all records with this code.
       :return FetchResult
     """
     def list_product_classification_systems_by_company(self, companyCode, include=None):
@@ -4423,6 +4440,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
@@ -4457,6 +4476,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
@@ -4483,6 +4504,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
@@ -4527,6 +4550,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
@@ -4557,6 +4582,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
@@ -4595,6 +4622,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
@@ -4630,6 +4659,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
@@ -4681,6 +4712,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
@@ -4708,6 +4741,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
@@ -4734,6 +4769,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
@@ -6013,7 +6050,7 @@ class Mixin:
        If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [AddTransactionLineModel] information about the transaction and lines to be added
@@ -6047,10 +6084,12 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to adjust
@@ -6082,10 +6121,12 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
@@ -6114,10 +6155,12 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
@@ -6171,10 +6214,12 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to change
@@ -6209,6 +6254,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
@@ -6330,7 +6377,7 @@ class Mixin:
        If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [RemoveTransactionLineModel] information about the transaction and lines to be removed
@@ -6361,6 +6408,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
@@ -6385,6 +6434,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
@@ -6452,6 +6503,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
@@ -6493,6 +6546,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
@@ -6541,10 +6596,12 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The code of the company that made the original sale
       :param transactionCode [string] The transaction code of the original sale
@@ -6580,6 +6637,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
@@ -6614,10 +6673,12 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to Uncommit
@@ -6646,10 +6707,12 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to commit
@@ -6682,10 +6745,12 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to settle
@@ -6720,6 +6785,8 @@ class Mixin:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
       * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
       * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
