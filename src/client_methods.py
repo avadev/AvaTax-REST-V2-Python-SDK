@@ -1190,6 +1190,25 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Add parameters to a company.
+    
+    Add parameters to a company.
+      Some companies can be taxed and reported differently depending on the properties of the company, such as IsPrimaryAddress. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to a company will be used by default in tax calculation but will not show on the transaction line referencing the company.
+      A company location parameter specified on a transaction line will override a company parameter if they share the same parameter name.
+      To see available parameters for this company, call `/api/v2/definitions/parameters?$filter=attributeType eq Company`
+      Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The ID of the company that owns this company parameter.
+      :param model [CompanyParameterDetailModel] The company parameters you wish to create.
+      :return CompanyParameterDetailModel
+    """
+    def create_company_parameters(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Request managed returns funding setup for a company
     
     This API is available by invitation only.
@@ -1224,6 +1243,23 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_company(self, id_):        return requests.delete('{}/api/v2/companies/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a single company parameter
+    
+    Delete a parameter of a company.
+      Some companies can be taxed and reported differently depending on the properties of the company, such as IsPrimaryAddress. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to a company will be used by default in tax calculation but will not show on the transaction line referencing the company.
+      A company location parameter specified on a transaction line will override a company parameter if they share the same parameter name.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id
+      :param id_ [int] The parameter id
+      :return ErrorDetail
+    """
+    def delete_company_parameter(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -1308,6 +1344,23 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Retrieve a single company parameter
+    
+    Retrieves a single parameter of a company.
+      Some companies can be taxed and reported differently depending on the properties of the company, such as IsPrimaryAddress. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to a company will be used by default in tax calculation but will not show on the transaction line referencing the company.
+      A company location parameter specified on a transaction line will override a company parameter if they share the same parameter name.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] 
+      :param id_ [int] 
+      :return CompanyParameterDetailModel
+    """
+    def get_company_parameter_detail(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Get this company's filing status
     
     Retrieve the current filing status of this company.
@@ -1328,6 +1381,28 @@ class Mixin:
     """
     def get_filing_status(self, id_):        return requests.get('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve parameters for a company
+    
+    Retrieve all parameters of a company.
+      Some companies can be taxed and reported differently depending on the properties of the company, such as IsPrimaryAddress. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to a company will be used by default in tax calculation but will not show on the transaction line referencing the company.
+      A company location parameter specified on a transaction line will override a company parameter if they share the same parameter name.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] The company id
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* name, unit
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_company_parameter_details(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Check managed returns funding status for a company
@@ -1429,6 +1504,24 @@ class Mixin:
       :return CompanyModel
     """
     def update_company(self, id_, model):        return requests.put('{}/api/v2/companies/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Update a company parameter
+    
+    Update a parameter of a company.
+      Some companies can be taxed and reported differently depending on the properties of the company, such as IsPrimaryAddress. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to a company will be used by default in tax calculation but will not show on the transaction line referencing the company.
+      A company location parameter specified on a transaction line will override a company parameter if they share the same parameter name.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id.
+      :param id_ [int] The company parameter id
+      :param model [CompanyParameterDetailModel] The company parameter object you wish to update.
+      :return CompanyParameterDetailModel
+    """
+    def update_company_parameter_detail(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -2273,7 +2366,7 @@ class Mixin:
     
     Returns a list of all Avalara-supported taxing jurisdictions.
       This API allows you to examine all Avalara-supported jurisdictions. You can filter your search by supplying
-      SQL-like query for fetching only the ones you concerned about. For example: effectiveDate &gt; '2016-01-01'
+      SQL-like query for fetching only the ones you concerned about. For example: effectiveDate > '2016-01-01'
       The rate, salesRate, and useRate fields are not available on the JurisdictionModels returned by this API.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* rate, salesRate, signatureCode, useRate
@@ -3096,6 +3189,36 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Create a new eCommerce token.
+    
+    Creates a new eCommerce token.
+      This API is used to create a new eCommerce token. An eCommerce token is required in order to launch the CertCapture eCommerce plugin. Create a token for each of your CertCapture customers.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] The company ID that will be issued this certificate.
+      :param model [CreateECommerceTokenInputModel] 
+      :return FetchResult
+    """
+    def create_e_commerce_token(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Refresh an eCommerce token.
+    
+    Refresh an eCommerce token.
+      CertCapture eCommerce tokens expire after one hour. This API is used to refresh an eCommerce token that is about to expire. This API can only be used with active tokens. If your token has expired, you must generate a new one.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] The company ID that the refreshed certificate belongs to.
+      :param model [RefreshECommerceTokenInputModel] 
+      :return FetchResult
+    """
+    def refresh_e_commerce_token(self, companyId, model):        return requests.put('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Delete a company return setting
     
     This API is available by invitation only and only available for users with Compliance access
@@ -3108,6 +3231,19 @@ class Mixin:
       :return CompanyReturnSettingModel
     """
     def delete_company_return_settings(self, companyId, filingCalendarId, companyReturnSettingId):        return requests.delete('{}/api/v2/companies/{}/filingcalendars/{}/setting/{}'.format(self.base_url, companyId, filingCalendarId, companyReturnSettingId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a filing containing the return and all its accrual returns.
+    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] The ID of the company that owns these returns
+      :param filingReturnId [int] The ID of the filing return
+      :return FetchResult
+    """
+    def get_accrual_filings(self, companyId, filingReturnId):        return requests.get('{}/api/v2/companies/{}/filings/accrual/{}'.format(self.base_url, companyId, filingReturnId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -3882,6 +4018,26 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Add parameters to a location.
+    
+    Add parameters to a location.
+      Some locations can be taxed differently depending on the properties of that location. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to a location will be used by default in tax calculation but will not show on the transaction line referencing the location.
+      A parameter specified on a transaction line will override a location parameter if they share the same parameter name.
+      To see available parameters for this location, call `/api/v2/definitions/parameters?$filter=attributeType eq Company`
+      Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The ID of the company that owns this location parameter.
+      :param locationId [int] The location id.
+      :param model [LocationParameterModel] The location parameters you wish to create.
+      :return LocationParameterModel
+    """
+    def create_location_parameters(self, companyId, locationId, model):        return requests.post('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Create a new location
     
     Create one or more new location objects attached to this company.
@@ -3910,6 +4066,24 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Delete a single location parameter
+    
+    Delete a single location parameter.
+      Some locations can be taxed differently depending on the properties of that location. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to a location will be used by default in tax calculation but will not show on the transaction line referencing the location.
+      A parameter specified on a transaction line will override a location parameter if they share the same parameter name.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id
+      :param locationId [int] The location id
+      :param id_ [int] The parameter id
+      :return ErrorDetail
+    """
+    def delete_location_parameter(self, companyId, locationId, id_):        return requests.delete('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Retrieve a single location
     
     Get the location object identified by this URL.
@@ -3921,7 +4095,7 @@ class Mixin:
       * LocationSettings
       * parameters
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
@@ -3929,6 +4103,47 @@ class Mixin:
       :return LocationModel
     """
     def get_location(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a single company location parameter
+    
+    Retrieve a single location parameter.
+      Some locations can be taxed differently depending on the properties of that location. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to a location will be used by default in tax calculation but will not show on the transaction line referencing the location.
+      A parameter specified on a transaction line will override a location parameter if they share the same parameter name.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] The company id
+      :param locationId [int] The location id
+      :param id_ [int] The parameter id
+      :return LocationParameterModel
+    """
+    def get_location_parameter(self, companyId, locationId, id_):        return requests.get('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve parameters for a location
+    
+    List parameters for a location.
+      Some locations can be taxed differently depending on the properties of that location. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to a location will be used by default in tax calculation but will not show on the transaction line referencing the location.
+      A parameter specified on a transaction line will override a location parameter if they share the same parameter name.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] The company id
+      :param locationId [int] The ID of the location
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* name, unit
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_location_parameters(self, companyId, locationId, include=None):        return requests.get('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -3945,7 +4160,7 @@ class Mixin:
       * LocationSettings
       * parameters
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns these locations
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* settings, parameters
@@ -3972,7 +4187,7 @@ class Mixin:
       * LocationSettings
       * parameters
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* settings, parameters
       :param include [string] A comma separated list of additional data to retrieve. You may specify `LocationSettings` to retrieve location settings.
@@ -4002,13 +4217,32 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Update a location parameter
+    
+    Update a location parameter.
+      Some locations can be taxed differently depending on the properties of that location. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to a location will be used by default in tax calculation but will not show on the transaction line referencing the location.
+      A parameter specified on a transaction line will override a location parameter if they share the same parameter name.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id.
+      :param locationId [int] The location id
+      :param id_ [int] The location parameter id
+      :param model [LocationParameterModel] The location parameter object you wish to update.
+      :return LocationParameterModel
+    """
+    def update_location_parameter(self, companyId, locationId, id_, model):        return requests.put('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Validate the location against local requirements
     
     Returns validation information for this location.
       This API call is intended to compare this location against the currently known taxing authority rules and regulations,
       and provide information about what additional work is required to completely setup this location.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
@@ -4384,6 +4618,26 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Add parameters to a nexus.
+    
+    Add parameters to the nexus.
+      Some tax calculation and reporting are different depending on the properties of the nexus, such as isRemoteSeller. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to an nexus will be used by default in tax calculation but will not show on the transaction line referencing the nexus.
+      A parameter specified on a transaction line will override an nexus parameter if they share the same parameter name.
+      To see available parameters for this item, call `/api/v2/definitions/parameters?$filter=attributeType eq Nexus`
+      Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The ID of the company that owns this nexus parameter.
+      :param nexusId [int] The nexus id.
+      :param model [NexusParameterDetailModel] The nexus parameters you wish to create.
+      :return NexusParameterDetailModel
+    """
+    def create_nexus_parameters(self, companyId, nexusId, model):        return requests.post('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Creates nexus for a list of addresses.
     
     This call is intended to simplify adding all applicable nexus to a company, for an address or addresses. Calling this
@@ -4426,6 +4680,41 @@ class Mixin:
     """
     def delete_nexus(self, companyId, id_, include=None):        return requests.delete('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a single nexus parameter
+    
+    Delete a single nexus parameter.
+      Some tax calculation and reporting are different depending on the properties of the nexus, such as isRemoteSeller. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to an nexus will be used by default in tax calculation but will not show on the transaction line referencing the nexus.
+      A parameter specified on a transaction line will override an nexus parameter if they share the same parameter name.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id
+      :param nexusId [int] The nexus id
+      :param id_ [int] The parameter id
+      :return ErrorDetail
+    """
+    def delete_nexus_parameter(self, companyId, nexusId, id_):        return requests.delete('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete all parameters for an nexus
+    
+    Delete all the parameters for a given nexus.
+      Some tax calculation and reporting are different depending on the properties of the nexus, such as isRemoteSeller. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to an nexus will be used by default in tax calculation but will not show on the transaction line referencing the nexus.
+      A parameter specified on a transaction line will override an nexus parameter if they share the same parameter name.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The ID of the company that owns this nexus.
+      :param nexusId [int] The ID of the nexus you wish to delete the parameters.
+      :return ErrorDetail
+    """
+    def delete_nexus_parameters(self, companyId, nexusId):        return requests.delete('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
+                               auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Retrieve a single nexus
@@ -4471,6 +4760,24 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Retrieve a single nexus parameter
+    
+    Retrieve a single nexus parameter.
+      Some tax calculation and reporting are different depending on the properties of the nexus, such as isRemoteSeller.In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to an nexus will be used by default in tax calculation but will not show on the transaction line referencing the nexus.
+      A parameter specified on a transaction line will override an nexus parameter if they share the same parameter name.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+    
+      :param companyId [int] The company id
+      :param nexusId [int] The nexus id
+      :param id_ [int] The parameter id
+      :return NexusParameterDetailModel
+    """
+    def get_nexus_parameter(self, companyId, nexusId, id_):        return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Retrieve nexus for this company
     
     List all nexus objects defined for this company.
@@ -4493,6 +4800,29 @@ class Mixin:
       :return FetchResult
     """
     def list_nexus_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve parameters for a nexus
+    
+    List parameters for a nexus.
+      Some tax calculation and reporting are different depending on the properties of the nexus, such as isRemoteSeller. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to an nexus will be used by default in tax calculation but will not show on the transaction line referencing the nexus.
+      A parameter specified on a transaction line will override an nexus parameter if they share the same parameter name.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+    
+      :param companyId [int] The company id
+      :param nexusId [int] The nexus id
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* name, unit
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_nexus_parameters(self, companyId, nexusId, include=None):        return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -4545,6 +4875,25 @@ class Mixin:
       :return NexusModel
     """
     def update_nexus(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Update an nexus parameter
+    
+    Update an nexus parameter.
+      Some tax calculation and reporting are different depending on the properties of the nexus, such as isRemoteSeller. In AvaTax, these tax-affecting properties are called "parameters".
+      A parameter added to a nexus will be used in tax calculation based on the locationcode and parameter value the transaction state line might have lines added.
+      A parameter specified on a transaction line will override an item parameter if they share the same parameter name.????? I dont know about this?
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id.
+      :param nexusId [int] The nexus id
+      :param id_ [int] The nexus parameter id
+      :param model [NexusParameterDetailModel] The nexus object you wish to update.
+      :return NexusParameterDetailModel
+    """
+    def update_nexus_parameter(self, companyId, nexusId, id_, model):        return requests.put('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
