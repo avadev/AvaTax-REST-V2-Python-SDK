@@ -22,8 +22,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the account you wish to update.
-      :param model [ResetLicenseKeyModel] A request confirming that you wish to reset the license key of this account.
-      :return LicenseKeyModel
+      :param model [Python Dictionary] A request confirming that you wish to reset the license key of this account.
+      :return Python Dictionary
     """
     def account_reset_license_key(self, id_, model):        return requests.post('{}/api/v2/accounts/{}/resetlicensekey'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -42,8 +42,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the account to activate
-      :param model [ActivateAccountModel] The activation request
-      :return AccountModel
+      :param model [Python Dictionary] The activation request
+      :return Python Dictionary
     """
     def activate_account(self, id_, model):        return requests.post('{}/api/v2/accounts/{}/activate'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -69,7 +69,7 @@ class Mixin:
       :param end [datetime] The end datetime of audit history you with to retrieve, e.g. "2018-06-08T17:15:00Z. Defaults to the current time. Maximum of an hour after the start time.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :return AuditModelFetchResult
+      :return FetchResult
     """
     def audit_account(self, id_, include=None):        return requests.get('{}/api/v2/accounts/{}/audit'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -88,8 +88,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the account you wish to update.
-      :param model [AccountLicenseKeyModel] 
-      :return LicenseKeyModel
+      :param model [Python Dictionary] 
+      :return Python Dictionary
     """
     def create_license_key(self, id_, model):        return requests.post('{}/api/v2/accounts/{}/licensekey'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -105,7 +105,7 @@ class Mixin:
     
       :param id_ [int] The ID of the account you wish to update.
       :param licensekeyname [string] The license key name you wish to update.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_license_key(self, id_, licensekeyname):        return requests.delete('{}/api/v2/accounts/{}/licensekey/{}'.format(self.base_url, id_, licensekeyname),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -122,7 +122,7 @@ class Mixin:
     
       :param id_ [int] The ID of the account to retrieve
       :param include [string] A comma separated list of special fetch options
-      :return AccountModel
+      :return Python Dictionary
     """
     def get_account(self, id_, include=None):        return requests.get('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -143,7 +143,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] 
-      :return AccountConfigurationModel
+      :return Python Dictionary
     """
     def get_account_configuration(self, id_):        return requests.get('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -156,7 +156,7 @@ class Mixin:
     
       :param id_ [int] The ID of the account to retrieve
       :param licensekeyname [string] The ID of the account to retrieve
-      :return AccountLicenseKeyModel
+      :return Python Dictionary
     """
     def get_license_key(self, id_, licensekeyname):        return requests.get('{}/api/v2/accounts/{}/licensekey/{}'.format(self.base_url, id_, licensekeyname),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -169,7 +169,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the account to retrieve
-      :return AccountLicenseKeyModel
+      :return Python Dictionary
     """
     def get_license_keys(self, id_):        return requests.get('{}/api/v2/accounts/{}/licensekeys'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -193,7 +193,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return AccountModelFetchResult
+      :return FetchResult
     """
     def query_accounts(self, include=None):        return requests.get('{}/api/v2/accounts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -214,8 +214,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
-      :param model [AccountConfigurationModel] 
-      :return AccountConfigurationModel
+      :param model [Python Dictionary] 
+      :return Python Dictionary
     """
     def set_account_configuration(self, id_, model):        return requests.post('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -245,7 +245,7 @@ class Mixin:
       :param postalCode [string] Postal Code / Zip Code
       :param country [string] Two character ISO 3166 Country Code (see /api/v2/definitions/countries for a full list)
       :param textCase [TextCase] selectable text case for address validation (See TextCase::* for a list of allowable values)
-      :return AddressResolutionModel
+      :return Python Dictionary
     """
     def resolve_address(self, include=None):        return requests.get('{}/api/v2/addresses/resolve'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -263,8 +263,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services<br />*Required* (all): AutoAddress.
     
-      :param model [AddressValidationInfo] The address to resolve
-      :return AddressResolutionModel
+      :param model [Python Dictionary] The address to resolve
+      :return Python Dictionary
     """
     def resolve_address_post(self, model):        return requests.post('{}/api/v2/addresses/resolve'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -275,8 +275,8 @@ class Mixin:
     
     
       :param ruleId [string] 
-      :param model [AdvancedRuleFullDetailsModel] 
-      :return AdvancedRuleFullDetailsModel
+      :param model [Python Dictionary] 
+      :return Python Dictionary
     """
     def copy_advanced_rule(self, ruleId, model):        return requests.put('{}/api/v2/advancedrules/rules/{}/copy'.format(self.base_url, ruleId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -286,8 +286,8 @@ class Mixin:
     
     
     
-      :param model [AdvancedRuleFullDetailsModel] The advanced rule you wish to create
-      :return AdvancedRuleFullDetailsModel
+      :param model [Python Dictionary] The advanced rule you wish to create
+      :return Python Dictionary
     """
     def create_advanced_rule(self, model):        return requests.post('{}/api/v2/advancedrules/rules'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -299,8 +299,8 @@ class Mixin:
     
       :param accountId [int] The ID of the account for the company
       :param companyId [int] The ID of the company for which the lookup file is to be created
-      :param model [AdvancedRuleLookupFileModel] The lookup file you wish to create
-      :return AdvancedRuleLookupFileModel
+      :param model [Python Dictionary] The lookup file you wish to create
+      :return Python Dictionary
     """
     def create_company_lookup_file(self, accountId, companyId, model):        return requests.post('{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(self.base_url, accountId, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -312,8 +312,8 @@ class Mixin:
     
       :param accountId [int] The ID of the account for the company
       :param companyId [int] The ID of the company for which the rule execution is to be created
-      :param model [AdvancedRuleExecutionModel] The rule execution you wish to create
-      :return AdvancedRuleExecutionModel
+      :param model [Python Dictionary] The rule execution you wish to create
+      :return Python Dictionary
     """
     def create_company_rule_execution(self, accountId, companyId, model):        return requests.post('{}/api/v2/advancedrules/accounts/{}/companies/{}/executions'.format(self.base_url, accountId, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -324,7 +324,7 @@ class Mixin:
     
     
       :param ruleId [string] The ID of the advanced rule to be deleted
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_advanced_rule(self, ruleId):        return requests.delete('{}/api/v2/advancedrules/rules/{}'.format(self.base_url, ruleId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -336,7 +336,7 @@ class Mixin:
     
       :param accountId [int] The ID of the account for the company the lookup file is for
       :param id_ [string] The unique ID/GUID for the company lookup file to be deleted
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_lookup_file(self, accountId, id_):        return requests.delete('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -348,7 +348,7 @@ class Mixin:
     
       :param accountId [int] The ID of the account for the company the rule execution is for
       :param ruleExecutionId [string] The unique ID/GUID for the rule execution to be deleted
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_rule_execution(self, accountId, ruleExecutionId):        return requests.delete('{}/api/v2/advancedrules/accounts/{}/executions/{}'.format(self.base_url, accountId, ruleExecutionId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -359,7 +359,7 @@ class Mixin:
     
     
       :param ruleId [string] The ID of the rule to retrieve
-      :return AdvancedRuleFullDetailsModel
+      :return Python Dictionary
     """
     def get_advanced_rule(self, ruleId):        return requests.get('{}/api/v2/advancedrules/rules/{}'.format(self.base_url, ruleId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -370,7 +370,7 @@ class Mixin:
     
     
       :param name [string] The name of the rule to retrieve
-      :return AdvancedRuleFullDetailsModel
+      :return Python Dictionary
     """
     def get_advanced_rule_by_name(self, name):        return requests.get('{}/api/v2/advancedrules/rules/name/{}'.format(self.base_url, name),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -383,7 +383,7 @@ class Mixin:
       :param ruleId [string] The ID of the advance rule for which the schema is requested
       :param accountId [int] The ID of the account of the requesting user
       :param companyId [int] The ID of the company of the requesting user
-      :return AdvancedRuleCustomerDataSchemaModel
+      :return Python Dictionary
     """
     def get_advanced_rule_customer_data_schema(self, ruleId, accountId, companyId):        return requests.get('{}/api/v2/advancedrules/accounts/{}/companies/{}/rules/{}/schema'.format(self.base_url, ruleId, accountId, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -396,7 +396,7 @@ class Mixin:
       :param fullDetails [boolean] Retrieve detailed advanced rule properties (limited to tech support level)
       :param includeTest [boolean] Include test rules
       :param includeSystemRules [boolean] Include rules used to retrieve enumerated values
-      :return AdvancedRuleFullDetailsModelFetchResult
+      :return FetchResult
     """
     def get_advanced_rules(self, include=None):        return requests.get('{}/api/v2/advancedrules/rules'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -409,7 +409,7 @@ class Mixin:
       :param accountId [int] The ID of the account
       :param fromDate [string] Date
       :param toDate [string] Date
-      :return AdvancedRuleLookupFileModel
+      :return Python Dictionary
     """
     def get_audit_records(self, accountId, fromDate, toDate):        return requests.get('{}/api/v2/advancedrules/audits/accounts/{}/from/{}/to/{}'.format(self.base_url, accountId, fromDate, toDate),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -420,7 +420,7 @@ class Mixin:
     
     
       :param ruleId [string] he ID of the advance rule for which companies are requested
-      :return CompanyModelFetchResult
+      :return FetchResult
     """
     def get_companies_using_advanced_rule(self, ruleId):        return requests.get('{}/api/v2/advancedrules/rules/{}/companies'.format(self.base_url, ruleId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -432,7 +432,7 @@ class Mixin:
     
       :param accountId [int] The account ID for the company
       :param companyId [int] The ID of the company for which to retrieve lookup files
-      :return AdvancedRuleLookupFileModelFetchResult
+      :return FetchResult
     """
     def get_company_lookup_files(self, accountId, companyId):        return requests.get('{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(self.base_url, accountId, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -445,7 +445,7 @@ class Mixin:
       :param accountId [int] The account ID for the company
       :param companyId [int] The ID of the company for which to retrieve rule executions
       :param effectiveDate [datetime] Optional date which the rule executions should be effective
-      :return AdvancedRuleExecutionModelFetchResult
+      :return FetchResult
     """
     def get_company_rule_executions(self, accountId, companyId, include=None):        return requests.get('{}/api/v2/advancedrules/accounts/{}/companies/{}/executions'.format(self.base_url, accountId, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -457,7 +457,7 @@ class Mixin:
     
       :param accountId [int] The ID of the account for the lookup file
       :param id_ [string] The unique ID/GUID of the company lookup file to return
-      :return AdvancedRuleLookupFileModel
+      :return Python Dictionary
     """
     def get_lookup_file(self, accountId, id_):        return requests.get('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -469,7 +469,7 @@ class Mixin:
     
       :param accountId [int] The ID of the account for the rule execution
       :param ruleExecutionId [string] The unique ID/GUID of the rule execution to return
-      :return AdvancedRuleExecutionModel
+      :return Python Dictionary
     """
     def get_rule_execution(self, accountId, ruleExecutionId):        return requests.get('{}/api/v2/advancedrules/accounts/{}/executions/{}'.format(self.base_url, accountId, ruleExecutionId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -480,8 +480,8 @@ class Mixin:
     Creates a new version of the advanced rule
     
       :param ruleId [string] The ID of the advanced rule to be updated
-      :param model [AdvancedRuleFullDetailsModel] The new values for the advanced rule
-      :return AdvancedRuleFullDetailsModel
+      :param model [Python Dictionary] The new values for the advanced rule
+      :return Python Dictionary
     """
     def update_advanced_rule(self, ruleId, model):        return requests.put('{}/api/v2/advancedrules/rules/{}'.format(self.base_url, ruleId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -492,8 +492,8 @@ class Mixin:
     
     
       :param ruleId [string] The ID of the advanced rule to change the approved state
-      :param model [ApproveAdvancedRuleModel] The value to set approved state
-      :return AdvancedRuleFullDetailsModel
+      :param model [Python Dictionary] The value to set approved state
+      :return Python Dictionary
     """
     def update_advanced_rule_approval(self, ruleId, model):        return requests.post('{}/api/v2/advancedrules/rules/{}/approve'.format(self.base_url, ruleId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -504,8 +504,8 @@ class Mixin:
     
     
       :param ruleId [string] 
-      :param model [AdvancedRuleVisibilityModel] 
-      :return AdvancedRuleFullDetailsModel
+      :param model [Python Dictionary] 
+      :return Python Dictionary
     """
     def update_advanced_rule_visibility(self, ruleId, model):        return requests.put('{}/api/v2/advancedrules/rules/{}/visible'.format(self.base_url, ruleId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -517,8 +517,8 @@ class Mixin:
     
       :param accountId [int] The ID of the account for the company the rule execution is for
       :param companyId [int] The ID of the company for which the rule execution order is being modified
-      :param model [AdvancedRuleExecutionOrderModel] A list of rule execution IDs for the company indicating the new execution order
-      :return StringFetchResult
+      :param model [Python Dictionary] A list of rule execution IDs for the company indicating the new execution order
+      :return FetchResult
     """
     def update_company_rule_execution_order(self, accountId, companyId, model):        return requests.post('{}/api/v2/advancedrules/accounts/{}/companies/{}/executions/order'.format(self.base_url, accountId, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -530,8 +530,8 @@ class Mixin:
     
       :param accountId [int] The ID of the account for the company the lookup file is for
       :param id_ [string] The unique ID/GUID of the company lookup file to be updated
-      :param model [AdvancedRuleLookupFileModel] The new values to update the lookup file
-      :return AdvancedRuleLookupFileModel
+      :param model [Python Dictionary] The new values to update the lookup file
+      :return Python Dictionary
     """
     def update_lookup_file(self, accountId, id_, model):        return requests.put('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -543,8 +543,8 @@ class Mixin:
     
       :param accountId [int] The ID of the account for the company the rule execution is for
       :param ruleExecutionId [string] The unique ID/GUID of the rule execution to be updated
-      :param model [AdvancedRuleExecutionModel] The new values to update the rule execution
-      :return AdvancedRuleExecutionModel
+      :param model [Python Dictionary] The new values to update the rule execution
+      :return Python Dictionary
     """
     def update_rule_execution(self, accountId, ruleExecutionId, model):        return requests.put('{}/api/v2/advancedrules/accounts/{}/executions/{}'.format(self.base_url, accountId, ruleExecutionId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -558,8 +558,8 @@ class Mixin:
       * This API requires the user role Compliance Root User.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
-      :param model [AvaFileFormModel] The AvaFileForm you wish to create.
-      :return AvaFileFormModel
+      :param model [Python Dictionary] The AvaFileForm you wish to create.
+      :return Python Dictionary
     """
     def create_ava_file_forms(self, model):        return requests.post('{}/api/v2/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -573,7 +573,7 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The ID of the AvaFileForm you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_ava_file_form(self, id_):        return requests.delete('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -587,7 +587,7 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The primary key of this AvaFileForm
-      :return AvaFileFormModel
+      :return Python Dictionary
     """
     def get_ava_file_form(self, id_):        return requests.get('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -605,7 +605,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return AvaFileFormModelFetchResult
+      :return FetchResult
     """
     def query_ava_file_forms(self, include=None):        return requests.get('{}/api/v2/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -620,8 +620,8 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The ID of the AvaFileForm you wish to update
-      :param model [AvaFileFormModel] The AvaFileForm model you wish to update.
-      :return AvaFileFormModel
+      :param model [Python Dictionary] The AvaFileForm model you wish to update.
+      :return Python Dictionary
     """
     def update_ava_file_form(self, id_, model):        return requests.put('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -643,7 +643,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this batch.
       :param id_ [int] The ID of the batch to cancel.
-      :return BatchModel
+      :return Python Dictionary
     """
     def cancel_batch(self, companyId, id_):        return requests.post('{}/api/v2/companies/{}/batches/{}/cancel'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -670,8 +670,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this batch.
-      :param model [BatchModel] The batch you wish to create.
-      :return BatchModel
+      :param model [Python Dictionary] The batch you wish to create.
+      :return Python Dictionary
     """
     def create_batches(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -697,8 +697,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this batch.
-      :param model [CreateTransactionBatchRequestModel] The transaction batch you wish to create.
-      :return CreateTransactionBatchResponseModel
+      :param model [Python Dictionary] The transaction batch you wish to create.
+      :return Python Dictionary
     """
     def create_transaction_batch(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/batches/transactions'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -719,7 +719,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this batch.
       :param id_ [int] The ID of the batch to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_batch(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -759,7 +759,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this batch
       :param id_ [int] The primary key of this batch
-      :return BatchModel
+      :return Python Dictionary
     """
     def get_batch(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -792,7 +792,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return BatchModelFetchResult
+      :return FetchResult
     """
     def list_batches_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -822,7 +822,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return BatchModelFetchResult
+      :return FetchResult
     """
     def query_batches(self, include=None):        return requests.get('{}/api/v2/batches'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -848,8 +848,8 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that will record certificates
       :param customerCode [string] The number of the customer where the request is sent to
-      :param model [CreateCertExpressInvitationModel] the requests to send out to customers
-      :return CertExpressInvitationStatusModel
+      :param model [Python Dictionary] the requests to send out to customers
+      :return Python Dictionary
     """
     def create_cert_express_invitation(self, companyId, customerCode, model):        return requests.post('{}/api/v2/companies/{}/customers/{}/certexpressinvites'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -877,7 +877,7 @@ class Mixin:
       :param customerCode [string] The number of the customer where the request is sent to
       :param id_ [int] The unique ID number of this CertExpress invitation
       :param include [string] OPTIONAL: A comma separated list of special fetch options. No options are defined at this time.
-      :return CertExpressInvitationModel
+      :return Python Dictionary
     """
     def get_cert_express_invitation(self, companyId, customerCode, id_, include=None):        return requests.get('{}/api/v2/companies/{}/customers/{}/certexpressinvites/{}'.format(self.base_url, companyId, customerCode, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -907,7 +907,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CertExpressInvitationModelFetchResult
+      :return FetchResult
     """
     def list_cert_express_invitations(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/certexpressinvites'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -937,8 +937,8 @@ class Mixin:
     
       :param companyId [int] The ID number of the company recording this certificate
       :param preValidatedExemptionReason [boolean] If set to true, the certificate will bypass the human verification process.
-      :param model [CertificateModel] Certificates to be created
-      :return CertificateModel
+      :param model [Python Dictionary] Certificates to be created
+      :return Python Dictionary
     """
     def create_certificates(self, companyId, model, include=None):        return requests.post('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -962,7 +962,7 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_certificate(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1017,7 +1017,7 @@ class Mixin:
       :param companyId [int] The ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.
-      :return CertificateModel
+      :return Python Dictionary
     """
     def get_certificate(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1036,7 +1036,7 @@ class Mixin:
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The company ID to check
-      :return ProvisionStatusModel
+      :return Python Dictionary
     """
     def get_certificate_setup(self, companyId):        return requests.get('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1061,8 +1061,8 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
-      :param model [CertificateAttributeModel] The list of attributes to link to this certificate.
-      :return CertificateAttributeModelFetchResult
+      :param model [Python Dictionary] The list of attributes to link to this certificate.
+      :return FetchResult
     """
     def link_attributes_to_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1088,8 +1088,8 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
-      :param model [LinkCustomersModel] The list of customers needed be added to the Certificate for exemption
-      :return CustomerModelFetchResult
+      :param model [Python Dictionary] The list of customers needed be added to the Certificate for exemption
+      :return FetchResult
     """
     def link_customers_to_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1114,7 +1114,7 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
-      :return CertificateAttributeModelFetchResult
+      :return FetchResult
     """
     def list_attributes_for_certificate(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/certificates/{}/attributes'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1140,7 +1140,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param include [string] OPTIONAL: A comma separated list of special fetch options.   No options are currently available when fetching customers.
-      :return CustomerModelFetchResult
+      :return FetchResult
     """
     def list_customers_for_certificate(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/certificates/{}/customers'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1171,7 +1171,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CertificateModelFetchResult
+      :return FetchResult
     """
     def query_certificates(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1191,7 +1191,7 @@ class Mixin:
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] 
-      :return ProvisionStatusModel
+      :return Python Dictionary
     """
     def request_certificate_setup(self, companyId):        return requests.post('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1216,8 +1216,8 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
-      :param model [CertificateAttributeModel] The list of attributes to unlink from this certificate.
-      :return CertificateAttributeModelFetchResult
+      :param model [Python Dictionary] The list of attributes to unlink from this certificate.
+      :return FetchResult
     """
     def unlink_attributes_from_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1244,8 +1244,8 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
-      :param model [LinkCustomersModel] The list of customers to unlink from this certificate
-      :return CustomerModelFetchResult
+      :param model [Python Dictionary] The list of customers to unlink from this certificate
+      :return FetchResult
     """
     def unlink_customers_from_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1268,8 +1268,8 @@ class Mixin:
     
       :param companyId [int] The ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
-      :param model [CertificateModel] The new certificate object that will replace the existing one
-      :return CertificateModel
+      :param model [Python Dictionary] The new certificate object that will replace the existing one
+      :return Python Dictionary
     """
     def update_certificate(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1350,7 +1350,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] 
-      :param model [FilingStatusChangeModel] 
+      :param model [Python Dictionary] 
       :return string
     """
     def change_filing_status(self, id_, model):        return requests.post('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
@@ -1372,8 +1372,8 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
-      :param model [CompanyInitializationModel] Information about the company you wish to create.
-      :return CompanyModel
+      :param model [Python Dictionary] Information about the company you wish to create.
+      :return Python Dictionary
     """
     def company_initialize(self, model):        return requests.post('{}/api/v2/companies/initialize'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1388,8 +1388,8 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
-      :param model [CompanyModel] Either a single company object or an array of companies to create
-      :return CompanyModel
+      :param model [Python Dictionary] Either a single company object or an array of companies to create
+      :return Python Dictionary
     """
     def create_companies(self, model):        return requests.post('{}/api/v2/companies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1407,8 +1407,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this company parameter.
-      :param model [CompanyParameterDetailModel] The company parameters you wish to create.
-      :return CompanyParameterDetailModel
+      :param model [Python Dictionary] The company parameters you wish to create.
+      :return Python Dictionary
     """
     def create_company_parameters(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1421,8 +1421,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this customer.
-      :param model [CustomerSupplierModel] The Customers you wish to create.
-      :return CustomerSupplierModel
+      :param model [Python Dictionary] The Customers you wish to create.
+      :return Python Dictionary
     """
     def create_c_s_customers(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/supplierandcustomers/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1435,8 +1435,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this suppliers.
-      :param model [CustomerSupplierModel] The company suppliers you wish to create.
-      :return CustomerSupplierModel
+      :param model [Python Dictionary] The company suppliers you wish to create.
+      :return Python Dictionary
     """
     def create_c_s_suppliers(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/supplierandcustomers/suppliers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1451,8 +1451,8 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this customer country parameter.
       :param customerCode [string] Customer Code
       :param countryCode [string] Country Code
-      :param model [CustomerSupplierCountryParamModel] The customer country parameters you wish to create.
-      :return CustomerSupplierCountryParamModel
+      :param model [Python Dictionary] The customer country parameters you wish to create.
+      :return Python Dictionary
     """
     def create_customer_country_param(self, companyId, customerCode, countryCode, model):        return requests.post('{}/api/v2/companies/{}/supplierandcustomers/customers/{}/{}'.format(self.base_url, companyId, customerCode, countryCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1475,8 +1475,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The unique identifier of the company
-      :param model [FundingInitiateModel] The funding initialization request
-      :return FundingStatusModel
+      :param model [Python Dictionary] The funding initialization request
+      :return Python Dictionary
     """
     def create_funding_request(self, id_, model):        return requests.post('{}/api/v2/companies/{}/funding/setup'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1491,8 +1491,8 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this Supplier Country Parameter.
       :param supplierCode [string] Supplier Code
       :param countryCode [string] Country Code
-      :param model [CustomerSupplierCountryParamModel] The Supplier Country Parameters you wish to create.
-      :return CustomerSupplierCountryParamModel
+      :param model [Python Dictionary] The Supplier Country Parameters you wish to create.
+      :return Python Dictionary
     """
     def create_supplier_country_params(self, companyId, supplierCode, countryCode, model):        return requests.post('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}/{}'.format(self.base_url, companyId, supplierCode, countryCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1505,7 +1505,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the company you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_company(self, id_):        return requests.delete('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1522,7 +1522,7 @@ class Mixin:
     
       :param companyId [int] The company id
       :param id_ [int] The parameter id
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_company_parameter(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1536,7 +1536,7 @@ class Mixin:
     
       :param companyId [int] The company id
       :param customerCode [string] The customer code
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_c_s_customer(self, companyId, customerCode):        return requests.delete('{}/api/v2/companies/{}/supplierandcustomers/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1550,7 +1550,7 @@ class Mixin:
     
       :param companyId [int] The company id
       :param supplierCode [string] The supplier code
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_c_s_supplier(self, companyId, supplierCode):        return requests.delete('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}'.format(self.base_url, companyId, supplierCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1565,7 +1565,7 @@ class Mixin:
       :param companyId [int] The company id
       :param customerCode [string] The customer code
       :param countryCode [string] country code
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_customer_country_param(self, companyId, customerCode, countryCode):        return requests.delete('{}/api/v2/companies/{}/supplierandcustomers/customers/{}/{}'.format(self.base_url, companyId, customerCode, countryCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1580,7 +1580,7 @@ class Mixin:
       :param companyId [int] The company id
       :param supplierCode [string] Supplier code
       :param countryCode [string] Country code
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_supplier_country_param(self, companyId, supplierCode, countryCode):        return requests.delete('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}/{}'.format(self.base_url, companyId, supplierCode, countryCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1597,7 +1597,7 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyId [int] The unique identifier of the company
-      :return FundingConfigurationModel
+      :return Python Dictionary
     """
     def funding_configuration_by_company(self, companyId):        return requests.get('{}/api/v2/companies/{}/funding/configuration'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1615,7 +1615,7 @@ class Mixin:
     
       :param companyId [int] The unique identifier of the company
       :param currency [string] The currency of the funding. USD and CAD are the only valid currencies
-      :return FundingConfigurationModel
+      :return Python Dictionary
     """
     def funding_configurations_by_company_and_currency(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/funding/configurations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1640,7 +1640,7 @@ class Mixin:
     
       :param id_ [int] The ID of the company to retrieve.
       :param include [string] OPTIONAL: A comma separated list of special fetch options.      * Child objects - Specify one or more of the following to retrieve objects related to each company: "Contacts", "FilingCalendars", "Items", "Locations", "Nexus", "TaxCodes", "NonReportingChildren" or "TaxRules".   * Deleted objects - Specify "FetchDeleted" to retrieve information about previously deleted objects.
-      :return CompanyModel
+      :return Python Dictionary
     """
     def get_company(self, id_, include=None):        return requests.get('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1661,7 +1661,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] 
-      :return CompanyConfigurationModel
+      :return Python Dictionary
     """
     def get_company_configuration(self, id_):        return requests.get('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1678,7 +1678,7 @@ class Mixin:
     
       :param companyId [int] 
       :param id_ [int] 
-      :return CompanyParameterDetailModel
+      :return Python Dictionary
     """
     def get_company_parameter_detail(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1692,7 +1692,7 @@ class Mixin:
     
       :param companyId [int] Company Id
       :param customerCode [string] Customer Code
-      :return CustomerSupplierModel
+      :return Python Dictionary
     """
     def get_c_s_customer(self, companyId, customerCode):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1706,7 +1706,7 @@ class Mixin:
     
       :param companyId [int] Company Id
       :param supplierCode [string] Supplier Code
-      :return CustomerSupplierModel
+      :return Python Dictionary
     """
     def get_c_s_supplier(self, companyId, supplierCode):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}'.format(self.base_url, companyId, supplierCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1721,7 +1721,7 @@ class Mixin:
       :param companyId [int] Company Id
       :param customerCode [string] Customer Code
       :param countryCode [string] Country Code
-      :return CustomerSupplierCountryParamModel
+      :return Python Dictionary
     """
     def get_customer_country_param(self, companyId, customerCode, countryCode):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/customers/{}/{}'.format(self.base_url, companyId, customerCode, countryCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1758,7 +1758,7 @@ class Mixin:
       :param companyId [int] Company Id
       :param supplierCode [string] Supplier Code
       :param countryCode [string] Country Code
-      :return CustomerSupplierCountryParamModel
+      :return Python Dictionary
     """
     def get_supplier_country_param(self, companyId, supplierCode, countryCode):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}/{}'.format(self.base_url, companyId, supplierCode, countryCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1780,7 +1780,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CompanyParameterDetailModelFetchResult
+      :return FetchResult
     """
     def list_company_parameter_details(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1797,7 +1797,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CustomerSupplierModelFetchResult
+      :return FetchResult
     """
     def list_customers(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1814,7 +1814,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The unique identifier of the company
-      :return FundingStatusModel
+      :return Python Dictionary
     """
     def list_funding_requests_by_company(self, id_):        return requests.get('{}/api/v2/companies/{}/funding'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1827,7 +1827,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
-      :return MrsCompanyModelFetchResult
+      :return FetchResult
     """
     def list_mrs_companies(self):        return requests.get('{}/api/v2/companies/mrs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1844,7 +1844,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CustomerSupplierModelFetchResult
+      :return FetchResult
     """
     def list_suppliers(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/suppliers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1874,7 +1874,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CompanyModelFetchResult
+      :return FetchResult
     """
     def query_companies(self, include=None):        return requests.get('{}/api/v2/companies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1895,8 +1895,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
-      :param model [CompanyConfigurationModel] 
-      :return CompanyConfigurationModel
+      :param model [Python Dictionary] 
+      :return Python Dictionary
     """
     def set_company_configuration(self, id_, model):        return requests.post('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1915,8 +1915,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the company you wish to update.
-      :param model [CompanyModel] The company object you wish to update.
-      :return CompanyModel
+      :param model [Python Dictionary] The company object you wish to update.
+      :return Python Dictionary
     """
     def update_company(self, id_, model):        return requests.put('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1933,8 +1933,8 @@ class Mixin:
     
       :param companyId [int] The company id.
       :param id_ [int] The company parameter id
-      :param model [CompanyParameterDetailModel] The company parameter object you wish to update.
-      :return CompanyParameterDetailModel
+      :param model [Python Dictionary] The company parameter object you wish to update.
+      :return Python Dictionary
     """
     def update_company_parameter_detail(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1948,8 +1948,8 @@ class Mixin:
     
       :param companyId [int] The company id.
       :param customerCode [string] The customer code
-      :param model [CustomerSupplierModel] The customer object you wish to update.
-      :return CustomerSupplierModel
+      :param model [Python Dictionary] The customer object you wish to update.
+      :return Python Dictionary
     """
     def update_c_s_customer(self, companyId, customerCode, model):        return requests.put('{}/api/v2/companies/{}/supplierandcustomers/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1963,8 +1963,8 @@ class Mixin:
     
       :param companyId [int] The company id.
       :param supplierCode [string] The supplier code
-      :param model [CustomerSupplierModel] The supplier object you wish to update.
-      :return CustomerSupplierModel
+      :param model [Python Dictionary] The supplier object you wish to update.
+      :return Python Dictionary
     """
     def update_c_s_supplier(self, companyId, supplierCode, model):        return requests.put('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}'.format(self.base_url, companyId, supplierCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1979,8 +1979,8 @@ class Mixin:
       :param companyId [int] The company id.
       :param customerCode [string] The customer code
       :param countryCode [string] The country code
-      :param model [CustomerSupplierCountryParamModel] The customer country parameter object you wish to update.
-      :return CustomerSupplierCountryParamModel
+      :param model [Python Dictionary] The customer country parameter object you wish to update.
+      :return Python Dictionary
     """
     def update_customer_country_param(self, companyId, customerCode, countryCode, model):        return requests.put('{}/api/v2/companies/{}/supplierandcustomers/customers/{}/{}'.format(self.base_url, companyId, customerCode, countryCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1995,8 +1995,8 @@ class Mixin:
       :param companyId [int] The company id.
       :param supplierCode [string] The supplier code
       :param countryCode [string] Country code
-      :param model [CustomerSupplierCountryParamModel] The Supplier Country Parameter object you wish to update.
-      :return CustomerSupplierCountryParamModel
+      :param model [Python Dictionary] The Supplier Country Parameter object you wish to update.
+      :return Python Dictionary
     """
     def update_supplier_country_param(self, companyId, supplierCode, countryCode, model):        return requests.put('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}/{}'.format(self.base_url, companyId, supplierCode, countryCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2009,7 +2009,7 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The ID of the tax rate to retrieve.
-      :return ComplianceTaxRateModel
+      :return Python Dictionary
     """
     def get_tax_rate(self, id_):        return requests.get('{}/api/v2/compliance/taxrates/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2022,7 +2022,7 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The ID of the tax region to retrieve.
-      :return TaxRegionModel
+      :return Python Dictionary
     """
     def get_tax_region(self, id_):        return requests.get('{}/api/v2/compliance/taxregions/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2041,7 +2041,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ComplianceJurisdictionRateModel
+      :return Python Dictionary
     """
     def query_jurisdiction_rates(self, include=None):        return requests.get('{}/api/v2/compliance/jurisdictionrates'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2063,7 +2063,7 @@ class Mixin:
       :param include [string] A comma separated list of objects to fetch underneath this tax rate.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :return ComplianceJurisdictionModel
+      :return Python Dictionary
     """
     def query_jurisdictions(self, country, region, include=None):        return requests.get('{}/api/v2/compliance/jurisdictions/{}/{}'.format(self.base_url, country, region),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2080,7 +2080,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ComplianceTaxRateModel
+      :return Python Dictionary
     """
     def query_tax_rates(self, include=None):        return requests.get('{}/api/v2/compliance/taxrates'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2097,7 +2097,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxRegionJurisdictionModel
+      :return Python Dictionary
     """
     def query_tax_region_jurisdictions(self, include=None):        return requests.get('{}/api/v2/compliance/taxregionjurisdictions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2114,7 +2114,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxRegionModel
+      :return Python Dictionary
     """
     def query_tax_regions(self, include=None):        return requests.get('{}/api/v2/compliance/taxregions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2125,8 +2125,8 @@ class Mixin:
     
     
       :param companyId [int] 
-      :param model [TransactionReferenceFieldModel] 
-      :return TransactionModelFetchResult
+      :param model [Python Dictionary] 
+      :return FetchResult
     """
     def tag_transaction(self, companyId, model):        return requests.put('{}/api/v2/companies/{}/transactions/tag'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2141,8 +2141,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this contact.
-      :param model [ContactModel] The contacts you wish to create.
-      :return ContactModel
+      :param model [Python Dictionary] The contacts you wish to create.
+      :return Python Dictionary
     """
     def create_contacts(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2156,7 +2156,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this contact.
       :param id_ [int] The ID of the contact you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_contact(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2172,7 +2172,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company for this contact
       :param id_ [int] The primary key of this contact
-      :return ContactModel
+      :return Python Dictionary
     """
     def get_contact(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2191,7 +2191,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ContactModelFetchResult
+      :return FetchResult
     """
     def list_contacts_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2211,7 +2211,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ContactModelFetchResult
+      :return FetchResult
     """
     def query_contacts(self, include=None):        return requests.get('{}/api/v2/contacts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2229,8 +2229,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that this contact belongs to.
       :param id_ [int] The ID of the contact you wish to update
-      :param model [ContactModel] The contact you wish to update.
-      :return ContactModel
+      :param model [Python Dictionary] The contact you wish to update.
+      :return Python Dictionary
     """
     def update_contact(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2255,8 +2255,8 @@ class Mixin:
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
-      :param model [CustomerModel] The list of customer objects to be created
-      :return CustomerModel
+      :param model [Python Dictionary] The list of customer objects to be created
+      :return Python Dictionary
     """
     def create_customers(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2280,7 +2280,7 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
-      :return CustomerModel
+      :return Python Dictionary
     """
     def delete_customer(self, companyId, customerCode):        return requests.delete('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2309,7 +2309,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param include [string] Specify optional additional objects to include in this fetch request
-      :return CustomerModel
+      :return Python Dictionary
     """
     def get_customer(self, companyId, customerCode, include=None):        return requests.get('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2335,8 +2335,8 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded the provided customer
       :param customerCode [string] The unique code representing the current customer
-      :param model [CustomerAttributeModel] The list of attributes to link to the customer.
-      :return CustomerAttributeModelFetchResult
+      :param model [Python Dictionary] The list of attributes to link to the customer.
+      :return FetchResult
     """
     def link_attributes_to_customer(self, companyId, customerCode, model):        return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2360,8 +2360,8 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
-      :param model [LinkCertificatesModel] The list of certificates to link to this customer
-      :return CertificateModelFetchResult
+      :param model [Python Dictionary] The list of certificates to link to this customer
+      :return FetchResult
     """
     def link_certificates_to_customer(self, companyId, customerCode, model):        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2385,8 +2385,8 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company defining customers.
       :param code [string] The code of the bill-to customer to link.
-      :param model [LinkCustomersModel] A list of information about ship-to customers to link to this bill-to customer.
-      :return CustomerModel
+      :param model [Python Dictionary] A list of information about ship-to customers to link to this bill-to customer.
+      :return Python Dictionary
     """
     def link_ship_to_customers_to_bill_customer(self, companyId, code, model):        return requests.post('{}/api/v2/companies/{}/customers/billto/{}/shipto/link'.format(self.base_url, companyId, code),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2412,7 +2412,7 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded the provided customer
       :param customerCode [string] The unique code representing the current customer
-      :return CustomerAttributeModelFetchResult
+      :return FetchResult
     """
     def list_attributes_for_customer(self, companyId, customerCode):        return requests.get('{}/api/v2/companies/{}/customers/{}/attributes'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2441,7 +2441,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CertificateModelFetchResult
+      :return FetchResult
     """
     def list_certificates_for_customer(self, companyId, customerCode, include=None):        return requests.get('{}/api/v2/companies/{}/customers/{}/certificates'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2469,7 +2469,7 @@ class Mixin:
       :param customerCode [string] The unique code representing this customer
       :param country [string] Search for certificates matching this country. Uses the ISO 3166 two character country code.
       :param region [string] Search for certificates matching this region. Uses the ISO 3166 two or three character state, region, or province code.
-      :return ExemptionStatusModel
+      :return Python Dictionary
     """
     def list_valid_certificates_for_customer(self, companyId, customerCode, country, region):        return requests.get('{}/api/v2/companies/{}/customers/{}/certificates/{}/{}'.format(self.base_url, companyId, customerCode, country, region),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2500,7 +2500,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CustomerModelFetchResult
+      :return FetchResult
     """
     def query_customers(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2526,8 +2526,8 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded the customer
       :param customerCode [string] The unique code representing the current customer
-      :param model [CustomerAttributeModel] The list of attributes to unlink from the customer.
-      :return CustomerAttributeModelFetchResult
+      :param model [Python Dictionary] The list of attributes to unlink from the customer.
+      :return FetchResult
     """
     def unlink_attributes_from_customer(self, companyId, customerCode, model):        return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2551,8 +2551,8 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
-      :param model [LinkCertificatesModel] The list of certificates to link to this customer
-      :return CertificateModelFetchResult
+      :param model [Python Dictionary] The list of certificates to link to this customer
+      :return FetchResult
     """
     def unlink_certificates_from_customer(self, companyId, customerCode, model):        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2576,8 +2576,8 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
-      :param model [CustomerModel] The new customer model that will replace the existing record at this URL
-      :return CustomerModel
+      :param model [Python Dictionary] The new customer model that will replace the existing record at this URL
+      :return Python Dictionary
     """
     def update_customer(self, companyId, customerCode, model):        return requests.put('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2591,8 +2591,8 @@ class Mixin:
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company you which to create the datasources
-      :param model [DataSourceModel] 
-      :return DataSourceModel
+      :param model [Python Dictionary] 
+      :return Python Dictionary
     """
     def create_data_sources(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2607,7 +2607,7 @@ class Mixin:
     
       :param companyId [int] The id of the company the datasource belongs to.
       :param id_ [int] The id of the datasource you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_data_source(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2622,7 +2622,7 @@ class Mixin:
     
       :param companyId [int] 
       :param id_ [int] data source id
-      :return DataSourceModel
+      :return Python Dictionary
     """
     def get_data_source_by_id(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2640,7 +2640,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return DataSourceModelFetchResult
+      :return FetchResult
     """
     def list_data_sources(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2659,7 +2659,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return DataSourceModelFetchResult
+      :return FetchResult
     """
     def query_data_sources(self, include=None):        return requests.get('{}/api/v2/datasources'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2674,8 +2674,8 @@ class Mixin:
     
       :param companyId [int] The id of the company the datasource belongs to.
       :param id_ [int] The id of the datasource you wish to delete.
-      :param model [DataSourceModel] 
-      :return DataSourceModel
+      :param model [Python Dictionary] 
+      :return Python Dictionary
     """
     def update_data_source(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2695,7 +2695,7 @@ class Mixin:
     
       :param country [string] The name or code of the destination country.
       :param hsCode [string] The partial or full HS Code for which you would like to view all of the parents.
-      :return HsCodeModelFetchResult
+      :return FetchResult
     """
     def get_cross_border_code(self, country, hsCode):        return requests.get('{}/api/v2/definitions/crossborder/{}/{}/hierarchy'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2711,7 +2711,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return SkyscraperStatusModelFetchResult
+      :return FetchResult
     """
     def get_login_verifier_by_form(self, form, include=None):        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers/{}'.format(self.base_url, form),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2728,7 +2728,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return AvaFileFormModelFetchResult
+      :return FetchResult
     """
     def list_ava_file_forms(self, include=None):        return requests.get('{}/api/v2/definitions/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2747,7 +2747,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CertificateAttributeModelFetchResult
+      :return FetchResult
     """
     def list_certificate_attributes(self, include=None):        return requests.get('{}/api/v2/definitions/certificateattributes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2765,7 +2765,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ExemptionReasonModelFetchResult
+      :return FetchResult
     """
     def list_certificate_exempt_reasons(self, include=None):        return requests.get('{}/api/v2/definitions/certificateexemptreasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2783,7 +2783,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ExposureZoneModelFetchResult
+      :return FetchResult
     """
     def list_certificate_exposure_zones(self, include=None):        return requests.get('{}/api/v2/definitions/certificateexposurezones'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2798,7 +2798,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CommunicationsTSPairModelFetchResult
+      :return FetchResult
     """
     def list_communications_service_types(self, id_, include=None):        return requests.get('{}/api/v2/definitions/communications/transactiontypes/{}/servicetypes'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2813,7 +2813,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CommunicationsTransactionTypeModelFetchResult
+      :return FetchResult
     """
     def list_communications_transaction_types(self, include=None):        return requests.get('{}/api/v2/definitions/communications/transactiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2828,7 +2828,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CommunicationsTSPairModelFetchResult
+      :return FetchResult
     """
     def list_communications_t_s_pairs(self, include=None):        return requests.get('{}/api/v2/definitions/communications/tspairs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2844,7 +2844,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return IsoCountryModelFetchResult
+      :return FetchResult
     """
     def list_countries(self, include=None):        return requests.get('{}/api/v2/definitions/countries'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2863,7 +2863,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CoverLetterModelFetchResult
+      :return FetchResult
     """
     def list_cover_letters(self, include=None):        return requests.get('{}/api/v2/definitions/coverletters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2886,7 +2886,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return HsCodeModelFetchResult
+      :return FetchResult
     """
     def list_cross_border_codes(self, country, hsCode, include=None):        return requests.get('{}/api/v2/definitions/crossborder/{}/{}'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2902,7 +2902,7 @@ class Mixin:
       ### Security Policies
       * This API depends on the following active services<br />*Required* (all): AvaTaxGlobal.
     
-      :return HsCodeModelFetchResult
+      :return FetchResult
     """
     def list_cross_border_sections(self):        return requests.get('{}/api/v2/definitions/crossborder/sections'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2918,7 +2918,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CurrencyModelFetchResult
+      :return FetchResult
     """
     def list_currencies(self, include=None):        return requests.get('{}/api/v2/definitions/currencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2936,7 +2936,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return EntityUseCodeModelFetchResult
+      :return FetchResult
     """
     def list_entity_use_codes(self, include=None):        return requests.get('{}/api/v2/definitions/entityusecodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2951,7 +2951,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FilingFrequencyModelFetchResult
+      :return FetchResult
     """
     def list_filing_frequencies(self, include=None):        return requests.get('{}/api/v2/definitions/filingfrequencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2968,7 +2968,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return JurisdictionModelFetchResult
+      :return FetchResult
     """
     def list_jurisdictions(self, include=None):        return requests.get('{}/api/v2/definitions/jurisdictions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2993,7 +2993,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return JurisdictionOverrideModelFetchResult
+      :return FetchResult
     """
     def list_jurisdictions_by_address(self, include=None):        return requests.get('{}/api/v2/definitions/jurisdictionsnearaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3021,7 +3021,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return LocationQuestionModelFetchResult
+      :return FetchResult
     """
     def list_location_questions_by_address(self, include=None):        return requests.get('{}/api/v2/definitions/locationquestions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3037,7 +3037,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return SkyscraperStatusModelFetchResult
+      :return FetchResult
     """
     def list_login_verifiers(self, include=None):        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3051,7 +3051,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return MarketplaceLocationModelFetchResult
+      :return FetchResult
     """
     def list_marketplace_locations(self, include=None):        return requests.get('{}/api/v2/definitions/marketplacelocations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3066,7 +3066,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NexusModelFetchResult
+      :return FetchResult
     """
     def list_nexus(self, include=None):        return requests.get('{}/api/v2/definitions/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3091,7 +3091,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NexusModelFetchResult
+      :return FetchResult
     """
     def list_nexus_by_address(self, include=None):        return requests.get('{}/api/v2/definitions/nexus/byaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3107,7 +3107,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NexusModelFetchResult
+      :return FetchResult
     """
     def list_nexus_by_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/nexus/{}'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3124,7 +3124,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NexusModelFetchResult
+      :return FetchResult
     """
     def list_nexus_by_country_and_region(self, country, region, include=None):        return requests.get('{}/api/v2/definitions/nexus/{}/{}'.format(self.base_url, country, region),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3144,7 +3144,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param formCode [string] The form code that we are looking up the nexus for
-      :return NexusByTaxFormModel
+      :return Python Dictionary
     """
     def list_nexus_by_form_code(self, formCode):        return requests.get('{}/api/v2/definitions/nexus/byform/{}'.format(self.base_url, formCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -3160,7 +3160,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NexusModelFetchResult
+      :return FetchResult
     """
     def list_nexus_by_tax_type_group(self, taxTypeGroup, include=None):        return requests.get('{}/api/v2/definitions/nexus/bytaxtypegroup/{}'.format(self.base_url, taxTypeGroup),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3175,7 +3175,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NexusTaxTypeGroupModelFetchResult
+      :return FetchResult
     """
     def list_nexus_tax_type_groups(self, include=None):        return requests.get('{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3190,7 +3190,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NoticeCustomerFundingOptionModelFetchResult
+      :return FetchResult
     """
     def list_notice_customer_funding_options(self, include=None):        return requests.get('{}/api/v2/definitions/noticecustomerfundingoptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3205,7 +3205,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NoticeCustomerTypeModelFetchResult
+      :return FetchResult
     """
     def list_notice_customer_types(self, include=None):        return requests.get('{}/api/v2/definitions/noticecustomertypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3220,7 +3220,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NoticeFilingTypeModelFetchResult
+      :return FetchResult
     """
     def list_notice_filingtypes(self, include=None):        return requests.get('{}/api/v2/definitions/noticefilingtypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3235,7 +3235,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NoticePriorityModelFetchResult
+      :return FetchResult
     """
     def list_notice_priorities(self, include=None):        return requests.get('{}/api/v2/definitions/noticepriorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3250,7 +3250,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NoticeReasonModelFetchResult
+      :return FetchResult
     """
     def list_notice_reasons(self, include=None):        return requests.get('{}/api/v2/definitions/noticereasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3265,7 +3265,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NoticeResponsibilityModelFetchResult
+      :return FetchResult
     """
     def list_notice_responsibilities(self, include=None):        return requests.get('{}/api/v2/definitions/noticeresponsibilities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3280,7 +3280,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NoticeRootCauseModelFetchResult
+      :return FetchResult
     """
     def list_notice_root_causes(self, include=None):        return requests.get('{}/api/v2/definitions/noticerootcauses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3295,7 +3295,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NoticeStatusModelFetchResult
+      :return FetchResult
     """
     def list_notice_statuses(self, include=None):        return requests.get('{}/api/v2/definitions/noticestatuses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3310,7 +3310,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NoticeTypeModelFetchResult
+      :return FetchResult
     """
     def list_notice_types(self, include=None):        return requests.get('{}/api/v2/definitions/noticetypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3326,7 +3326,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ParameterModelFetchResult
+      :return FetchResult
     """
     def list_parameters(self, include=None):        return requests.get('{}/api/v2/definitions/parameters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3344,7 +3344,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ParameterModelFetchResult
+      :return FetchResult
     """
     def list_parameters_by_item(self, companyCode, itemCode, include=None):        return requests.get('{}/api/v2/definitions/parameters/byitem/{}/{}'.format(self.base_url, companyCode, itemCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3360,7 +3360,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ParameterUsageModelFetchResult
+      :return FetchResult
     """
     def list_parameters_usage(self, include=None):        return requests.get('{}/api/v2/definitions/parametersusage'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3373,7 +3373,7 @@ class Mixin:
     
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :return StringFetchResult
+      :return FetchResult
     """
     def list_permissions(self, include=None):        return requests.get('{}/api/v2/definitions/permissions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3387,7 +3387,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return PostalCodeModelFetchResult
+      :return FetchResult
     """
     def list_postal_codes(self, include=None):        return requests.get('{}/api/v2/definitions/postalcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3407,7 +3407,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return PreferredProgramModelFetchResult
+      :return FetchResult
     """
     def list_preferred_programs(self, include=None):        return requests.get('{}/api/v2/definitions/preferredprograms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3424,7 +3424,7 @@ class Mixin:
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param countryCode [string] If not null, return all records with this code.
-      :return ProductClassificationSystemModelFetchResult
+      :return FetchResult
     """
     def list_product_classification_systems(self, include=None):        return requests.get('{}/api/v2/definitions/productclassificationsystems'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3442,7 +3442,7 @@ class Mixin:
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param countryCode [string] If not null, return all records with this code.
-      :return ProductClassificationSystemModelFetchResult
+      :return FetchResult
     """
     def list_product_classification_systems_by_company(self, companyCode, include=None):        return requests.get('{}/api/v2/definitions/productclassificationsystems/bycompany/{}'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3458,7 +3458,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return RateTypeModelFetchResult
+      :return FetchResult
     """
     def list_rate_types_by_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/countries/{}/ratetypes'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3474,7 +3474,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return IsoRegionModelFetchResult
+      :return FetchResult
     """
     def list_regions(self, include=None):        return requests.get('{}/api/v2/definitions/regions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3491,7 +3491,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return IsoRegionModelFetchResult
+      :return FetchResult
     """
     def list_regions_by_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/countries/{}/regions'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3506,7 +3506,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ResourceFileTypeModelFetchResult
+      :return FetchResult
     """
     def list_resource_file_types(self, include=None):        return requests.get('{}/api/v2/definitions/resourcefiletypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3522,7 +3522,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return SecurityRoleModelFetchResult
+      :return FetchResult
     """
     def list_security_roles(self, include=None):        return requests.get('{}/api/v2/definitions/securityroles'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3539,7 +3539,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return SubscriptionTypeModelFetchResult
+      :return FetchResult
     """
     def list_subscription_types(self, include=None):        return requests.get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3554,7 +3554,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxAuthorityModelFetchResult
+      :return FetchResult
     """
     def list_tax_authorities(self, include=None):        return requests.get('{}/api/v2/definitions/taxauthorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3571,7 +3571,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxAuthorityFormModelFetchResult
+      :return FetchResult
     """
     def list_tax_authority_forms(self, include=None):        return requests.get('{}/api/v2/definitions/taxauthorityforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3586,7 +3586,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxAuthorityTypeModelFetchResult
+      :return FetchResult
     """
     def list_tax_authority_types(self, include=None):        return requests.get('{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3606,7 +3606,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxCodeModelFetchResult
+      :return FetchResult
     """
     def list_tax_codes(self, include=None):        return requests.get('{}/api/v2/definitions/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3620,7 +3620,7 @@ class Mixin:
     
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :return TaxCodeTypesModel
+      :return Python Dictionary
     """
     def list_tax_code_types(self, include=None):        return requests.get('{}/api/v2/definitions/taxcodetypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3635,7 +3635,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FormMasterModelFetchResult
+      :return FetchResult
     """
     def list_tax_forms(self, include=None):        return requests.get('{}/api/v2/definitions/taxforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3650,7 +3650,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxSubTypeModelFetchResult
+      :return FetchResult
     """
     def list_tax_sub_types(self, include=None):        return requests.get('{}/api/v2/definitions/taxsubtypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3667,7 +3667,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxSubTypeModelFetchResult
+      :return FetchResult
     """
     def list_tax_sub_types_by_jurisdiction_and_region(self, jurisdictionCode, region, include=None):        return requests.get('{}/api/v2/definitions/taxsubtypes/{}/{}'.format(self.base_url, jurisdictionCode, region),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3682,7 +3682,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxTypeGroupModelFetchResult
+      :return FetchResult
     """
     def list_tax_type_groups(self, include=None):        return requests.get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3697,7 +3697,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return UomModelFetchResult
+      :return FetchResult
     """
     def list_unit_of_measurement(self, include=None):        return requests.get('{}/api/v2/definitions/unitofmeasurements'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3716,7 +3716,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CustomerAttributeModelFetchResult
+      :return FetchResult
     """
     def query_company_customer_attributes(self, include=None):        return requests.get('{}/api/v2/definitions/customerattributes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3732,8 +3732,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold
-      :param model [CompanyDistanceThresholdModel] The DistanceThreshold object or objects you wish to create.
-      :return CompanyDistanceThresholdModel
+      :param model [Python Dictionary] The DistanceThreshold object or objects you wish to create.
+      :return Python Dictionary
     """
     def create_distance_threshold(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -3750,7 +3750,7 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold
       :param id_ [int] The unique ID number of the DistanceThreshold object you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_distance_threshold(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -3767,7 +3767,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this DistanceThreshold object
       :param id_ [int] The unique ID number referring to this DistanceThreshold object
-      :return CompanyDistanceThresholdModel
+      :return Python Dictionary
     """
     def get_distance_threshold(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -3788,7 +3788,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CompanyDistanceThresholdModelFetchResult
+      :return FetchResult
     """
     def list_distance_thresholds(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3810,7 +3810,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CompanyDistanceThresholdModelFetchResult
+      :return FetchResult
     """
     def query_distance_thresholds(self, include=None):        return requests.get('{}/api/v2/distancethresholds'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3829,8 +3829,8 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold object.
       :param id_ [int] The unique ID number of the DistanceThreshold object to replace.
-      :param model [CompanyDistanceThresholdModel] The new DistanceThreshold object to store.
-      :return CompanyDistanceThresholdModel
+      :param model [Python Dictionary] The new DistanceThreshold object to store.
+      :return Python Dictionary
     """
     def update_distance_threshold(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -3850,7 +3850,7 @@ class Mixin:
       :param companyId [int] company to retrieve exempt certificate for
       :param ecmsId [int] exempt certificate Id
       :param include [string] 
-      :return EcmsModel
+      :return Python Dictionary
     """
     def get_e_c_m_s_by_id(self, companyId, ecmsId, include=None):        return requests.get('{}/api/v2/companies/{}/ecms/{}'.format(self.base_url, companyId, ecmsId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3873,7 +3873,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return EcmsModelFetchResult
+      :return FetchResult
     """
     def list_e_c_m_s_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/ecms'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3897,7 +3897,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return EcmsModelFetchResult
+      :return FetchResult
     """
     def query_e_c_m_s(self, include=None):        return requests.get('{}/api/v2/ecms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3911,8 +3911,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The company ID that will be issued this certificate.
-      :param model [CreateECommerceTokenInputModel] 
-      :return ECommerceTokenOutputModelFetchResult
+      :param model [Python Dictionary] 
+      :return FetchResult
     """
     def create_e_commerce_token(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -3926,8 +3926,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The company ID that the refreshed certificate belongs to.
-      :param model [RefreshECommerceTokenInputModel] 
-      :return ECommerceTokenOutputModelFetchResult
+      :param model [Python Dictionary] 
+      :return FetchResult
     """
     def refresh_e_commerce_token(self, companyId, model):        return requests.put('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -3942,8 +3942,8 @@ class Mixin:
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] ID number of the company to delete error transactions from.
-      :param model [DeleteErrorTransactionsRequestModel] The request that contains error transactions to be deleted
-      :return DeleteErrorTransactionsResponseModel
+      :param model [Python Dictionary] The request that contains error transactions to be deleted
+      :return Python Dictionary
     """
     def delete_error_transactions(self, companyId, model):        return requests.delete('{}/api/v2/companies/{}/errortransactions'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -3961,7 +3961,7 @@ class Mixin:
       :param companyId [int] ID number of the company to query from.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :return ErrorCodeOutputModelCappedFetchResult
+      :return Python Dictionary
     """
     def list_error_codes(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/errortransactions/errorcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3982,7 +3982,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ErrorTransactionOutputModelCappedFetchResult
+      :return Python Dictionary
     """
     def list_error_transactions(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/errortransactions'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4000,7 +4000,7 @@ class Mixin:
       :param taxFormCode [string] The tax form code that we are checking
       :param country [string] The country we are fetching POAs for
       :param region [string] The region we are fetching POAs for
-      :return PowerOfAttorneyCheckModel
+      :return Python Dictionary
     """
     def active_power_of_attorney(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filingcalendars/powerofattorney'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4018,7 +4018,7 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing request object
-      :return FilingRequestModel
+      :return Python Dictionary
     """
     def approve_filing_request(self, companyId, id_):        return requests.post('{}/api/v2/companies/{}/filingrequests/{}/approve'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4035,7 +4035,7 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing request object
-      :return FilingRequestModel
+      :return Python Dictionary
     """
     def cancel_filing_request(self, companyId, id_):        return requests.post('{}/api/v2/companies/{}/filingrequests/{}/cancel'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4052,8 +4052,8 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID number of the filing calendar to cancel
-      :param model [FilingRequestModel] The cancellation request for this filing calendar
-      :return FilingRequestModel
+      :param model [Python Dictionary] The cancellation request for this filing calendar
+      :return Python Dictionary
     """
     def cancel_filing_requests(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/cancel/request'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4068,8 +4068,8 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyId [int] The unique ID of the company that will add the new filing calendar
-      :param model [FilingCalendarModel] Filing calendars that will be added
-      :return FilingCalendarModel
+      :param model [Python Dictionary] Filing calendars that will be added
+      :return Python Dictionary
     """
     def create_filing_calendars(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4085,8 +4085,8 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyId [int] The unique ID of the company that will add the new filing calendar
-      :param model [FilingRequestModel] Information about the proposed new filing calendar
-      :return FilingRequestModel
+      :param model [Python Dictionary] Information about the proposed new filing calendar
+      :return Python Dictionary
     """
     def create_filing_requests(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars/add/request'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4100,8 +4100,8 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that will add the new filing calendar
       :param filingCalendarId [int] The unique ID of the filing calendar that will add the new filing calendar setting
-      :param model [CompanyReturnSettingModel] CompanyReturnSettings that will be added
-      :return CompanyReturnSettingModel
+      :param model [Python Dictionary] CompanyReturnSettings that will be added
+      :return Python Dictionary
     """
     def create_update_company_return_settings(self, companyId, filingCalendarId, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/settings'.format(self.base_url, companyId, filingCalendarId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4116,7 +4116,7 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param formCode [string] The unique code of the form
-      :return CycleAddOptionModel
+      :return Python Dictionary
     """
     def cycle_safe_add(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filingcalendars/add/options'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4131,8 +4131,8 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID of the filing calendar object
-      :param model [FilingCalendarEditModel] A list of filing calendar edits to be made
-      :return CycleEditOptionModel
+      :param model [Python Dictionary] A list of filing calendar edits to be made
+      :return Python Dictionary
     """
     def cycle_safe_edit(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/edit/options'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4147,7 +4147,7 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID of the filing calendar object
-      :return CycleExpireModel
+      :return Python Dictionary
     """
     def cycle_safe_expiration(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/filingcalendars/{}/cancel/options'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4162,7 +4162,7 @@ class Mixin:
       :param companyId [int] The unique ID of the company
       :param filingCalendarId [int] The unique ID of the filing calendar that will remove setting
       :param companyReturnSettingId [int] The unique ID of the company return setting that will be deleted from the filing calendar
-      :return CompanyReturnSettingModel
+      :return Python Dictionary
     """
     def delete_company_return_settings(self, companyId, filingCalendarId, companyReturnSettingId):        return requests.delete('{}/api/v2/companies/{}/filingcalendars/{}/setting/{}'.format(self.base_url, companyId, filingCalendarId, companyReturnSettingId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4180,7 +4180,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this filing calendar.
       :param id_ [int] The ID of the filing calendar you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_filing_calendar(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4195,7 +4195,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this filing calendar
       :param id_ [int] The primary key of this filing calendar
-      :return FilingCalendarModel
+      :return Python Dictionary
     """
     def get_filing_calendar(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4212,7 +4212,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this filing calendar
       :param id_ [int] The primary key of this filing calendar
-      :return FilingRequestModel
+      :return Python Dictionary
     """
     def get_filing_request(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/filingrequests/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4232,7 +4232,7 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param returnCountry [string] A comma separated list of countries
       :param returnRegion [string] A comma separated list of regions
-      :return FilingCalendarModelFetchResult
+      :return FetchResult
     """
     def list_filing_calendars(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filingcalendars'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4253,7 +4253,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FilingRequestModelFetchResult
+      :return FetchResult
     """
     def list_filing_requests(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filingrequests'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4267,8 +4267,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
-      :param model [LoginVerificationInputModel] The model of the login information we are verifying
-      :return LoginVerificationOutputModel
+      :param model [Python Dictionary] The model of the login information we are verifying
+      :return Python Dictionary
     """
     def login_verification_request(self, model):        return requests.post('{}/api/v2/filingcalendars/credentials/verify'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4284,7 +4284,7 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param jobId [int] The unique ID number of this login request
-      :return LoginVerificationOutputModel
+      :return Python Dictionary
     """
     def login_verification_status(self, jobId):        return requests.get('{}/api/v2/filingcalendars/credentials/{}'.format(self.base_url, jobId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4304,7 +4304,7 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param returnCountry [string] If specified, fetches only filing calendars that apply to tax filings in this specific country. Uses ISO 3166 country codes.
       :param returnRegion [string] If specified, fetches only filing calendars that apply to tax filings in this specific region. Uses ISO 3166 region codes.
-      :return FilingCalendarModelFetchResult
+      :return FetchResult
     """
     def query_filing_calendars(self, include=None):        return requests.get('{}/api/v2/filingcalendars'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4321,8 +4321,8 @@ class Mixin:
     
       :param returnCountry [string] If specified, fetches only filing calendars that apply to tax filings in this specific country. Uses ISO 3166 country codes.
       :param returnRegion [string] If specified, fetches only filing calendars that apply to tax filings in this specific region. Uses ISO 3166 region codes.
-      :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
-      :return FilingCalendarModelFetchResult
+      :param model [Python Dictionary] Query object to filter, sort and paginate the filing calendars.
+      :return FetchResult
     """
     def query_filing_calendars_post(self, model, include=None):        return requests.post('{}/api/v2/filingcalendars/query'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -4345,7 +4345,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FilingRequestModelFetchResult
+      :return FetchResult
     """
     def query_filing_requests(self, include=None):        return requests.get('{}/api/v2/filingrequests'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4361,8 +4361,8 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param filingCalendarId [int] Specific filing calendar id for the request
-      :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
-      :return FilingRequestModelFetchResult
+      :param model [Python Dictionary] Query object to filter, sort and paginate the filing calendars.
+      :return FetchResult
     """
     def query_filing_requests_post(self, model, include=None):        return requests.post('{}/api/v2/filingrequests/query'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -4381,8 +4381,8 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID number of the filing calendar to edit
-      :param model [FilingRequestModel] A list of filing calendar edits to be made
-      :return FilingRequestModel
+      :param model [Python Dictionary] A list of filing calendar edits to be made
+      :return Python Dictionary
     """
     def request_filing_calendar_update(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/edit/request'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4397,8 +4397,8 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
       :param id_ [int] The unique ID of the filing calendar object
-      :param model [FilingCalendarModel] The filing calendar model you are wishing to update with.
-      :return FilingCalendarModel
+      :param model [Python Dictionary] The filing calendar model you are wishing to update with.
+      :return Python Dictionary
     """
     def update_filing_calendar(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4415,8 +4415,8 @@ class Mixin:
     
       :param companyId [int] The unique ID of the company that owns the filing request object
       :param id_ [int] The unique ID of the filing request object
-      :param model [FilingRequestModel] A list of filing calendar edits to be made
-      :return FilingRequestModel
+      :param model [Python Dictionary] A list of filing calendar edits to be made
+      :return Python Dictionary
     """
     def update_filing_request(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/filingrequests/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4438,8 +4438,8 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to approve.
       :param month [int] The month of the filing period to approve.
-      :param model [ApproveFilingsModel] The approve request you wish to execute.
-      :return FilingModel
+      :param model [Python Dictionary] The approve request you wish to execute.
+      :return Python Dictionary
     """
     def approve_filings(self, companyId, year, month, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/approve'.format(self.base_url, companyId, year, month),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4462,8 +4462,8 @@ class Mixin:
       :param year [int] The year of the filing period to approve.
       :param month [int] The month of the filing period to approve.
       :param country [string] The two-character ISO-3166 code for the country.
-      :param model [ApproveFilingsModel] The approve request you wish to execute.
-      :return FilingModel
+      :param model [Python Dictionary] The approve request you wish to execute.
+      :return Python Dictionary
     """
     def approve_filings_country(self, companyId, year, month, country, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/approve'.format(self.base_url, companyId, year, month, country),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4487,8 +4487,8 @@ class Mixin:
       :param month [int] The month of the filing period to approve.
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
-      :param model [ApproveFilingsModel] The approve request you wish to execute.
-      :return FilingModel
+      :param model [Python Dictionary] The approve request you wish to execute.
+      :return Python Dictionary
     """
     def approve_filings_country_region(self, companyId, year, month, country, region, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/approve'.format(self.base_url, companyId, year, month, country, region),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4512,8 +4512,8 @@ class Mixin:
       :param country [string] The two-character ISO-3166 code for the country of the filing being adjusted.
       :param region [string] The two or three character region code for the region.
       :param formCode [string] The unique code of the form being adjusted.
-      :param model [FilingAdjustmentModel] A list of Adjustments to be created for the specified filing.
-      :return FilingAdjustmentModel
+      :param model [Python Dictionary] A list of Adjustments to be created for the specified filing.
+      :return Python Dictionary
     """
     def create_return_adjustment(self, companyId, year, month, country, region, formCode, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/adjust'.format(self.base_url, companyId, year, month, country, region, formCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4536,8 +4536,8 @@ class Mixin:
       :param country [string] The two-character ISO-3166 code for the country of the filing being changed.
       :param region [string] The two or three character region code for the region of the filing being changed.
       :param formCode [string] The unique code of the form being changed.
-      :param model [FilingAugmentationModel] A list of augmentations to be created for the specified filing.
-      :return FilingAugmentationModel
+      :param model [Python Dictionary] A list of augmentations to be created for the specified filing.
+      :return Python Dictionary
     """
     def create_return_augmentation(self, companyId, year, month, country, region, formCode, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/augment'.format(self.base_url, companyId, year, month, country, region, formCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4561,8 +4561,8 @@ class Mixin:
       :param country [string] The two-character ISO-3166 code for the country of the filing being adjusted.
       :param region [string] The two or three character region code for the region.
       :param formCode [string] The unique code of the form being adjusted.
-      :param model [FilingPaymentModel] A list of Payments to be created for the specified filing.
-      :return FilingPaymentModel
+      :param model [Python Dictionary] A list of Payments to be created for the specified filing.
+      :return Python Dictionary
     """
     def create_return_payment(self, companyId, year, month, country, region, formCode, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/payment'.format(self.base_url, companyId, year, month, country, region, formCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4583,7 +4583,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the adjustment being deleted.
       :param type [string] The type of adjustment that you are trying to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_return_adjustment(self, companyId, id_, include=None):        return requests.delete('{}/api/v2/companies/{}/filings/adjust/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4602,7 +4602,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns the filing being changed.
       :param id_ [int] The ID of the augmentation being added.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_return_augmentation(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/filings/augment/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4622,7 +4622,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the payment being deleted.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_return_payment(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/filings/payment/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4637,7 +4637,7 @@ class Mixin:
     
       :param filingsId [int] The unique id of the worksheet.
       :param companyId [int] The unique ID of the company that owns the worksheet.
-      :return FilingsCheckupModel
+      :return Python Dictionary
     """
     def filings_checkup_report(self, filingsId, companyId):        return requests.get('{}/api/v2/companies/{}/filings/{}/checkup'.format(self.base_url, filingsId, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4653,7 +4653,7 @@ class Mixin:
       :param companyId [int] The unique ID of the company that owns the worksheets object.
       :param year [int] The year of the filing period.
       :param month [int] The month of the filing period.
-      :return FilingsCheckupModel
+      :return Python Dictionary
     """
     def filings_checkup_reports(self, companyId, year, month):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/checkup'.format(self.base_url, companyId, year, month),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4666,7 +4666,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns these returns
       :param filingReturnId [int] The ID of the filing return
-      :return MultiTaxFilingModelFetchResult
+      :return FetchResult
     """
     def get_accrual_filings(self, companyId, filingReturnId):        return requests.get('{}/api/v2/companies/{}/filings/accrual/{}'.format(self.base_url, companyId, filingReturnId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4688,7 +4688,7 @@ class Mixin:
       :param region [string] The region of the return(s) you are trying to retrieve
       :param filingCalendarId [int] The filing calendar id of the return you are trying to retrieve
       :param taxformCode [string] The unique tax form code of the form.
-      :return FiledReturnModelFetchResult
+      :return FetchResult
     """
     def get_filed_returns(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filings/returns/filed'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4758,7 +4758,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filings.
       :param id_ [int] The id of the filing return your retrieving
       :param details [boolean] Indicates if you would like the credit details returned
-      :return FilingReturnModel
+      :return Python Dictionary
     """
     def get_filing_return(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/filings/returns/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4776,7 +4776,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
-      :return FilingModelFetchResult
+      :return FetchResult
     """
     def get_filings(self, companyId, year, month):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}'.format(self.base_url, companyId, year, month),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4795,7 +4795,7 @@ class Mixin:
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
       :param country [string] The two-character ISO-3166 code for the country.
-      :return FilingModelFetchResult
+      :return FetchResult
     """
     def get_filings_by_country(self, companyId, year, month, country):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}'.format(self.base_url, companyId, year, month, country),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4815,7 +4815,7 @@ class Mixin:
       :param month [int] The two digit month of the filing period.
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
-      :return FilingModelFetchResult
+      :return FetchResult
     """
     def get_filings_by_country_region(self, companyId, year, month, country, region):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}/{}'.format(self.base_url, companyId, year, month, country, region),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4836,7 +4836,7 @@ class Mixin:
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
       :param formCode [string] The unique code of the form.
-      :return FilingModelFetchResult
+      :return FetchResult
     """
     def get_filings_by_return_name(self, companyId, year, month, country, region, formCode):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}'.format(self.base_url, companyId, year, month, country, region, formCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4858,7 +4858,7 @@ class Mixin:
       :param region [string] The region of the return(s) you are trying to retrieve
       :param filingCalendarId [int] The filing calendar id of the return you are trying to retrieve
       :param taxformCode [string] The unique tax form code of the form.
-      :return FilingReturnModelBasicFetchResult
+      :return FetchResult
     """
     def get_filings_returns(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filings/returns'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4879,7 +4879,7 @@ class Mixin:
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
       :param formCode [string] The unique code of the form.
-      :return MultiTaxFilingModelFetchResult
+      :return FetchResult
     """
     def get_tax_filings(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4900,8 +4900,8 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period to be rebuilt.
       :param month [int] The month of the filing period to be rebuilt.
-      :param model [RebuildFilingsModel] The rebuild request you wish to execute.
-      :return FilingModelFetchResult
+      :param model [Python Dictionary] The rebuild request you wish to execute.
+      :return FetchResult
     """
     def rebuild_filings(self, companyId, year, month, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/rebuild'.format(self.base_url, companyId, year, month),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4923,8 +4923,8 @@ class Mixin:
       :param year [int] The year of the filing period to be rebuilt.
       :param month [int] The month of the filing period to be rebuilt.
       :param country [string] The two-character ISO-3166 code for the country.
-      :param model [RebuildFilingsModel] The rebuild request you wish to execute.
-      :return FilingModelFetchResult
+      :param model [Python Dictionary] The rebuild request you wish to execute.
+      :return FetchResult
     """
     def rebuild_filings_by_country(self, companyId, year, month, country, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4947,8 +4947,8 @@ class Mixin:
       :param month [int] The month of the filing period to be rebuilt.
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
-      :param model [RebuildFilingsModel] The rebuild request you wish to execute.
-      :return FilingModelFetchResult
+      :param model [Python Dictionary] The rebuild request you wish to execute.
+      :return FetchResult
     """
     def rebuild_filings_by_country_region(self, companyId, year, month, country, region, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country, region),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4968,8 +4968,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the adjustment being edited.
-      :param model [FilingAdjustmentModel] The updated Adjustment.
-      :return FilingAdjustmentModel
+      :param model [Python Dictionary] The updated Adjustment.
+      :return Python Dictionary
     """
     def update_return_adjustment(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/filings/adjust/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4988,8 +4988,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns the filing being changed.
       :param id_ [int] The ID of the augmentation being edited.
-      :param model [FilingAugmentationModel] The updated Augmentation.
-      :return FilingModel
+      :param model [Python Dictionary] The updated Augmentation.
+      :return Python Dictionary
     """
     def update_return_augmentation(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/filings/augment/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5009,8 +5009,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns the filing being adjusted.
       :param id_ [int] The ID of the payment being edited.
-      :param model [FilingPaymentModel] The updated Payment.
-      :return FilingPaymentModel
+      :param model [Python Dictionary] The updated Payment.
+      :return Python Dictionary
     """
     def update_return_payment(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/filings/payment/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5023,7 +5023,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
-      :return FirmClientLinkageOutputModel
+      :return Python Dictionary
     """
     def approve_firm_client_linkage(self, id_):        return requests.post('{}/api/v2/firmclientlinkages/{}/approve'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5041,8 +5041,8 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SystemAdmin.
     
-      :param model [NewFirmClientAccountRequestModel] Information about the account you wish to create.
-      :return FirmClientLinkageOutputModel
+      :param model [Python Dictionary] Information about the account you wish to create.
+      :return Python Dictionary
     """
     def create_and_link_new_firm_client_account(self, model):        return requests.post('{}/api/v2/firmclientlinkages/createandlinkclient'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5054,8 +5054,8 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
-      :param model [FirmClientLinkageInputModel] FirmClientLinkageInputModel
-      :return FirmClientLinkageOutputModel
+      :param model [Python Dictionary] FirmClientLinkageInputModel
+      :return Python Dictionary
     """
     def create_firm_client_linkage(self, model):        return requests.post('{}/api/v2/firmclientlinkages'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5068,7 +5068,7 @@ class Mixin:
       * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_firm_client_linkage(self, id_):        return requests.delete('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5081,7 +5081,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] 
-      :return FirmClientLinkageOutputModel
+      :return Python Dictionary
     """
     def get_firm_client_linkage(self, id_):        return requests.get('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5094,7 +5094,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* firmAccountName, clientAccountName
-      :return FirmClientLinkageOutputModelFetchResult
+      :return FetchResult
     """
     def list_firm_client_linkage(self, include=None):        return requests.get('{}/api/v2/firmclientlinkages'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5107,7 +5107,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
-      :return FirmClientLinkageOutputModel
+      :return Python Dictionary
     """
     def reject_firm_client_linkage(self, id_):        return requests.post('{}/api/v2/firmclientlinkages/{}/reject'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5120,7 +5120,7 @@ class Mixin:
       * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
-      :return FirmClientLinkageOutputModel
+      :return Python Dictionary
     """
     def reset_firm_client_linkage(self, id_):        return requests.post('{}/api/v2/firmclientlinkages/{}/reset'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5133,7 +5133,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
-      :return FirmClientLinkageOutputModel
+      :return Python Dictionary
     """
     def revoke_firm_client_linkage(self, id_):        return requests.post('{}/api/v2/firmclientlinkages/{}/revoke'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5151,8 +5151,8 @@ class Mixin:
       ### Security Policies
       * This API may be called without providing authentication credentials.
     
-      :param model [FreeTrialRequestModel] Required information to provision a free trial account.
-      :return NewAccountModel
+      :param model [Python Dictionary] Required information to provision a free trial account.
+      :return Python Dictionary
     """
     def request_free_trial(self, model):        return requests.post('{}/api/v2/accounts/freetrials/request'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5187,7 +5187,7 @@ class Mixin:
       :param region [string] Name or ISO 3166 code identifying the region within the country.     This field supports many different region identifiers:   * Two and three character ISO 3166 region codes   * Fully spelled out names of the region in ISO supported languages   * Common alternative spellings for many regions     For a full list of all supported codes and names, please see the Definitions API `ListRegions`.
       :param postalCode [string] The postal code of the location.
       :param country [string] Name or ISO 3166 code identifying the country.     This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries     For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
-      :return TaxRateModel
+      :return Python Dictionary
     """
     def tax_rates_by_address(self, include=None):        return requests.get('{}/api/v2/taxrates/byaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5218,7 +5218,7 @@ class Mixin:
     
       :param country [string] Name or ISO 3166 code identifying the country.     This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries     For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
       :param postalCode [string] The postal code of the location.
-      :return TaxRateModel
+      :return Python Dictionary
     """
     def tax_rates_by_postal_code(self, include=None):        return requests.get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5243,7 +5243,7 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The unique ID number of this funding request
-      :return FundingStatusModel
+      :return Python Dictionary
     """
     def activate_funding_request(self, id_):        return requests.get('{}/api/v2/fundingrequests/{}/widget'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5266,7 +5266,7 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The unique ID number of this funding request
-      :return FundingStatusModel
+      :return Python Dictionary
     """
     def funding_request_status(self, id_):        return requests.get('{}/api/v2/fundingrequests/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5282,7 +5282,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this item.
       :param itemId [int] The ID of the item you wish to delete the classifications.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def batch_delete_item_classifications(self, companyId, itemId):        return requests.delete('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5299,7 +5299,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this item.
       :param itemId [int] The ID of the item you wish to delete the parameters.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def batch_delete_item_parameters(self, companyId, itemId):        return requests.delete('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5316,8 +5316,8 @@ class Mixin:
     
       :param companyId [int] The company id.
       :param itemId [int] The item id.
-      :param model [ItemClassificationInputModel] The item classifications you wish to create.
-      :return ItemClassificationOutputModel
+      :param model [Python Dictionary] The item classifications you wish to create.
+      :return Python Dictionary
     """
     def create_item_classifications(self, companyId, itemId, model):        return requests.post('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5336,8 +5336,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this item parameter.
       :param itemId [int] The item id.
-      :param model [ItemParameterModel] The item parameters you wish to create.
-      :return ItemParameterModel
+      :param model [Python Dictionary] The item parameters you wish to create.
+      :return Python Dictionary
     """
     def create_item_parameters(self, companyId, itemId, model):        return requests.post('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5356,8 +5356,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this item.
-      :param model [ItemModel] The item you wish to create.
-      :return ItemModel
+      :param model [Python Dictionary] The item you wish to create.
+      :return Python Dictionary
     """
     def create_items(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5377,7 +5377,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this item.
       :param id_ [int] The ID of the item you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_item(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5394,7 +5394,7 @@ class Mixin:
       :param companyId [int] The company id.
       :param itemId [int] The item id.
       :param id_ [int] The item classification id.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_item_classification(self, companyId, itemId, id_):        return requests.delete('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5412,7 +5412,7 @@ class Mixin:
       :param companyId [int] The company id
       :param itemId [int] The item id
       :param id_ [int] The parameter id
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_item_parameter(self, companyId, itemId, id_):        return requests.delete('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5432,7 +5432,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this item object
       :param id_ [int] The primary key of this item
       :param include [string] A comma separated list of additional data to retrieve.
-      :return ItemModel
+      :return Python Dictionary
     """
     def get_item(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5449,7 +5449,7 @@ class Mixin:
       :param companyId [int] The company id.
       :param itemId [int] The item id.
       :param id_ [int] The item classification id.
-      :return ItemClassificationOutputModel
+      :return Python Dictionary
     """
     def get_item_classification(self, companyId, itemId, id_):        return requests.get('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5467,7 +5467,7 @@ class Mixin:
       :param companyId [int] The company id
       :param itemId [int] The item id
       :param id_ [int] The parameter id
-      :return ItemParameterModel
+      :return Python Dictionary
     """
     def get_item_parameter(self, companyId, itemId, id_):        return requests.get('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5489,7 +5489,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ItemClassificationOutputModelFetchResult
+      :return FetchResult
     """
     def list_item_classifications(self, companyId, itemId, include=None):        return requests.get('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5512,7 +5512,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ItemParameterModelFetchResult
+      :return FetchResult
     """
     def list_item_parameters(self, companyId, itemId, include=None):        return requests.get('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5540,7 +5540,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ItemModelFetchResult
+      :return FetchResult
     """
     def list_items_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5564,7 +5564,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ItemModelFetchResult
+      :return FetchResult
     """
     def query_items(self, include=None):        return requests.get('{}/api/v2/items'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5585,8 +5585,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this item.
-      :param model [SyncItemsRequestModel] The request object.
-      :return SyncItemsResponseModel
+      :param model [Python Dictionary] The request object.
+      :return Python Dictionary
     """
     def sync_items(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/items/sync'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5608,8 +5608,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that this item belongs to.
       :param id_ [int] The ID of the item you wish to update
-      :param model [ItemModel] The item object you wish to update.
-      :return ItemModel
+      :param model [Python Dictionary] The item object you wish to update.
+      :return Python Dictionary
     """
     def update_item(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5627,8 +5627,8 @@ class Mixin:
       :param companyId [int] The company id.
       :param itemId [int] The item id.
       :param id_ [int] The item classification id.
-      :param model [ItemClassificationInputModel] The item object you wish to update.
-      :return ItemClassificationOutputModel
+      :param model [Python Dictionary] The item object you wish to update.
+      :return Python Dictionary
     """
     def update_item_classification(self, companyId, itemId, id_, model):        return requests.put('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5646,8 +5646,8 @@ class Mixin:
       :param companyId [int] The company id.
       :param itemId [int] The item id
       :param id_ [int] The item parameter id
-      :param model [ItemParameterModel] The item object you wish to update.
-      :return ItemParameterModel
+      :param model [Python Dictionary] The item object you wish to update.
+      :return Python Dictionary
     """
     def update_item_parameter(self, companyId, itemId, id_, model):        return requests.put('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5664,8 +5664,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that owns this override
-      :param model [JurisdictionOverrideModel] The jurisdiction override objects to create
-      :return JurisdictionOverrideModel
+      :param model [Python Dictionary] The jurisdiction override objects to create
+      :return Python Dictionary
     """
     def create_jurisdiction_overrides(self, accountId, model):        return requests.post('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5679,7 +5679,7 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns this override
       :param id_ [int] The ID of the override you wish to delete
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_jurisdiction_override(self, accountId, id_):        return requests.delete('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5697,7 +5697,7 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns this override
       :param id_ [int] The primary key of this override
-      :return JurisdictionOverrideModel
+      :return Python Dictionary
     """
     def get_jurisdiction_override(self, accountId, id_):        return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5721,7 +5721,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return JurisdictionOverrideModelFetchResult
+      :return FetchResult
     """
     def list_jurisdiction_overrides_by_account(self, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5744,7 +5744,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return JurisdictionOverrideModelFetchResult
+      :return FetchResult
     """
     def query_jurisdiction_overrides(self, include=None):        return requests.get('{}/api/v2/jurisdictionoverrides'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5758,8 +5758,8 @@ class Mixin:
     
       :param accountId [int] The ID of the account that this jurisdictionoverride belongs to.
       :param id_ [int] The ID of the jurisdictionoverride you wish to update
-      :param model [JurisdictionOverrideModel] The jurisdictionoverride object you wish to update.
-      :return JurisdictionOverrideModel
+      :param model [Python Dictionary] The jurisdictionoverride object you wish to update.
+      :return Python Dictionary
     """
     def update_jurisdiction_override(self, accountId, id_, model):        return requests.put('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5778,8 +5778,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this location parameter.
       :param locationId [int] The location id.
-      :param model [LocationParameterModel] The location parameters you wish to create.
-      :return LocationParameterModel
+      :param model [Python Dictionary] The location parameters you wish to create.
+      :return Python Dictionary
     """
     def create_location_parameters(self, companyId, locationId, model):        return requests.post('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5792,8 +5792,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this location.
-      :param model [LocationModel] The location you wish to create.
-      :return LocationModel
+      :param model [Python Dictionary] The location you wish to create.
+      :return Python Dictionary
     """
     def create_locations(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5807,7 +5807,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this location.
       :param id_ [int] The ID of the location you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_location(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5825,7 +5825,7 @@ class Mixin:
       :param companyId [int] The company id
       :param locationId [int] The location id
       :param id_ [int] The parameter id
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_location_parameter(self, companyId, locationId, id_):        return requests.delete('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5847,7 +5847,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
       :param include [string] A comma separated list of additional data to retrieve.
-      :return LocationModel
+      :return Python Dictionary
     """
     def get_location(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5865,7 +5865,7 @@ class Mixin:
       :param companyId [int] The company id
       :param locationId [int] The location id
       :param id_ [int] The parameter id
-      :return LocationParameterModel
+      :return Python Dictionary
     """
     def get_location_parameter(self, companyId, locationId, id_):        return requests.get('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -5888,7 +5888,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return LocationParameterModelFetchResult
+      :return FetchResult
     """
     def list_location_parameters(self, companyId, locationId, include=None):        return requests.get('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5915,7 +5915,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return LocationModelFetchResult
+      :return FetchResult
     """
     def list_locations_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5941,7 +5941,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return LocationModelFetchResult
+      :return FetchResult
     """
     def query_locations(self, include=None):        return requests.get('{}/api/v2/locations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5957,8 +5957,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that this location belongs to.
       :param id_ [int] The ID of the location you wish to update
-      :param model [LocationModel] The location you wish to update.
-      :return LocationModel
+      :param model [Python Dictionary] The location you wish to update.
+      :return Python Dictionary
     """
     def update_location(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5976,8 +5976,8 @@ class Mixin:
       :param companyId [int] The company id.
       :param locationId [int] The location id
       :param id_ [int] The location parameter id
-      :param model [LocationParameterModel] The location parameter object you wish to update.
-      :return LocationParameterModel
+      :param model [Python Dictionary] The location parameter object you wish to update.
+      :return Python Dictionary
     """
     def update_location_parameter(self, companyId, locationId, id_, model):        return requests.put('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5997,8 +5997,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
-      :param model [UpdateCompanyLocationRemittanceModel] The new remittance to change the existing location's to, as well as new effective and end date.
-      :return LocationModel
+      :param model [Python Dictionary] The new remittance to change the existing location's to, as well as new effective and end date.
+      :return Python Dictionary
     """
     def update_location_remittance(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/locations/{}/remittance'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6014,7 +6014,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
-      :return LocationValidationModel
+      :return Python Dictionary
     """
     def validate_location(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/locations/{}/validate'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6042,8 +6042,8 @@ class Mixin:
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :param model [AdjustMultiDocumentModel] The adjust request you wish to execute
-      :return MultiDocumentModel
+      :param model [Python Dictionary] The adjust request you wish to execute
+      :return Python Dictionary
     """
     def adjust_multi_document_transaction(self, code, type, model, include=None):        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/adjust'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -6075,7 +6075,7 @@ class Mixin:
     
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
-      :return AuditMultiDocumentModel
+      :return Python Dictionary
     """
     def audit_multi_document_transaction(self, code, type):        return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}/audit'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6099,8 +6099,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
-      :param model [CommitMultiDocumentModel] The commit request you wish to execute
-      :return MultiDocumentModel
+      :param model [Python Dictionary] The commit request you wish to execute
+      :return Python Dictionary
     """
     def commit_multi_document_transaction(self, model):        return requests.post('{}/api/v2/transactions/multidocument/commit'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6144,8 +6144,8 @@ class Mixin:
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
       :param include [string] Specifies objects to include in the response after transaction is created
-      :param model [CreateMultiDocumentModel] the multi document transaction model
-      :return MultiDocumentModel
+      :param model [Python Dictionary] the multi document transaction model
+      :return Python Dictionary
     """
     def create_multi_document_transaction(self, model, include=None):        return requests.post('{}/api/v2/transactions/multidocument'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -6176,7 +6176,7 @@ class Mixin:
       :param code [string] The multidocument code to retrieve
       :param type [DocumentType] The transaction type to retrieve (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in the response after transaction is created
-      :return MultiDocumentModel
+      :return Python Dictionary
     """
     def get_multi_document_transaction_by_code_and_type(self, code, type, include=None):        return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6213,7 +6213,7 @@ class Mixin:
     
       :param id_ [int] The unique ID number of the MultiDocument transaction to retrieve
       :param include [string] Specifies objects to include in the response after transaction is created
-      :return MultiDocumentModel
+      :return Python Dictionary
     """
     def get_multi_document_transaction_by_id(self, id_, include=None):        return requests.get('{}/api/v2/transactions/multidocument/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6251,7 +6251,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return MultiDocumentModelFetchResult
+      :return FetchResult
     """
     def list_multi_document_transactions(self, include=None):        return requests.get('{}/api/v2/transactions/multidocument'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6300,8 +6300,8 @@ class Mixin:
       :param code [string] The code of this MultiDocument transaction
       :param type [DocumentType] The type of this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in the response after transaction is created
-      :param model [RefundTransactionModel] Information about the refund to create
-      :return MultiDocumentModel
+      :param model [Python Dictionary] Information about the refund to create
+      :return Python Dictionary
     """
     def refund_multi_document_transaction(self, code, type, model, include=None):        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/refund'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -6324,8 +6324,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
-      :param model [VerifyMultiDocumentModel] Information from your accounting system to verify against this MultiDocument transaction as it is stored in AvaTax
-      :return MultiDocumentModel
+      :param model [Python Dictionary] Information from your accounting system to verify against this MultiDocument transaction as it is stored in AvaTax
+      :return Python Dictionary
     """
     def verify_multi_document_transaction(self, model):        return requests.post('{}/api/v2/transactions/multidocument/verify'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6352,8 +6352,8 @@ class Mixin:
     
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
-      :param model [VoidTransactionModel] The void request you wish to execute
-      :return MultiDocumentModel
+      :param model [Python Dictionary] The void request you wish to execute
+      :return Python Dictionary
     """
     def void_multi_document_transaction(self, code, type, model):        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/void'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6379,8 +6379,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this nexus.
-      :param model [NexusModel] The nexus you wish to create.
-      :return NexusModel
+      :param model [Python Dictionary] The nexus you wish to create.
+      :return Python Dictionary
     """
     def create_nexus(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6399,8 +6399,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this nexus parameter.
       :param nexusId [int] The nexus id.
-      :param model [NexusParameterDetailModel] The nexus parameters you wish to create.
-      :return NexusParameterDetailModel
+      :param model [Python Dictionary] The nexus parameters you wish to create.
+      :return Python Dictionary
     """
     def create_nexus_parameters(self, companyId, nexusId, model):        return requests.post('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6423,8 +6423,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that will own this nexus.
-      :param model [DeclareNexusByAddressModel] The nexus you wish to create.
-      :return NexusByAddressModel
+      :param model [Python Dictionary] The nexus you wish to create.
+      :return Python Dictionary
     """
     def declare_nexus_by_address(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/nexus/byaddress'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6444,7 +6444,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this nexus.
       :param id_ [int] The ID of the nexus you wish to delete.
       :param cascadeDelete [boolean] If true, deletes all the child nexus if they exist along with parent nexus
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_nexus(self, companyId, id_, include=None):        return requests.delete('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6462,7 +6462,7 @@ class Mixin:
       :param companyId [int] The company id
       :param nexusId [int] The nexus id
       :param id_ [int] The parameter id
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_nexus_parameter(self, companyId, nexusId, id_):        return requests.delete('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6479,7 +6479,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this nexus.
       :param nexusId [int] The ID of the nexus you wish to delete the parameters.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_nexus_parameters(self, companyId, nexusId):        return requests.delete('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6499,7 +6499,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this nexus object
       :param id_ [int] The primary key of this nexus
       :param include [string] 
-      :return NexusModel
+      :return Python Dictionary
     """
     def get_nexus(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6522,7 +6522,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this nexus object
       :param formCode [string] The form code that we are looking up the nexus for
       :param include [string] 
-      :return NexusByTaxFormModel
+      :return Python Dictionary
     """
     def get_nexus_by_form_code(self, companyId, formCode, include=None):        return requests.get('{}/api/v2/companies/{}/nexus/byform/{}'.format(self.base_url, companyId, formCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6540,7 +6540,7 @@ class Mixin:
       :param companyId [int] The company id
       :param nexusId [int] The nexus id
       :param id_ [int] The parameter id
-      :return NexusParameterDetailModel
+      :return Python Dictionary
     """
     def get_nexus_parameter(self, companyId, nexusId, id_):        return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6565,7 +6565,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NexusModelFetchResult
+      :return FetchResult
     """
     def list_nexus_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6588,7 +6588,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NexusParameterDetailModelFetchResult
+      :return FetchResult
     """
     def list_nexus_parameters(self, companyId, nexusId, include=None):        return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6607,7 +6607,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these nexus objects
-      :return NexusSummaryModel
+      :return Python Dictionary
     """
     def nexus_summary(self, companyId):        return requests.get('{}/api/v2/companies/{}/nexus/summary'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6631,7 +6631,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NexusModelFetchResult
+      :return FetchResult
     """
     def query_nexus(self, include=None):        return requests.get('{}/api/v2/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6658,8 +6658,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that this nexus belongs to.
       :param id_ [int] The ID of the nexus you wish to update
-      :param model [NexusModel] The nexus object you wish to update.
-      :return NexusModel
+      :param model [Python Dictionary] The nexus object you wish to update.
+      :return Python Dictionary
     """
     def update_nexus(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6677,8 +6677,8 @@ class Mixin:
       :param companyId [int] The company id.
       :param nexusId [int] The nexus id
       :param id_ [int] The nexus parameter id
-      :param model [NexusParameterDetailModel] The nexus object you wish to update.
-      :return NexusParameterDetailModel
+      :param model [Python Dictionary] The nexus object you wish to update.
+      :return Python Dictionary
     """
     def update_nexus_parameter(self, companyId, nexusId, id_, model):        return requests.put('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6696,8 +6696,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the comment for.
-      :param model [NoticeCommentModel] The notice comments you wish to create.
-      :return NoticeCommentModel
+      :param model [Python Dictionary] The notice comments you wish to create.
+      :return Python Dictionary
     """
     def create_notice_comment(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/notices/{}/comments'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6716,8 +6716,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice added to the finance details.
-      :param model [NoticeFinanceModel] The notice finance details you wish to create.
-      :return NoticeFinanceModel
+      :param model [Python Dictionary] The notice finance details you wish to create.
+      :return Python Dictionary
     """
     def create_notice_finance_details(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/notices/{}/financedetails'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6735,8 +6735,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the responsibility for.
-      :param model [NoticeResponsibilityDetailModel] The notice responsibilities you wish to create.
-      :return NoticeResponsibilityDetailModel
+      :param model [Python Dictionary] The notice responsibilities you wish to create.
+      :return Python Dictionary
     """
     def create_notice_responsibilities(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/notices/{}/responsibilities'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6754,8 +6754,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the tax notice we are adding the responsibility for.
-      :param model [NoticeRootCauseDetailModel] The notice root causes you wish to create.
-      :return NoticeRootCauseDetailModel
+      :param model [Python Dictionary] The notice root causes you wish to create.
+      :return Python Dictionary
     """
     def create_notice_root_causes(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/notices/{}/rootcauses'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6772,8 +6772,8 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyId [int] The ID of the company that owns this notice.
-      :param model [NoticeModel] The notice object you wish to create.
-      :return NoticeModel
+      :param model [Python Dictionary] The notice object you wish to create.
+      :return Python Dictionary
     """
     def create_notices(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/notices'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -6792,7 +6792,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice you wish to delete the finance detail from.
       :param commentDetailsId [int] The ID of the comment you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_comment_details(self, companyId, id_, commentDetailsId):        return requests.delete('{}/api/v2/companies/{}/notices/{}/commentdetails/{}'.format(self.base_url, companyId, id_, commentDetailsId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6812,7 +6812,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice you wish to delete the finance detail from.
       :param financeDetailsId [int] The ID of the finance detail you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_finance_details(self, companyId, id_, financeDetailsId):        return requests.delete('{}/api/v2/companies/{}/notices/{}/financedetails/{}'.format(self.base_url, companyId, id_, financeDetailsId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6830,7 +6830,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this notice.
       :param id_ [int] The ID of the notice you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_notice(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/notices/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6849,7 +6849,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this notice.
       :param noticeId [int] The ID of the notice you wish to delete.
       :param id_ [int] The ID of the responsibility you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_responsibilities(self, companyId, noticeId, id_):        return requests.delete('{}/api/v2/companies/{}/notices/{}/responsibilities/{}'.format(self.base_url, companyId, noticeId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6868,7 +6868,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns this notice.
       :param noticeId [int] The ID of the notice you wish to delete.
       :param id_ [int] The ID of the root cause you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_root_causes(self, companyId, noticeId, id_):        return requests.delete('{}/api/v2/companies/{}/notices/{}/rootcauses/{}'.format(self.base_url, companyId, noticeId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6902,7 +6902,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company for this notice.
       :param id_ [int] The ID of this notice.
-      :return NoticeModel
+      :return Python Dictionary
     """
     def get_notice(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/notices/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6920,7 +6920,7 @@ class Mixin:
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
-      :return NoticeCommentModelFetchResult
+      :return FetchResult
     """
     def get_notice_comments(self, id_, companyId):        return requests.get('{}/api/v2/companies/{}/notices/{}/comments'.format(self.base_url, id_, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6939,7 +6939,7 @@ class Mixin:
     
       :param id_ [int] The ID of the company that owns these notices.
       :param companyId [int] The ID of the company that owns these notices.
-      :return NoticeFinanceModelFetchResult
+      :return FetchResult
     """
     def get_notice_finance_details(self, id_, companyId):        return requests.get('{}/api/v2/companies/{}/notices/{}/financedetails'.format(self.base_url, id_, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6957,7 +6957,7 @@ class Mixin:
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
-      :return NoticeResponsibilityDetailModelFetchResult
+      :return FetchResult
     """
     def get_notice_responsibilities(self, id_, companyId):        return requests.get('{}/api/v2/companies/{}/notices/{}/responsibilities'.format(self.base_url, id_, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6975,7 +6975,7 @@ class Mixin:
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
-      :return NoticeRootCauseDetailModelFetchResult
+      :return FetchResult
     """
     def get_notice_root_causes(self, id_, companyId):        return requests.get('{}/api/v2/companies/{}/notices/{}/rootcauses'.format(self.base_url, id_, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6999,7 +6999,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NoticeModelFetchResult
+      :return FetchResult
     """
     def list_notices_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/notices'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7023,7 +7023,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NoticeModelFetchResult
+      :return FetchResult
     """
     def query_notices(self, include=None):        return requests.get('{}/api/v2/notices'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7038,8 +7038,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
-      :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
-      :return NoticeModelFetchResult
+      :param model [Python Dictionary] Query object to filter, sort and paginate the filing calendars.
+      :return FetchResult
     """
     def query_notices_post(self, model):        return requests.post('{}/api/v2/notices/query'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7057,8 +7057,8 @@ class Mixin:
       :param companyId [int] The ID of the company that this notice finance detail belongs to.
       :param noticeid [int] The ID of the notice finance detail you wish to update.
       :param financeDetailsId [int] The ID of the finance detail you wish to delete.
-      :param model [NoticeFinanceModel] The notice finance detail object you wish to update.
-      :return NoticeFinanceModel
+      :param model [Python Dictionary] The notice finance detail object you wish to update.
+      :return Python Dictionary
     """
     def update_finance_details(self, companyId, noticeid, financeDetailsId, model):        return requests.put('{}/api/v2/companies/{}/notices/{}/financedetails/{}'.format(self.base_url, companyId, noticeid, financeDetailsId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7078,8 +7078,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that this notice belongs to.
       :param id_ [int] The ID of the notice you wish to update.
-      :param model [NoticeModel] The notice object you wish to update.
-      :return NoticeModel
+      :param model [Python Dictionary] The notice object you wish to update.
+      :return Python Dictionary
     """
     def update_notice(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/notices/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7097,8 +7097,8 @@ class Mixin:
       :param companyId [int] The ID of the company that this notice comment belongs to.
       :param noticeid [int] The ID of the notice you wish to update.
       :param commentDetailsId [int] The ID of the comment you wish to update.
-      :param model [NoticeCommentModel] The notice comment object you wish to update.
-      :return NoticeCommentModel
+      :param model [Python Dictionary] The notice comment object you wish to update.
+      :return Python Dictionary
     """
     def update_notice_comments(self, companyId, noticeid, commentDetailsId, model):        return requests.put('{}/api/v2/companies/{}/notices/{}/commentdetails/{}'.format(self.base_url, companyId, noticeid, commentDetailsId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7113,8 +7113,8 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyId [int] The ID of the company for this attachment.
-      :param model [ResourceFileUploadRequestModel] The upload request.
-      :return ResourceFileUploadResultModel
+      :param model [Python Dictionary] The upload request.
+      :return Python Dictionary
     """
     def upload_attachment(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/notices/files/attachment'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7136,7 +7136,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The id of the notification you wish to mark as dismissed.
-      :return NotificationModel
+      :return Python Dictionary
     """
     def dismiss_notification(self, id_):        return requests.put('{}/api/v2/notifications/{}/dismiss'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -7154,7 +7154,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The id of the notification to retrieve.
-      :return NotificationModel
+      :return Python Dictionary
     """
     def get_notification(self, id_):        return requests.get('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -7177,7 +7177,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return NotificationModelFetchResult
+      :return FetchResult
     """
     def list_notifications(self, include=None):        return requests.get('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7201,8 +7201,8 @@ class Mixin:
       * This API is available by invitation only.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Provisioning:RequestNewAccount].
     
-      :param model [NewAccountRequestModel] Information about the account you wish to create and the selected product offerings.
-      :return NewAccountModel
+      :param model [Python Dictionary] Information about the account you wish to create and the selected product offerings.
+      :return Python Dictionary
     """
     def request_new_account(self, model):        return requests.post('{}/api/v2/accounts/request'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7219,7 +7219,7 @@ class Mixin:
     
       :param id_ [int] The avatax account id of the customer
       :param offer [string] The offer to be added to an already existing customer
-      :return OfferModel
+      :return Python Dictionary
     """
     def request_new_entitlement(self, id_, offer):        return requests.post('{}/api/v2/accounts/{}/entitlements/{}'.format(self.base_url, id_, offer),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -7233,8 +7233,8 @@ class Mixin:
       * This API is available to Avalara system-level (registrar-level) users only.
       * This API depends on the following active services<br />*Required* (all): AvaCert.
     
-      :param model [EcmsModel] Either a single exempt certificate or an array of certificates to create
-      :return EcmsModel
+      :param model [Python Dictionary] Either a single exempt certificate or an array of certificates to create
+      :return Python Dictionary
     """
     def cert_capture_bridge(self, model):        return requests.post('{}/api/v2/certcapturebridge'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7249,8 +7249,8 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
-      :param model [AccountModel] The account you wish to create.
-      :return AccountModel
+      :param model [Python Dictionary] The account you wish to create.
+      :return Python Dictionary
     """
     def create_account(self, model):        return requests.post('{}/api/v2/accounts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7271,8 +7271,8 @@ class Mixin:
       * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [NotificationsAPI:Create].
     
-      :param model [NotificationModel] The notifications you wish to create.
-      :return NotificationModel
+      :param model [Python Dictionary] The notifications you wish to create.
+      :return Python Dictionary
     """
     def create_notifications(self, model):        return requests.post('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7288,8 +7288,8 @@ class Mixin:
       * This API requires one of the following user roles: Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that owns this subscription.
-      :param model [SubscriptionModel] The subscription you wish to create.
-      :return SubscriptionModel
+      :param model [Python Dictionary] The subscription you wish to create.
+      :return Python Dictionary
     """
     def create_subscriptions(self, accountId, model):        return requests.post('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7305,7 +7305,7 @@ class Mixin:
       * This API requires the user role SystemAdmin.
     
       :param id_ [int] The ID of the account you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_account(self, id_):        return requests.delete('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -7325,7 +7325,7 @@ class Mixin:
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [NotificationsAPI:Create].
     
       :param id_ [int] The id of the notification you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_notification(self, id_):        return requests.delete('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -7341,7 +7341,7 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns this subscription.
       :param id_ [int] The ID of the subscription you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_subscription(self, accountId, id_):        return requests.delete('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -7360,7 +7360,7 @@ class Mixin:
     
       :param userId [int] The unique ID of the user whose password will be changed
       :param unmigrateFromAi [boolean] If user's password was migrated to AI, undo this.
-      :param model [SetPasswordModel] The new password for this user
+      :param model [Python Dictionary] The new password for this user
       :return string
     """
     def reset_password(self, userId, model, include=None):        return requests.post('{}/api/v2/passwords/{}/reset'.format(self.base_url, userId),
@@ -7376,8 +7376,8 @@ class Mixin:
       * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the account you wish to update.
-      :param model [AccountModel] The account object you wish to update.
-      :return AccountModel
+      :param model [Python Dictionary] The account object you wish to update.
+      :return Python Dictionary
     """
     def update_account(self, id_, model):        return requests.put('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7397,8 +7397,8 @@ class Mixin:
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [NotificationsAPI:Create].
     
       :param id_ [int] The id of the notification you wish to update.
-      :param model [NotificationModel] The notification object you wish to update.
-      :return NotificationModel
+      :param model [Python Dictionary] The notification object you wish to update.
+      :return Python Dictionary
     """
     def update_notification(self, id_, model):        return requests.put('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7418,8 +7418,8 @@ class Mixin:
     
       :param accountId [int] The ID of the account that this subscription belongs to.
       :param id_ [int] The ID of the subscription you wish to update
-      :param model [SubscriptionModel] The subscription you wish to update.
-      :return SubscriptionModel
+      :param model [Python Dictionary] The subscription you wish to update.
+      :return Python Dictionary
     """
     def update_subscription(self, accountId, id_, model):        return requests.put('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7459,7 +7459,7 @@ class Mixin:
       This API call returns information about any report type.
     
       :param id_ [int] The unique ID number of the report to retrieve
-      :return ReportModel
+      :return Python Dictionary
     """
     def get_report(self, id_):        return requests.get('{}/api/v2/reports/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -7479,8 +7479,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The unique ID number of the company to report on.
-      :param model [ExportDocumentLineModel] Options that may be configured to customize the report.
-      :return ReportModel
+      :param model [Python Dictionary] Options that may be configured to customize the report.
+      :return Python Dictionary
     """
     def initiate_export_document_line_report(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/reports/exportdocumentline/initiate'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7503,7 +7503,7 @@ class Mixin:
       :param pageKey [string] Provide a page key to retrieve the next page of results.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :return ReportModelFetchResult
+      :return FetchResult
     """
     def list_reports(self, include=None):        return requests.get('{}/api/v2/reports'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7523,8 +7523,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this setting.
-      :param model [SettingModel] The setting you wish to create.
-      :return SettingModel
+      :param model [Python Dictionary] The setting you wish to create.
+      :return Python Dictionary
     """
     def create_settings(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7545,7 +7545,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this setting.
       :param id_ [int] The ID of the setting you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_setting(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -7566,7 +7566,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this setting
       :param id_ [int] The primary key of this setting
-      :return SettingModel
+      :return Python Dictionary
     """
     def get_setting(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -7593,7 +7593,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return SettingModelFetchResult
+      :return FetchResult
     """
     def list_settings_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7619,7 +7619,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return SettingModelFetchResult
+      :return FetchResult
     """
     def query_settings(self, include=None):        return requests.get('{}/api/v2/settings'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7642,8 +7642,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that this setting belongs to.
       :param id_ [int] The ID of the setting you wish to update
-      :param model [SettingModel] The setting you wish to update.
-      :return SettingModel
+      :param model [Python Dictionary] The setting you wish to update.
+      :return Python Dictionary
     """
     def update_setting(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7659,7 +7659,7 @@ class Mixin:
     
       :param accountId [int] The ID of the account that owns this subscription
       :param id_ [int] The primary key of this subscription
-      :return SubscriptionModel
+      :return Python Dictionary
     """
     def get_subscription(self, accountId, id_):        return requests.get('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -7680,7 +7680,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return SubscriptionModelFetchResult
+      :return FetchResult
     """
     def list_subscriptions_by_account(self, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7700,7 +7700,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return SubscriptionModelFetchResult
+      :return FetchResult
     """
     def query_subscriptions(self, include=None):        return requests.get('{}/api/v2/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7717,8 +7717,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this tax code.
-      :param model [TaxCodeModel] The tax code you wish to create.
-      :return TaxCodeModel
+      :param model [Python Dictionary] The tax code you wish to create.
+      :return Python Dictionary
     """
     def create_tax_codes(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7732,7 +7732,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this tax code.
       :param id_ [int] The ID of the tax code you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_tax_code(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -7750,7 +7750,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this tax code
       :param id_ [int] The primary key of this tax code
-      :return TaxCodeModel
+      :return Python Dictionary
     """
     def get_tax_code(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -7774,7 +7774,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxCodeModelFetchResult
+      :return FetchResult
     """
     def list_tax_codes_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7797,7 +7797,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxCodeModelFetchResult
+      :return FetchResult
     """
     def query_tax_codes(self, include=None):        return requests.get('{}/api/v2/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7817,8 +7817,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that this tax code belongs to.
       :param id_ [int] The ID of the tax code you wish to update
-      :param model [TaxCodeModel] The tax code you wish to update.
-      :return TaxCodeModel
+      :param model [Python Dictionary] The tax code you wish to update.
+      :return Python Dictionary
     """
     def update_tax_code(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7831,7 +7831,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Required* (all): SendSalesRateFile.
     
-      :param model [SendSalesRequestModel] The send sales request model.
+      :param model [Python Dictionary] The send sales request model.
       :return String
     """
     def build_send_sales_rate_file(self, model):        return requests.post('{}/api/v2/sendsalescontent/download'.format(self.base_url),
@@ -7861,7 +7861,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
-      :param model [PointOfSaleDataRequestModel] Parameters about the desired file format and report format, specifying which company, locations and TaxCodes to include.
+      :param model [Python Dictionary] Parameters about the desired file format and report format, specifying which company, locations and TaxCodes to include.
       :return String
     """
     def build_tax_content_file(self, model):        return requests.post('{}/api/v2/pointofsaledata/build'.format(self.base_url),
@@ -7997,7 +7997,7 @@ class Mixin:
       :param replaceAccountSettings [boolean] Replace the current account settings with the ones in the tax profile.
       :param bypassNexusValidation [boolean] Enable invalid nexus to be imported.
       :param taxProfile [String] The taxProfile
-      :return CompanyModel
+      :return Python Dictionary
     """
     def import_tax_profile(self):        return requests.post('{}/api/v2/taxprofile'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -8019,8 +8019,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this tax rule.
-      :param model [TaxRuleModel] The tax rule you wish to create.
-      :return TaxRuleModel
+      :param model [Python Dictionary] The tax rule you wish to create.
+      :return Python Dictionary
     """
     def create_tax_rules(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -8043,7 +8043,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this tax rule.
       :param id_ [int] The ID of the tax rule you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_tax_rule(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -8066,7 +8066,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this tax rule
       :param id_ [int] The primary key of this tax rule
-      :return TaxRuleModel
+      :return Python Dictionary
     """
     def get_tax_rule(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -8095,7 +8095,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxRuleModelFetchResult
+      :return FetchResult
     """
     def list_tax_rules(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8123,7 +8123,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TaxRuleModelFetchResult
+      :return FetchResult
     """
     def query_tax_rules(self, include=None):        return requests.get('{}/api/v2/taxrules'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8146,8 +8146,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that this tax rule belongs to.
       :param id_ [int] The ID of the tax rule you wish to update
-      :param model [TaxRuleModel] The tax rule you wish to update.
-      :return TaxRuleModel
+      :param model [Python Dictionary] The tax rule you wish to update.
+      :return Python Dictionary
     """
     def update_tax_rule(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -8176,8 +8176,8 @@ class Mixin:
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
-      :param model [AddTransactionLineModel] information about the transaction and lines to be added
-      :return TransactionModel
+      :param model [Python Dictionary] information about the transaction and lines to be added
+      :return Python Dictionary
     """
     def add_lines(self, model, include=None):        return requests.post('{}/api/v2/companies/transactions/lines/add'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -8216,8 +8216,8 @@ class Mixin:
       :param transactionCode [string] The transaction code to adjust
       :param documentType [DocumentType] (Optional): The document type of the transaction to adjust. (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :param model [AdjustTransactionModel] The adjustment you wish to make
-      :return TransactionModel
+      :param model [Python Dictionary] The adjustment you wish to make
+      :return Python Dictionary
     """
     def adjust_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/adjust'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -8249,7 +8249,7 @@ class Mixin:
     
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
-      :return AuditTransactionModel
+      :return Python Dictionary
     """
     def audit_transaction(self, companyCode, transactionCode):        return requests.get('{}/api/v2/companies/{}/transactions/{}/audit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -8282,7 +8282,7 @@ class Mixin:
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
       :param documentType [DocumentType] The document type of the original transaction (See DocumentType::* for a list of allowable values)
-      :return AuditTransactionModel
+      :return Python Dictionary
     """
     def audit_transaction_with_type(self, companyCode, transactionCode, documentType):        return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}/audit'.format(self.base_url, companyCode, transactionCode, documentType),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -8299,8 +8299,8 @@ class Mixin:
       * This API requires the user role Compliance Root User.
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
-      :param model [BulkLockTransactionModel] bulk lock request
-      :return BulkLockTransactionResult
+      :param model [Python Dictionary] bulk lock request
+      :return Python Dictionary
     """
     def bulk_lock_transaction(self, model):        return requests.post('{}/api/v2/transactions/lock'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -8338,8 +8338,8 @@ class Mixin:
       :param transactionCode [string] The transaction code to change
       :param documentType [DocumentType] (Optional): The document type of the transaction to change document code. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :param model [ChangeTransactionCodeModel] The code change request you wish to execute
-      :return TransactionModel
+      :param model [Python Dictionary] The code change request you wish to execute
+      :return Python Dictionary
     """
     def change_transaction_code(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/changecode'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -8375,8 +8375,8 @@ class Mixin:
       :param transactionCode [string] The transaction code to commit
       :param documentType [DocumentType] (Optional): The document type of the transaction to commit. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :param model [CommitTransactionModel] The commit request you wish to execute
-      :return TransactionModel
+      :param model [Python Dictionary] The commit request you wish to execute
+      :return Python Dictionary
     """
     def commit_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -8414,8 +8414,8 @@ class Mixin:
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
-      :param model [CreateOrAdjustTransactionModel] The transaction you wish to create or adjust
-      :return TransactionModel
+      :param model [Python Dictionary] The transaction you wish to create or adjust
+      :return Python Dictionary
     """
     def create_or_adjust_transaction(self, model, include=None):        return requests.post('{}/api/v2/transactions/createoradjust'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -8458,8 +8458,8 @@ class Mixin:
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
-      :param model [CreateTransactionModel] The transaction you wish to create
-      :return TransactionModel
+      :param model [Python Dictionary] The transaction you wish to create
+      :return Python Dictionary
     """
     def create_transaction(self, model, include=None):        return requests.post('{}/api/v2/transactions/create'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -8485,8 +8485,8 @@ class Mixin:
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
-      :param model [RemoveTransactionLineModel] information about the transaction and lines to be removed
-      :return TransactionModel
+      :param model [Python Dictionary] information about the transaction and lines to be removed
+      :return Python Dictionary
     """
     def delete_lines(self, model, include=None):        return requests.post('{}/api/v2/companies/transactions/lines/delete'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -8522,7 +8522,7 @@ class Mixin:
       :param transactionCode [string] The transaction code to retrieve
       :param documentType [DocumentType] (Optional): The document type of the transaction to retrieve (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :return TransactionModel
+      :return Python Dictionary
     """
     def get_transaction_by_code(self, companyCode, transactionCode, include=None):        return requests.get('{}/api/v2/companies/{}/transactions/{}'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8546,7 +8546,7 @@ class Mixin:
       :param transactionCode [string] The transaction code to retrieve
       :param documentType [DocumentType] The transaction type to retrieve (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :return TransactionModel
+      :return Python Dictionary
     """
     def get_transaction_by_code_and_type(self, companyCode, transactionCode, documentType, include=None):        return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}'.format(self.base_url, companyCode, transactionCode, documentType),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8573,7 +8573,7 @@ class Mixin:
     
       :param id_ [int] The unique ID number of the transaction to retrieve
       :param include [string] Specifies objects to include in this fetch call
-      :return TransactionModel
+      :return Python Dictionary
     """
     def get_transaction_by_id(self, id_, include=None):        return requests.get('{}/api/v2/transactions/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8600,7 +8600,7 @@ class Mixin:
       :param transactionCode [string] The transaction code of the transaction under line inspection
       :param lineNo [string] The line number of the transaction that needs to be inspected
       :param documentType [DocumentType] The document type of the transaction, In order to avoid ambiguity, DocumentType of 'Any' is invalid for this API as this API is designed to look for a specific line of a given document. (See DocumentType::* for a list of allowable values)
-      :return InspectLineResponseModel
+      :return Python Dictionary
     """
     def inspect_line(self, companyCode, transactionCode, lineNo, include=None):        return requests.get('{}/api/v2/companies/{}/transactions/{}/lines/{}/inspect'.format(self.base_url, companyCode, transactionCode, lineNo),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8641,7 +8641,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return TransactionModelFetchResult
+      :return FetchResult
     """
     def list_transactions_by_company(self, companyCode, include=None):        return requests.get('{}/api/v2/companies/{}/transactions'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8679,8 +8679,8 @@ class Mixin:
       :param transactionCode [string] The transaction code to lock
       :param documentType [DocumentType] (Optional): The document type of the transaction to lock. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :param model [LockTransactionModel] The lock request you wish to execute
-      :return TransactionModel
+      :param model [Python Dictionary] The lock request you wish to execute
+      :return Python Dictionary
     """
     def lock_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/lock'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -8728,8 +8728,8 @@ class Mixin:
       :param include [string] Specifies objects to include in the response after transaction is created
       :param documentType [DocumentType] (Optional): The document type of the transaction to refund. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param useTaxDateOverride [boolean] (Optional): If set to true, processes refund using taxDateOverride rather than taxAmountOverride (Note: taxAmountOverride is not allowed for SST states).
-      :param model [RefundTransactionModel] Information about the refund to create
-      :return TransactionModel
+      :param model [Python Dictionary] Information about the refund to create
+      :return Python Dictionary
     """
     def refund_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/refund'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -8765,8 +8765,8 @@ class Mixin:
       :param transactionCode [string] The transaction code to settle
       :param documentType [DocumentType] (Optional): The document type of the transaction to settle. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :param model [SettleTransactionModel] The data from an external system to reconcile against AvaTax
-      :return TransactionModel
+      :param model [Python Dictionary] The data from an external system to reconcile against AvaTax
+      :return Python Dictionary
     """
     def settle_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/settle'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -8800,7 +8800,7 @@ class Mixin:
       :param transactionCode [string] The transaction code to Uncommit
       :param documentType [DocumentType] (Optional): The document type of the transaction to Uncommit. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :return TransactionModel
+      :return Python Dictionary
     """
     def uncommit_transaction(self, companyCode, transactionCode, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/uncommit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8832,7 +8832,7 @@ class Mixin:
       :param transactionCode [string] The transaction code to commit
       :param documentType [DocumentType] (Optional): The document type of the transaction to commit. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :return TransactionModel
+      :return Python Dictionary
     """
     def unvoid_transaction(self, companyCode, transactionCode, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/unvoid'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8868,8 +8868,8 @@ class Mixin:
       :param transactionCode [string] The transaction code to settle
       :param documentType [DocumentType] (Optional): The document type of the transaction to verify. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :param model [VerifyTransactionModel] The data from an external system to reconcile against AvaTax
-      :return TransactionModel
+      :param model [Python Dictionary] The data from an external system to reconcile against AvaTax
+      :return Python Dictionary
     """
     def verify_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/verify'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -8906,8 +8906,8 @@ class Mixin:
       :param transactionCode [string] The transaction code to void
       :param documentType [DocumentType] (Optional): The document type of the transaction to void. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
-      :param model [VoidTransactionModel] The void request you wish to execute. To void a transaction the code must be set to 'DocVoided'
-      :return TransactionModel
+      :param model [Python Dictionary] The void request you wish to execute. To void a transaction the code must be set to 'DocVoided'
+      :return Python Dictionary
     """
     def void_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -8922,8 +8922,8 @@ class Mixin:
       * This API depends on the following active services<br />*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that owns this UPC.
-      :param model [UPCModel] The UPC you wish to create.
-      :return UPCModel
+      :param model [Python Dictionary] The UPC you wish to create.
+      :return Python Dictionary
     """
     def create_u_p_cs(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -8938,7 +8938,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this UPC.
       :param id_ [int] The ID of the UPC you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_u_p_c(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -8954,7 +8954,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns this UPC
       :param id_ [int] The primary key of this UPC
-      :return UPCModel
+      :return Python Dictionary
     """
     def get_u_p_c(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -8976,7 +8976,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return UPCModelFetchResult
+      :return FetchResult
     """
     def list_u_p_cs_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8997,7 +8997,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return UPCModelFetchResult
+      :return FetchResult
     """
     def query_u_p_cs(self, include=None):        return requests.get('{}/api/v2/upcs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -9015,8 +9015,8 @@ class Mixin:
     
       :param companyId [int] The ID of the company that this UPC belongs to.
       :param id_ [int] The ID of the UPC you wish to update
-      :param model [UPCModel] The UPC you wish to update.
-      :return UPCModel
+      :param model [Python Dictionary] The UPC you wish to update.
+      :return Python Dictionary
     """
     def update_u_p_c(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -9032,7 +9032,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
-      :param model [PasswordChangeModel] An object containing your current password and the new password.
+      :param model [Python Dictionary] An object containing your current password and the new password.
       :return string
     """
     def change_password(self, model):        return requests.put('{}/api/v2/passwords'.format(self.base_url),
@@ -9051,8 +9051,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param accountId [int] The unique ID number of the account where these users will be created.
-      :param model [UserModel] The user or array of users you wish to create.
-      :return UserModel
+      :param model [Python Dictionary] The user or array of users you wish to create.
+      :return Python Dictionary
     """
     def create_users(self, accountId, model):        return requests.post('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -9069,7 +9069,7 @@ class Mixin:
     
       :param id_ [int] The ID of the user you wish to delete.
       :param accountId [int] The accountID of the user you wish to delete.
-      :return ErrorDetail
+      :return Python Dictionary
     """
     def delete_user(self, id_, accountId):        return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -9087,7 +9087,7 @@ class Mixin:
       :param id_ [int] The ID of the user to retrieve.
       :param accountId [int] The accountID of the user you wish to get.
       :param include [string] Optional fetch commands.
-      :return UserModel
+      :return Python Dictionary
     """
     def get_user(self, id_, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -9113,7 +9113,7 @@ class Mixin:
     
       :param id_ [int] The ID of the user to retrieve.
       :param accountId [int] The accountID of the user you wish to get.
-      :return UserEntitlementModel
+      :return Python Dictionary
     """
     def get_user_entitlements(self, id_, accountId):        return requests.get('{}/api/v2/accounts/{}/users/{}/entitlements'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -9138,7 +9138,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return UserModelFetchResult
+      :return FetchResult
     """
     def list_users_by_account(self, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -9163,7 +9163,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return UserModelFetchResult
+      :return FetchResult
     """
     def query_users(self, include=None):        return requests.get('{}/api/v2/users'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -9180,8 +9180,8 @@ class Mixin:
     
       :param id_ [int] The ID of the user you wish to update.
       :param accountId [int] The accountID of the user you wish to update.
-      :param model [UserModel] The user object you wish to update.
-      :return UserModel
+      :param model [Python Dictionary] The user object you wish to update.
+      :return Python Dictionary
     """
     def update_user(self, id_, accountId, model):        return requests.put('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -9197,7 +9197,7 @@ class Mixin:
       specific features of AvaTax.
     
       :param serviceTypeId [string] The service to check
-      :return SubscriptionModel
+      :return Python Dictionary
     """
     def get_my_subscription(self, serviceTypeId):        return requests.get('{}/api/v2/utilities/subscriptions/{}'.format(self.base_url, serviceTypeId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -9212,7 +9212,7 @@ class Mixin:
       or subscription to provide useful information to the current user as to whether they are entitled to use
       specific features of AvaTax.
     
-      :return SubscriptionModelFetchResult
+      :return FetchResult
     """
     def list_my_subscriptions(self):        return requests.get('{}/api/v2/utilities/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -9236,7 +9236,7 @@ class Mixin:
       ### Security Policies
       * This API may be called without providing authentication credentials.
     
-      :return PingResultModel
+      :return Python Dictionary
     """
     def ping(self):        return requests.get('{}/api/v2/utilities/ping'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
