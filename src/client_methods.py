@@ -69,7 +69,7 @@ class Mixin:
       :param end [datetime] The end datetime of audit history you with to retrieve, e.g. "2018-06-08T17:15:00Z. Defaults to the current time. Maximum of an hour after the start time.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :return FetchResult
+      :return AuditModelFetchResult
     """
     def audit_account(self, id_, include=None):        return requests.get('{}/api/v2/accounts/{}/audit'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -193,7 +193,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return AccountModelFetchResult
     """
     def query_accounts(self, include=None):        return requests.get('{}/api/v2/accounts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -270,6 +270,29 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Copy an existing advanced rule to a new environment
+    
+    
+    
+      :param ruleId [string] 
+      :param model [AdvancedRuleFullDetailsModel] 
+      :return AdvancedRuleFullDetailsModel
+    """
+    def copy_advanced_rule(self, ruleId, model):        return requests.put('{}/api/v2/advancedrules/rules/{}/copy'.format(self.base_url, ruleId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Create an advanced rule
+    
+    
+    
+      :param model [AdvancedRuleFullDetailsModel] The advanced rule you wish to create
+      :return AdvancedRuleFullDetailsModel
+    """
+    def create_advanced_rule(self, model):        return requests.post('{}/api/v2/advancedrules/rules'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Create a lookup file for a company
     
     
@@ -283,6 +306,30 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Create a rule execution for a company
+    
+    
+    
+      :param accountId [int] The ID of the account for the company
+      :param companyId [int] The ID of the company for which the rule execution is to be created
+      :param model [AdvancedRuleExecutionModel] The rule execution you wish to create
+      :return AdvancedRuleExecutionModel
+    """
+    def create_company_rule_execution(self, accountId, companyId, model):        return requests.post('{}/api/v2/advancedrules/accounts/{}/companies/{}/executions'.format(self.base_url, accountId, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete an advanced rule that is not in use by a company
+    
+    
+    
+      :param ruleId [string] The ID of the advanced rule to be deleted
+      :return ErrorDetail
+    """
+    def delete_advanced_rule(self, ruleId):        return requests.delete('{}/api/v2/advancedrules/rules/{}'.format(self.base_url, ruleId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Delete a lookup file
     
     
@@ -293,6 +340,66 @@ class Mixin:
     """
     def delete_lookup_file(self, accountId, id_):        return requests.delete('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a rule execution
+    
+    
+    
+      :param accountId [int] The ID of the account for the company the rule execution is for
+      :param ruleExecutionId [string] The unique ID/GUID for the rule execution to be deleted
+      :return ErrorDetail
+    """
+    def delete_rule_execution(self, accountId, ruleExecutionId):        return requests.delete('{}/api/v2/advancedrules/accounts/{}/executions/{}'.format(self.base_url, accountId, ruleExecutionId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Get an advanced rule by rule ID
+    
+    
+    
+      :param ruleId [string] The ID of the rule to retrieve
+      :return AdvancedRuleFullDetailsModel
+    """
+    def get_advanced_rule(self, ruleId):        return requests.get('{}/api/v2/advancedrules/rules/{}'.format(self.base_url, ruleId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Get an advanced rule by name
+    
+    
+    
+      :param name [string] The name of the rule to retrieve
+      :return AdvancedRuleFullDetailsModel
+    """
+    def get_advanced_rule_by_name(self, name):        return requests.get('{}/api/v2/advancedrules/rules/name/{}'.format(self.base_url, name),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve an advanced rule's customer data schema for a company
+    
+    
+    
+      :param ruleId [string] The ID of the advance rule for which the schema is requested
+      :param accountId [int] The ID of the account of the requesting user
+      :param companyId [int] The ID of the company of the requesting user
+      :return AdvancedRuleCustomerDataSchemaModel
+    """
+    def get_advanced_rule_customer_data_schema(self, ruleId, accountId, companyId):        return requests.get('{}/api/v2/advancedrules/accounts/{}/companies/{}/rules/{}/schema'.format(self.base_url, ruleId, accountId, companyId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    List all advanced rules
+    
+    
+    
+      :param fullDetails [boolean] Retrieve detailed advanced rule properties (limited to tech support level)
+      :param includeTest [boolean] Include test rules
+      :param includeSystemRules [boolean] Include rules used to retrieve enumerated values
+      :return AdvancedRuleFullDetailsModelFetchResult
+    """
+    def get_advanced_rules(self, include=None):        return requests.get('{}/api/v2/advancedrules/rules'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Get audit records by account id and date range.
@@ -308,16 +415,40 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Retrieve companies that have an advanced rule configured in its rule execution configuration
+    
+    
+    
+      :param ruleId [string] he ID of the advance rule for which companies are requested
+      :return CompanyModelFetchResult
+    """
+    def get_companies_using_advanced_rule(self, ruleId):        return requests.get('{}/api/v2/advancedrules/rules/{}/companies'.format(self.base_url, ruleId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Get the lookup files for a company
     
     
     
       :param accountId [int] The account ID for the company
       :param companyId [int] The ID of the company for which to retrieve lookup files
-      :return FetchResult
+      :return AdvancedRuleLookupFileModelFetchResult
     """
     def get_company_lookup_files(self, accountId, companyId):        return requests.get('{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(self.base_url, accountId, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Get the rule executions for a company
+    
+    
+    
+      :param accountId [int] The account ID for the company
+      :param companyId [int] The ID of the company for which to retrieve rule executions
+      :param effectiveDate [datetime] Optional date which the rule executions should be effective
+      :return AdvancedRuleExecutionModelFetchResult
+    """
+    def get_company_rule_executions(self, accountId, companyId, include=None):        return requests.get('{}/api/v2/advancedrules/accounts/{}/companies/{}/executions'.format(self.base_url, accountId, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Get a lookup file for an accountId and companyLookupFileId
@@ -332,6 +463,67 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Get a rule execution for an accountId and ruleExecutionId
+    
+    
+    
+      :param accountId [int] The ID of the account for the rule execution
+      :param ruleExecutionId [string] The unique ID/GUID of the rule execution to return
+      :return AdvancedRuleExecutionModel
+    """
+    def get_rule_execution(self, accountId, ruleExecutionId):        return requests.get('{}/api/v2/advancedrules/accounts/{}/executions/{}'.format(self.base_url, accountId, ruleExecutionId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Update an advanced rule
+    
+    Creates a new version of the advanced rule
+    
+      :param ruleId [string] The ID of the advanced rule to be updated
+      :param model [AdvancedRuleFullDetailsModel] The new values for the advanced rule
+      :return AdvancedRuleFullDetailsModel
+    """
+    def update_advanced_rule(self, ruleId, model):        return requests.put('{}/api/v2/advancedrules/rules/{}'.format(self.base_url, ruleId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Set rule approved or unapproved
+    
+    
+    
+      :param ruleId [string] The ID of the advanced rule to change the approved state
+      :param model [ApproveAdvancedRuleModel] The value to set approved state
+      :return AdvancedRuleFullDetailsModel
+    """
+    def update_advanced_rule_approval(self, ruleId, model):        return requests.post('{}/api/v2/advancedrules/rules/{}/approve'.format(self.base_url, ruleId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Set rule visible or not visible for an account
+    
+    
+    
+      :param ruleId [string] 
+      :param model [AdvancedRuleVisibilityModel] 
+      :return AdvancedRuleFullDetailsModel
+    """
+    def update_advanced_rule_visibility(self, ruleId, model):        return requests.put('{}/api/v2/advancedrules/rules/{}/visible'.format(self.base_url, ruleId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Change the rule execution order for a company
+    
+    
+    
+      :param accountId [int] The ID of the account for the company the rule execution is for
+      :param companyId [int] The ID of the company for which the rule execution order is being modified
+      :param model [AdvancedRuleExecutionOrderModel] A list of rule execution IDs for the company indicating the new execution order
+      :return StringFetchResult
+    """
+    def update_company_rule_execution_order(self, accountId, companyId, model):        return requests.post('{}/api/v2/advancedrules/accounts/{}/companies/{}/executions/order'.format(self.base_url, accountId, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Update a lookup file
     
     
@@ -342,6 +534,19 @@ class Mixin:
       :return AdvancedRuleLookupFileModel
     """
     def update_lookup_file(self, accountId, id_, model):        return requests.put('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Update a rule execution
+    
+    
+    
+      :param accountId [int] The ID of the account for the company the rule execution is for
+      :param ruleExecutionId [string] The unique ID/GUID of the rule execution to be updated
+      :param model [AdvancedRuleExecutionModel] The new values to update the rule execution
+      :return AdvancedRuleExecutionModel
+    """
+    def update_rule_execution(self, accountId, ruleExecutionId, model):        return requests.put('{}/api/v2/advancedrules/accounts/{}/executions/{}'.format(self.base_url, accountId, ruleExecutionId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -400,7 +605,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return AvaFileFormModelFetchResult
     """
     def query_ava_file_forms(self, include=None):        return requests.get('{}/api/v2/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -587,7 +792,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return BatchModelFetchResult
     """
     def list_batches_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -617,7 +822,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return BatchModelFetchResult
     """
     def query_batches(self, include=None):        return requests.get('{}/api/v2/batches'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -702,7 +907,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CertExpressInvitationModelFetchResult
     """
     def list_cert_express_invitations(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/certexpressinvites'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -857,7 +1062,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [CertificateAttributeModel] The list of attributes to link to this certificate.
-      :return FetchResult
+      :return CertificateAttributeModelFetchResult
     """
     def link_attributes_to_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -884,7 +1089,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [LinkCustomersModel] The list of customers needed be added to the Certificate for exemption
-      :return FetchResult
+      :return CustomerModelFetchResult
     """
     def link_customers_to_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -909,7 +1114,7 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
-      :return FetchResult
+      :return CertificateAttributeModelFetchResult
     """
     def list_attributes_for_certificate(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/certificates/{}/attributes'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -935,7 +1140,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param include [string] OPTIONAL: A comma separated list of special fetch options.   No options are currently available when fetching customers.
-      :return FetchResult
+      :return CustomerModelFetchResult
     """
     def list_customers_for_certificate(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/certificates/{}/customers'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -966,7 +1171,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CertificateModelFetchResult
     """
     def query_certificates(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1012,7 +1217,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [CertificateAttributeModel] The list of attributes to unlink from this certificate.
-      :return FetchResult
+      :return CertificateAttributeModelFetchResult
     """
     def unlink_attributes_from_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1040,7 +1245,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [LinkCustomersModel] The list of customers to unlink from this certificate
-      :return FetchResult
+      :return CustomerModelFetchResult
     """
     def unlink_customers_from_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1209,6 +1414,50 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Create Customers for a user
+    
+    Add customers for a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The ID of the company that owns this customer.
+      :param model [CustomerSupplierModel] The Customers you wish to create.
+      :return CustomerSupplierModel
+    """
+    def create_c_s_customers(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/supplierandcustomers/customers'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Add suppliers to a company.
+    
+    Add suppliers to a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The ID of the company that owns this suppliers.
+      :param model [CustomerSupplierModel] The company suppliers you wish to create.
+      :return CustomerSupplierModel
+    """
+    def create_c_s_suppliers(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/supplierandcustomers/suppliers'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Add customer country parameter to a company.
+    
+    Add customer country parameters to a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The ID of the company that owns this customer country parameter.
+      :param customerCode [string] Customer Code
+      :param countryCode [string] Country Code
+      :param model [CustomerSupplierCountryParamModel] The customer country parameters you wish to create.
+      :return CustomerSupplierCountryParamModel
+    """
+    def create_customer_country_param(self, companyId, customerCode, countryCode, model):        return requests.post('{}/api/v2/companies/{}/supplierandcustomers/customers/{}/{}'.format(self.base_url, companyId, customerCode, countryCode),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Request managed returns funding setup for a company
     
     This API is available by invitation only.
@@ -1230,6 +1479,22 @@ class Mixin:
       :return FundingStatusModel
     """
     def create_funding_request(self, id_, model):        return requests.post('{}/api/v2/companies/{}/funding/setup'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Add Supplier Country Parameters to a company.
+    
+    Add Supplier Country Parameter to a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The ID of the company that owns this Supplier Country Parameter.
+      :param supplierCode [string] Supplier Code
+      :param countryCode [string] Country Code
+      :param model [CustomerSupplierCountryParamModel] The Supplier Country Parameters you wish to create.
+      :return CustomerSupplierCountryParamModel
+    """
+    def create_supplier_country_params(self, companyId, supplierCode, countryCode, model):        return requests.post('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}/{}'.format(self.base_url, companyId, supplierCode, countryCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -1260,6 +1525,64 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_company_parameter(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a single company customer
+    
+    Delete a customer of a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id
+      :param customerCode [string] The customer code
+      :return ErrorDetail
+    """
+    def delete_c_s_customer(self, companyId, customerCode):        return requests.delete('{}/api/v2/companies/{}/supplierandcustomers/customers/{}'.format(self.base_url, companyId, customerCode),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a single supplier
+    
+    Delete a supplier of a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id
+      :param supplierCode [string] The supplier code
+      :return ErrorDetail
+    """
+    def delete_c_s_supplier(self, companyId, supplierCode):        return requests.delete('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}'.format(self.base_url, companyId, supplierCode),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a single customer country parameter
+    
+    Delete a customer country parameter of a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id
+      :param customerCode [string] The customer code
+      :param countryCode [string] country code
+      :return ErrorDetail
+    """
+    def delete_customer_country_param(self, companyId, customerCode, countryCode):        return requests.delete('{}/api/v2/companies/{}/supplierandcustomers/customers/{}/{}'.format(self.base_url, companyId, customerCode, countryCode),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a single Supplier Country Parameter
+    
+    Delete a Supplier Country Parameter of a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id
+      :param supplierCode [string] Supplier code
+      :param countryCode [string] Country code
+      :return ErrorDetail
+    """
+    def delete_supplier_country_param(self, companyId, supplierCode, countryCode):        return requests.delete('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}/{}'.format(self.base_url, companyId, supplierCode, countryCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -1361,6 +1684,49 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Retrieve a Customer for a company by its CustomerCode
+    
+    Retrieves a single Customer for a company by its CustomerCode
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] Company Id
+      :param customerCode [string] Customer Code
+      :return CustomerSupplierModel
+    """
+    def get_c_s_customer(self, companyId, customerCode):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/customers/{}'.format(self.base_url, companyId, customerCode),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a single Supplier for a company by its SupplierCode
+    
+    Retrieves a Supplier for a company by its SupplierCode
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] Company Id
+      :param supplierCode [string] Supplier Code
+      :return CustomerSupplierModel
+    """
+    def get_c_s_supplier(self, companyId, supplierCode):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}'.format(self.base_url, companyId, supplierCode),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a customer country parameter for a company by its CustomerCode and CountryCode
+    
+    Retrieve a customer country parameter for a company by its CustomerCode and CountryCode.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] Company Id
+      :param customerCode [string] Customer Code
+      :param countryCode [string] Country Code
+      :return CustomerSupplierCountryParamModel
+    """
+    def get_customer_country_param(self, companyId, customerCode, countryCode):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/customers/{}/{}'.format(self.base_url, companyId, customerCode, countryCode),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Get this company's filing status
     
     Retrieve the current filing status of this company.
@@ -1383,6 +1749,21 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Retrieve a single Supplier Country parameter
+    
+    Retrieves a single Supplier Country parameter of a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] Company Id
+      :param supplierCode [string] Supplier Code
+      :param countryCode [string] Country Code
+      :return CustomerSupplierCountryParamModel
+    """
+    def get_supplier_country_param(self, companyId, supplierCode, countryCode):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}/{}'.format(self.base_url, companyId, supplierCode, countryCode),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Retrieve parameters for a company
     
     Retrieve all parameters of a company.
@@ -1399,9 +1780,26 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CompanyParameterDetailModelFetchResult
     """
     def list_company_parameter_details(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve Customers for a company
+    
+    Retrieve Customers for a company
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] The company id
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return CustomerSupplierModelFetchResult
+    """
+    def list_customers(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -1429,10 +1827,27 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
-      :return FetchResult
+      :return MrsCompanyModelFetchResult
     """
     def list_mrs_companies(self):        return requests.get('{}/api/v2/companies/mrs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve Suppliers for a company
+    
+    Retrieve all suppliers of a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] The company id
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return CustomerSupplierModelFetchResult
+    """
+    def list_suppliers(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/suppliers'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Retrieve all companies
@@ -1455,11 +1870,11 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param include [string] A comma separated list of objects to fetch underneath this company. Any object with a URL path underneath this company can be fetched by specifying its name.
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* IsFein, contacts, items, locations, nexus, settings, taxCodes, taxRules, upcs, nonReportingChildCompanies, exemptCerts, parameters
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* IsFein, contacts, items, locations, nexus, settings, taxCodes, taxRules, upcs, nonReportingChildCompanies, exemptCerts, parameters, supplierandcustomers
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CompanyModelFetchResult
     """
     def query_companies(self, include=None):        return requests.get('{}/api/v2/companies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1525,13 +1940,193 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Update a Customer
+    
+    Update a Customer
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id.
+      :param customerCode [string] The customer code
+      :param model [CustomerSupplierModel] The customer object you wish to update.
+      :return CustomerSupplierModel
+    """
+    def update_c_s_customer(self, companyId, customerCode, model):        return requests.put('{}/api/v2/companies/{}/supplierandcustomers/customers/{}'.format(self.base_url, companyId, customerCode),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Update a supplier
+    
+    Update a Supplier of a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id.
+      :param supplierCode [string] The supplier code
+      :param model [CustomerSupplierModel] The supplier object you wish to update.
+      :return CustomerSupplierModel
+    """
+    def update_c_s_supplier(self, companyId, supplierCode, model):        return requests.put('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}'.format(self.base_url, companyId, supplierCode),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Update a customer country parameter for Customer
+    
+    Update a customer country parameter of a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id.
+      :param customerCode [string] The customer code
+      :param countryCode [string] The country code
+      :param model [CustomerSupplierCountryParamModel] The customer country parameter object you wish to update.
+      :return CustomerSupplierCountryParamModel
+    """
+    def update_customer_country_param(self, companyId, customerCode, countryCode, model):        return requests.put('{}/api/v2/companies/{}/supplierandcustomers/customers/{}/{}'.format(self.base_url, companyId, customerCode, countryCode),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Update a Supplier Country Parameter
+    
+    Update a Supplier Country Parameter of a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The company id.
+      :param supplierCode [string] The supplier code
+      :param countryCode [string] Country code
+      :param model [CustomerSupplierCountryParamModel] The Supplier Country Parameter object you wish to update.
+      :return CustomerSupplierCountryParamModel
+    """
+    def update_supplier_country_param(self, companyId, supplierCode, countryCode, model):        return requests.put('{}/api/v2/companies/{}/supplierandcustomers/suppliers/{}/{}'.format(self.base_url, companyId, supplierCode, countryCode),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a single tax rate.
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param id_ [int] The ID of the tax rate to retrieve.
+      :return ComplianceTaxRateModel
+    """
+    def get_tax_rate(self, id_):        return requests.get('{}/api/v2/compliance/taxrates/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a single tax region.
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param id_ [int] The ID of the tax region to retrieve.
+      :return TaxRegionModel
+    """
+    def get_tax_region(self, id_):        return requests.get('{}/api/v2/compliance/taxregions/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve jurisdictions and rates in a combined format.
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param effectiveDate [datetime] Used to limit the jurisdictions returned.
+      :param endDate [datetime] Used to limit the jurisdictions returned.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param include [string] A comma separated list of objects to fetch underneath this jurisdiction.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return ComplianceJurisdictionRateModel
+    """
+    def query_jurisdiction_rates(self, include=None):        return requests.get('{}/api/v2/compliance/jurisdictionrates'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all unique jurisdictions.
+    
+    This API is available by invitation only.
+      You may specify one or more of the following values in the '$include' parameter to fetch additional nested data, using commas to separate multiple values:
+      * TaxRates
+      ### Security Policies
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param country [string] The two-character ISO-3166 code for the country.
+      :param region [string] The two or three character region code for the region.
+      :param effectiveDate [datetime] Used to limit the jurisdictions or rates returned.
+      :param endDate [datetime] Used to limit the jurisdictions or rates returned.
+      :param aggregationOption [StackAggregationOption] Aggregation method used if rates are returned using the '$include' parameter. (See StackAggregationOption::* for a list of allowable values)
+      :param include [string] A comma separated list of objects to fetch underneath this tax rate.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :return ComplianceJurisdictionModel
+    """
+    def query_jurisdictions(self, country, region, include=None):        return requests.get('{}/api/v2/compliance/jurisdictions/{}/{}'.format(self.base_url, country, region),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all tax rates.
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param include [string] A comma separated list of objects to fetch underneath this tax rate.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return ComplianceTaxRateModel
+    """
+    def query_tax_rates(self, include=None):        return requests.get('{}/api/v2/compliance/taxrates'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all tax region jurisdictions.
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param include [string] A comma separated list of objects to fetch underneath this tax region jurisdiction.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return TaxRegionJurisdictionModel
+    """
+    def query_tax_region_jurisdictions(self, include=None):        return requests.get('{}/api/v2/compliance/taxregionjurisdictions'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all tax regions.
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param include [string] A comma separated list of objects to fetch underneath this tax region.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return TaxRegionModel
+    """
+    def query_tax_regions(self, include=None):        return requests.get('{}/api/v2/compliance/taxregions'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     API to modify the reference fields at the document and the line level.
     
     
     
       :param companyId [int] 
       :param model [TransactionReferenceFieldModel] 
-      :return FetchResult
+      :return TransactionModelFetchResult
     """
     def tag_transaction(self, companyId, model):        return requests.put('{}/api/v2/companies/{}/transactions/tag'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1596,7 +2191,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ContactModelFetchResult
     """
     def list_contacts_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1616,7 +2211,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ContactModelFetchResult
     """
     def query_contacts(self, include=None):        return requests.get('{}/api/v2/contacts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1741,7 +2336,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded the provided customer
       :param customerCode [string] The unique code representing the current customer
       :param model [CustomerAttributeModel] The list of attributes to link to the customer.
-      :return FetchResult
+      :return CustomerAttributeModelFetchResult
     """
     def link_attributes_to_customer(self, companyId, customerCode, model):        return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1766,7 +2361,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param model [LinkCertificatesModel] The list of certificates to link to this customer
-      :return FetchResult
+      :return CertificateModelFetchResult
     """
     def link_certificates_to_customer(self, companyId, customerCode, model):        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1817,7 +2412,7 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded the provided customer
       :param customerCode [string] The unique code representing the current customer
-      :return FetchResult
+      :return CustomerAttributeModelFetchResult
     """
     def list_attributes_for_customer(self, companyId, customerCode):        return requests.get('{}/api/v2/companies/{}/customers/{}/attributes'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1846,7 +2441,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CertificateModelFetchResult
     """
     def list_certificates_for_customer(self, companyId, customerCode, include=None):        return requests.get('{}/api/v2/companies/{}/customers/{}/certificates'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1905,7 +2500,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CustomerModelFetchResult
     """
     def query_customers(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1932,7 +2527,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded the customer
       :param customerCode [string] The unique code representing the current customer
       :param model [CustomerAttributeModel] The list of attributes to unlink from the customer.
-      :return FetchResult
+      :return CustomerAttributeModelFetchResult
     """
     def unlink_attributes_from_customer(self, companyId, customerCode, model):        return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1957,7 +2552,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param model [LinkCertificatesModel] The list of certificates to link to this customer
-      :return FetchResult
+      :return CertificateModelFetchResult
     """
     def unlink_certificates_from_customer(self, companyId, customerCode, model):        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2045,7 +2640,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return DataSourceModelFetchResult
     """
     def list_data_sources(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2064,7 +2659,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return DataSourceModelFetchResult
     """
     def query_data_sources(self, include=None):        return requests.get('{}/api/v2/datasources'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2100,7 +2695,7 @@ class Mixin:
     
       :param country [string] The name or code of the destination country.
       :param hsCode [string] The partial or full HS Code for which you would like to view all of the parents.
-      :return FetchResult
+      :return HsCodeModelFetchResult
     """
     def get_cross_border_code(self, country, hsCode):        return requests.get('{}/api/v2/definitions/crossborder/{}/{}/hierarchy'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2116,7 +2711,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SkyscraperStatusModelFetchResult
     """
     def get_login_verifier_by_form(self, form, include=None):        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers/{}'.format(self.base_url, form),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2133,7 +2728,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return AvaFileFormModelFetchResult
     """
     def list_ava_file_forms(self, include=None):        return requests.get('{}/api/v2/definitions/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2152,7 +2747,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CertificateAttributeModelFetchResult
     """
     def list_certificate_attributes(self, include=None):        return requests.get('{}/api/v2/definitions/certificateattributes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2170,7 +2765,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ExemptionReasonModelFetchResult
     """
     def list_certificate_exempt_reasons(self, include=None):        return requests.get('{}/api/v2/definitions/certificateexemptreasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2188,7 +2783,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ExposureZoneModelFetchResult
     """
     def list_certificate_exposure_zones(self, include=None):        return requests.get('{}/api/v2/definitions/certificateexposurezones'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2203,7 +2798,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CommunicationsTSPairModelFetchResult
     """
     def list_communications_service_types(self, id_, include=None):        return requests.get('{}/api/v2/definitions/communications/transactiontypes/{}/servicetypes'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2218,7 +2813,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CommunicationsTransactionTypeModelFetchResult
     """
     def list_communications_transaction_types(self, include=None):        return requests.get('{}/api/v2/definitions/communications/transactiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2233,7 +2828,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CommunicationsTSPairModelFetchResult
     """
     def list_communications_t_s_pairs(self, include=None):        return requests.get('{}/api/v2/definitions/communications/tspairs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2249,7 +2844,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return IsoCountryModelFetchResult
     """
     def list_countries(self, include=None):        return requests.get('{}/api/v2/definitions/countries'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2268,7 +2863,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CoverLetterModelFetchResult
     """
     def list_cover_letters(self, include=None):        return requests.get('{}/api/v2/definitions/coverletters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2291,7 +2886,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return HsCodeModelFetchResult
     """
     def list_cross_border_codes(self, country, hsCode, include=None):        return requests.get('{}/api/v2/definitions/crossborder/{}/{}'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2307,7 +2902,7 @@ class Mixin:
       ### Security Policies
       * This API depends on the following active services<br />*Required* (all): AvaTaxGlobal.
     
-      :return FetchResult
+      :return HsCodeModelFetchResult
     """
     def list_cross_border_sections(self):        return requests.get('{}/api/v2/definitions/crossborder/sections'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2323,7 +2918,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CurrencyModelFetchResult
     """
     def list_currencies(self, include=None):        return requests.get('{}/api/v2/definitions/currencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2341,7 +2936,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return EntityUseCodeModelFetchResult
     """
     def list_entity_use_codes(self, include=None):        return requests.get('{}/api/v2/definitions/entityusecodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2356,7 +2951,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return FilingFrequencyModelFetchResult
     """
     def list_filing_frequencies(self, include=None):        return requests.get('{}/api/v2/definitions/filingfrequencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2373,7 +2968,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return JurisdictionModelFetchResult
     """
     def list_jurisdictions(self, include=None):        return requests.get('{}/api/v2/definitions/jurisdictions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2398,7 +2993,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return JurisdictionOverrideModelFetchResult
     """
     def list_jurisdictions_by_address(self, include=None):        return requests.get('{}/api/v2/definitions/jurisdictionsnearaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2426,7 +3021,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return LocationQuestionModelFetchResult
     """
     def list_location_questions_by_address(self, include=None):        return requests.get('{}/api/v2/definitions/locationquestions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2442,7 +3037,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SkyscraperStatusModelFetchResult
     """
     def list_login_verifiers(self, include=None):        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2456,7 +3051,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return MarketplaceLocationModelFetchResult
     """
     def list_marketplace_locations(self, include=None):        return requests.get('{}/api/v2/definitions/marketplacelocations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2471,7 +3066,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusModelFetchResult
     """
     def list_nexus(self, include=None):        return requests.get('{}/api/v2/definitions/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2496,7 +3091,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusModelFetchResult
     """
     def list_nexus_by_address(self, include=None):        return requests.get('{}/api/v2/definitions/nexus/byaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2512,7 +3107,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusModelFetchResult
     """
     def list_nexus_by_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/nexus/{}'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2529,7 +3124,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusModelFetchResult
     """
     def list_nexus_by_country_and_region(self, country, region, include=None):        return requests.get('{}/api/v2/definitions/nexus/{}/{}'.format(self.base_url, country, region),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2555,6 +3150,22 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Retrieve the full list of Avalara-supported nexus for a tax type group.
+    
+    Returns all Avalara-supported nexus for the specified specified tax type group.
+      This API is intended to be useful if your user interface needs to display a selectable list of nexus filtered by tax type group.
+    
+      :param taxTypeGroup [string] The tax type group to fetch the supporting system nexus for.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId, taxName, parameters
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return NexusModelFetchResult
+    """
+    def list_nexus_by_tax_type_group(self, taxTypeGroup, include=None):        return requests.get('{}/api/v2/definitions/nexus/bytaxtypegroup/{}'.format(self.base_url, taxTypeGroup),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Retrieve the full list of nexus tax type groups
     
     Returns the full list of Avalara-supported nexus tax type groups
@@ -2564,7 +3175,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusTaxTypeGroupModelFetchResult
     """
     def list_nexus_tax_type_groups(self, include=None):        return requests.get('{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2579,7 +3190,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeCustomerFundingOptionModelFetchResult
     """
     def list_notice_customer_funding_options(self, include=None):        return requests.get('{}/api/v2/definitions/noticecustomerfundingoptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2594,7 +3205,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeCustomerTypeModelFetchResult
     """
     def list_notice_customer_types(self, include=None):        return requests.get('{}/api/v2/definitions/noticecustomertypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2609,7 +3220,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeFilingTypeModelFetchResult
     """
     def list_notice_filingtypes(self, include=None):        return requests.get('{}/api/v2/definitions/noticefilingtypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2624,7 +3235,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticePriorityModelFetchResult
     """
     def list_notice_priorities(self, include=None):        return requests.get('{}/api/v2/definitions/noticepriorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2639,7 +3250,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeReasonModelFetchResult
     """
     def list_notice_reasons(self, include=None):        return requests.get('{}/api/v2/definitions/noticereasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2654,7 +3265,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeResponsibilityModelFetchResult
     """
     def list_notice_responsibilities(self, include=None):        return requests.get('{}/api/v2/definitions/noticeresponsibilities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2669,7 +3280,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeRootCauseModelFetchResult
     """
     def list_notice_root_causes(self, include=None):        return requests.get('{}/api/v2/definitions/noticerootcauses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2684,7 +3295,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeStatusModelFetchResult
     """
     def list_notice_statuses(self, include=None):        return requests.get('{}/api/v2/definitions/noticestatuses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2699,7 +3310,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeTypeModelFetchResult
     """
     def list_notice_types(self, include=None):        return requests.get('{}/api/v2/definitions/noticetypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2715,7 +3326,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ParameterModelFetchResult
     """
     def list_parameters(self, include=None):        return requests.get('{}/api/v2/definitions/parameters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2733,7 +3344,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ParameterModelFetchResult
     """
     def list_parameters_by_item(self, companyCode, itemCode, include=None):        return requests.get('{}/api/v2/definitions/parameters/byitem/{}/{}'.format(self.base_url, companyCode, itemCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2749,7 +3360,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ParameterUsageModelFetchResult
     """
     def list_parameters_usage(self, include=None):        return requests.get('{}/api/v2/definitions/parametersusage'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2762,7 +3373,7 @@ class Mixin:
     
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :return FetchResult
+      :return StringFetchResult
     """
     def list_permissions(self, include=None):        return requests.get('{}/api/v2/definitions/permissions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2776,7 +3387,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return PostalCodeModelFetchResult
     """
     def list_postal_codes(self, include=None):        return requests.get('{}/api/v2/definitions/postalcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2796,7 +3407,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return PreferredProgramModelFetchResult
     """
     def list_preferred_programs(self, include=None):        return requests.get('{}/api/v2/definitions/preferredprograms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2813,7 +3424,7 @@ class Mixin:
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param countryCode [string] If not null, return all records with this code.
-      :return FetchResult
+      :return ProductClassificationSystemModelFetchResult
     """
     def list_product_classification_systems(self, include=None):        return requests.get('{}/api/v2/definitions/productclassificationsystems'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2831,7 +3442,7 @@ class Mixin:
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param countryCode [string] If not null, return all records with this code.
-      :return FetchResult
+      :return ProductClassificationSystemModelFetchResult
     """
     def list_product_classification_systems_by_company(self, companyCode, include=None):        return requests.get('{}/api/v2/definitions/productclassificationsystems/bycompany/{}'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2847,7 +3458,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return RateTypeModelFetchResult
     """
     def list_rate_types_by_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/countries/{}/ratetypes'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2863,7 +3474,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return IsoRegionModelFetchResult
     """
     def list_regions(self, include=None):        return requests.get('{}/api/v2/definitions/regions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2880,7 +3491,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return IsoRegionModelFetchResult
     """
     def list_regions_by_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/countries/{}/regions'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2895,7 +3506,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ResourceFileTypeModelFetchResult
     """
     def list_resource_file_types(self, include=None):        return requests.get('{}/api/v2/definitions/resourcefiletypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2911,7 +3522,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SecurityRoleModelFetchResult
     """
     def list_security_roles(self, include=None):        return requests.get('{}/api/v2/definitions/securityroles'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2928,7 +3539,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SubscriptionTypeModelFetchResult
     """
     def list_subscription_types(self, include=None):        return requests.get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2943,7 +3554,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxAuthorityModelFetchResult
     """
     def list_tax_authorities(self, include=None):        return requests.get('{}/api/v2/definitions/taxauthorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2960,7 +3571,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxAuthorityFormModelFetchResult
     """
     def list_tax_authority_forms(self, include=None):        return requests.get('{}/api/v2/definitions/taxauthorityforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2975,7 +3586,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxAuthorityTypeModelFetchResult
     """
     def list_tax_authority_types(self, include=None):        return requests.get('{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2995,7 +3606,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxCodeModelFetchResult
     """
     def list_tax_codes(self, include=None):        return requests.get('{}/api/v2/definitions/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3024,7 +3635,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return FormMasterModelFetchResult
     """
     def list_tax_forms(self, include=None):        return requests.get('{}/api/v2/definitions/taxforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3039,9 +3650,26 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxSubTypeModelFetchResult
     """
     def list_tax_sub_types(self, include=None):        return requests.get('{}/api/v2/definitions/taxsubtypes'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve the full list of tax sub types by jurisdiction code and region
+    
+    Returns the full list of Avalara-supported tax sub-types by jurisdiction and region
+      This API is intended to be useful to identify all the different tax sub-types.
+    
+      :param jurisdictionCode [string] The jurisdiction code of the tax sub type.
+      :param region [string] The region of the tax sub type.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return TaxSubTypeModelFetchResult
+    """
+    def list_tax_sub_types_by_jurisdiction_and_region(self, jurisdictionCode, region, include=None):        return requests.get('{}/api/v2/definitions/taxsubtypes/{}/{}'.format(self.base_url, jurisdictionCode, region),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -3054,7 +3682,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxTypeGroupModelFetchResult
     """
     def list_tax_type_groups(self, include=None):        return requests.get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3069,9 +3697,28 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return UomModelFetchResult
     """
     def list_unit_of_measurement(self, include=None):        return requests.get('{}/api/v2/definitions/unitofmeasurements'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    List customer attributes used by a company
+    
+    List the customer attributes defined by a company.
+      A customer may have multiple attributes that control its behavior. You may apply or remove attributes to a
+      customer at any time.
+      If you see the 'CertCaptureNotConfiguredError', please use CheckProvision and RequestProvision endpoints to
+      check and provision account.
+    
+      :param companyid [int] Id of the company the user wish to fetch the customers' attributes from. If not specified the API will use user's default company.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return CustomerAttributeModelFetchResult
+    """
+    def query_company_customer_attributes(self, include=None):        return requests.get('{}/api/v2/definitions/customerattributes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -3141,7 +3788,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CompanyDistanceThresholdModelFetchResult
     """
     def list_distance_thresholds(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3163,7 +3810,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CompanyDistanceThresholdModelFetchResult
     """
     def query_distance_thresholds(self, include=None):        return requests.get('{}/api/v2/distancethresholds'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3189,6 +3836,73 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Get an ECMS identified by company id and ECMS id
+    
+    Get an ECMS identified by company id and ECMS id.
+      An ECMS data represents a documentation based on which companies can claim tax exemption
+      You may attach nested data objects such as exempt cert detail, and those objects will be created with certificate.
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Details
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaCert.
+    
+      :param companyId [int] company to retrieve exempt certificate for
+      :param ecmsId [int] exempt certificate Id
+      :param include [string] 
+      :return EcmsModel
+    """
+    def get_e_c_m_s_by_id(self, companyId, ecmsId, include=None):        return requests.get('{}/api/v2/companies/{}/ecms/{}'.format(self.base_url, companyId, ecmsId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Get list of ECMS data for this company
+    
+    Get list of ECMS data for this company
+      An ECMS data represents a documentation based on which companies can claim tax exemption
+      You may attach nested data objects such as ECMS detail, and those objects will be created with certificate.
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Details
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaCert.
+    
+      :param companyId [int] which company to retrieve certificates from
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* details
+      :param include [string] 
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return EcmsModelFetchResult
+    """
+    def list_e_c_m_s_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/ecms'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Get all exempt certificates
+    
+    Get all ECMS currently available in database.
+      An ECMS data represents a documentation based on which companies can claim tax exemption
+      You may attach nested data objects such as ECMS detail, and those objects will be created with certificate.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
+      * Details
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaCert.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* details
+      :param include [string] 
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return EcmsModelFetchResult
+    """
+    def query_e_c_m_s(self, include=None):        return requests.get('{}/api/v2/ecms'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Create a new eCommerce token.
     
     Creates a new eCommerce token.
@@ -3198,7 +3912,7 @@ class Mixin:
     
       :param companyId [int] The company ID that will be issued this certificate.
       :param model [CreateECommerceTokenInputModel] 
-      :return FetchResult
+      :return ECommerceTokenOutputModelFetchResult
     """
     def create_e_commerce_token(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -3213,10 +3927,230 @@ class Mixin:
     
       :param companyId [int] The company ID that the refreshed certificate belongs to.
       :param model [RefreshECommerceTokenInputModel] 
-      :return FetchResult
+      :return ECommerceTokenOutputModelFetchResult
     """
     def refresh_e_commerce_token(self, companyId, model):        return requests.put('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a batch of error transactions
+    
+    Delete a batch of error transactions attached to a company.
+      If any of the provided error transaction isn't found then it'll be treated as a success.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+    
+      :param companyId [int] ID number of the company to delete error transactions from.
+      :param model [DeleteErrorTransactionsRequestModel] The request that contains error transactions to be deleted
+      :return DeleteErrorTransactionsResponseModel
+    """
+    def delete_error_transactions(self, companyId, model):        return requests.delete('{}/api/v2/companies/{}/errortransactions'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Get a list of error transactions' error codes and its counts
+    
+    Get a list of error transactions' error codes and their counts
+      When you try to create or adjust a transaction with a datasource for a company and for any reason that call fails with an error,
+      those errors with their count can be retrieved by this API.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+    
+      :param companyId [int] ID number of the company to query from.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :return ErrorCodeOutputModelCappedFetchResult
+    """
+    def list_error_codes(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/errortransactions/errorcodes'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve list of error transactions
+    
+    List error transactions attached to this company. Results are dependent on `$filter` if provided.
+      This endpoint is limited to returning 1000 error transactions at a time maximum.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+    
+      :param companyId [int] The company ID to filter error transactions on.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* companyId, avataxErrorJson, avataxCreateTransactionJson, expiresAt
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return ErrorTransactionOutputModelCappedFetchResult
+    """
+    def list_error_transactions(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/errortransactions'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Checks to see if the company has a valid POA for a tax form code
+    
+    This API is available by invitation only.
+      This API fetches valid POA's for a company by TaxFormCode or by country/region
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The company id that we are checking about
+      :param taxFormCode [string] The tax form code that we are checking
+      :param country [string] The country we are fetching POAs for
+      :param region [string] The region we are fetching POAs for
+      :return PowerOfAttorneyCheckModel
+    """
+    def active_power_of_attorney(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filingcalendars/powerofattorney'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Approve existing Filing Request
+    
+    This API is available by invitation only.
+      A "filing request" represents a request to change an existing filing calendar. Filing requests
+      are reviewed and validated by Avalara Compliance before being implemented.
+      The filing request must be in the "ChangeRequest" status to be approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The unique ID of the company that owns the filing request object
+      :param id_ [int] The unique ID of the filing request object
+      :return FilingRequestModel
+    """
+    def approve_filing_request(self, companyId, id_):        return requests.post('{}/api/v2/companies/{}/filingrequests/{}/approve'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Cancel existing Filing Request
+    
+    This API is available by invitation only.
+      A "filing request" represents a request to change an existing filing calendar. Filing requests
+      are reviewed and validated by Avalara Compliance before being implemented.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The unique ID of the company that owns the filing request object
+      :param id_ [int] The unique ID of the filing request object
+      :return FilingRequestModel
+    """
+    def cancel_filing_request(self, companyId, id_):        return requests.post('{}/api/v2/companies/{}/filingrequests/{}/cancel'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Create a new filing request to cancel a filing calendar
+    
+    This API is available by invitation only.
+      A "filing request" represents a request to change an existing filing calendar. Filing requests
+      are reviewed and validated by Avalara Compliance before being implemented.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The unique ID of the company that owns the filing calendar object
+      :param id_ [int] The unique ID number of the filing calendar to cancel
+      :param model [FilingRequestModel] The cancellation request for this filing calendar
+      :return FilingRequestModel
+    """
+    def cancel_filing_requests(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/cancel/request'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Create a filing calendar
+    
+    This API is available by invitation only and only available for users with Compliance access
+      A "filing request" represents information that compliance uses to file a return
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The unique ID of the company that will add the new filing calendar
+      :param model [FilingCalendarModel] Filing calendars that will be added
+      :return FilingCalendarModel
+    """
+    def create_filing_calendars(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Create a new filing request to create a filing calendar
+    
+    This API is available by invitation only.
+      A "filing request" represents a request to change an existing filing calendar. Filing requests
+      are reviewed and validated by Avalara Compliance before being implemented.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The unique ID of the company that will add the new filing calendar
+      :param model [FilingRequestModel] Information about the proposed new filing calendar
+      :return FilingRequestModel
+    """
+    def create_filing_requests(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars/add/request'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Create a company return setting
+    
+    This API is available by invitation only and only available for users with Compliance access
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param companyId [int] The unique ID of the company that will add the new filing calendar
+      :param filingCalendarId [int] The unique ID of the filing calendar that will add the new filing calendar setting
+      :param model [CompanyReturnSettingModel] CompanyReturnSettings that will be added
+      :return CompanyReturnSettingModel
+    """
+    def create_update_company_return_settings(self, companyId, filingCalendarId, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/settings'.format(self.base_url, companyId, filingCalendarId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Returns a list of options for adding the specified form.
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The unique ID of the company that owns the filing calendar object
+      :param formCode [string] The unique code of the form
+      :return CycleAddOptionModel
+    """
+    def cycle_safe_add(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filingcalendars/add/options'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Indicates when changes are allowed to be made to a filing calendar.
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The unique ID of the company that owns the filing calendar object
+      :param id_ [int] The unique ID of the filing calendar object
+      :param model [FilingCalendarEditModel] A list of filing calendar edits to be made
+      :return CycleEditOptionModel
+    """
+    def cycle_safe_edit(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/edit/options'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Returns a list of options for expiring a filing calendar
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The unique ID of the company that owns the filing calendar object
+      :param id_ [int] The unique ID of the filing calendar object
+      :return CycleExpireModel
+    """
+    def cycle_safe_expiration(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/filingcalendars/{}/cancel/options'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Delete a company return setting
@@ -3234,6 +4168,497 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Delete a single filing calendar.
+    
+    This API is available by invitation only.
+      Mark the existing notice object at this URL as deleted.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns this filing calendar.
+      :param id_ [int] The ID of the filing calendar you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_filing_calendar(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a single filing calendar
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns this filing calendar
+      :param id_ [int] The primary key of this filing calendar
+      :return FilingCalendarModel
+    """
+    def get_filing_calendar(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a single filing request
+    
+    This API is available by invitation only.
+      A "filing request" represents a request to change an existing filing calendar. Filing requests
+      are reviewed and validated by Avalara Compliance before being implemented.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns this filing calendar
+      :param id_ [int] The primary key of this filing calendar
+      :return FilingRequestModel
+    """
+    def get_filing_request(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/filingrequests/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all filing calendars for this company
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns these batches
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxAuthorityId, taxAuthorityName, taxAuthorityType, settings
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :param returnCountry [string] A comma separated list of countries
+      :param returnRegion [string] A comma separated list of regions
+      :return FilingCalendarModelFetchResult
+    """
+    def list_filing_calendars(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filingcalendars'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all filing requests for this company
+    
+    This API is available by invitation only.
+      A "filing request" represents a request to change an existing filing calendar. Filing requests
+      are reviewed and validated by Avalara Compliance before being implemented.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns these batches
+      :param filingCalendarId [int] Specific filing calendar id for the request
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* data
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FilingRequestModelFetchResult
+    """
+    def list_filing_requests(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filingrequests'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    New request for getting for validating customer's login credentials
+    
+    This API is available by invitation only.
+      This API verifies that a customer has submitted correct login credentials for a tax authority's online filing system.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param model [LoginVerificationInputModel] The model of the login information we are verifying
+      :return LoginVerificationOutputModel
+    """
+    def login_verification_request(self, model):        return requests.post('{}/api/v2/filingcalendars/credentials/verify'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Gets the request status and Login Result
+    
+    This API is available by invitation only.
+      This API checks the status of a login verification request. It may only be called by authorized users from the account
+      that initially requested the login verification.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param jobId [int] The unique ID number of this login request
+      :return LoginVerificationOutputModel
+    """
+    def login_verification_status(self, jobId):        return requests.get('{}/api/v2/filingcalendars/credentials/{}'.format(self.base_url, jobId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all filing calendars
+    
+    This API is available by invitation only.
+      This API is deprecated - please use POST `/api/v2/filingrequests/query` API.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxAuthorityId, taxAuthorityName, taxAuthorityType, settings
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :param returnCountry [string] If specified, fetches only filing calendars that apply to tax filings in this specific country. Uses ISO 3166 country codes.
+      :param returnRegion [string] If specified, fetches only filing calendars that apply to tax filings in this specific region. Uses ISO 3166 region codes.
+      :return FilingCalendarModelFetchResult
+    """
+    def query_filing_calendars(self, include=None):        return requests.get('{}/api/v2/filingcalendars'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all filing calendars
+    
+    This API is available by invitation only.
+      This API is intended to replace the GET `/api/v2/filingcalendars` API. The fetch request object is posted on the body of the request instead of the URI, so it's not limited by a set number of characters.
+      The documentation of the GET API shows how filtering, sorting and pagination works.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param returnCountry [string] If specified, fetches only filing calendars that apply to tax filings in this specific country. Uses ISO 3166 country codes.
+      :param returnRegion [string] If specified, fetches only filing calendars that apply to tax filings in this specific region. Uses ISO 3166 region codes.
+      :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
+      :return FilingCalendarModelFetchResult
+    """
+    def query_filing_calendars_post(self, model, include=None):        return requests.post('{}/api/v2/filingcalendars/query'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all filing requests
+    
+    This API is available by invitation only.
+      This API is deprecated - please use POST `/api/v2/filingrequests/query` API.
+      A "filing request" represents a request to change an existing filing calendar. Filing requests
+      are reviewed and validated by Avalara Compliance before being implemented.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param filingCalendarId [int] Specific filing calendar id for the request
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* data
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FilingRequestModelFetchResult
+    """
+    def query_filing_requests(self, include=None):        return requests.get('{}/api/v2/filingrequests'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all filing requests
+    
+    This API is available by invitation only.
+      This API is intended to replace the GET `/api/v2/filingrequests` API. The fetch request object is posted on the body of the request instead of the URI, so it's not limited by a set number of characters.
+      The documentation of the GET API shows how filtering, sorting and pagination works.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param filingCalendarId [int] Specific filing calendar id for the request
+      :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
+      :return FilingRequestModelFetchResult
+    """
+    def query_filing_requests_post(self, model, include=None):        return requests.post('{}/api/v2/filingrequests/query'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Create a new filing request to edit a filing calendar
+    
+    This API is available by invitation only.
+      A "filing request" represents a request to change an existing filing calendar. Filing requests
+      are reviewed and validated by Avalara Compliance before being implemented.
+      Certain users may not update filing calendars directly. Instead, they may submit an edit request
+      to modify the value of a filing calendar using this API.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The unique ID of the company that owns the filing calendar object
+      :param id_ [int] The unique ID number of the filing calendar to edit
+      :param model [FilingRequestModel] A list of filing calendar edits to be made
+      :return FilingRequestModel
+    """
+    def request_filing_calendar_update(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars/{}/edit/request'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Edit existing Filing Calendar
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The unique ID of the company that owns the filing calendar object
+      :param id_ [int] The unique ID of the filing calendar object
+      :param model [FilingCalendarModel] The filing calendar model you are wishing to update with.
+      :return FilingCalendarModel
+    """
+    def update_filing_calendar(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/filingcalendars/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Edit existing Filing Request
+    
+    This API is available by invitation only.
+      A "filing request" represents a request to change an existing filing calendar. Filing requests
+      are reviewed and validated by Avalara Compliance before being implemented.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The unique ID of the company that owns the filing request object
+      :param id_ [int] The unique ID of the filing request object
+      :param model [FilingRequestModel] A list of filing calendar edits to be made
+      :return FilingRequestModel
+    """
+    def update_filing_request(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/filingrequests/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Approve all filings for the specified company in the given filing period.
+    
+    This API is available by invitation only.
+      Approving a return means the customer is ready to let Avalara file that return.
+      Customer either approves themselves from admin console,
+      else system auto-approves the night before the filing cycle.
+      Sometimes Compliance has to manually unapprove and reapprove to modify liability or filing for the customer.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period to approve.
+      :param month [int] The month of the filing period to approve.
+      :param model [ApproveFilingsModel] The approve request you wish to execute.
+      :return FilingModel
+    """
+    def approve_filings(self, companyId, year, month, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/approve'.format(self.base_url, companyId, year, month),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Approve all filings for the specified company in the given filing period and country.
+    
+    This API is available by invitation only.
+      Approving a return means the customer is ready to let Avalara file that return.
+      Customer either approves themselves from admin console,
+      else system auto-approves the night before the filing cycle.
+      Sometimes Compliance has to manually unapprove and reapprove to modify liability or filing for the customer.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period to approve.
+      :param month [int] The month of the filing period to approve.
+      :param country [string] The two-character ISO-3166 code for the country.
+      :param model [ApproveFilingsModel] The approve request you wish to execute.
+      :return FilingModel
+    """
+    def approve_filings_country(self, companyId, year, month, country, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/approve'.format(self.base_url, companyId, year, month, country),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Approve all filings for the specified company in the given filing period, country and region.
+    
+    This API is available by invitation only.
+      Approving a return means the customer is ready to let Avalara file that return.
+      Customer either approves themselves from admin console,
+      else system auto-approves the night before the filing cycle
+      Sometimes Compliance has to manually unapprove and reapprove to modify liability or filing for the customer.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period to approve.
+      :param month [int] The month of the filing period to approve.
+      :param country [string] The two-character ISO-3166 code for the country.
+      :param region [string] The two or three character region code for the region.
+      :param model [ApproveFilingsModel] The approve request you wish to execute.
+      :return FilingModel
+    """
+    def approve_filings_country_region(self, companyId, year, month, country, region, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/approve'.format(self.base_url, companyId, year, month, country, region),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Add an adjustment to a given filing.
+    
+    This API is available by invitation only.
+      An "Adjustment" is usually an increase or decrease to customer funding to Avalara,
+      such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
+      Sometimes may be a manual change in tax liability similar to an augmentation.
+      This API creates a new adjustment for an existing tax filing.
+      This API can only be used when the filing has not yet been approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filing being adjusted.
+      :param year [int] The year of the filing's filing period being adjusted.
+      :param month [int] The month of the filing's filing period being adjusted.
+      :param country [string] The two-character ISO-3166 code for the country of the filing being adjusted.
+      :param region [string] The two or three character region code for the region.
+      :param formCode [string] The unique code of the form being adjusted.
+      :param model [FilingAdjustmentModel] A list of Adjustments to be created for the specified filing.
+      :return FilingAdjustmentModel
+    """
+    def create_return_adjustment(self, companyId, year, month, country, region, formCode, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/adjust'.format(self.base_url, companyId, year, month, country, region, formCode),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Add an augmentation for a given filing.
+    
+    This API is available by invitation only.
+      An "Augmentation" is a manually added increase or decrease in tax liability, by either customer or Avalara
+      usually due to customer wanting to report tax Avatax does not support, e.g. bad debts, rental tax.
+      This API creates a new augmentation for an existing tax filing.
+      This API can only be used when the filing has not been approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filing being changed.
+      :param year [int] The month of the filing's filing period being changed.
+      :param month [int] The month of the filing's filing period being changed.
+      :param country [string] The two-character ISO-3166 code for the country of the filing being changed.
+      :param region [string] The two or three character region code for the region of the filing being changed.
+      :param formCode [string] The unique code of the form being changed.
+      :param model [FilingAugmentationModel] A list of augmentations to be created for the specified filing.
+      :return FilingAugmentationModel
+    """
+    def create_return_augmentation(self, companyId, year, month, country, region, formCode, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/augment'.format(self.base_url, companyId, year, month, country, region, formCode),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Add an payment to a given filing.
+    
+    This API is available by invitation only.
+      An "Payment" is usually an increase or decrease to customer funding to Avalara,
+      such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
+      Sometimes may be a manual change in tax liability similar to an augmentation.
+      This API creates a new payment for an existing tax filing.
+      This API can only be used when the filing has not yet been approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filing being adjusted.
+      :param year [int] The year of the filing's filing period being adjusted.
+      :param month [int] The month of the filing's filing period being adjusted.
+      :param country [string] The two-character ISO-3166 code for the country of the filing being adjusted.
+      :param region [string] The two or three character region code for the region.
+      :param formCode [string] The unique code of the form being adjusted.
+      :param model [FilingPaymentModel] A list of Payments to be created for the specified filing.
+      :return FilingPaymentModel
+    """
+    def create_return_payment(self, companyId, year, month, country, region, formCode, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}/payment'.format(self.base_url, companyId, year, month, country, region, formCode),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete an adjustment for a given filing.
+    
+    This API is available by invitation only.
+      An "Adjustment" is usually an increase or decrease to customer funding to Avalara,
+      such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
+      Sometimes may be a manual change in tax liability similar to an augmentation.
+      This API deletes an adjustment for an existing tax filing.
+      This API can only be used when the filing has been unapproved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filing being adjusted.
+      :param id_ [int] The ID of the adjustment being deleted.
+      :param type [string] The type of adjustment that you are trying to delete.
+      :return ErrorDetail
+    """
+    def delete_return_adjustment(self, companyId, id_, include=None):        return requests.delete('{}/api/v2/companies/{}/filings/adjust/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete an augmentation for a given filing.
+    
+    This API is available by invitation only.
+      An "Augmentation" is a manually added increase or decrease in tax liability, by either customer or Avalara
+      usually due to customer wanting to report tax Avatax does not support, e.g. bad debts, rental tax.
+      This API deletes an augmentation for an existing tax filing.
+      This API can only be used when the filing has been unapproved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filing being changed.
+      :param id_ [int] The ID of the augmentation being added.
+      :return ErrorDetail
+    """
+    def delete_return_augmentation(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/filings/augment/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete an payment for a given filing.
+    
+    This API is available by invitation only.
+      An "Payment" is usually an increase or decrease to customer funding to Avalara,
+      such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
+      Sometimes may be a manual change in tax liability similar to an augmentation.
+      This API deletes an payment for an existing tax filing.
+      This API can only be used when the filing has been unapproved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filing being adjusted.
+      :param id_ [int] The ID of the payment being deleted.
+      :return ErrorDetail
+    """
+    def delete_return_payment(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/filings/payment/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve worksheet checkup report for company and filing period.
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param filingsId [int] The unique id of the worksheet.
+      :param companyId [int] The unique ID of the company that owns the worksheet.
+      :return FilingsCheckupModel
+    """
+    def filings_checkup_report(self, filingsId, companyId):        return requests.get('{}/api/v2/companies/{}/filings/{}/checkup'.format(self.base_url, filingsId, companyId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve worksheet checkup report for company and filing period.
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The unique ID of the company that owns the worksheets object.
+      :param year [int] The year of the filing period.
+      :param month [int] The month of the filing period.
+      :return FilingsCheckupModel
+    """
+    def filings_checkup_reports(self, companyId, year, month):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/checkup'.format(self.base_url, companyId, year, month),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Retrieve a filing containing the return and all its accrual returns.
     
     ### Security Policies
@@ -3241,7 +4666,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns these returns
       :param filingReturnId [int] The ID of the filing return
-      :return FetchResult
+      :return MultiTaxFilingModelFetchResult
     """
     def get_accrual_filings(self, companyId, filingReturnId):        return requests.get('{}/api/v2/companies/{}/filings/accrual/{}'.format(self.base_url, companyId, filingReturnId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -3263,10 +4688,332 @@ class Mixin:
       :param region [string] The region of the return(s) you are trying to retrieve
       :param filingCalendarId [int] The filing calendar id of the return you are trying to retrieve
       :param taxformCode [string] The unique tax form code of the form.
-      :return FetchResult
+      :return FiledReturnModelFetchResult
     """
     def get_filed_returns(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filings/returns/filed'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a single attachment for a filing
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param filingReturnId [int] The unique id of the worksheet return.
+      :param fileId [int] The unique id of the document you are downloading
+      :return String
+    """
+    def get_filing_attachment(self, companyId, filingReturnId, include=None):        return requests.get('{}/api/v2/companies/{}/filings/{}/attachment'.format(self.base_url, companyId, filingReturnId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a list of filings for the specified company in the year and month of a given filing period.
+    
+    This API is available by invitation only.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period.
+      :param month [int] The two digit month of the filing period.
+      :return String
+    """
+    def get_filing_attachments(self, companyId, year, month):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/attachments'.format(self.base_url, companyId, year, month),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a single trace file for a company filing period
+    
+    This API is available by invitation only.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period.
+      :param month [int] The two digit month of the filing period.
+      :return String
+    """
+    def get_filing_attachments_trace_file(self, companyId, year, month):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/attachments/tracefile'.format(self.base_url, companyId, year, month),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a filing for the specified company and id.
+    
+    This API is available by invitation only.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param id_ [int] The id of the filing return your retrieving
+      :param details [boolean] Indicates if you would like the credit details returned
+      :return FilingReturnModel
+    """
+    def get_filing_return(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/filings/returns/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a list of filings for the specified company in the year and month of a given filing period.
+    
+    This API is available by invitation only.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period.
+      :param month [int] The two digit month of the filing period.
+      :return FilingModelFetchResult
+    """
+    def get_filings(self, companyId, year, month):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}'.format(self.base_url, companyId, year, month),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a list of filings for the specified company in the given filing period and country.
+    
+    This API is available by invitation only.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period.
+      :param month [int] The two digit month of the filing period.
+      :param country [string] The two-character ISO-3166 code for the country.
+      :return FilingModelFetchResult
+    """
+    def get_filings_by_country(self, companyId, year, month, country):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}'.format(self.base_url, companyId, year, month, country),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a list of filings for the specified company in the filing period, country and region.
+    
+    This API is available by invitation only.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period.
+      :param month [int] The two digit month of the filing period.
+      :param country [string] The two-character ISO-3166 code for the country.
+      :param region [string] The two or three character region code for the region.
+      :return FilingModelFetchResult
+    """
+    def get_filings_by_country_region(self, companyId, year, month, country, region):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}/{}'.format(self.base_url, companyId, year, month, country, region),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a list of filings for the specified company in the given filing period, country, region and form.
+    
+    This API is available by invitation only.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period.
+      :param month [int] The two digit month of the filing period.
+      :param country [string] The two-character ISO-3166 code for the country.
+      :param region [string] The two or three character region code for the region.
+      :param formCode [string] The unique code of the form.
+      :return FilingModelFetchResult
+    """
+    def get_filings_by_return_name(self, companyId, year, month, country, region, formCode):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}'.format(self.base_url, companyId, year, month, country, region, formCode),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a list of filings for the specified company in the year and month of a given filing period.
+      This gets the basic information from the filings and doesn't include anything extra.
+    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns these batches
+      :param endPeriodMonth [int] The month of the period you are trying to retrieve
+      :param endPeriodYear [int] The year of the period you are trying to retrieve
+      :param frequency [FilingFrequencyId] The frequency of the return you are trying to retrieve (See FilingFrequencyId::* for a list of allowable values)
+      :param status [FilingStatusId] The status of the return(s) you are trying to retrieve (See FilingStatusId::* for a list of allowable values)
+      :param country [string] The country of the return(s) you are trying to retrieve
+      :param region [string] The region of the return(s) you are trying to retrieve
+      :param filingCalendarId [int] The filing calendar id of the return you are trying to retrieve
+      :param taxformCode [string] The unique tax form code of the form.
+      :return FilingReturnModelBasicFetchResult
+    """
+    def get_filings_returns(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filings/returns'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a list of filings for the specified company in the year and month of a given filing period.
+    
+    This API is available by invitation only.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period.
+      :param month [int] The two digit month of the filing period.
+      :param country [string] The two-character ISO-3166 code for the country.
+      :param region [string] The two or three character region code for the region.
+      :param formCode [string] The unique code of the form.
+      :return MultiTaxFilingModelFetchResult
+    """
+    def get_tax_filings(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filings'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Rebuild a set of filings for the specified company in the given filing period.
+    
+    This API is available by invitation only.
+      Rebuilding a return means re-creating or updating the amounts to be filed (worksheet) for a filing.
+      Rebuilding has to be done whenever a customer adds transactions to a filing.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      This API requires filing to be unapproved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period to be rebuilt.
+      :param month [int] The month of the filing period to be rebuilt.
+      :param model [RebuildFilingsModel] The rebuild request you wish to execute.
+      :return FilingModelFetchResult
+    """
+    def rebuild_filings(self, companyId, year, month, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/rebuild'.format(self.base_url, companyId, year, month),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Rebuild a set of filings for the specified company in the given filing period and country.
+    
+    This API is available by invitation only.
+      Rebuilding a return means re-creating or updating the amounts to be filed (worksheet) for a filing.
+      Rebuilding has to be done whenever a customer adds transactions to a filing.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      This API requires filing to be unapproved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period to be rebuilt.
+      :param month [int] The month of the filing period to be rebuilt.
+      :param country [string] The two-character ISO-3166 code for the country.
+      :param model [RebuildFilingsModel] The rebuild request you wish to execute.
+      :return FilingModelFetchResult
+    """
+    def rebuild_filings_by_country(self, companyId, year, month, country, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Rebuild a set of filings for the specified company in the given filing period, country and region.
+    
+    This API is available by invitation only.audit.CheckAuthorizationReturns(null, companyId);
+      Rebuilding a return means re-creating or updating the amounts to be filed for a filing.
+      Rebuilding has to be done whenever a customer adds transactions to a filing.
+      A "filing period" is the year and month of the date of the latest customer transaction allowed to be reported on a filing,
+      based on filing frequency of filing.
+      This API requires filing to be unapproved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filings.
+      :param year [int] The year of the filing period to be rebuilt.
+      :param month [int] The month of the filing period to be rebuilt.
+      :param country [string] The two-character ISO-3166 code for the country.
+      :param region [string] The two or three character region code for the region.
+      :param model [RebuildFilingsModel] The rebuild request you wish to execute.
+      :return FilingModelFetchResult
+    """
+    def rebuild_filings_by_country_region(self, companyId, year, month, country, region, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country, region),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Edit an adjustment for a given filing.
+    
+    This API is available by invitation only.
+      An "Adjustment" is usually an increase or decrease to customer funding to Avalara,
+      such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
+      Sometimes may be a manual change in tax liability similar to an augmentation.
+      This API modifies an adjustment for an existing tax filing.
+      This API can only be used when the filing has not yet been approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filing being adjusted.
+      :param id_ [int] The ID of the adjustment being edited.
+      :param model [FilingAdjustmentModel] The updated Adjustment.
+      :return FilingAdjustmentModel
+    """
+    def update_return_adjustment(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/filings/adjust/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Edit an augmentation for a given filing.
+    
+    This API is available by invitation only.
+      An "Augmentation" is a manually added increase or decrease in tax liability, by either customer or Avalara
+      usually due to customer wanting to report tax Avatax does not support, e.g. bad debts, rental tax.
+      This API modifies an augmentation for an existing tax filing.
+      This API can only be used when the filing has not been approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filing being changed.
+      :param id_ [int] The ID of the augmentation being edited.
+      :param model [FilingAugmentationModel] The updated Augmentation.
+      :return FilingModel
+    """
+    def update_return_augmentation(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/filings/augment/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Edit an payment for a given filing.
+    
+    This API is available by invitation only.
+      An "Payment" is usually an increase or decrease to customer funding to Avalara,
+      such as early filer discount amounts that are refunded to the customer, or efile fees from websites.
+      Sometimes may be a manual change in tax liability similar to an augmentation.
+      This API modifies an payment for an existing tax filing.
+      This API can only be used when the filing has not yet been approved.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, CSPTester, FirmUser, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns the filing being adjusted.
+      :param id_ [int] The ID of the payment being edited.
+      :param model [FilingPaymentModel] The updated Payment.
+      :return FilingPaymentModel
+    """
+    def update_return_payment(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/filings/payment/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Approves linkage to a firm for a client account
@@ -3347,7 +5094,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* firmAccountName, clientAccountName
-      :return FetchResult
+      :return FirmClientLinkageOutputModelFetchResult
     """
     def list_firm_client_linkage(self, include=None):        return requests.get('{}/api/v2/firmclientlinkages'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3742,7 +5489,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ItemClassificationOutputModelFetchResult
     """
     def list_item_classifications(self, companyId, itemId, include=None):        return requests.get('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3765,7 +5512,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ItemParameterModelFetchResult
     """
     def list_item_parameters(self, companyId, itemId, include=None):        return requests.get('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3793,7 +5540,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ItemModelFetchResult
     """
     def list_items_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3817,7 +5564,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ItemModelFetchResult
     """
     def query_items(self, include=None):        return requests.get('{}/api/v2/items'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3974,7 +5721,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return JurisdictionOverrideModelFetchResult
     """
     def list_jurisdiction_overrides_by_account(self, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3997,7 +5744,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return JurisdictionOverrideModelFetchResult
     """
     def query_jurisdiction_overrides(self, include=None):        return requests.get('{}/api/v2/jurisdictionoverrides'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4141,7 +5888,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return LocationParameterModelFetchResult
     """
     def list_location_parameters(self, companyId, locationId, include=None):        return requests.get('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4168,7 +5915,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return LocationModelFetchResult
     """
     def list_locations_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4194,7 +5941,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return LocationModelFetchResult
     """
     def query_locations(self, include=None):        return requests.get('{}/api/v2/locations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4233,6 +5980,27 @@ class Mixin:
       :return LocationParameterModel
     """
     def update_location_parameter(self, companyId, locationId, id_, model):        return requests.put('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Update a location's remittance
+    
+    Use when wanting to change the remittance of a company location of type Marketplace. The new Effective Date should be at least a day later than
+      the existing Effective Date but no greater than the existing End Date. This API will expire the existing location by
+      setting end date with the new effective date minus one day. Then create a new location with the same parameters except for the dates
+      and the remittance type.
+      NOTES: Only to alternate between SellerRemitsTax and MarketPlaceRemitsTax address categories for location with address type MarketPlace.
+      If new Effective Date is greater than the existing End Date, in other words the new date range isn't overlapping with the existing date range,
+      please create a new location instead.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The ID of the company that owns this location
+      :param id_ [int] The primary key of this location
+      :param model [UpdateCompanyLocationRemittanceModel] The new remittance to change the existing location's to, as well as new effective and end date.
+      :return LocationModel
+    """
+    def update_location_remittance(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/locations/{}/remittance'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -4405,8 +6173,8 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
     
-      :param code [string] 
-      :param type [DocumentType]  (See DocumentType::* for a list of allowable values)
+      :param code [string] The multidocument code to retrieve
+      :param type [DocumentType] The transaction type to retrieve (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in the response after transaction is created
       :return MultiDocumentModel
     """
@@ -4483,7 +6251,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return MultiDocumentModelFetchResult
     """
     def list_multi_document_transactions(self, include=None):        return requests.get('{}/api/v2/transactions/multidocument'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4797,7 +6565,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusModelFetchResult
     """
     def list_nexus_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4820,10 +6588,29 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusParameterDetailModelFetchResult
     """
     def list_nexus_parameters(self, companyId, nexusId, include=None):        return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Summarize nexus by NexusTaxTypeGroup for this company
+    
+    Provides a summary of nexus information useful for quickly displaying key information.
+      The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
+      taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
+      accountant or lawyer prior to declaring nexus.
+      This API produces only basic information about your company's nexus declarations. For example, it will show
+      the number of nexus declarations of each tax type. To request more information about your company's nexus
+      declarations, please use `QueryNexus` or `ListNexusByCompany`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+    
+      :param companyId [int] The ID of the company that owns these nexus objects
+      :return NexusSummaryModel
+    """
+    def nexus_summary(self, companyId):        return requests.get('{}/api/v2/companies/{}/nexus/summary'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Retrieve all nexus
@@ -4844,7 +6631,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusModelFetchResult
     """
     def query_nexus(self, include=None):        return requests.get('{}/api/v2/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4894,6 +6681,442 @@ class Mixin:
       :return NexusParameterDetailModel
     """
     def update_nexus_parameter(self, companyId, nexusId, id_, model):        return requests.put('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Create a new notice comment.
+    
+    This API is available by invitation only.
+      'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param id_ [int] The ID of the tax notice we are adding the comment for.
+      :param model [NoticeCommentModel] The notice comments you wish to create.
+      :return NoticeCommentModel
+    """
+    def create_notice_comment(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/notices/{}/comments'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Create a new notice finance details.
+    
+    This API is available by invitation only.
+      'Notice finance details' is the categorical breakdown of the total charge levied by the tax authority on our customer,
+      as broken down in our "notice log" found in Workflow. Main examples of the categories are 'Tax Due', 'Interest', 'Penalty', 'Total Abated'.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param id_ [int] The ID of the notice added to the finance details.
+      :param model [NoticeFinanceModel] The notice finance details you wish to create.
+      :return NoticeFinanceModel
+    """
+    def create_notice_finance_details(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/notices/{}/financedetails'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Create a new notice responsibility.
+    
+    This API is available by invitation only.
+      'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param id_ [int] The ID of the tax notice we are adding the responsibility for.
+      :param model [NoticeResponsibilityDetailModel] The notice responsibilities you wish to create.
+      :return NoticeResponsibilityDetailModel
+    """
+    def create_notice_responsibilities(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/notices/{}/responsibilities'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Create a new notice root cause.
+    
+    This API is available by invitation only.
+      'Notice root causes' are are those who are responsible for the notice.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param id_ [int] The ID of the tax notice we are adding the responsibility for.
+      :param model [NoticeRootCauseDetailModel] The notice root causes you wish to create.
+      :return NoticeRootCauseDetailModel
+    """
+    def create_notice_root_causes(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/notices/{}/rootcauses'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Create a new notice.
+    
+    This API is available by invitation only.
+      Create one or more new notice objects.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param model [NoticeModel] The notice object you wish to create.
+      :return NoticeModel
+    """
+    def create_notices(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/notices'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a single notice.
+    
+    This API is available by invitation only.
+      'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param id_ [int] The ID of the notice you wish to delete the finance detail from.
+      :param commentDetailsId [int] The ID of the comment you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_comment_details(self, companyId, id_, commentDetailsId):        return requests.delete('{}/api/v2/companies/{}/notices/{}/commentdetails/{}'.format(self.base_url, companyId, id_, commentDetailsId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a single notice.
+    
+    This API is available by invitation only.
+      'Notice finance details' is the categorical breakdown of the total charge levied by the tax authority on our customer,
+      as broken down in our "notice log" found in Workflow. Main examples of the categories are 'Tax Due', 'Interest', 'Penalty', 'Total Abated'.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param id_ [int] The ID of the notice you wish to delete the finance detail from.
+      :param financeDetailsId [int] The ID of the finance detail you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_finance_details(self, companyId, id_, financeDetailsId):        return requests.delete('{}/api/v2/companies/{}/notices/{}/financedetails/{}'.format(self.base_url, companyId, id_, financeDetailsId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a single notice.
+    
+    This API is available by invitation only.
+      Mark the existing notice object at this URL as deleted.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param id_ [int] The ID of the notice you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_notice(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/notices/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a single responsibility
+    
+    This API is available by invitation only.
+      Mark the existing notice object at this URL as deleted.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param noticeId [int] The ID of the notice you wish to delete.
+      :param id_ [int] The ID of the responsibility you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_responsibilities(self, companyId, noticeId, id_):        return requests.delete('{}/api/v2/companies/{}/notices/{}/responsibilities/{}'.format(self.base_url, companyId, noticeId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a single root cause.
+    
+    This API is available by invitation only.
+      Mark the existing notice object at this URL as deleted.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns this notice.
+      :param noticeId [int] The ID of the notice you wish to delete.
+      :param id_ [int] The ID of the root cause you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_root_causes(self, companyId, noticeId, id_):        return requests.delete('{}/api/v2/companies/{}/notices/{}/rootcauses/{}'.format(self.base_url, companyId, noticeId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a single attachment
+    
+    This API is available by invitation only.
+      Get the file attachment identified by this URL.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company for this attachment.
+      :param id_ [int] The ResourceFileId of the attachment to download.
+      :return String
+    """
+    def download_notice_attachment(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/notices/files/{}/attachment'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve a single notice.
+    
+    This API is available by invitation only.
+      Get the tax notice object identified by this URL.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company for this notice.
+      :param id_ [int] The ID of this notice.
+      :return NoticeModel
+    """
+    def get_notice(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/notices/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve notice comments for a specific notice.
+    
+    This API is available by invitation only.
+      'Notice comments' are updates by the notice team on the work to be done and that has been done so far on a notice.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param id_ [int] The ID of the notice.
+      :param companyId [int] The ID of the company that owns these notices.
+      :return NoticeCommentModelFetchResult
+    """
+    def get_notice_comments(self, id_, companyId):        return requests.get('{}/api/v2/companies/{}/notices/{}/comments'.format(self.base_url, id_, companyId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve notice finance details for a specific notice.
+    
+    This API is available by invitation only.
+      'Notice finance details' is the categorical breakdown of the total charge levied by the tax authority on our customer,
+      as broken down in our "notice log" found in Workflow. Main examples of the categories are 'Tax Due', 'Interest', 'Penalty', 'Total Abated'.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param id_ [int] The ID of the company that owns these notices.
+      :param companyId [int] The ID of the company that owns these notices.
+      :return NoticeFinanceModelFetchResult
+    """
+    def get_notice_finance_details(self, id_, companyId):        return requests.get('{}/api/v2/companies/{}/notices/{}/financedetails'.format(self.base_url, id_, companyId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve notice responsibilities for a specific notice.
+    
+    This API is available by invitation only.
+      'Notice responsibilities' are are those who are responsible for the notice.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param id_ [int] The ID of the notice.
+      :param companyId [int] The ID of the company that owns these notices.
+      :return NoticeResponsibilityDetailModelFetchResult
+    """
+    def get_notice_responsibilities(self, id_, companyId):        return requests.get('{}/api/v2/companies/{}/notices/{}/responsibilities'.format(self.base_url, id_, companyId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve notice root causes for a specific notice.
+    
+    This API is available by invitation only.
+      'Notice root causes' are are those who are responsible for the notice.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param id_ [int] The ID of the notice.
+      :param companyId [int] The ID of the company that owns these notices.
+      :return NoticeRootCauseDetailModelFetchResult
+    """
+    def get_notice_root_causes(self, id_, companyId):        return requests.get('{}/api/v2/companies/{}/notices/{}/rootcauses'.format(self.base_url, id_, companyId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve notices for a company.
+    
+    This API is available by invitation only.
+      List all tax notice objects assigned to this company.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns these notices.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* status, totalRemit, ticketReferenceNo, ticketReferenceUrl, reason, type, createdByUserName, documentReference, jurisdictionName, jurisdictionType, comments, finances, responsibility, rootCause
+      :param include [string] A comma separated list of additional data to retrieve.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return NoticeModelFetchResult
+    """
+    def list_notices_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/notices'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all notices.
+    
+    This API is available by invitation only.
+      This API is deprecated - please use POST `/api/v2/notices/query` API.
+      Get multiple notice objects across all companies.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* status, totalRemit, ticketReferenceNo, ticketReferenceUrl, reason, type, createdByUserName, documentReference, jurisdictionName, jurisdictionType, comments, finances, responsibility, rootCause
+      :param include [string] A comma separated list of additional data to retrieve.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return NoticeModelFetchResult
+    """
+    def query_notices(self, include=None):        return requests.get('{}/api/v2/notices'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all notices.
+    
+    This API is available by invitation only.
+      This API is intended to replace the GET `/api/v2/notices` API. The fetch request object is posted on the body of the request instead of the URI, so it's not limited by a set number of characters.
+      The documentation of the GET API shows how filtering, sorting and pagination works.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
+      :return NoticeModelFetchResult
+    """
+    def query_notices_post(self, model):        return requests.post('{}/api/v2/notices/query'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Update a single notice finance detail.
+    
+    This API is available by invitation only.
+      All data from the existing object will be replaced with data in the object you PUT.
+      To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that this notice finance detail belongs to.
+      :param noticeid [int] The ID of the notice finance detail you wish to update.
+      :param financeDetailsId [int] The ID of the finance detail you wish to delete.
+      :param model [NoticeFinanceModel] The notice finance detail object you wish to update.
+      :return NoticeFinanceModel
+    """
+    def update_finance_details(self, companyId, noticeid, financeDetailsId, model):        return requests.put('{}/api/v2/companies/{}/notices/{}/financedetails/{}'.format(self.base_url, companyId, noticeid, financeDetailsId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Update a single notice.
+    
+    This API is available by invitation only.
+      Replace the existing notice object at this URL with an updated object.
+      A 'notice' represents a letter sent to a business by a tax authority regarding tax filing issues. Avalara
+      Returns customers often receive support and assistance from the Compliance Notices team in handling notices received by taxing authorities.
+      All data from the existing object will be replaced with data in the object you PUT.
+      To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that this notice belongs to.
+      :param id_ [int] The ID of the notice you wish to update.
+      :param model [NoticeModel] The notice object you wish to update.
+      :return NoticeModel
+    """
+    def update_notice(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/notices/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Update a single notice comment.
+    
+    This API is available by invitation only.
+      All data from the existing object will be replaced with data in the object you PUT.
+      To set a field's value to null, you may either set its value to null or omit that field from the object you post.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that this notice comment belongs to.
+      :param noticeid [int] The ID of the notice you wish to update.
+      :param commentDetailsId [int] The ID of the comment you wish to update.
+      :param model [NoticeCommentModel] The notice comment object you wish to update.
+      :return NoticeCommentModel
+    """
+    def update_notice_comments(self, companyId, noticeid, commentDetailsId, model):        return requests.put('{}/api/v2/companies/{}/notices/{}/commentdetails/{}'.format(self.base_url, companyId, noticeid, commentDetailsId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Upload a new notice attachment.
+    
+    This API is available by invitation only.
+      Uploads a file attachment for a tax notice.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Operator, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company for this attachment.
+      :param model [ResourceFileUploadRequestModel] The upload request.
+      :return ResourceFileUploadResultModel
+    """
+    def upload_attachment(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/notices/files/attachment'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -4954,7 +7177,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NotificationModelFetchResult
     """
     def list_notifications(self, include=None):        return requests.get('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5000,6 +7223,21 @@ class Mixin:
     """
     def request_new_entitlement(self, id_, offer):        return requests.post('{}/api/v2/accounts/{}/entitlements/{}'.format(self.base_url, id_, offer),
                                auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Bridge API for integration of validated certificates
+    
+    # For Registrar Use Only
+      This API is for use by Avalara Registrar administrative users only.
+      ### Security Policies
+      * This API is available to Avalara system-level (registrar-level) users only.
+      * This API depends on the following active services<br />*Required* (all): AvaCert.
+    
+      :param model [EcmsModel] Either a single exempt certificate or an array of certificates to create
+      :return EcmsModel
+    """
+    def cert_capture_bridge(self, model):        return requests.post('{}/api/v2/certcapturebridge'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Create a new account
@@ -5265,7 +7503,7 @@ class Mixin:
       :param pageKey [string] Provide a page key to retrieve the next page of results.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :return FetchResult
+      :return ReportModelFetchResult
     """
     def list_reports(self, include=None):        return requests.get('{}/api/v2/reports'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5355,7 +7593,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SettingModelFetchResult
     """
     def list_settings_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5381,7 +7619,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SettingModelFetchResult
     """
     def query_settings(self, include=None):        return requests.get('{}/api/v2/settings'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5442,7 +7680,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SubscriptionModelFetchResult
     """
     def list_subscriptions_by_account(self, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5462,7 +7700,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SubscriptionModelFetchResult
     """
     def query_subscriptions(self, include=None):        return requests.get('{}/api/v2/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5536,7 +7774,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxCodeModelFetchResult
     """
     def list_tax_codes_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5559,7 +7797,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxCodeModelFetchResult
     """
     def query_tax_codes(self, include=None):        return requests.get('{}/api/v2/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5583,6 +7821,20 @@ class Mixin:
       :return TaxCodeModel
     """
     def update_tax_code(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve send-sale tax content for this company.
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Required* (all): SendSalesRateFile.
+    
+      :param model [SendSalesRequestModel] The send sales request model.
+      :return String
+    """
+    def build_send_sales_rate_file(self, model):        return requests.post('{}/api/v2/sendsalescontent/download'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -5651,6 +7903,24 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Retrieve send-sale tax content for this company.
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Required* (all): SendSalesRateFile.
+    
+      :param date [datetime] The date for which we are fetching tax content.
+      :param taxCode [string] The tax code for which we are fetching tax content.
+      :param companyId [int] The unique ID number of the company which is fetching tax content.
+      :param format [SendSalesOutputFileFormat] Requests a specific data format for this content file. (See SendSalesOutputFileFormat::* for a list of allowable values)
+      :param type [SendSalesFileType] Requests a specific encoding for this content file. (See SendSalesFileType::* for a list of allowable values)
+      :return String
+    """
+    def download_send_sales_rate_file(self, date, taxCode, companyId, include=None):        return requests.get('{}/api/v2/sendsalescontent/download/{}/{}/{}'.format(self.base_url, date, taxCode, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Download a file listing tax rates by postal code
     
     Download a CSV file containing all five digit postal codes in the United States and their sales
@@ -5695,6 +7965,42 @@ class Mixin:
     """
     def download_tax_rates_by_zip_code(self, date, include=None):        return requests.get('{}/api/v2/taxratesbyzipcode/download/{}'.format(self.base_url, date),
                                auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Export the tax profile of this company to a backup file
+    
+    Exports the tax profile of a company to a file, containing all information that affects tax calculation for this company.
+      A tax profile is a series of decisions and configuration choices that affect your company's tax calculation. These decisions
+      include your nexus declarations, your item catalog, your custom tax rules, and so on.
+      This API can be used to export a complete zip file containing your company's current tax profile, and you can then restore this
+      profile to a different company or compare it over time to see if your profile has been changed.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+    
+      :param companyId [int] The unique ID number of the company whose profile you wish to retrieve.
+      :return String
+    """
+    def export_tax_profile(self, companyId):        return requests.get('{}/api/v2/companies/{}/taxprofile'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Import a tax profile.
+    
+    Imports a tax profile to a new company, along with the option to import account settings.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+    
+      :param accountId [int] The account id of the account to which the tax profile will be imported.
+      :param newCompanyCode [string] The companyCode to use for the imported company.
+      :param replaceAccountSettings [boolean] Replace the current account settings with the ones in the tax profile.
+      :param bypassNexusValidation [boolean] Enable invalid nexus to be imported.
+      :param taxProfile [String] The taxProfile
+      :return CompanyModel
+    """
+    def import_tax_profile(self):        return requests.post('{}/api/v2/taxprofile'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Create a new tax rule
@@ -5789,7 +8095,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxRuleModelFetchResult
     """
     def list_tax_rules(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5817,7 +8123,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxRuleModelFetchResult
     """
     def query_tax_rules(self, include=None):        return requests.get('{}/api/v2/taxrules'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6273,6 +8579,33 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Inspects a transaction line and presents the result with a human-readable text providing the reasoning behind
+      determination like nexus, exemption, product taxability etc.
+    
+    Inspects a transaction line and presents the result with a human-readable text providing the reasoning behind
+      determination like nexus, exemption, product taxability etc.
+      NOTE: In order to avoid ambiguity, DocumentType of 'Any' is invalid for this API as this API is designed to look for a specific line of a given document.
+      NOTE: If your companyCode or transactionCode contains any of these characters /, +, ? or a space please use the following encoding before making a request:
+      * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
+      * Replace '+' with '\_-ava2b-\_' For example: document+Code becomes document_-ava2b-_Code
+      * Replace '?' with '\_-ava3f-\_' For example: document?Code becomes document_-ava3f-_Code
+      * Replace '%' with '\_-ava25-\_' For example: document%Code becomes document_-ava25-_Code
+      * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
+      * Replace ' ' with '%20' For example: document Code becomes document%20Code
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+    
+      :param companyCode [string] The company code of the company that recorded this transaction
+      :param transactionCode [string] The transaction code of the transaction under line inspection
+      :param lineNo [string] The line number of the transaction that needs to be inspected
+      :param documentType [DocumentType] The document type of the transaction, In order to avoid ambiguity, DocumentType of 'Any' is invalid for this API as this API is designed to look for a specific line of a given document. (See DocumentType::* for a list of allowable values)
+      :return InspectLineResponseModel
+    """
+    def inspect_line(self, companyCode, transactionCode, lineNo, include=None):        return requests.get('{}/api/v2/companies/{}/transactions/{}/lines/{}/inspect'.format(self.base_url, companyCode, transactionCode, lineNo),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Retrieve all transactions
     
     List all transactions attached to this company.
@@ -6304,11 +8637,11 @@ class Mixin:
       :param companyCode [string] The company code of the company that recorded this transaction
       :param dataSourceId [int] Optionally filter transactions to those from a specific data source.
       :param include [string] Specifies objects to include in this fetch call
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* totalDiscount, lines, addresses, locationTypes, summary, taxDetailsByTaxType, parameters, messages, invoiceMessages, isFakeTransaction
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exchangeRateCurrencyCode, totalDiscount, lines, addresses, locationTypes, summary, taxDetailsByTaxType, parameters, messages, invoiceMessages, isFakeTransaction
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TransactionModelFetchResult
     """
     def list_transactions_by_company(self, companyCode, include=None):        return requests.get('{}/api/v2/companies/{}/transactions'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6643,7 +8976,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return UPCModelFetchResult
     """
     def list_u_p_cs_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6664,7 +8997,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return UPCModelFetchResult
     """
     def query_u_p_cs(self, include=None):        return requests.get('{}/api/v2/upcs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6805,7 +9138,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return UserModelFetchResult
     """
     def list_users_by_account(self, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6830,7 +9163,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return UserModelFetchResult
     """
     def query_users(self, include=None):        return requests.get('{}/api/v2/users'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6879,7 +9212,7 @@ class Mixin:
       or subscription to provide useful information to the current user as to whether they are entitled to use
       specific features of AvaTax.
     
-      :return FetchResult
+      :return SubscriptionModelFetchResult
     """
     def list_my_subscriptions(self):        return requests.get('{}/api/v2/utilities/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
