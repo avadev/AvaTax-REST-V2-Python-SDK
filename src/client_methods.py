@@ -69,7 +69,7 @@ class Mixin:
       :param end [datetime] The end datetime of audit history you with to retrieve, e.g. "2018-06-08T17:15:00Z. Defaults to the current time. Maximum of an hour after the start time.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :return FetchResult
+      :return AuditModelFetchResult
     """
     def audit_account(self, id_, include=None):        return requests.get('{}/api/v2/accounts/{}/audit'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -193,7 +193,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return AccountModelFetchResult
     """
     def query_accounts(self, include=None):        return requests.get('{}/api/v2/accounts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -396,7 +396,7 @@ class Mixin:
       :param fullDetails [boolean] Retrieve detailed advanced rule properties (limited to tech support level)
       :param includeTest [boolean] Include test rules
       :param includeSystemRules [boolean] Include rules used to retrieve enumerated values
-      :return FetchResult
+      :return AdvancedRuleFullDetailsModelFetchResult
     """
     def get_advanced_rules(self, include=None):        return requests.get('{}/api/v2/advancedrules/rules'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -420,7 +420,7 @@ class Mixin:
     
     
       :param ruleId [string] he ID of the advance rule for which companies are requested
-      :return FetchResult
+      :return CompanyModelFetchResult
     """
     def get_companies_using_advanced_rule(self, ruleId):        return requests.get('{}/api/v2/advancedrules/rules/{}/companies'.format(self.base_url, ruleId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -432,7 +432,7 @@ class Mixin:
     
       :param accountId [int] The account ID for the company
       :param companyId [int] The ID of the company for which to retrieve lookup files
-      :return FetchResult
+      :return AdvancedRuleLookupFileModelFetchResult
     """
     def get_company_lookup_files(self, accountId, companyId):        return requests.get('{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(self.base_url, accountId, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -445,7 +445,7 @@ class Mixin:
       :param accountId [int] The account ID for the company
       :param companyId [int] The ID of the company for which to retrieve rule executions
       :param effectiveDate [datetime] Optional date which the rule executions should be effective
-      :return FetchResult
+      :return AdvancedRuleExecutionModelFetchResult
     """
     def get_company_rule_executions(self, accountId, companyId, include=None):        return requests.get('{}/api/v2/advancedrules/accounts/{}/companies/{}/executions'.format(self.base_url, accountId, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -518,7 +518,7 @@ class Mixin:
       :param accountId [int] The ID of the account for the company the rule execution is for
       :param companyId [int] The ID of the company for which the rule execution order is being modified
       :param model [AdvancedRuleExecutionOrderModel] A list of rule execution IDs for the company indicating the new execution order
-      :return FetchResult
+      :return StringFetchResult
     """
     def update_company_rule_execution_order(self, accountId, companyId, model):        return requests.post('{}/api/v2/advancedrules/accounts/{}/companies/{}/executions/order'.format(self.base_url, accountId, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -605,7 +605,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return AvaFileFormModelFetchResult
     """
     def query_ava_file_forms(self, include=None):        return requests.get('{}/api/v2/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -792,7 +792,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return BatchModelFetchResult
     """
     def list_batches_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -822,7 +822,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return BatchModelFetchResult
     """
     def query_batches(self, include=None):        return requests.get('{}/api/v2/batches'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -907,7 +907,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CertExpressInvitationModelFetchResult
     """
     def list_cert_express_invitations(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/certexpressinvites'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1062,7 +1062,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [CertificateAttributeModel] The list of attributes to link to this certificate.
-      :return FetchResult
+      :return CertificateAttributeModelFetchResult
     """
     def link_attributes_to_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1089,7 +1089,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [LinkCustomersModel] The list of customers needed be added to the Certificate for exemption
-      :return FetchResult
+      :return CustomerModelFetchResult
     """
     def link_customers_to_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1114,7 +1114,7 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
-      :return FetchResult
+      :return CertificateAttributeModelFetchResult
     """
     def list_attributes_for_certificate(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/certificates/{}/attributes'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1140,7 +1140,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param include [string] OPTIONAL: A comma separated list of special fetch options.   No options are currently available when fetching customers.
-      :return FetchResult
+      :return CustomerModelFetchResult
     """
     def list_customers_for_certificate(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/certificates/{}/customers'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1171,7 +1171,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CertificateModelFetchResult
     """
     def query_certificates(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1217,7 +1217,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [CertificateAttributeModel] The list of attributes to unlink from this certificate.
-      :return FetchResult
+      :return CertificateAttributeModelFetchResult
     """
     def unlink_attributes_from_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1245,7 +1245,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [LinkCustomersModel] The list of customers to unlink from this certificate
-      :return FetchResult
+      :return CustomerModelFetchResult
     """
     def unlink_customers_from_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -1780,7 +1780,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CompanyParameterDetailModelFetchResult
     """
     def list_company_parameter_details(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1797,7 +1797,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CustomerSupplierModelFetchResult
     """
     def list_customers(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1827,7 +1827,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
-      :return FetchResult
+      :return MrsCompanyModelFetchResult
     """
     def list_mrs_companies(self):        return requests.get('{}/api/v2/companies/mrs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -1844,7 +1844,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CustomerSupplierModelFetchResult
     """
     def list_suppliers(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/supplierandcustomers/suppliers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -1874,7 +1874,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CompanyModelFetchResult
     """
     def query_companies(self, include=None):        return requests.get('{}/api/v2/companies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2126,7 +2126,7 @@ class Mixin:
     
       :param companyId [int] 
       :param model [TransactionReferenceFieldModel] 
-      :return FetchResult
+      :return TransactionModelFetchResult
     """
     def tag_transaction(self, companyId, model):        return requests.put('{}/api/v2/companies/{}/transactions/tag'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2191,7 +2191,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ContactModelFetchResult
     """
     def list_contacts_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2211,7 +2211,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ContactModelFetchResult
     """
     def query_contacts(self, include=None):        return requests.get('{}/api/v2/contacts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2336,7 +2336,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded the provided customer
       :param customerCode [string] The unique code representing the current customer
       :param model [CustomerAttributeModel] The list of attributes to link to the customer.
-      :return FetchResult
+      :return CustomerAttributeModelFetchResult
     """
     def link_attributes_to_customer(self, companyId, customerCode, model):        return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2361,7 +2361,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param model [LinkCertificatesModel] The list of certificates to link to this customer
-      :return FetchResult
+      :return CertificateModelFetchResult
     """
     def link_certificates_to_customer(self, companyId, customerCode, model):        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2412,7 +2412,7 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that recorded the provided customer
       :param customerCode [string] The unique code representing the current customer
-      :return FetchResult
+      :return CustomerAttributeModelFetchResult
     """
     def list_attributes_for_customer(self, companyId, customerCode):        return requests.get('{}/api/v2/companies/{}/customers/{}/attributes'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2441,7 +2441,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CertificateModelFetchResult
     """
     def list_certificates_for_customer(self, companyId, customerCode, include=None):        return requests.get('{}/api/v2/companies/{}/customers/{}/certificates'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2500,7 +2500,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CustomerModelFetchResult
     """
     def query_customers(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2527,7 +2527,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded the customer
       :param customerCode [string] The unique code representing the current customer
       :param model [CustomerAttributeModel] The list of attributes to unlink from the customer.
-      :return FetchResult
+      :return CustomerAttributeModelFetchResult
     """
     def unlink_attributes_from_customer(self, companyId, customerCode, model):        return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2552,7 +2552,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param model [LinkCertificatesModel] The list of certificates to link to this customer
-      :return FetchResult
+      :return CertificateModelFetchResult
     """
     def unlink_certificates_from_customer(self, companyId, customerCode, model):        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -2640,7 +2640,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return DataSourceModelFetchResult
     """
     def list_data_sources(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2659,7 +2659,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return DataSourceModelFetchResult
     """
     def query_data_sources(self, include=None):        return requests.get('{}/api/v2/datasources'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2695,7 +2695,7 @@ class Mixin:
     
       :param country [string] The name or code of the destination country.
       :param hsCode [string] The partial or full HS Code for which you would like to view all of the parents.
-      :return FetchResult
+      :return HsCodeModelFetchResult
     """
     def get_cross_border_code(self, country, hsCode):        return requests.get('{}/api/v2/definitions/crossborder/{}/{}/hierarchy'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2711,7 +2711,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SkyscraperStatusModelFetchResult
     """
     def get_login_verifier_by_form(self, form, include=None):        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers/{}'.format(self.base_url, form),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2728,7 +2728,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return AvaFileFormModelFetchResult
     """
     def list_ava_file_forms(self, include=None):        return requests.get('{}/api/v2/definitions/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2747,7 +2747,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CertificateAttributeModelFetchResult
     """
     def list_certificate_attributes(self, include=None):        return requests.get('{}/api/v2/definitions/certificateattributes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2765,7 +2765,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ExemptionReasonModelFetchResult
     """
     def list_certificate_exempt_reasons(self, include=None):        return requests.get('{}/api/v2/definitions/certificateexemptreasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2783,7 +2783,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ExposureZoneModelFetchResult
     """
     def list_certificate_exposure_zones(self, include=None):        return requests.get('{}/api/v2/definitions/certificateexposurezones'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2798,7 +2798,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CommunicationsTSPairModelFetchResult
     """
     def list_communications_service_types(self, id_, include=None):        return requests.get('{}/api/v2/definitions/communications/transactiontypes/{}/servicetypes'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2813,7 +2813,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CommunicationsTransactionTypeModelFetchResult
     """
     def list_communications_transaction_types(self, include=None):        return requests.get('{}/api/v2/definitions/communications/transactiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2828,7 +2828,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CommunicationsTSPairModelFetchResult
     """
     def list_communications_t_s_pairs(self, include=None):        return requests.get('{}/api/v2/definitions/communications/tspairs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2844,7 +2844,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return IsoCountryModelFetchResult
     """
     def list_countries(self, include=None):        return requests.get('{}/api/v2/definitions/countries'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2863,7 +2863,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CoverLetterModelFetchResult
     """
     def list_cover_letters(self, include=None):        return requests.get('{}/api/v2/definitions/coverletters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2886,7 +2886,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return HsCodeModelFetchResult
     """
     def list_cross_border_codes(self, country, hsCode, include=None):        return requests.get('{}/api/v2/definitions/crossborder/{}/{}'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2902,7 +2902,7 @@ class Mixin:
       ### Security Policies
       * This API depends on the following active services<br />*Required* (all): AvaTaxGlobal.
     
-      :return FetchResult
+      :return HsCodeModelFetchResult
     """
     def list_cross_border_sections(self):        return requests.get('{}/api/v2/definitions/crossborder/sections'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -2918,7 +2918,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CurrencyModelFetchResult
     """
     def list_currencies(self, include=None):        return requests.get('{}/api/v2/definitions/currencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2936,7 +2936,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return EntityUseCodeModelFetchResult
     """
     def list_entity_use_codes(self, include=None):        return requests.get('{}/api/v2/definitions/entityusecodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2951,7 +2951,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return FilingFrequencyModelFetchResult
     """
     def list_filing_frequencies(self, include=None):        return requests.get('{}/api/v2/definitions/filingfrequencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2968,7 +2968,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return JurisdictionModelFetchResult
     """
     def list_jurisdictions(self, include=None):        return requests.get('{}/api/v2/definitions/jurisdictions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -2993,7 +2993,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return JurisdictionOverrideModelFetchResult
     """
     def list_jurisdictions_by_address(self, include=None):        return requests.get('{}/api/v2/definitions/jurisdictionsnearaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3021,7 +3021,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return LocationQuestionModelFetchResult
     """
     def list_location_questions_by_address(self, include=None):        return requests.get('{}/api/v2/definitions/locationquestions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3037,7 +3037,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SkyscraperStatusModelFetchResult
     """
     def list_login_verifiers(self, include=None):        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3051,7 +3051,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return MarketplaceLocationModelFetchResult
     """
     def list_marketplace_locations(self, include=None):        return requests.get('{}/api/v2/definitions/marketplacelocations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3066,7 +3066,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusModelFetchResult
     """
     def list_nexus(self, include=None):        return requests.get('{}/api/v2/definitions/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3091,7 +3091,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusModelFetchResult
     """
     def list_nexus_by_address(self, include=None):        return requests.get('{}/api/v2/definitions/nexus/byaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3107,7 +3107,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusModelFetchResult
     """
     def list_nexus_by_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/nexus/{}'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3124,7 +3124,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusModelFetchResult
     """
     def list_nexus_by_country_and_region(self, country, region, include=None):        return requests.get('{}/api/v2/definitions/nexus/{}/{}'.format(self.base_url, country, region),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3160,7 +3160,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusModelFetchResult
     """
     def list_nexus_by_tax_type_group(self, taxTypeGroup, include=None):        return requests.get('{}/api/v2/definitions/nexus/bytaxtypegroup/{}'.format(self.base_url, taxTypeGroup),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3175,7 +3175,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusTaxTypeGroupModelFetchResult
     """
     def list_nexus_tax_type_groups(self, include=None):        return requests.get('{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3190,7 +3190,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeCustomerFundingOptionModelFetchResult
     """
     def list_notice_customer_funding_options(self, include=None):        return requests.get('{}/api/v2/definitions/noticecustomerfundingoptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3205,7 +3205,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeCustomerTypeModelFetchResult
     """
     def list_notice_customer_types(self, include=None):        return requests.get('{}/api/v2/definitions/noticecustomertypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3220,7 +3220,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeFilingTypeModelFetchResult
     """
     def list_notice_filingtypes(self, include=None):        return requests.get('{}/api/v2/definitions/noticefilingtypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3235,7 +3235,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticePriorityModelFetchResult
     """
     def list_notice_priorities(self, include=None):        return requests.get('{}/api/v2/definitions/noticepriorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3250,7 +3250,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeReasonModelFetchResult
     """
     def list_notice_reasons(self, include=None):        return requests.get('{}/api/v2/definitions/noticereasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3265,7 +3265,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeResponsibilityModelFetchResult
     """
     def list_notice_responsibilities(self, include=None):        return requests.get('{}/api/v2/definitions/noticeresponsibilities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3280,7 +3280,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeRootCauseModelFetchResult
     """
     def list_notice_root_causes(self, include=None):        return requests.get('{}/api/v2/definitions/noticerootcauses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3295,7 +3295,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeStatusModelFetchResult
     """
     def list_notice_statuses(self, include=None):        return requests.get('{}/api/v2/definitions/noticestatuses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3310,7 +3310,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeTypeModelFetchResult
     """
     def list_notice_types(self, include=None):        return requests.get('{}/api/v2/definitions/noticetypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3326,7 +3326,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ParameterModelFetchResult
     """
     def list_parameters(self, include=None):        return requests.get('{}/api/v2/definitions/parameters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3344,7 +3344,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ParameterModelFetchResult
     """
     def list_parameters_by_item(self, companyCode, itemCode, include=None):        return requests.get('{}/api/v2/definitions/parameters/byitem/{}/{}'.format(self.base_url, companyCode, itemCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3360,7 +3360,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ParameterUsageModelFetchResult
     """
     def list_parameters_usage(self, include=None):        return requests.get('{}/api/v2/definitions/parametersusage'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3373,7 +3373,7 @@ class Mixin:
     
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :return FetchResult
+      :return StringFetchResult
     """
     def list_permissions(self, include=None):        return requests.get('{}/api/v2/definitions/permissions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3387,7 +3387,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return PostalCodeModelFetchResult
     """
     def list_postal_codes(self, include=None):        return requests.get('{}/api/v2/definitions/postalcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3407,7 +3407,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return PreferredProgramModelFetchResult
     """
     def list_preferred_programs(self, include=None):        return requests.get('{}/api/v2/definitions/preferredprograms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3424,7 +3424,7 @@ class Mixin:
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param countryCode [string] If not null, return all records with this code.
-      :return FetchResult
+      :return ProductClassificationSystemModelFetchResult
     """
     def list_product_classification_systems(self, include=None):        return requests.get('{}/api/v2/definitions/productclassificationsystems'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3442,7 +3442,7 @@ class Mixin:
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param countryCode [string] If not null, return all records with this code.
-      :return FetchResult
+      :return ProductClassificationSystemModelFetchResult
     """
     def list_product_classification_systems_by_company(self, companyCode, include=None):        return requests.get('{}/api/v2/definitions/productclassificationsystems/bycompany/{}'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3458,7 +3458,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return RateTypeModelFetchResult
     """
     def list_rate_types_by_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/countries/{}/ratetypes'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3474,7 +3474,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return IsoRegionModelFetchResult
     """
     def list_regions(self, include=None):        return requests.get('{}/api/v2/definitions/regions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3491,7 +3491,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return IsoRegionModelFetchResult
     """
     def list_regions_by_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/countries/{}/regions'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3506,7 +3506,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ResourceFileTypeModelFetchResult
     """
     def list_resource_file_types(self, include=None):        return requests.get('{}/api/v2/definitions/resourcefiletypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3522,7 +3522,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SecurityRoleModelFetchResult
     """
     def list_security_roles(self, include=None):        return requests.get('{}/api/v2/definitions/securityroles'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3539,7 +3539,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SubscriptionTypeModelFetchResult
     """
     def list_subscription_types(self, include=None):        return requests.get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3554,7 +3554,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxAuthorityModelFetchResult
     """
     def list_tax_authorities(self, include=None):        return requests.get('{}/api/v2/definitions/taxauthorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3571,7 +3571,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxAuthorityFormModelFetchResult
     """
     def list_tax_authority_forms(self, include=None):        return requests.get('{}/api/v2/definitions/taxauthorityforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3586,7 +3586,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxAuthorityTypeModelFetchResult
     """
     def list_tax_authority_types(self, include=None):        return requests.get('{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3606,7 +3606,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxCodeModelFetchResult
     """
     def list_tax_codes(self, include=None):        return requests.get('{}/api/v2/definitions/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3635,7 +3635,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return FormMasterModelFetchResult
     """
     def list_tax_forms(self, include=None):        return requests.get('{}/api/v2/definitions/taxforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3650,7 +3650,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxSubTypeModelFetchResult
     """
     def list_tax_sub_types(self, include=None):        return requests.get('{}/api/v2/definitions/taxsubtypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3667,7 +3667,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxSubTypeModelFetchResult
     """
     def list_tax_sub_types_by_jurisdiction_and_region(self, jurisdictionCode, region, include=None):        return requests.get('{}/api/v2/definitions/taxsubtypes/{}/{}'.format(self.base_url, jurisdictionCode, region),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3682,7 +3682,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxTypeGroupModelFetchResult
     """
     def list_tax_type_groups(self, include=None):        return requests.get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3697,7 +3697,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return UomModelFetchResult
     """
     def list_unit_of_measurement(self, include=None):        return requests.get('{}/api/v2/definitions/unitofmeasurements'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3716,7 +3716,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CustomerAttributeModelFetchResult
     """
     def query_company_customer_attributes(self, include=None):        return requests.get('{}/api/v2/definitions/customerattributes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3788,7 +3788,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CompanyDistanceThresholdModelFetchResult
     """
     def list_distance_thresholds(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3810,7 +3810,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return CompanyDistanceThresholdModelFetchResult
     """
     def query_distance_thresholds(self, include=None):        return requests.get('{}/api/v2/distancethresholds'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3873,7 +3873,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return EcmsModelFetchResult
     """
     def list_e_c_m_s_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/ecms'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3897,7 +3897,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return EcmsModelFetchResult
     """
     def query_e_c_m_s(self, include=None):        return requests.get('{}/api/v2/ecms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3912,7 +3912,7 @@ class Mixin:
     
       :param companyId [int] The company ID that will be issued this certificate.
       :param model [CreateECommerceTokenInputModel] 
-      :return FetchResult
+      :return ECommerceTokenOutputModelFetchResult
     """
     def create_e_commerce_token(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -3927,7 +3927,7 @@ class Mixin:
     
       :param companyId [int] The company ID that the refreshed certificate belongs to.
       :param model [RefreshECommerceTokenInputModel] 
-      :return FetchResult
+      :return ECommerceTokenOutputModelFetchResult
     """
     def refresh_e_commerce_token(self, companyId, model):        return requests.put('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -3961,7 +3961,7 @@ class Mixin:
       :param companyId [int] ID number of the company to query from.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :return CappedFetchResult
+      :return ErrorCodeOutputModelCappedFetchResult
     """
     def list_error_codes(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/errortransactions/errorcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -3982,7 +3982,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return CappedFetchResult
+      :return ErrorTransactionOutputModelCappedFetchResult
     """
     def list_error_transactions(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/errortransactions'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4232,7 +4232,7 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param returnCountry [string] A comma separated list of countries
       :param returnRegion [string] A comma separated list of regions
-      :return FetchResult
+      :return FilingCalendarModelFetchResult
     """
     def list_filing_calendars(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filingcalendars'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4253,7 +4253,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return FilingRequestModelFetchResult
     """
     def list_filing_requests(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filingrequests'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4304,7 +4304,7 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :param returnCountry [string] If specified, fetches only filing calendars that apply to tax filings in this specific country. Uses ISO 3166 country codes.
       :param returnRegion [string] If specified, fetches only filing calendars that apply to tax filings in this specific region. Uses ISO 3166 region codes.
-      :return FetchResult
+      :return FilingCalendarModelFetchResult
     """
     def query_filing_calendars(self, include=None):        return requests.get('{}/api/v2/filingcalendars'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4322,7 +4322,7 @@ class Mixin:
       :param returnCountry [string] If specified, fetches only filing calendars that apply to tax filings in this specific country. Uses ISO 3166 country codes.
       :param returnRegion [string] If specified, fetches only filing calendars that apply to tax filings in this specific region. Uses ISO 3166 region codes.
       :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
-      :return FetchResult
+      :return FilingCalendarModelFetchResult
     """
     def query_filing_calendars_post(self, model, include=None):        return requests.post('{}/api/v2/filingcalendars/query'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -4345,7 +4345,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return FilingRequestModelFetchResult
     """
     def query_filing_requests(self, include=None):        return requests.get('{}/api/v2/filingrequests'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4362,7 +4362,7 @@ class Mixin:
     
       :param filingCalendarId [int] Specific filing calendar id for the request
       :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
-      :return FetchResult
+      :return FilingRequestModelFetchResult
     """
     def query_filing_requests_post(self, model, include=None):        return requests.post('{}/api/v2/filingrequests/query'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
@@ -4666,7 +4666,7 @@ class Mixin:
     
       :param companyId [int] The ID of the company that owns these returns
       :param filingReturnId [int] The ID of the filing return
-      :return FetchResult
+      :return MultiTaxFilingModelFetchResult
     """
     def get_accrual_filings(self, companyId, filingReturnId):        return requests.get('{}/api/v2/companies/{}/filings/accrual/{}'.format(self.base_url, companyId, filingReturnId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4688,7 +4688,7 @@ class Mixin:
       :param region [string] The region of the return(s) you are trying to retrieve
       :param filingCalendarId [int] The filing calendar id of the return you are trying to retrieve
       :param taxformCode [string] The unique tax form code of the form.
-      :return FetchResult
+      :return FiledReturnModelFetchResult
     """
     def get_filed_returns(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filings/returns/filed'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4776,7 +4776,7 @@ class Mixin:
       :param companyId [int] The ID of the company that owns the filings.
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
-      :return FetchResult
+      :return FilingModelFetchResult
     """
     def get_filings(self, companyId, year, month):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}'.format(self.base_url, companyId, year, month),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4795,7 +4795,7 @@ class Mixin:
       :param year [int] The year of the filing period.
       :param month [int] The two digit month of the filing period.
       :param country [string] The two-character ISO-3166 code for the country.
-      :return FetchResult
+      :return FilingModelFetchResult
     """
     def get_filings_by_country(self, companyId, year, month, country):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}'.format(self.base_url, companyId, year, month, country),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4815,7 +4815,7 @@ class Mixin:
       :param month [int] The two digit month of the filing period.
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
-      :return FetchResult
+      :return FilingModelFetchResult
     """
     def get_filings_by_country_region(self, companyId, year, month, country, region):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}/{}'.format(self.base_url, companyId, year, month, country, region),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4836,7 +4836,7 @@ class Mixin:
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
       :param formCode [string] The unique code of the form.
-      :return FetchResult
+      :return FilingModelFetchResult
     """
     def get_filings_by_return_name(self, companyId, year, month, country, region, formCode):        return requests.get('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/{}'.format(self.base_url, companyId, year, month, country, region, formCode),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -4858,7 +4858,7 @@ class Mixin:
       :param region [string] The region of the return(s) you are trying to retrieve
       :param filingCalendarId [int] The filing calendar id of the return you are trying to retrieve
       :param taxformCode [string] The unique tax form code of the form.
-      :return FetchResult
+      :return FilingReturnModelBasicFetchResult
     """
     def get_filings_returns(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filings/returns'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4879,7 +4879,7 @@ class Mixin:
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
       :param formCode [string] The unique code of the form.
-      :return FetchResult
+      :return MultiTaxFilingModelFetchResult
     """
     def get_tax_filings(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -4901,7 +4901,7 @@ class Mixin:
       :param year [int] The year of the filing period to be rebuilt.
       :param month [int] The month of the filing period to be rebuilt.
       :param model [RebuildFilingsModel] The rebuild request you wish to execute.
-      :return FetchResult
+      :return FilingModelFetchResult
     """
     def rebuild_filings(self, companyId, year, month, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/rebuild'.format(self.base_url, companyId, year, month),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4924,7 +4924,7 @@ class Mixin:
       :param month [int] The month of the filing period to be rebuilt.
       :param country [string] The two-character ISO-3166 code for the country.
       :param model [RebuildFilingsModel] The rebuild request you wish to execute.
-      :return FetchResult
+      :return FilingModelFetchResult
     """
     def rebuild_filings_by_country(self, companyId, year, month, country, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -4948,7 +4948,7 @@ class Mixin:
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
       :param model [RebuildFilingsModel] The rebuild request you wish to execute.
-      :return FetchResult
+      :return FilingModelFetchResult
     """
     def rebuild_filings_by_country_region(self, companyId, year, month, country, region, model):        return requests.post('{}/api/v2/companies/{}/filings/{}/{}/{}/{}/rebuild'.format(self.base_url, companyId, year, month, country, region),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -5094,7 +5094,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* firmAccountName, clientAccountName
-      :return FetchResult
+      :return FirmClientLinkageOutputModelFetchResult
     """
     def list_firm_client_linkage(self, include=None):        return requests.get('{}/api/v2/firmclientlinkages'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5489,7 +5489,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ItemClassificationOutputModelFetchResult
     """
     def list_item_classifications(self, companyId, itemId, include=None):        return requests.get('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5512,7 +5512,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ItemParameterModelFetchResult
     """
     def list_item_parameters(self, companyId, itemId, include=None):        return requests.get('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5540,7 +5540,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ItemModelFetchResult
     """
     def list_items_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5564,7 +5564,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return ItemModelFetchResult
     """
     def query_items(self, include=None):        return requests.get('{}/api/v2/items'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5721,7 +5721,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return JurisdictionOverrideModelFetchResult
     """
     def list_jurisdiction_overrides_by_account(self, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5744,7 +5744,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return JurisdictionOverrideModelFetchResult
     """
     def query_jurisdiction_overrides(self, include=None):        return requests.get('{}/api/v2/jurisdictionoverrides'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5888,7 +5888,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return LocationParameterModelFetchResult
     """
     def list_location_parameters(self, companyId, locationId, include=None):        return requests.get('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5915,7 +5915,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return LocationModelFetchResult
     """
     def list_locations_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -5941,7 +5941,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return LocationModelFetchResult
     """
     def query_locations(self, include=None):        return requests.get('{}/api/v2/locations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6251,7 +6251,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return MultiDocumentModelFetchResult
     """
     def list_multi_document_transactions(self, include=None):        return requests.get('{}/api/v2/transactions/multidocument'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6565,7 +6565,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusModelFetchResult
     """
     def list_nexus_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6588,7 +6588,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusParameterDetailModelFetchResult
     """
     def list_nexus_parameters(self, companyId, nexusId, include=None):        return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6631,7 +6631,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NexusModelFetchResult
     """
     def query_nexus(self, include=None):        return requests.get('{}/api/v2/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -6920,7 +6920,7 @@ class Mixin:
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
-      :return FetchResult
+      :return NoticeCommentModelFetchResult
     """
     def get_notice_comments(self, id_, companyId):        return requests.get('{}/api/v2/companies/{}/notices/{}/comments'.format(self.base_url, id_, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6939,7 +6939,7 @@ class Mixin:
     
       :param id_ [int] The ID of the company that owns these notices.
       :param companyId [int] The ID of the company that owns these notices.
-      :return FetchResult
+      :return NoticeFinanceModelFetchResult
     """
     def get_notice_finance_details(self, id_, companyId):        return requests.get('{}/api/v2/companies/{}/notices/{}/financedetails'.format(self.base_url, id_, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6957,7 +6957,7 @@ class Mixin:
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
-      :return FetchResult
+      :return NoticeResponsibilityDetailModelFetchResult
     """
     def get_notice_responsibilities(self, id_, companyId):        return requests.get('{}/api/v2/companies/{}/notices/{}/responsibilities'.format(self.base_url, id_, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6975,7 +6975,7 @@ class Mixin:
     
       :param id_ [int] The ID of the notice.
       :param companyId [int] The ID of the company that owns these notices.
-      :return FetchResult
+      :return NoticeRootCauseDetailModelFetchResult
     """
     def get_notice_root_causes(self, id_, companyId):        return requests.get('{}/api/v2/companies/{}/notices/{}/rootcauses'.format(self.base_url, id_, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
@@ -6999,7 +6999,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeModelFetchResult
     """
     def list_notices_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/notices'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7023,7 +7023,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NoticeModelFetchResult
     """
     def query_notices(self, include=None):        return requests.get('{}/api/v2/notices'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7039,7 +7039,7 @@ class Mixin:
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param model [QueryRequestModel] Query object to filter, sort and paginate the filing calendars.
-      :return FetchResult
+      :return NoticeModelFetchResult
     """
     def query_notices_post(self, model):        return requests.post('{}/api/v2/notices/query'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -7177,7 +7177,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return NotificationModelFetchResult
     """
     def list_notifications(self, include=None):        return requests.get('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7503,7 +7503,7 @@ class Mixin:
       :param pageKey [string] Provide a page key to retrieve the next page of results.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :return FetchResult
+      :return ReportModelFetchResult
     """
     def list_reports(self, include=None):        return requests.get('{}/api/v2/reports'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7593,7 +7593,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SettingModelFetchResult
     """
     def list_settings_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7619,7 +7619,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SettingModelFetchResult
     """
     def query_settings(self, include=None):        return requests.get('{}/api/v2/settings'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7680,7 +7680,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SubscriptionModelFetchResult
     """
     def list_subscriptions_by_account(self, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7700,7 +7700,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return SubscriptionModelFetchResult
     """
     def query_subscriptions(self, include=None):        return requests.get('{}/api/v2/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7774,7 +7774,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxCodeModelFetchResult
     """
     def list_tax_codes_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -7797,7 +7797,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxCodeModelFetchResult
     """
     def query_tax_codes(self, include=None):        return requests.get('{}/api/v2/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8095,7 +8095,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxRuleModelFetchResult
     """
     def list_tax_rules(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8123,7 +8123,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TaxRuleModelFetchResult
     """
     def query_tax_rules(self, include=None):        return requests.get('{}/api/v2/taxrules'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8641,7 +8641,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return TransactionModelFetchResult
     """
     def list_transactions_by_company(self, companyCode, include=None):        return requests.get('{}/api/v2/companies/{}/transactions'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8976,7 +8976,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return UPCModelFetchResult
     """
     def list_u_p_cs_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -8997,7 +8997,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return UPCModelFetchResult
     """
     def query_u_p_cs(self, include=None):        return requests.get('{}/api/v2/upcs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -9138,7 +9138,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return UserModelFetchResult
     """
     def list_users_by_account(self, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -9163,7 +9163,7 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return FetchResult
+      :return UserModelFetchResult
     """
     def query_users(self, include=None):        return requests.get('{}/api/v2/users'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
@@ -9212,7 +9212,7 @@ class Mixin:
       or subscription to provide useful information to the current user as to whether they are entitled to use
       specific features of AvaTax.
     
-      :return FetchResult
+      :return SubscriptionModelFetchResult
     """
     def list_my_subscriptions(self):        return requests.get('{}/api/v2/utilities/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
