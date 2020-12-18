@@ -229,13 +229,13 @@ class Mixin:
       'messages' structure to learn more about problems with this address.
       This is the same API as the POST /api/v2/addresses/resolve endpoint.
       Both verbs are supported to provide for flexible implementation.
-      Inorder to get any evaluation for an address please provide atleast one of the following fields/pairs:
+      In order to get any evaluation for an address, please provide at least one of the following fields/pairs:
       1. postal code
       2. line1 + city + region
       3. line1 + postal code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AutoAddress.
+      * This API depends on the following active services:*Required* (all): AutoAddress.
     
       :param line1 [string] Line 1
       :param line2 [string] Line 2
@@ -261,7 +261,7 @@ class Mixin:
       Both verbs are supported to provide for flexible implementation.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AutoAddress.
+      * This API depends on the following active services:*Required* (all): AutoAddress.
     
       :param model [AddressValidationInfo] The address to resolve
       :return AddressResolutionModel
@@ -351,7 +351,7 @@ class Mixin:
       A 'AvaFileForm' represents a form supported by our returns team
       ### Security Policies
       * This API requires the user role Compliance Root User.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param model [AvaFileFormModel] The AvaFileForm you wish to create.
       :return AvaFileFormModel
@@ -365,7 +365,7 @@ class Mixin:
     Marks the existing AvaFileForm object at this URL as deleted.
       ### Security Policies
       * This API requires one of the following user roles: Compliance Root User, ComplianceUser, FirmAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The ID of the AvaFileForm you wish to delete.
       :return ErrorDetail
@@ -379,7 +379,7 @@ class Mixin:
     Get the AvaFileForm object identified by this URL.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The primary key of this AvaFileForm
       :return AvaFileFormModel
@@ -394,7 +394,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* outletTypeId
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -412,7 +412,7 @@ class Mixin:
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
       * This API requires the user role Compliance Root User.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The ID of the AvaFileForm you wish to update
       :param model [AvaFileFormModel] The AvaFileForm model you wish to update.
@@ -633,13 +633,13 @@ class Mixin:
       The [CertExpress website](https://app.certexpress.com/home) is available for customers to use at any time.
       Using CertExpress with this API will ensure that your certificates are automatically linked correctly into
       your company so that they can be used for tax exemptions.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that will record certificates
       :param customerCode [string] The number of the customer where the request is sent to
@@ -660,13 +660,13 @@ class Mixin:
       The [CertExpress website](https://app.certexpress.com/home) is available for customers to use at any time.
       Using CertExpress with this API will ensure that your certificates are automatically linked correctly into
       your company so that they can be used for tax exemptions.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that issued this invitation
       :param customerCode [string] The number of the customer where the request is sent to
@@ -688,13 +688,13 @@ class Mixin:
       The [CertExpress website](https://app.certexpress.com/home) is available for customers to use at any time.
       Using CertExpress with this API will ensure that your certificates are automatically linked correctly into
       your company so that they can be used for tax exemptions.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that issued this invitation
       :param include [string] OPTIONAL: A comma separated list of special fetch options.      No options are defined at this time.
@@ -721,14 +721,14 @@ class Mixin:
       * An exposure zone indicating where the certificate is valid
       * A link to the customer that is allowed to use this certificate
       * Your tax transaction must contain the correct customer code
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       If the users specified in the certificates do not exist, the API will create the user and link them to the certificate
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company recording this certificate
       :param preValidatedExemptionReason [boolean] If set to true, the certificate will bypass the human verification process.
@@ -747,13 +747,13 @@ class Mixin:
       criteria you specify when you store the certificate. To view or manage your certificates directly, please
       log onto the administrative website for the product you purchased.
       Revoked certificates can no longer be used.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -772,13 +772,13 @@ class Mixin:
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
       criteria you specify when you store the certificate. To view or manage your certificates directly, please
       log onto the administrative website for the product you purchased.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -801,13 +801,13 @@ class Mixin:
       * customers - Retrieves the list of customers linked to the certificate.
       * po_numbers - Retrieves all PO numbers tied to the certificate.
       * attributes - Retrieves all attributes applied to the certificate.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -828,7 +828,7 @@ class Mixin:
       be configured with data storage in the auditable certificate system.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The company ID to check
       :return ProvisionStatusModel
@@ -846,13 +846,13 @@ class Mixin:
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
       criteria you specify when you store the certificate. To view or manage your certificates directly, please
       log onto the administrative website for the product you purchased.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -873,13 +873,13 @@ class Mixin:
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
       criteria you specify when you store the certificate. To view or manage your certificates directly, please
       log onto the administrative website for the product you purchased.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -899,13 +899,13 @@ class Mixin:
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
       criteria you specify when you store the certificate. To view or manage your certificates directly, please
       log onto the administrative website for the product you purchased.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -924,13 +924,13 @@ class Mixin:
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
       criteria you specify when you store the certificate. To view or manage your certificates directly, please
       log onto the administrative website for the product you purchased.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -952,13 +952,13 @@ class Mixin:
       * customers - Retrieves the list of customers linked to the certificate.
       * po_numbers - Retrieves all PO numbers tied to the certificate.
       * attributes - Retrieves all attributes applied to the certificate.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company to search
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.
@@ -983,7 +983,7 @@ class Mixin:
       This API will return the current status of exemption certificate setup for this company.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] 
       :return ProvisionStatusModel
@@ -1001,13 +1001,13 @@ class Mixin:
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
       criteria you specify when you store the certificate. To view or manage your certificates directly, please
       log onto the administrative website for the product you purchased.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -1029,13 +1029,13 @@ class Mixin:
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
       criteria you specify when you store the certificate. To view or manage your certificates directly, please
       log onto the administrative website for the product you purchased.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -1053,13 +1053,13 @@ class Mixin:
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
       criteria you specify when you store the certificate. To view or manage your certificates directly, please
       log onto the administrative website for the product you purchased.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -1079,13 +1079,13 @@ class Mixin:
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
       criteria you specify when you store the certificate. To view or manage your certificates directly, please
       log onto the administrative website for the product you purchased.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
@@ -1222,7 +1222,7 @@ class Mixin:
       This API records that an ambedded HTML funding setup widget was activated.
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       ### Security Policies
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The unique identifier of the company
@@ -1271,7 +1271,7 @@ class Mixin:
       .
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyId [int] The unique identifier of the company
       :return FundingConfigurationModel
@@ -1288,7 +1288,7 @@ class Mixin:
       .
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyId [int] The unique identifier of the company
       :param currency [string] The currency of the funding. USD and CAD are the only valid currencies
@@ -1412,7 +1412,7 @@ class Mixin:
       Returns a list of funding setup requests and their current status.
       Each object in the result is a request that was made to setup or adjust funding status for this company.
       ### Security Policies
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The unique identifier of the company
@@ -1455,7 +1455,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param include [string] A comma separated list of objects to fetch underneath this company. Any object with a URL path underneath this company can be fetched by specifying its name.
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* IsFein, contacts, items, locations, nexus, settings, taxCodes, taxRules, upcs, nonReportingChildCompanies, exemptCerts, parameters
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* IsFein, contacts, items, locations, nexus, settings, taxCodes, taxRules, upcs, nonReportingChildCompanies, exemptCerts, parameters, supplierandcustomers
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -1651,13 +1651,13 @@ class Mixin:
       AvaTax will record the appropriate elements of the transaction as exempt and link it to the `certificate`.
       A nested object such as CustomFields could be specified and created along with the customer object. To fetch the
       nested object, please call 'GetCustomer' API with appropriate $include parameters.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param model [CustomerModel] The list of customer objects to be created
@@ -1675,13 +1675,13 @@ class Mixin:
       record in your `CreateTransaction` API call. AvaTax will search for this `customerCode` value and
       identify any certificates linked to this `customer` object. If any certificate applies to the transaction,
       AvaTax will record the appropriate elements of the transaction as exempt and link it to the `certificate`.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1703,13 +1703,13 @@ class Mixin:
       * Certificates - Fetch a list of certificates linked to this customer.
       * CustomFields - Fetch a list of custom fields associated to this customer.
       * attributes - Retrieves all attributes applied to the customer.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1730,13 +1730,13 @@ class Mixin:
       record in your `CreateTransaction` API call. AvaTax will search for this `customerCode` value and
       identify any certificates linked to this customer object. If any certificate applies to the transaction,
       AvaTax will record the appropriate elements of the transaction as exempt and link it to the `certificate`.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded the provided customer
       :param customerCode [string] The unique code representing the current customer
@@ -1755,13 +1755,13 @@ class Mixin:
       record in your `CreateTransaction` API call. AvaTax will search for this `customerCode` value and
       identify any certificates linked to this `customer` object. If any certificate applies to the transaction,
       AvaTax will record the appropriate elements of the transaction as exempt and link it to the `certificate`.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1786,7 +1786,7 @@ class Mixin:
       of the same kind together.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company defining customers.
       :param code [string] The code of the bill-to customer to link.
@@ -1807,13 +1807,13 @@ class Mixin:
       record in your `CreateTransaction` API call. AvaTax will search for this `customerCode` value and
       identify any certificates linked to this customer object. If any certificate applies to the transaction,
       AvaTax will record the appropriate elements of the transaction as exempt and link it to the `certificate`.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded the provided customer
       :param customerCode [string] The unique code representing the current customer
@@ -1831,13 +1831,13 @@ class Mixin:
       record in your `CreateTransaction` API call. AvaTax will search for this `customerCode` value and
       identify any certificates linked to this `customer` object. If any certificate applies to the transaction,
       AvaTax will record the appropriate elements of the transaction as exempt and link it to the `certificate`.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1862,13 +1862,13 @@ class Mixin:
       If a customer does not have a certificate on file and they wish to provide one, you should send the customer
       a CertExpress invitation link so that the customer can upload proof of their exemption certificate. Please
       see the `CreateCertExpressInvitation` API to create an invitation link for this customer.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1891,13 +1891,13 @@ class Mixin:
       You can use the `$include` parameter to fetch the following additional objects for expansion:
       * Certificates - Fetch a list of certificates linked to this customer.
       * attributes - Retrieves all attributes applied to the customer.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param include [string] OPTIONAL - You can specify the value `certificates` to fetch information about certificates linked to the customer.
@@ -1921,13 +1921,13 @@ class Mixin:
       record in your `CreateTransaction` API call. AvaTax will search for this `customerCode` value and
       identify any certificates linked to this customer object. If any certificate applies to the transaction,
       AvaTax will record the appropriate elements of the transaction as exempt and link it to the `certificate`.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded the customer
       :param customerCode [string] The unique code representing the current customer
@@ -1946,13 +1946,13 @@ class Mixin:
       record in your `CreateTransaction` API call. AvaTax will search for this `customerCode` value and
       identify any certificates linked to this `customer` object. If any certificate applies to the transaction,
       AvaTax will record the appropriate elements of the transaction as exempt and link it to the `certificate`.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1971,13 +1971,13 @@ class Mixin:
       record in your `CreateTransaction` API call. AvaTax will search for this `customerCode` value and
       identify any certificates linked to this `customer` object. If any certificate applies to the transaction,
       AvaTax will record the appropriate elements of the transaction as exempt and link it to the `certificate`.
-      Using exemption certificates endpoints requires setup of an auditable document storage for each company that will use certificates.
-      Companies that do not have this storage system set up will receive the error `CertCaptureNotConfiguredError` when they call exemption
-      certificate related APIs. To check if this company is set up, call `GetCertificateSetup`. To request setup of the auditable document
-      storage for this company, call `RequestCertificateSetup`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
@@ -1993,7 +1993,7 @@ class Mixin:
     Create one or more datasource objects.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company you which to create the datasources
       :param model [DataSourceModel] 
@@ -2008,7 +2008,7 @@ class Mixin:
     Marks the existing datasource for a company as deleted.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company the datasource belongs to.
       :param id_ [int] The id of the datasource you wish to delete.
@@ -2023,7 +2023,7 @@ class Mixin:
     Retrieve the data source by its unique ID number.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] 
       :param id_ [int] data source id
@@ -2038,7 +2038,7 @@ class Mixin:
     Gets multiple datasource objects for a given company.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company you wish to retrieve the datasources.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isEnabled, isSynced, isAuthorized, name, externalState
@@ -2058,7 +2058,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isEnabled, isSynced, isAuthorized, name, externalState
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -2075,7 +2075,7 @@ class Mixin:
     Updates a datasource for a company.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company the datasource belongs to.
       :param id_ [int] The id of the datasource you wish to delete.
@@ -2096,7 +2096,7 @@ class Mixin:
       This API is intended to be useful to review the descriptive hierarchy of an HS Code, which can be particularly helpful
       when HS Codes can have multiple levels of generic descriptions.
       ### Security Policies
-      * This API depends on the following active services<br />*Required* (all): AvaTaxGlobal.
+      * This API depends on the following active services:*Required* (all): AvaTaxGlobal.
     
       :param country [string] The name or code of the destination country.
       :param hsCode [string] The partial or full HS Code for which you would like to view all of the parents.
@@ -2283,7 +2283,7 @@ class Mixin:
       Section/Chapter/Heading/Subheading/Classification.
       This API is intended to be useful to identify the correct HS Code to use for your item.
       ### Security Policies
-      * This API depends on the following active services<br />*Required* (all): AvaTaxGlobal.
+      * This API depends on the following active services:*Required* (all): AvaTaxGlobal.
     
       :param country [string] The name or code of the destination country.
       :param hsCode [string] The Section or partial HS Code for which you would like to view the next level of HS Code detail, if more detail is available.
@@ -2305,7 +2305,7 @@ class Mixin:
       This API is intended to be useful to identify the top level Sections for
       further LandedCost HS Code lookups.
       ### Security Policies
-      * This API depends on the following active services<br />*Required* (all): AvaTaxGlobal.
+      * This API depends on the following active services:*Required* (all): AvaTaxGlobal.
     
       :return FetchResult
     """
@@ -3198,7 +3198,7 @@ class Mixin:
     
       :param companyId [int] The company ID that will be issued this certificate.
       :param model [CreateECommerceTokenInputModel] 
-      :return FetchResult
+      :return ECommerceTokenOutputModel
     """
     def create_e_commerce_token(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
@@ -3216,6 +3216,22 @@ class Mixin:
       :return FetchResult
     """
     def refresh_e_commerce_token(self, companyId, model):        return requests.put('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Add or Edit options
+    
+    Returns a list of options for adding tax forms for the company and tax form code specified.
+      Returns edit options when modifying a filing calendar.
+      This API is available by invitation only.
+      ### Security Policies
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The unique ID of the company that owns the filing calendar object
+      :param model [CycleSafeEditRequestModel] Cycle Safe Options Request
+      :return CycleSafeOptionResultModel
+    """
+    def cycle_safe_options(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars/edit/cycleSafeOptions'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -3251,8 +3267,8 @@ class Mixin:
     
     ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API is available by invitation only.<br />*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser, CompanyUser, AccountUser, CompanyAdmin, AccountAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+      * This API is available by invitation only.*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser, CompanyUser, AccountUser, CompanyAdmin, AccountAdmin.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyId [int] The ID of the company that owns these batches
       :param endPeriodMonth [int] The month of the period you are trying to retrieve
@@ -3493,7 +3509,7 @@ class Mixin:
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The unique ID number of this funding request
       :return FundingStatusModel
@@ -3516,7 +3532,7 @@ class Mixin:
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The unique ID number of this funding request
       :return FundingStatusModel
@@ -4163,7 +4179,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns these locations
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* settings, parameters
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isMarketplaceOutsideUsa, settings, parameters
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4189,7 +4205,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* settings, parameters
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isMarketplaceOutsideUsa, settings, parameters
       :param include [string] A comma separated list of additional data to retrieve. You may specify `LocationSettings` to retrieve location settings.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4269,7 +4285,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
@@ -4303,7 +4319,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
@@ -4329,7 +4345,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param model [CommitMultiDocumentModel] The commit request you wish to execute
       :return MultiDocumentModel
@@ -4373,7 +4389,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateMultiDocumentModel] the multi document transaction model
@@ -4403,10 +4419,10 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
-      :param code [string] 
-      :param type [DocumentType]  (See DocumentType::* for a list of allowable values)
+      :param code [string] The multidocument code to retrieve
+      :param type [DocumentType] The transaction type to retrieve (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in the response after transaction is created
       :return MultiDocumentModel
     """
@@ -4441,7 +4457,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param id_ [int] The unique ID number of the MultiDocument transaction to retrieve
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -4476,7 +4492,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* documents
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -4527,7 +4543,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param code [string] The code of this MultiDocument transaction
       :param type [DocumentType] The type of this MultiDocument transaction (See DocumentType::* for a list of allowable values)
@@ -4554,7 +4570,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param model [VerifyMultiDocumentModel] Information from your accounting system to verify against this MultiDocument transaction as it is stored in AvaTax
       :return MultiDocumentModel
@@ -4580,7 +4596,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
@@ -5607,7 +5623,7 @@ class Mixin:
       NOTE: This API does not work for Tennessee tax holiday scenarios.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param model [PointOfSaleDataRequestModel] Parameters about the desired file format and report format, specifying which company, locations and TaxCodes to include.
       :return String
@@ -5637,7 +5653,7 @@ class Mixin:
       NOTE: This API does not work for Tennessee tax holiday scenarios.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company that owns this location.
       :param id_ [int] The ID number of the location to retrieve point-of-sale data.
@@ -5867,7 +5883,7 @@ class Mixin:
        If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [AddTransactionLineModel] information about the transaction and lines to be added
@@ -5904,7 +5920,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to adjust
@@ -5939,7 +5955,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
@@ -5971,7 +5987,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
@@ -5991,7 +6007,7 @@ class Mixin:
       sales, purchases, inventory transfer, and returns (also called refunds).
       ### Security Policies
       * This API requires the user role Compliance Root User.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param model [BulkLockTransactionModel] bulk lock request
       :return BulkLockTransactionResult
@@ -6026,7 +6042,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to change
@@ -6105,7 +6121,7 @@ class Mixin:
       * \_-ava3f-\_
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateOrAdjustTransactionModel] The transaction you wish to create or adjust
@@ -6149,7 +6165,7 @@ class Mixin:
       * \_-ava3f-\_
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateTransactionModel] The transaction you wish to create
@@ -6176,7 +6192,7 @@ class Mixin:
        If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [RemoveTransactionLineModel] information about the transaction and lines to be removed
@@ -6210,7 +6226,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to retrieve
@@ -6234,7 +6250,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to retrieve
@@ -6263,7 +6279,7 @@ class Mixin:
       * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param id_ [int] The unique ID number of the transaction to retrieve
       :param include [string] Specifies objects to include in this fetch call
@@ -6299,12 +6315,12 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param dataSourceId [int] Optionally filter transactions to those from a specific data source.
       :param include [string] Specifies objects to include in this fetch call
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* totalDiscount, lines, addresses, locationTypes, summary, taxDetailsByTaxType, parameters, messages, invoiceMessages, isFakeTransaction
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exchangeRateCurrencyCode, totalDiscount, lines, addresses, locationTypes, summary, taxDetailsByTaxType, parameters, messages, invoiceMessages, isFakeTransaction
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -6317,7 +6333,7 @@ class Mixin:
     Lock a single transaction
     
     Lock a transaction uniquely identified by this URL.
-      This API is mainly used for connector developer to simulate what happens when Returns product locks a document.
+      This API is mainly used for connector developers to simulate what happens when the Returns product locks a document.
       After this API call succeeds, the document will be locked and can't be voided or adjusted.
       This API is only available to customers in Sandbox with AvaTaxPro subscription. On production servers, this API is available by invitation only.
       If you have more than one document with the same `code`, specify the `documentType` parameter to choose between them.
@@ -6340,7 +6356,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.<br />*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to lock
@@ -6388,7 +6404,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The code of the company that made the original sale
       :param transactionCode [string] The transaction code of the original sale
@@ -6461,7 +6477,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to Uncommit
@@ -6493,7 +6509,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to commit
@@ -6529,7 +6545,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to settle
@@ -6567,7 +6583,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaTaxPro, BasicReturns.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to void
@@ -6586,7 +6602,7 @@ class Mixin:
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaUpc.
+      * This API depends on the following active services:*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that owns this UPC.
       :param model [UPCModel] The UPC you wish to create.
@@ -6601,7 +6617,7 @@ class Mixin:
     Marks the UPC object identified by this URL as deleted.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaUpc.
+      * This API depends on the following active services:*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that owns this UPC.
       :param id_ [int] The ID of the UPC you wish to delete.
@@ -6617,7 +6633,7 @@ class Mixin:
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaUpc.
+      * This API depends on the following active services:*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that owns this UPC
       :param id_ [int] The primary key of this UPC
@@ -6635,7 +6651,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaUpc.
+      * This API depends on the following active services:*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that owns these UPCs
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -6657,7 +6673,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-      * This API depends on the following active services<br />*Required* (all): AvaUpc.
+      * This API depends on the following active services:*Required* (all): AvaUpc.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
@@ -6678,7 +6694,7 @@ class Mixin:
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-      * This API depends on the following active services<br />*Required* (all): AvaUpc.
+      * This API depends on the following active services:*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that this UPC belongs to.
       :param id_ [int] The ID of the UPC you wish to update
