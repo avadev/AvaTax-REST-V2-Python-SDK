@@ -295,19 +295,6 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
-    Get audit records by account id and date range.
-    
-    
-    
-      :param accountId [int] The ID of the account
-      :param fromDate [string] Date
-      :param toDate [string] Date
-      :return AdvancedRuleLookupFileModel
-    """
-    def get_audit_records(self, accountId, fromDate, toDate):        return requests.get('{}/api/v2/advancedrules/audits/accounts/{}/from/{}/to/{}'.format(self.base_url, accountId, fromDate, toDate),
-                               auth=self.auth, headers=self.client_header, params=None, 
-                               timeout=self.timeout_limit if self.timeout_limit else 1200)
-    r"""
     Get the lookup files for a company
     
     
@@ -2467,7 +2454,7 @@ class Mixin:
     Returns the full list of all Avalara-supported nexus for all countries and regions.
       This API is intended to be useful if your user interface needs to display a selectable list of nexus.
     
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId, taxName, parameters
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId, taxName, parameters, taxableNexus
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -2492,7 +2479,7 @@ class Mixin:
       :param region [string] Name or ISO 3166 code identifying the region portion of the address.      This field supports many different region identifiers:   * Two and three character ISO 3166 region codes   * Fully spelled out names of the region in ISO supported languages   * Common alternative spellings for many regions      For a full list of all supported codes and names, please see the Definitions API `ListRegions`.
       :param postalCode [string] The postal code or zip code portion of this address.
       :param country [string] Name or ISO 3166 code identifying the country portion of this address.      This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries      For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId, taxName, parameters
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId, taxName, parameters, taxableNexus
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -2508,7 +2495,7 @@ class Mixin:
       This API is intended to be useful if your user interface needs to display a selectable list of nexus filtered by country.
     
       :param country [string] The country in which you want to fetch the system nexus
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId, taxName, parameters
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId, taxName, parameters, taxableNexus
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -2525,7 +2512,7 @@ class Mixin:
     
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId, taxName, parameters
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId, taxName, parameters, taxableNexus
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -3425,72 +3412,6 @@ class Mixin:
     """
     def request_free_trial(self, model):        return requests.post('{}/api/v2/accounts/freetrials/request'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 1200)
-    r"""
-    FREE API - Sales tax rates for a specified address
-    
-    # Free-To-Use
-      The TaxRates API is a free-to-use, no cost option for estimating sales tax rates.
-      Any customer can request a free AvaTax account and make use of the TaxRates API.
-      Usage of this API is subject to rate limits. Users who exceed the rate limit will receive HTTP
-      response code 429 - `Too Many Requests`.
-      This API assumes that you are selling general tangible personal property at a retail point-of-sale
-      location in the United States only.
-      For more powerful tax calculation, please consider upgrading to the `CreateTransaction` API,
-      which supports features including, but not limited to:
-      * Nexus declarations
-      * Taxability based on product/service type
-      * Sourcing rules affecting origin/destination states
-      * Customers who are exempt from certain taxes
-      * States that have dollar value thresholds for tax amounts
-      * Refunds for products purchased on a different date
-      * Detailed jurisdiction names and state assigned codes
-      * And more!
-      Please see [Estimating Tax with REST v2](http://developer.avalara.com/blog/2016/11/04/estimating-tax-with-rest-v2/)
-      for information on how to upgrade to the full AvaTax CreateTransaction API.
-    
-      :param line1 [string] The street address of the location.
-      :param line2 [string] The street address of the location.
-      :param line3 [string] The street address of the location.
-      :param city [string] The city name of the location.
-      :param region [string] Name or ISO 3166 code identifying the region within the country.     This field supports many different region identifiers:   * Two and three character ISO 3166 region codes   * Fully spelled out names of the region in ISO supported languages   * Common alternative spellings for many regions     For a full list of all supported codes and names, please see the Definitions API `ListRegions`.
-      :param postalCode [string] The postal code of the location.
-      :param country [string] Name or ISO 3166 code identifying the country.     This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries     For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
-      :return TaxRateModel
-    """
-    def tax_rates_by_address(self, include=None):        return requests.get('{}/api/v2/taxrates/byaddress'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
-                               timeout=self.timeout_limit if self.timeout_limit else 1200)
-    r"""
-    FREE API - Sales tax rates for a specified country and postal code. This API is only available for US postal codes.
-    
-    # Free-To-Use
-      This API is only available for a US postal codes.
-      The TaxRates API is a free-to-use, no cost option for estimating sales tax rates.
-      Any customer can request a free AvaTax account and make use of the TaxRates API.
-      Usage of this API is subject to rate limits. Users who exceed the rate limit will receive HTTP
-      response code 429 - `Too Many Requests`.
-      This API assumes that you are selling general tangible personal property at a retail point-of-sale
-      location in the United States only.
-      For more powerful tax calculation, please consider upgrading to the `CreateTransaction` API,
-      which supports features including, but not limited to:
-      * Nexus declarations
-      * Taxability based on product/service type
-      * Sourcing rules affecting origin/destination states
-      * Customers who are exempt from certain taxes
-      * States that have dollar value thresholds for tax amounts
-      * Refunds for products purchased on a different date
-      * Detailed jurisdiction names and state assigned codes
-      * And more!
-      Please see [Estimating Tax with REST v2](http://developer.avalara.com/blog/2016/11/04/estimating-tax-with-rest-v2/)
-      for information on how to upgrade to the full AvaTax CreateTransaction API.
-    
-      :param country [string] Name or ISO 3166 code identifying the country.     This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries     For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
-      :param postalCode [string] The postal code of the location.
-      :return TaxRateModel
-    """
-    def tax_rates_by_postal_code(self, include=None):        return requests.get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
-                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Request the javascript for a funding setup widget
@@ -4808,7 +4729,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these nexus objects
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId, taxName, parameters
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId, taxName, parameters, taxableNexus
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4855,7 +4776,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId, taxName, parameters
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxAuthorityId, taxName, parameters, taxableNexus
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5253,6 +5174,12 @@ class Mixin:
       * Check the status of a report by calling `GetReport` and passing in the report's `id` value.
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       The `ExportDocumentLine` report produces information about invoice lines recorded within your account.
+      To split large reports into multiple smaller partitions, use the numberOfPartitions and partition properties on ExportDocumentLineModel.
+      Example - split a report into three partitions
+      * Follow the steps above with numberOfPartitions = 3 and partition = 0
+      * Follow the steps above with numberOfPartitions = 3 and partition = 1
+      * Follow the steps above with numberOfPartitions = 3 and partition = 2
+      * Once all three reports are downloaded merge the files on the client side.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
@@ -5710,6 +5637,66 @@ class Mixin:
       :return String
     """
     def download_tax_rates_by_zip_code(self, date, include=None):        return requests.get('{}/api/v2/taxratesbyzipcode/download/{}'.format(self.base_url, date),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Sales tax rates for a specified address
+    
+    Usage of this API is subject to rate limits. Users who exceed the rate limit will receive HTTP
+      response code 429 - `Too Many Requests`.
+      This API assumes that you are selling general tangible personal property at a retail point-of-sale
+      location in the United States only.
+      For more powerful tax calculation, please consider upgrading to the `CreateTransaction` API,
+      which supports features including, but not limited to:
+      * Nexus declarations
+      * Taxability based on product/service type
+      * Sourcing rules affecting origin/destination states
+      * Customers who are exempt from certain taxes
+      * States that have dollar value thresholds for tax amounts
+      * Refunds for products purchased on a different date
+      * Detailed jurisdiction names and state assigned codes
+      * And more!
+      Please see [Estimating Tax with REST v2](http://developer.avalara.com/blog/2016/11/04/estimating-tax-with-rest-v2/)
+      for information on how to upgrade to the full AvaTax CreateTransaction API.
+    
+      :param line1 [string] The street address of the location.
+      :param line2 [string] The street address of the location.
+      :param line3 [string] The street address of the location.
+      :param city [string] The city name of the location.
+      :param region [string] Name or ISO 3166 code identifying the region within the country.     This field supports many different region identifiers:   * Two and three character ISO 3166 region codes   * Fully spelled out names of the region in ISO supported languages   * Common alternative spellings for many regions     For a full list of all supported codes and names, please see the Definitions API `ListRegions`.
+      :param postalCode [string] The postal code of the location.
+      :param country [string] Name or ISO 3166 code identifying the country.     This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries     For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
+      :return TaxRateModel
+    """
+    def tax_rates_by_address(self, include=None):        return requests.get('{}/api/v2/taxrates/byaddress'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Sales tax rates for a specified country and postal code. This API is only available for US postal codes.
+    
+    This API is only available for a US postal codes.
+      Usage of this API is subject to rate limits. Users who exceed the rate limit will receive HTTP
+      response code 429 - `Too Many Requests`.
+      This API assumes that you are selling general tangible personal property at a retail point-of-sale
+      location in the United States only.
+      For more powerful tax calculation, please consider upgrading to the `CreateTransaction` API,
+      which supports features including, but not limited to:
+      * Nexus declarations
+      * Taxability based on product/service type
+      * Sourcing rules affecting origin/destination states
+      * Customers who are exempt from certain taxes
+      * States that have dollar value thresholds for tax amounts
+      * Refunds for products purchased on a different date
+      * Detailed jurisdiction names and state assigned codes
+      * And more!
+      Please see [Estimating Tax with REST v2](http://developer.avalara.com/blog/2016/11/04/estimating-tax-with-rest-v2/)
+      for information on how to upgrade to the full AvaTax CreateTransaction API.
+    
+      :param country [string] Name or ISO 3166 code identifying the country.     This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries     For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
+      :param postalCode [string] The postal code of the location.
+      :return TaxRateModel
+    """
+    def tax_rates_by_postal_code(self, include=None):        return requests.get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
