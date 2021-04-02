@@ -42,7 +42,7 @@ class Mixin:
       :return LicenseKeyModel
     """
     def account_reset_license_key(self, id_, model):
-        return requests.post('{}/api/v2/accounts/{}/resetlicensekey'.format(self.base_url, id_),
+        return self._get_requests_session().post('{}/api/v2/accounts/{}/resetlicensekey'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -64,7 +64,7 @@ class Mixin:
       :return AccountModel
     """
     def activate_account(self, id_, model):
-        return requests.post('{}/api/v2/accounts/{}/activate'.format(self.base_url, id_),
+        return self._get_requests_session().post('{}/api/v2/accounts/{}/activate'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -92,7 +92,7 @@ class Mixin:
       :return FetchResult
     """
     def audit_account(self, id_, include=None):
-        return requests.get('{}/api/v2/accounts/{}/audit'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/accounts/{}/audit'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -111,7 +111,7 @@ class Mixin:
       :return AccountModel
     """
     def get_account(self, id_, include=None):
-        return requests.get('{}/api/v2/accounts/{}'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -134,7 +134,7 @@ class Mixin:
       :return AccountConfigurationModel
     """
     def get_account_configuration(self, id_):
-        return requests.get('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -160,7 +160,7 @@ class Mixin:
       :return FetchResult
     """
     def query_accounts(self, include=None):
-        return requests.get('{}/api/v2/accounts'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/accounts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -184,7 +184,7 @@ class Mixin:
       :return AccountConfigurationModel
     """
     def set_account_configuration(self, id_, model):
-        return requests.post('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
+        return self._get_requests_session().post('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -216,7 +216,7 @@ class Mixin:
       :return AddressResolutionModel
     """
     def resolve_address(self, include=None):
-        return requests.get('{}/api/v2/addresses/resolve'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/addresses/resolve'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -237,7 +237,7 @@ class Mixin:
       :return AddressResolutionModel
     """
     def resolve_address_post(self, model):
-        return requests.post('{}/api/v2/addresses/resolve'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/addresses/resolve'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -255,7 +255,7 @@ class Mixin:
       :return AvaFileFormModel
     """
     def create_ava_file_forms(self, model):
-        return requests.post('{}/api/v2/avafileforms'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -272,7 +272,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_ava_file_form(self, id_):
-        return requests.delete('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
+        return self._get_requests_session().delete('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -289,7 +289,7 @@ class Mixin:
       :return AvaFileFormModel
     """
     def get_ava_file_form(self, id_):
-        return requests.get('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -310,7 +310,7 @@ class Mixin:
       :return FetchResult
     """
     def query_ava_file_forms(self, include=None):
-        return requests.get('{}/api/v2/avafileforms'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -329,7 +329,7 @@ class Mixin:
       :return AvaFileFormModel
     """
     def update_ava_file_form(self, id_, model):
-        return requests.put('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
+        return self._get_requests_session().put('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -355,7 +355,7 @@ class Mixin:
       :return BatchModel
     """
     def create_batches(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -378,7 +378,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_batch(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -395,7 +395,7 @@ class Mixin:
       :return String
     """
     def download_batch(self, companyId, batchId, id_):
-        return requests.get('{}/api/v2/companies/{}/batches/{}/files/{}/attachment'.format(self.base_url, companyId, batchId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/batches/{}/files/{}/attachment'.format(self.base_url, companyId, batchId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -422,7 +422,7 @@ class Mixin:
       :return BatchModel
     """
     def get_batch(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -457,7 +457,7 @@ class Mixin:
       :return FetchResult
     """
     def list_batches_by_company(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -489,7 +489,7 @@ class Mixin:
       :return FetchResult
     """
     def query_batches(self, include=None):
-        return requests.get('{}/api/v2/batches'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/batches'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -514,11 +514,11 @@ class Mixin:
     
       :param companyId [int] The unique ID number of the company that will record certificates
       :param customerCode [string] The number of the customer where the request is sent to
-      :param model [CreateCertExpressInvitationModel] the requests to send out to customers
+      :param model [CreateCertExpressInvitationModel] the self._get_requests_session() to send out to customers
       :return CertExpressInvitationStatusModel
     """
     def create_cert_express_invitation(self, companyId, customerCode, model):
-        return requests.post('{}/api/v2/companies/{}/customers/{}/certexpressinvites'.format(self.base_url, companyId, customerCode),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/customers/{}/certexpressinvites'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -548,7 +548,7 @@ class Mixin:
       :return CertExpressInvitationModel
     """
     def get_cert_express_invitation(self, companyId, customerCode, id_, include=None):
-        return requests.get('{}/api/v2/companies/{}/customers/{}/certexpressinvites/{}'.format(self.base_url, companyId, customerCode, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/customers/{}/certexpressinvites/{}'.format(self.base_url, companyId, customerCode, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -580,7 +580,7 @@ class Mixin:
       :return FetchResult
     """
     def list_cert_express_invitations(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/certexpressinvites'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/certexpressinvites'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -613,7 +613,7 @@ class Mixin:
       :return CertificateModel
     """
     def create_certificates(self, companyId, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -639,7 +639,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_certificate(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -668,7 +668,7 @@ class Mixin:
       :return String
     """
     def download_certificate_image(self, companyId, id_, include=None):
-        return requests.get('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -698,7 +698,7 @@ class Mixin:
       :return CertificateModel
     """
     def get_certificate(self, companyId, id_, include=None):
-        return requests.get('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -719,7 +719,7 @@ class Mixin:
       :return ProvisionStatusModel
     """
     def get_certificate_setup(self, companyId):
-        return requests.get('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -747,7 +747,7 @@ class Mixin:
       :return FetchResult
     """
     def link_attributes_to_certificate(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -776,7 +776,7 @@ class Mixin:
       :return FetchResult
     """
     def link_customers_to_certificate(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/link'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/certificates/{}/customers/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -803,7 +803,7 @@ class Mixin:
       :return FetchResult
     """
     def list_attributes_for_certificate(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/certificates/{}/attributes'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/certificates/{}/attributes'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -831,7 +831,7 @@ class Mixin:
       :return FetchResult
     """
     def list_customers_for_certificate(self, companyId, id_, include=None):
-        return requests.get('{}/api/v2/companies/{}/certificates/{}/customers'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/certificates/{}/customers'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -864,14 +864,14 @@ class Mixin:
       :return FetchResult
     """
     def query_certificates(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Request setup of exemption certificates for this company.
     
-    Requests the setup of exemption certificates for this company.
+    self._get_requests_session() the setup of exemption certificates for this company.
       Exemption certificates are tracked through a different auditable data store than the one that
       holds AvaTax transactions. To use the AvaTax exemption certificate document store, please call
       `GetCertificateSetup` to see if your company is configured to use the exemption certificate
@@ -886,7 +886,7 @@ class Mixin:
       :return ProvisionStatusModel
     """
     def request_certificate_setup(self, companyId):
-        return requests.post('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -914,7 +914,7 @@ class Mixin:
       :return FetchResult
     """
     def unlink_attributes_from_certificate(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -944,7 +944,7 @@ class Mixin:
       :return FetchResult
     """
     def unlink_customers_from_certificate(self, companyId, id_, model):
-        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -970,7 +970,7 @@ class Mixin:
       :return CertificateModel
     """
     def update_certificate(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -998,7 +998,7 @@ class Mixin:
       :return string
     """
     def upload_certificate_image(self, companyId, id_):
-        return requests.post('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1034,7 +1034,7 @@ class Mixin:
       :return string
     """
     def certify_integration(self, id_):
-        return requests.get('{}/api/v2/companies/{}/certify'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/certify'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1058,7 +1058,7 @@ class Mixin:
       :return string
     """
     def change_filing_status(self, id_, model):
-        return requests.post('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1082,7 +1082,7 @@ class Mixin:
       :return CompanyModel
     """
     def company_initialize(self, model):
-        return requests.post('{}/api/v2/companies/initialize'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/companies/initialize'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1099,7 +1099,7 @@ class Mixin:
       :return CompanyModel
     """
     def create_companies(self, model):
-        return requests.post('{}/api/v2/companies'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/companies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1125,7 +1125,7 @@ class Mixin:
       :return FundingStatusModel
     """
     def create_funding_request(self, id_, model):
-        return requests.post('{}/api/v2/companies/{}/funding/setup'.format(self.base_url, id_),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/funding/setup'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1140,7 +1140,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_company(self, id_):
-        return requests.delete('{}/api/v2/companies/{}'.format(self.base_url, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1160,7 +1160,7 @@ class Mixin:
       :return FundingConfigurationModel
     """
     def funding_configuration_by_company(self, companyId):
-        return requests.get('{}/api/v2/companies/{}/funding/configuration'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/funding/configuration'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1181,7 +1181,7 @@ class Mixin:
       :return FundingConfigurationModel
     """
     def funding_configurations_by_company_and_currency(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/funding/configurations'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/funding/configurations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1207,7 +1207,7 @@ class Mixin:
       :return CompanyModel
     """
     def get_company(self, id_, include=None):
-        return requests.get('{}/api/v2/companies/{}'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1230,7 +1230,7 @@ class Mixin:
       :return CompanyConfigurationModel
     """
     def get_company_configuration(self, id_):
-        return requests.get('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1254,7 +1254,7 @@ class Mixin:
       :return string
     """
     def get_filing_status(self, id_):
-        return requests.get('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1263,7 +1263,7 @@ class Mixin:
     
     This API is available by invitation only.
       Requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
-      Returns a list of funding setup requests and their current status.
+      Returns a list of funding setup self._get_requests_session() and their current status.
       Each object in the result is a request that was made to setup or adjust funding status for this company.
       ### Security Policies
       * This API depends on the following active services<br />*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
@@ -1273,7 +1273,7 @@ class Mixin:
       :return FundingStatusModel
     """
     def list_funding_requests_by_company(self, id_):
-        return requests.get('{}/api/v2/companies/{}/funding'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/funding'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1288,7 +1288,7 @@ class Mixin:
       :return FetchResult
     """
     def list_mrs_companies(self):
-        return requests.get('{}/api/v2/companies/mrs'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/companies/mrs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1319,7 +1319,7 @@ class Mixin:
       :return FetchResult
     """
     def query_companies(self, include=None):
-        return requests.get('{}/api/v2/companies'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/companies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1343,7 +1343,7 @@ class Mixin:
       :return CompanyConfigurationModel
     """
     def set_company_configuration(self, id_, model):
-        return requests.post('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1364,7 +1364,7 @@ class Mixin:
       :return CompanyModel
     """
     def update_company(self, id_, model):
-        return requests.put('{}/api/v2/companies/{}'.format(self.base_url, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1378,7 +1378,7 @@ class Mixin:
       :return FetchResult
     """
     def tag_transaction(self, companyId, model):
-        return requests.put('{}/api/v2/companies/{}/transactions/tag'.format(self.base_url, companyId),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/transactions/tag'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1396,7 +1396,7 @@ class Mixin:
       :return ContactModel
     """
     def create_contacts(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1412,7 +1412,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_contact(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1430,7 +1430,7 @@ class Mixin:
       :return ContactModel
     """
     def get_contact(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1451,7 +1451,7 @@ class Mixin:
       :return FetchResult
     """
     def list_contacts_by_company(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1473,7 +1473,7 @@ class Mixin:
       :return FetchResult
     """
     def query_contacts(self, include=None):
-        return requests.get('{}/api/v2/contacts'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/contacts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1494,7 +1494,7 @@ class Mixin:
       :return ContactModel
     """
     def update_contact(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1522,7 +1522,7 @@ class Mixin:
       :return CustomerModel
     """
     def create_customers(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1548,7 +1548,7 @@ class Mixin:
       :return CustomerModel
     """
     def delete_customer(self, companyId, customerCode):
-        return requests.delete('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1579,7 +1579,7 @@ class Mixin:
       :return CustomerModel
     """
     def get_customer(self, companyId, customerCode, include=None):
-        return requests.get('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1608,7 +1608,7 @@ class Mixin:
       :return FetchResult
     """
     def link_attributes_to_customer(self, companyId, customerCode, model):
-        return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/link'.format(self.base_url, companyId, customerCode),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/customers/{}/attributes/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1635,7 +1635,7 @@ class Mixin:
       :return FetchResult
     """
     def link_certificates_to_customer(self, companyId, customerCode, model):
-        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/link'.format(self.base_url, companyId, customerCode),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/customers/{}/certificates/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1662,7 +1662,7 @@ class Mixin:
       :return CustomerModel
     """
     def link_ship_to_customers_to_bill_customer(self, companyId, code, model):
-        return requests.post('{}/api/v2/companies/{}/customers/billto/{}/shipto/link'.format(self.base_url, companyId, code),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/customers/billto/{}/shipto/link'.format(self.base_url, companyId, code),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1690,7 +1690,7 @@ class Mixin:
       :return FetchResult
     """
     def list_attributes_for_customer(self, companyId, customerCode):
-        return requests.get('{}/api/v2/companies/{}/customers/{}/attributes'.format(self.base_url, companyId, customerCode),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/customers/{}/attributes'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1721,7 +1721,7 @@ class Mixin:
       :return FetchResult
     """
     def list_certificates_for_customer(self, companyId, customerCode, include=None):
-        return requests.get('{}/api/v2/companies/{}/customers/{}/certificates'.format(self.base_url, companyId, customerCode),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/customers/{}/certificates'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1751,7 +1751,7 @@ class Mixin:
       :return ExemptionStatusModel
     """
     def list_valid_certificates_for_customer(self, companyId, customerCode, country, region):
-        return requests.get('{}/api/v2/companies/{}/customers/{}/certificates/{}/{}'.format(self.base_url, companyId, customerCode, country, region),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/customers/{}/certificates/{}/{}'.format(self.base_url, companyId, customerCode, country, region),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1784,7 +1784,7 @@ class Mixin:
       :return FetchResult
     """
     def query_customers(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1813,7 +1813,7 @@ class Mixin:
       :return FetchResult
     """
     def unlink_attributes_from_customer(self, companyId, customerCode, model):
-        return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/unlink'.format(self.base_url, companyId, customerCode),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/customers/{}/attributes/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1840,7 +1840,7 @@ class Mixin:
       :return FetchResult
     """
     def unlink_certificates_from_customer(self, companyId, customerCode, model):
-        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(self.base_url, companyId, customerCode),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1867,7 +1867,7 @@ class Mixin:
       :return CustomerModel
     """
     def update_customer(self, companyId, customerCode, model):
-        return requests.put('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1884,7 +1884,7 @@ class Mixin:
       :return DataSourceModel
     """
     def create_data_sources(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1901,7 +1901,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_data_source(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1918,7 +1918,7 @@ class Mixin:
       :return DataSourceModel
     """
     def get_data_source_by_id(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1938,7 +1938,7 @@ class Mixin:
       :return FetchResult
     """
     def list_data_sources(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1959,7 +1959,7 @@ class Mixin:
       :return FetchResult
     """
     def query_data_sources(self, include=None):
-        return requests.get('{}/api/v2/datasources'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/datasources'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1977,7 +1977,7 @@ class Mixin:
       :return DataSourceModel
     """
     def update_data_source(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -1999,7 +1999,7 @@ class Mixin:
       :return FetchResult
     """
     def get_cross_border_code(self, country, hsCode):
-        return requests.get('{}/api/v2/definitions/crossborder/{}/{}/hierarchy'.format(self.base_url, country, hsCode),
+        return self._get_requests_session().get('{}/api/v2/definitions/crossborder/{}/{}/hierarchy'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2017,7 +2017,7 @@ class Mixin:
       :return FetchResult
     """
     def get_login_verifier_by_form(self, form, include=None):
-        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers/{}'.format(self.base_url, form),
+        return self._get_requests_session().get('{}/api/v2/definitions/filingcalendars/loginverifiers/{}'.format(self.base_url, form),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2036,7 +2036,7 @@ class Mixin:
       :return FetchResult
     """
     def list_ava_file_forms(self, include=None):
-        return requests.get('{}/api/v2/definitions/avafileforms'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2056,7 +2056,7 @@ class Mixin:
       :return FetchResult
     """
     def list_certificate_attributes(self, include=None):
-        return requests.get('{}/api/v2/definitions/certificateattributes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/certificateattributes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2076,7 +2076,7 @@ class Mixin:
       :return FetchResult
     """
     def list_certificate_exempt_reasons(self, include=None):
-        return requests.get('{}/api/v2/definitions/certificateexemptreasons'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/certificateexemptreasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2096,7 +2096,7 @@ class Mixin:
       :return FetchResult
     """
     def list_certificate_exposure_zones(self, include=None):
-        return requests.get('{}/api/v2/definitions/certificateexposurezones'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/certificateexposurezones'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2113,7 +2113,7 @@ class Mixin:
       :return FetchResult
     """
     def list_communications_service_types(self, id_, include=None):
-        return requests.get('{}/api/v2/definitions/communications/transactiontypes/{}/servicetypes'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/definitions/communications/transactiontypes/{}/servicetypes'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2121,7 +2121,7 @@ class Mixin:
     Retrieve the full list of communications transactiontypes
     
     Returns full list of communications transaction types which
-      are accepted in communication tax calculation requests.
+      are accepted in communication tax calculation self._get_requests_session().
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -2130,7 +2130,7 @@ class Mixin:
       :return FetchResult
     """
     def list_communications_transaction_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/communications/transactiontypes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/communications/transactiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2138,7 +2138,7 @@ class Mixin:
     Retrieve the full list of communications transaction/service type pairs
     
     Returns full list of communications transaction/service type pairs which
-      are accepted in communication tax calculation requests.
+      are accepted in communication tax calculation self._get_requests_session().
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* requiredParameters
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -2147,7 +2147,7 @@ class Mixin:
       :return FetchResult
     """
     def list_communications_t_s_pairs(self, include=None):
-        return requests.get('{}/api/v2/definitions/communications/tspairs'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/communications/tspairs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2165,7 +2165,7 @@ class Mixin:
       :return FetchResult
     """
     def list_countries(self, include=None):
-        return requests.get('{}/api/v2/definitions/countries'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/countries'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2186,7 +2186,7 @@ class Mixin:
       :return FetchResult
     """
     def list_cover_letters(self, include=None):
-        return requests.get('{}/api/v2/definitions/coverletters'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/coverletters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2211,7 +2211,7 @@ class Mixin:
       :return FetchResult
     """
     def list_cross_border_codes(self, country, hsCode, include=None):
-        return requests.get('{}/api/v2/definitions/crossborder/{}/{}'.format(self.base_url, country, hsCode),
+        return self._get_requests_session().get('{}/api/v2/definitions/crossborder/{}/{}'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2229,7 +2229,7 @@ class Mixin:
       :return FetchResult
     """
     def list_cross_border_sections(self):
-        return requests.get('{}/api/v2/definitions/crossborder/sections'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/crossborder/sections'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2247,7 +2247,7 @@ class Mixin:
       :return FetchResult
     """
     def list_currencies(self, include=None):
-        return requests.get('{}/api/v2/definitions/currencies'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/currencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2267,7 +2267,7 @@ class Mixin:
       :return FetchResult
     """
     def list_entity_use_codes(self, include=None):
-        return requests.get('{}/api/v2/definitions/entityusecodes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/entityusecodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2284,7 +2284,7 @@ class Mixin:
       :return FetchResult
     """
     def list_filing_frequencies(self, include=None):
-        return requests.get('{}/api/v2/definitions/filingfrequencies'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/filingfrequencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2302,7 +2302,7 @@ class Mixin:
       :return FetchResult
     """
     def list_jurisdictions(self, include=None):
-        return requests.get('{}/api/v2/definitions/jurisdictions'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/jurisdictions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2329,7 +2329,7 @@ class Mixin:
       :return FetchResult
     """
     def list_jurisdictions_by_address(self, include=None):
-        return requests.get('{}/api/v2/definitions/jurisdictionsnearaddress'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/jurisdictionsnearaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2359,7 +2359,7 @@ class Mixin:
       :return FetchResult
     """
     def list_location_questions_by_address(self, include=None):
-        return requests.get('{}/api/v2/definitions/locationquestions'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/locationquestions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2377,7 +2377,7 @@ class Mixin:
       :return FetchResult
     """
     def list_login_verifiers(self, include=None):
-        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/filingcalendars/loginverifiers'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2394,7 +2394,7 @@ class Mixin:
       :return FetchResult
     """
     def list_nexus(self, include=None):
-        return requests.get('{}/api/v2/definitions/nexus'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2421,7 +2421,7 @@ class Mixin:
       :return FetchResult
     """
     def list_nexus_by_address(self, include=None):
-        return requests.get('{}/api/v2/definitions/nexus/byaddress'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/nexus/byaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2439,7 +2439,7 @@ class Mixin:
       :return FetchResult
     """
     def list_nexus_by_country(self, country, include=None):
-        return requests.get('{}/api/v2/definitions/nexus/{}'.format(self.base_url, country),
+        return self._get_requests_session().get('{}/api/v2/definitions/nexus/{}'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2458,7 +2458,7 @@ class Mixin:
       :return FetchResult
     """
     def list_nexus_by_country_and_region(self, country, region, include=None):
-        return requests.get('{}/api/v2/definitions/nexus/{}/{}'.format(self.base_url, country, region),
+        return self._get_requests_session().get('{}/api/v2/definitions/nexus/{}/{}'.format(self.base_url, country, region),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2480,7 +2480,7 @@ class Mixin:
       :return NexusByTaxFormModel
     """
     def list_nexus_by_form_code(self, formCode):
-        return requests.get('{}/api/v2/definitions/nexus/byform/{}'.format(self.base_url, formCode),
+        return self._get_requests_session().get('{}/api/v2/definitions/nexus/byform/{}'.format(self.base_url, formCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2497,7 +2497,7 @@ class Mixin:
       :return FetchResult
     """
     def list_nexus_tax_type_groups(self, include=None):
-        return requests.get('{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2514,7 +2514,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_customer_funding_options(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticecustomerfundingoptions'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/noticecustomerfundingoptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2531,7 +2531,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_customer_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticecustomertypes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/noticecustomertypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2548,7 +2548,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_filingtypes(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticefilingtypes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/noticefilingtypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2565,7 +2565,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_priorities(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticepriorities'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/noticepriorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2582,7 +2582,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_reasons(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticereasons'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/noticereasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2599,7 +2599,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_responsibilities(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticeresponsibilities'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/noticeresponsibilities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2616,7 +2616,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_root_causes(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticerootcauses'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/noticerootcauses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2633,7 +2633,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_statuses(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticestatuses'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/noticestatuses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2650,7 +2650,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notice_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/noticetypes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/noticetypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2668,7 +2668,7 @@ class Mixin:
       :return FetchResult
     """
     def list_parameters(self, include=None):
-        return requests.get('{}/api/v2/definitions/parameters'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/parameters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2688,7 +2688,7 @@ class Mixin:
       :return FetchResult
     """
     def list_parameters_by_item(self, companyCode, itemCode, include=None):
-        return requests.get('{}/api/v2/definitions/parameters/byitem/{}/{}'.format(self.base_url, companyCode, itemCode),
+        return self._get_requests_session().get('{}/api/v2/definitions/parameters/byitem/{}/{}'.format(self.base_url, companyCode, itemCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2703,7 +2703,7 @@ class Mixin:
       :return FetchResult
     """
     def list_permissions(self, include=None):
-        return requests.get('{}/api/v2/definitions/permissions'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/permissions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2719,7 +2719,7 @@ class Mixin:
       :return FetchResult
     """
     def list_postal_codes(self, include=None):
-        return requests.get('{}/api/v2/definitions/postalcodes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/postalcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2741,7 +2741,7 @@ class Mixin:
       :return FetchResult
     """
     def list_preferred_programs(self, include=None):
-        return requests.get('{}/api/v2/definitions/preferredprograms'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/preferredprograms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2759,7 +2759,7 @@ class Mixin:
       :return FetchResult
     """
     def list_product_classification_systems(self, include=None):
-        return requests.get('{}/api/v2/definitions/productclassificationsystems'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/productclassificationsystems'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2778,7 +2778,7 @@ class Mixin:
       :return FetchResult
     """
     def list_product_classification_systems_by_company(self, companyCode, include=None):
-        return requests.get('{}/api/v2/definitions/productclassificationsystems/bycompany/{}'.format(self.base_url, companyCode),
+        return self._get_requests_session().get('{}/api/v2/definitions/productclassificationsystems/bycompany/{}'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2796,7 +2796,7 @@ class Mixin:
       :return FetchResult
     """
     def list_rate_types_by_country(self, country, include=None):
-        return requests.get('{}/api/v2/definitions/countries/{}/ratetypes'.format(self.base_url, country),
+        return self._get_requests_session().get('{}/api/v2/definitions/countries/{}/ratetypes'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2814,7 +2814,7 @@ class Mixin:
       :return FetchResult
     """
     def list_regions(self, include=None):
-        return requests.get('{}/api/v2/definitions/regions'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/regions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2833,7 +2833,7 @@ class Mixin:
       :return FetchResult
     """
     def list_regions_by_country(self, country, include=None):
-        return requests.get('{}/api/v2/definitions/countries/{}/regions'.format(self.base_url, country),
+        return self._get_requests_session().get('{}/api/v2/definitions/countries/{}/regions'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2850,7 +2850,7 @@ class Mixin:
       :return FetchResult
     """
     def list_resource_file_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/resourcefiletypes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/resourcefiletypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2868,7 +2868,7 @@ class Mixin:
       :return FetchResult
     """
     def list_security_roles(self, include=None):
-        return requests.get('{}/api/v2/definitions/securityroles'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/securityroles'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2887,7 +2887,7 @@ class Mixin:
       :return FetchResult
     """
     def list_subscription_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2904,7 +2904,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_authorities(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxauthorities'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/taxauthorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2923,7 +2923,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_authority_forms(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxauthorityforms'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/taxauthorityforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2940,7 +2940,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_authority_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2962,7 +2962,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_codes(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxcodes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2978,7 +2978,7 @@ class Mixin:
       :return TaxCodeTypesModel
     """
     def list_tax_code_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxcodetypes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/taxcodetypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -2995,7 +2995,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_forms(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxforms'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/taxforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3012,7 +3012,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_sub_types(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxsubtypes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/taxsubtypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3029,7 +3029,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_type_groups(self, include=None):
-        return requests.get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3046,7 +3046,7 @@ class Mixin:
       :return FetchResult
     """
     def list_unit_of_measurement(self, include=None):
-        return requests.get('{}/api/v2/definitions/unitofmeasurements'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/definitions/unitofmeasurements'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3065,7 +3065,7 @@ class Mixin:
       :return CompanyDistanceThresholdModel
     """
     def create_distance_threshold(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3084,7 +3084,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_distance_threshold(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3103,7 +3103,7 @@ class Mixin:
       :return CompanyDistanceThresholdModel
     """
     def get_distance_threshold(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3126,7 +3126,7 @@ class Mixin:
       :return FetchResult
     """
     def list_distance_thresholds(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3150,7 +3150,7 @@ class Mixin:
       :return FetchResult
     """
     def query_distance_thresholds(self, include=None):
-        return requests.get('{}/api/v2/distancethresholds'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/distancethresholds'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3172,7 +3172,7 @@ class Mixin:
       :return CompanyDistanceThresholdModel
     """
     def update_distance_threshold(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3189,7 +3189,7 @@ class Mixin:
       :return DeleteErrorTransactionsResponseModel
     """
     def delete_error_transactions(self, model):
-        return requests.delete('{}/api/v2/errortransactions'.format(self.base_url),
+        return self._get_requests_session().delete('{}/api/v2/errortransactions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3212,7 +3212,7 @@ class Mixin:
       :return FetchResult
     """
     def list_error_transactions(self, include=None):
-        return requests.get('{}/api/v2/errortransactions'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/errortransactions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3227,7 +3227,7 @@ class Mixin:
       :return FirmClientLinkageOutputModel
     """
     def approve_firm_client_linkage(self, id_):
-        return requests.post('{}/api/v2/firmclientlinkages/{}/approve'.format(self.base_url, id_),
+        return self._get_requests_session().post('{}/api/v2/firmclientlinkages/{}/approve'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3248,7 +3248,7 @@ class Mixin:
       :return FirmClientLinkageOutputModel
     """
     def create_and_link_new_firm_client_account(self, model):
-        return requests.post('{}/api/v2/firmclientlinkages/createandlinkclient'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/firmclientlinkages/createandlinkclient'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3263,7 +3263,7 @@ class Mixin:
       :return FirmClientLinkageOutputModel
     """
     def create_firm_client_linkage(self, model):
-        return requests.post('{}/api/v2/firmclientlinkages'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/firmclientlinkages'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3278,7 +3278,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_firm_client_linkage(self, id_):
-        return requests.delete('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
+        return self._get_requests_session().delete('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3293,7 +3293,7 @@ class Mixin:
       :return FirmClientLinkageOutputModel
     """
     def get_firm_client_linkage(self, id_):
-        return requests.get('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3308,7 +3308,7 @@ class Mixin:
       :return FetchResult
     """
     def list_firm_client_linkage(self, include=None):
-        return requests.get('{}/api/v2/firmclientlinkages'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/firmclientlinkages'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3323,7 +3323,7 @@ class Mixin:
       :return FirmClientLinkageOutputModel
     """
     def reject_firm_client_linkage(self, id_):
-        return requests.post('{}/api/v2/firmclientlinkages/{}/reject'.format(self.base_url, id_),
+        return self._get_requests_session().post('{}/api/v2/firmclientlinkages/{}/reject'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3338,7 +3338,7 @@ class Mixin:
       :return FirmClientLinkageOutputModel
     """
     def reset_firm_client_linkage(self, id_):
-        return requests.post('{}/api/v2/firmclientlinkages/{}/reset'.format(self.base_url, id_),
+        return self._get_requests_session().post('{}/api/v2/firmclientlinkages/{}/reset'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3353,7 +3353,7 @@ class Mixin:
       :return FirmClientLinkageOutputModel
     """
     def revoke_firm_client_linkage(self, id_):
-        return requests.post('{}/api/v2/firmclientlinkages/{}/revoke'.format(self.base_url, id_),
+        return self._get_requests_session().post('{}/api/v2/firmclientlinkages/{}/revoke'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3374,7 +3374,7 @@ class Mixin:
       :return NewAccountModel
     """
     def request_free_trial(self, model):
-        return requests.post('{}/api/v2/accounts/freetrials/request'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/accounts/freetrials/request'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3385,7 +3385,7 @@ class Mixin:
       The TaxRates API is a free-to-use, no cost option for estimating sales tax rates.
       Any customer can request a free AvaTax account and make use of the TaxRates API.
       Usage of this API is subject to rate limits. Users who exceed the rate limit will receive HTTP
-      response code 429 - `Too Many Requests`.
+      response code 429 - `Too Many self._get_requests_session()`.
       This API assumes that you are selling general tangible personal property at a retail point-of-sale
       location in the United States only.
       For more powerful tax calculation, please consider upgrading to the `CreateTransaction` API,
@@ -3411,7 +3411,7 @@ class Mixin:
       :return TaxRateModel
     """
     def tax_rates_by_address(self, include=None):
-        return requests.get('{}/api/v2/taxrates/byaddress'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/taxrates/byaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3423,7 +3423,7 @@ class Mixin:
       The TaxRates API is a free-to-use, no cost option for estimating sales tax rates.
       Any customer can request a free AvaTax account and make use of the TaxRates API.
       Usage of this API is subject to rate limits. Users who exceed the rate limit will receive HTTP
-      response code 429 - `Too Many Requests`.
+      response code 429 - `Too Many self._get_requests_session()`.
       This API assumes that you are selling general tangible personal property at a retail point-of-sale
       location in the United States only.
       For more powerful tax calculation, please consider upgrading to the `CreateTransaction` API,
@@ -3444,7 +3444,7 @@ class Mixin:
       :return TaxRateModel
     """
     def tax_rates_by_postal_code(self, include=None):
-        return requests.get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3472,7 +3472,7 @@ class Mixin:
       :return FundingStatusModel
     """
     def activate_funding_request(self, id_):
-        return requests.get('{}/api/v2/fundingrequests/{}/widget'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/fundingrequests/{}/widget'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3498,7 +3498,7 @@ class Mixin:
       :return FundingStatusModel
     """
     def funding_request_status(self, id_):
-        return requests.get('{}/api/v2/fundingrequests/{}'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/fundingrequests/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3516,7 +3516,7 @@ class Mixin:
       :return ErrorDetail
     """
     def batch_delete_item_classifications(self, companyId, itemId):
-        return requests.delete('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3535,7 +3535,7 @@ class Mixin:
       :return ErrorDetail
     """
     def batch_delete_item_parameters(self, companyId, itemId):
-        return requests.delete('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3555,7 +3555,7 @@ class Mixin:
       :return ItemClassificationOutputModel
     """
     def create_item_classifications(self, companyId, itemId, model):
-        return requests.post('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3577,7 +3577,7 @@ class Mixin:
       :return ItemParameterModel
     """
     def create_item_parameters(self, companyId, itemId, model):
-        return requests.post('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3599,7 +3599,7 @@ class Mixin:
       :return ItemModel
     """
     def create_items(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3621,7 +3621,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_item(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3640,7 +3640,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_item_classification(self, companyId, itemId, id_):
-        return requests.delete('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3660,7 +3660,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_item_parameter(self, companyId, itemId, id_):
-        return requests.delete('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3682,7 +3682,7 @@ class Mixin:
       :return ItemModel
     """
     def get_item(self, companyId, id_, include=None):
-        return requests.get('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3701,7 +3701,7 @@ class Mixin:
       :return ItemClassificationOutputModel
     """
     def get_item_classification(self, companyId, itemId, id_):
-        return requests.get('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3721,7 +3721,7 @@ class Mixin:
       :return ItemParameterModel
     """
     def get_item_parameter(self, companyId, itemId, id_):
-        return requests.get('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3745,7 +3745,7 @@ class Mixin:
       :return FetchResult
     """
     def list_item_classifications(self, companyId, itemId, include=None):
-        return requests.get('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3770,7 +3770,7 @@ class Mixin:
       :return FetchResult
     """
     def list_item_parameters(self, companyId, itemId, include=None):
-        return requests.get('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3800,7 +3800,7 @@ class Mixin:
       :return FetchResult
     """
     def list_items_by_company(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3826,7 +3826,7 @@ class Mixin:
       :return FetchResult
     """
     def query_items(self, include=None):
-        return requests.get('{}/api/v2/items'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/items'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3850,7 +3850,7 @@ class Mixin:
       :return SyncItemsResponseModel
     """
     def sync_items(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/items/sync'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/items/sync'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3875,7 +3875,7 @@ class Mixin:
       :return ItemModel
     """
     def update_item(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3896,7 +3896,7 @@ class Mixin:
       :return ItemClassificationOutputModel
     """
     def update_item_classification(self, companyId, itemId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3917,7 +3917,7 @@ class Mixin:
       :return ItemParameterModel
     """
     def update_item_parameter(self, companyId, itemId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3937,7 +3937,7 @@ class Mixin:
       :return JurisdictionOverrideModel
     """
     def create_jurisdiction_overrides(self, accountId, model):
-        return requests.post('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
+        return self._get_requests_session().post('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3953,7 +3953,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_jurisdiction_override(self, accountId, id_):
-        return requests.delete('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
+        return self._get_requests_session().delete('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3973,7 +3973,7 @@ class Mixin:
       :return JurisdictionOverrideModel
     """
     def get_jurisdiction_override(self, accountId, id_):
-        return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
+        return self._get_requests_session().get('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -3999,7 +3999,7 @@ class Mixin:
       :return FetchResult
     """
     def list_jurisdiction_overrides_by_account(self, accountId, include=None):
-        return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
+        return self._get_requests_session().get('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4024,7 +4024,7 @@ class Mixin:
       :return FetchResult
     """
     def query_jurisdiction_overrides(self, include=None):
-        return requests.get('{}/api/v2/jurisdictionoverrides'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/jurisdictionoverrides'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4041,7 +4041,7 @@ class Mixin:
       :return JurisdictionOverrideModel
     """
     def update_jurisdiction_override(self, accountId, id_, model):
-        return requests.put('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
+        return self._get_requests_session().put('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4057,7 +4057,7 @@ class Mixin:
       :return LocationModel
     """
     def create_locations(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4073,7 +4073,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_location(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4096,7 +4096,7 @@ class Mixin:
       :return LocationModel
     """
     def get_location(self, companyId, id_, include=None):
-        return requests.get('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4124,7 +4124,7 @@ class Mixin:
       :return FetchResult
     """
     def list_locations_by_company(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4151,7 +4151,7 @@ class Mixin:
       :return FetchResult
     """
     def query_locations(self, include=None):
-        return requests.get('{}/api/v2/locations'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/locations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4170,7 +4170,7 @@ class Mixin:
       :return LocationModel
     """
     def update_location(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4188,7 +4188,7 @@ class Mixin:
       :return LocationValidationModel
     """
     def validate_location(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/locations/{}/validate'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/locations/{}/validate'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4212,7 +4212,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def adjust_multi_document_transaction(self, code, type, model, include=None):
-        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/adjust'.format(self.base_url, code, type),
+        return self._get_requests_session().post('{}/api/v2/transactions/multidocument/{}/type/{}/adjust'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4239,7 +4239,7 @@ class Mixin:
       :return AuditMultiDocumentModel
     """
     def audit_multi_document_transaction(self, code, type):
-        return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}/audit'.format(self.base_url, code, type),
+        return self._get_requests_session().get('{}/api/v2/transactions/multidocument/{}/type/{}/audit'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4259,7 +4259,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def commit_multi_document_transaction(self, model):
-        return requests.post('{}/api/v2/transactions/multidocument/commit'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/transactions/multidocument/commit'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4299,7 +4299,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def create_multi_document_transaction(self, model, include=None):
-        return requests.post('{}/api/v2/transactions/multidocument'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/transactions/multidocument'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4325,7 +4325,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def get_multi_document_transaction_by_code_and_type(self, code, type, include=None):
-        return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}'.format(self.base_url, code, type),
+        return self._get_requests_session().get('{}/api/v2/transactions/multidocument/{}/type/{}'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4357,7 +4357,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def get_multi_document_transaction_by_id(self, id_, include=None):
-        return requests.get('{}/api/v2/transactions/multidocument/{}'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/transactions/multidocument/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4390,7 +4390,7 @@ class Mixin:
       :return FetchResult
     """
     def list_multi_document_transactions(self, include=None):
-        return requests.get('{}/api/v2/transactions/multidocument'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/transactions/multidocument'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4435,7 +4435,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def refund_multi_document_transaction(self, code, type, model, include=None):
-        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/refund'.format(self.base_url, code, type),
+        return self._get_requests_session().post('{}/api/v2/transactions/multidocument/{}/type/{}/refund'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4454,7 +4454,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def verify_multi_document_transaction(self, model):
-        return requests.post('{}/api/v2/transactions/multidocument/verify'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/transactions/multidocument/verify'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4477,7 +4477,7 @@ class Mixin:
       :return MultiDocumentModel
     """
     def void_multi_document_transaction(self, code, type, model):
-        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/void'.format(self.base_url, code, type),
+        return self._get_requests_session().post('{}/api/v2/transactions/multidocument/{}/type/{}/void'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4506,7 +4506,7 @@ class Mixin:
       :return NexusModel
     """
     def create_nexus(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4532,7 +4532,7 @@ class Mixin:
       :return NexusByAddressModel
     """
     def declare_nexus_by_address(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/nexus/byaddress'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/nexus/byaddress'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4553,7 +4553,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_nexus(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4572,7 +4572,7 @@ class Mixin:
       :return NexusModel
     """
     def get_nexus(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4594,7 +4594,7 @@ class Mixin:
       :return NexusByTaxFormModel
     """
     def get_nexus_by_form_code(self, companyId, formCode):
-        return requests.get('{}/api/v2/companies/{}/nexus/byform/{}'.format(self.base_url, companyId, formCode),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/nexus/byform/{}'.format(self.base_url, companyId, formCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4619,7 +4619,7 @@ class Mixin:
       :return FetchResult
     """
     def list_nexus_by_company(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4643,7 +4643,7 @@ class Mixin:
       :return FetchResult
     """
     def query_nexus(self, include=None):
-        return requests.get('{}/api/v2/nexus'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4673,7 +4673,7 @@ class Mixin:
       :return NexusModel
     """
     def update_nexus(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4697,7 +4697,7 @@ class Mixin:
       :return NotificationModel
     """
     def dismiss_notification(self, id_):
-        return requests.put('{}/api/v2/notifications/{}/dismiss'.format(self.base_url, id_),
+        return self._get_requests_session().put('{}/api/v2/notifications/{}/dismiss'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4717,7 +4717,7 @@ class Mixin:
       :return NotificationModel
     """
     def get_notification(self, id_):
-        return requests.get('{}/api/v2/notifications/{}'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4742,7 +4742,7 @@ class Mixin:
       :return FetchResult
     """
     def list_notifications(self, include=None):
-        return requests.get('{}/api/v2/notifications'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4769,7 +4769,7 @@ class Mixin:
       :return NewAccountModel
     """
     def request_new_account(self, model):
-        return requests.post('{}/api/v2/accounts/request'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/accounts/request'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4788,7 +4788,7 @@ class Mixin:
       :return OfferModel
     """
     def request_new_entitlement(self, id_, offer):
-        return requests.post('{}/api/v2/accounts/{}/entitlements/{}'.format(self.base_url, id_, offer),
+        return self._get_requests_session().post('{}/api/v2/accounts/{}/entitlements/{}'.format(self.base_url, id_, offer),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4806,7 +4806,7 @@ class Mixin:
       :return AccountModel
     """
     def create_account(self, model):
-        return requests.post('{}/api/v2/accounts'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/accounts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4830,7 +4830,7 @@ class Mixin:
       :return NotificationModel
     """
     def create_notifications(self, model):
-        return requests.post('{}/api/v2/notifications'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4849,7 +4849,7 @@ class Mixin:
       :return SubscriptionModel
     """
     def create_subscriptions(self, accountId, model):
-        return requests.post('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
+        return self._get_requests_session().post('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4867,7 +4867,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_account(self, id_):
-        return requests.delete('{}/api/v2/accounts/{}'.format(self.base_url, id_),
+        return self._get_requests_session().delete('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4889,7 +4889,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_notification(self, id_):
-        return requests.delete('{}/api/v2/notifications/{}'.format(self.base_url, id_),
+        return self._get_requests_session().delete('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4907,7 +4907,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_subscription(self, accountId, id_):
-        return requests.delete('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
+        return self._get_requests_session().delete('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4929,7 +4929,7 @@ class Mixin:
       :return string
     """
     def reset_password(self, userId, model, include=None):
-        return requests.post('{}/api/v2/passwords/{}/reset'.format(self.base_url, userId),
+        return self._get_requests_session().post('{}/api/v2/passwords/{}/reset'.format(self.base_url, userId),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4947,7 +4947,7 @@ class Mixin:
       :return AccountModel
     """
     def update_account(self, id_, model):
-        return requests.put('{}/api/v2/accounts/{}'.format(self.base_url, id_),
+        return self._get_requests_session().put('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4970,7 +4970,7 @@ class Mixin:
       :return NotificationModel
     """
     def update_notification(self, id_, model):
-        return requests.put('{}/api/v2/notifications/{}'.format(self.base_url, id_),
+        return self._get_requests_session().put('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -4993,7 +4993,7 @@ class Mixin:
       :return SubscriptionModel
     """
     def update_subscription(self, accountId, id_, model):
-        return requests.put('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
+        return self._get_requests_session().put('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5017,7 +5017,7 @@ class Mixin:
       :return String
     """
     def download_report(self, id_):
-        return requests.get('{}/api/v2/reports/{}/attachment'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/reports/{}/attachment'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5037,7 +5037,7 @@ class Mixin:
       :return ReportModel
     """
     def get_report(self, id_):
-        return requests.get('{}/api/v2/reports/{}'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/reports/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5060,7 +5060,7 @@ class Mixin:
       :return ReportModel
     """
     def initiate_export_document_line_report(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/reports/exportdocumentline/initiate'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/reports/exportdocumentline/initiate'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5085,7 +5085,7 @@ class Mixin:
       :return FetchResult
     """
     def list_reports(self, include=None):
-        return requests.get('{}/api/v2/reports'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/reports'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5108,7 +5108,7 @@ class Mixin:
       :return SettingModel
     """
     def create_settings(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5131,7 +5131,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_setting(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5154,7 +5154,7 @@ class Mixin:
       :return SettingModel
     """
     def get_setting(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5183,7 +5183,7 @@ class Mixin:
       :return FetchResult
     """
     def list_settings_by_company(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5211,7 +5211,7 @@ class Mixin:
       :return FetchResult
     """
     def query_settings(self, include=None):
-        return requests.get('{}/api/v2/settings'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/settings'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5237,7 +5237,7 @@ class Mixin:
       :return SettingModel
     """
     def update_setting(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5255,7 +5255,7 @@ class Mixin:
       :return SubscriptionModel
     """
     def get_subscription(self, accountId, id_):
-        return requests.get('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
+        return self._get_requests_session().get('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5278,7 +5278,7 @@ class Mixin:
       :return FetchResult
     """
     def list_subscriptions_by_account(self, accountId, include=None):
-        return requests.get('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
+        return self._get_requests_session().get('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5300,7 +5300,7 @@ class Mixin:
       :return FetchResult
     """
     def query_subscriptions(self, include=None):
-        return requests.get('{}/api/v2/subscriptions'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5320,7 +5320,7 @@ class Mixin:
       :return TaxCodeModel
     """
     def create_tax_codes(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5336,7 +5336,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_tax_code(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5356,7 +5356,7 @@ class Mixin:
       :return TaxCodeModel
     """
     def get_tax_code(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5382,7 +5382,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_codes_by_company(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5407,7 +5407,7 @@ class Mixin:
       :return FetchResult
     """
     def query_tax_codes(self, include=None):
-        return requests.get('{}/api/v2/taxcodes'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5430,7 +5430,7 @@ class Mixin:
       :return TaxCodeModel
     """
     def update_tax_code(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5462,7 +5462,7 @@ class Mixin:
       :return String
     """
     def build_tax_content_file(self, model):
-        return requests.post('{}/api/v2/pointofsaledata/build'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/pointofsaledata/build'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5494,12 +5494,12 @@ class Mixin:
       :param id_ [int] The ID number of the location to retrieve point-of-sale data.
       :param date [datetime] The date for which point-of-sale data would be calculated (today by default)
       :param format [PointOfSaleFileType] The format of the file (JSON by default) (See PointOfSaleFileType::* for a list of allowable values)
-      :param partnerId [PointOfSalePartnerId] If specified, requests a custom partner-formatted version of the file. (See PointOfSalePartnerId::* for a list of allowable values)
+      :param partnerId [PointOfSalePartnerId] If specified, self._get_requests_session() a custom partner-formatted version of the file. (See PointOfSalePartnerId::* for a list of allowable values)
       :param includeJurisCodes [boolean] When true, the file will include jurisdiction codes in the result.
       :return String
     """
     def build_tax_content_file_for_location(self, companyId, id_, include=None):
-        return requests.get('{}/api/v2/companies/{}/locations/{}/pointofsaledata'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/locations/{}/pointofsaledata'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5547,7 +5547,7 @@ class Mixin:
       :return String
     """
     def download_tax_rates_by_zip_code(self, date, include=None):
-        return requests.get('{}/api/v2/taxratesbyzipcode/download/{}'.format(self.base_url, date),
+        return self._get_requests_session().get('{}/api/v2/taxratesbyzipcode/download/{}'.format(self.base_url, date),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5572,7 +5572,7 @@ class Mixin:
       :return TaxRuleModel
     """
     def create_tax_rules(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5597,7 +5597,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_tax_rule(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5622,7 +5622,7 @@ class Mixin:
       :return TaxRuleModel
     """
     def get_tax_rule(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5653,7 +5653,7 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_rules(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5683,7 +5683,7 @@ class Mixin:
       :return FetchResult
     """
     def query_tax_rules(self, include=None):
-        return requests.get('{}/api/v2/taxrules'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/taxrules'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5709,7 +5709,7 @@ class Mixin:
       :return TaxRuleModel
     """
     def update_tax_rule(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5741,7 +5741,7 @@ class Mixin:
       :return TransactionModel
     """
     def add_lines(self, model, include=None):
-        return requests.post('{}/api/v2/companies/transactions/lines/add'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/companies/transactions/lines/add'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5780,7 +5780,7 @@ class Mixin:
       :return TransactionModel
     """
     def adjust_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/adjust'.format(self.base_url, companyCode, transactionCode),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/transactions/{}/adjust'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5811,7 +5811,7 @@ class Mixin:
       :return AuditTransactionModel
     """
     def audit_transaction(self, companyCode, transactionCode):
-        return requests.get('{}/api/v2/companies/{}/transactions/{}/audit'.format(self.base_url, companyCode, transactionCode),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/transactions/{}/audit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5843,7 +5843,7 @@ class Mixin:
       :return AuditTransactionModel
     """
     def audit_transaction_with_type(self, companyCode, transactionCode, documentType):
-        return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}/audit'.format(self.base_url, companyCode, transactionCode, documentType),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/transactions/{}/types/{}/audit'.format(self.base_url, companyCode, transactionCode, documentType),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5864,7 +5864,7 @@ class Mixin:
       :return BulkLockTransactionResult
     """
     def bulk_lock_transaction(self, model):
-        return requests.post('{}/api/v2/transactions/lock'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/transactions/lock'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5902,7 +5902,7 @@ class Mixin:
       :return TransactionModel
     """
     def change_transaction_code(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/changecode'.format(self.base_url, companyCode, transactionCode),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/transactions/{}/changecode'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5938,7 +5938,7 @@ class Mixin:
       :return TransactionModel
     """
     def commit_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.format(self.base_url, companyCode, transactionCode),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/transactions/{}/commit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -5979,7 +5979,7 @@ class Mixin:
       :return TransactionModel
     """
     def create_or_adjust_transaction(self, model, include=None):
-        return requests.post('{}/api/v2/transactions/createoradjust'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/transactions/createoradjust'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6025,7 +6025,7 @@ class Mixin:
       :return TransactionModel
     """
     def create_transaction(self, model, include=None):
-        return requests.post('{}/api/v2/transactions/create'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/transactions/create'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6054,7 +6054,7 @@ class Mixin:
       :return TransactionModel
     """
     def delete_lines(self, model, include=None):
-        return requests.post('{}/api/v2/companies/transactions/lines/delete'.format(self.base_url),
+        return self._get_requests_session().post('{}/api/v2/companies/transactions/lines/delete'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6089,7 +6089,7 @@ class Mixin:
       :return TransactionModel
     """
     def get_transaction_by_code(self, companyCode, transactionCode, include=None):
-        return requests.get('{}/api/v2/companies/{}/transactions/{}'.format(self.base_url, companyCode, transactionCode),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/transactions/{}'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6112,7 +6112,7 @@ class Mixin:
       :return TransactionModel
     """
     def get_transaction_by_code_and_type(self, companyCode, transactionCode, documentType, include=None):
-        return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}'.format(self.base_url, companyCode, transactionCode, documentType),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/transactions/{}/types/{}'.format(self.base_url, companyCode, transactionCode, documentType),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6141,7 +6141,7 @@ class Mixin:
       :return TransactionModel
     """
     def get_transaction_by_id(self, id_, include=None):
-        return requests.get('{}/api/v2/transactions/{}'.format(self.base_url, id_),
+        return self._get_requests_session().get('{}/api/v2/transactions/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6181,7 +6181,7 @@ class Mixin:
       :return FetchResult
     """
     def list_transactions_by_company(self, companyCode, include=None):
-        return requests.get('{}/api/v2/companies/{}/transactions'.format(self.base_url, companyCode),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/transactions'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6219,7 +6219,7 @@ class Mixin:
       :return TransactionModel
     """
     def lock_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/lock'.format(self.base_url, companyCode, transactionCode),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/transactions/{}/lock'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6267,7 +6267,7 @@ class Mixin:
       :return TransactionModel
     """
     def refund_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/refund'.format(self.base_url, companyCode, transactionCode),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/transactions/{}/refund'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6303,7 +6303,7 @@ class Mixin:
       :return TransactionModel
     """
     def settle_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/settle'.format(self.base_url, companyCode, transactionCode),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/transactions/{}/settle'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6336,7 +6336,7 @@ class Mixin:
       :return TransactionModel
     """
     def uncommit_transaction(self, companyCode, transactionCode, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/uncommit'.format(self.base_url, companyCode, transactionCode),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/transactions/{}/uncommit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6367,7 +6367,7 @@ class Mixin:
       :return TransactionModel
     """
     def unvoid_transaction(self, companyCode, transactionCode, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/unvoid'.format(self.base_url, companyCode, transactionCode),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/transactions/{}/unvoid'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6403,7 +6403,7 @@ class Mixin:
       :return TransactionModel
     """
     def verify_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/verify'.format(self.base_url, companyCode, transactionCode),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/transactions/{}/verify'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6440,7 +6440,7 @@ class Mixin:
       :return TransactionModel
     """
     def void_transaction(self, companyCode, transactionCode, model, include=None):
-        return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(self.base_url, companyCode, transactionCode),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/transactions/{}/void'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6458,7 +6458,7 @@ class Mixin:
       :return UPCModel
     """
     def create_u_p_cs(self, companyId, model):
-        return requests.post('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
+        return self._get_requests_session().post('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6475,7 +6475,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_u_p_c(self, companyId, id_):
-        return requests.delete('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().delete('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6493,7 +6493,7 @@ class Mixin:
       :return UPCModel
     """
     def get_u_p_c(self, companyId, id_):
-        return requests.get('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6517,7 +6517,7 @@ class Mixin:
       :return FetchResult
     """
     def list_u_p_cs_by_company(self, companyId, include=None):
-        return requests.get('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
+        return self._get_requests_session().get('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6540,7 +6540,7 @@ class Mixin:
       :return FetchResult
     """
     def query_u_p_cs(self, include=None):
-        return requests.get('{}/api/v2/upcs'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/upcs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6561,7 +6561,7 @@ class Mixin:
       :return UPCModel
     """
     def update_u_p_c(self, companyId, id_, model):
-        return requests.put('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
+        return self._get_requests_session().put('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6580,7 +6580,7 @@ class Mixin:
       :return string
     """
     def change_password(self, model):
-        return requests.put('{}/api/v2/passwords'.format(self.base_url),
+        return self._get_requests_session().put('{}/api/v2/passwords'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6601,7 +6601,7 @@ class Mixin:
       :return UserModel
     """
     def create_users(self, accountId, model):
-        return requests.post('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
+        return self._get_requests_session().post('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6620,7 +6620,7 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_user(self, id_, accountId):
-        return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
+        return self._get_requests_session().delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6640,7 +6640,7 @@ class Mixin:
       :return UserModel
     """
     def get_user(self, id_, accountId, include=None):
-        return requests.get('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
+        return self._get_requests_session().get('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6668,7 +6668,7 @@ class Mixin:
       :return UserEntitlementModel
     """
     def get_user_entitlements(self, id_, accountId):
-        return requests.get('{}/api/v2/accounts/{}/users/{}/entitlements'.format(self.base_url, accountId, id_),
+        return self._get_requests_session().get('{}/api/v2/accounts/{}/users/{}/entitlements'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6695,7 +6695,7 @@ class Mixin:
       :return FetchResult
     """
     def list_users_by_account(self, accountId, include=None):
-        return requests.get('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
+        return self._get_requests_session().get('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6722,7 +6722,7 @@ class Mixin:
       :return FetchResult
     """
     def query_users(self, include=None):
-        return requests.get('{}/api/v2/users'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/users'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6742,7 +6742,7 @@ class Mixin:
       :return UserModel
     """
     def update_user(self, id_, accountId, model):
-        return requests.put('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
+        return self._get_requests_session().put('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6760,7 +6760,7 @@ class Mixin:
       :return SubscriptionModel
     """
     def get_my_subscription(self, serviceTypeId):
-        return requests.get('{}/api/v2/utilities/subscriptions/{}'.format(self.base_url, serviceTypeId),
+        return self._get_requests_session().get('{}/api/v2/utilities/subscriptions/{}'.format(self.base_url, serviceTypeId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6777,7 +6777,7 @@ class Mixin:
       :return FetchResult
     """
     def list_my_subscriptions(self):
-        return requests.get('{}/api/v2/utilities/subscriptions'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/utilities/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
 
@@ -6803,7 +6803,7 @@ class Mixin:
       :return PingResultModel
     """
     def ping(self):
-        return requests.get('{}/api/v2/utilities/ping'.format(self.base_url),
+        return self._get_requests_session().get('{}/api/v2/utilities/ping'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
  

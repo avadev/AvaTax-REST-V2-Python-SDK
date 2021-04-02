@@ -24,6 +24,7 @@ AvaTax Software Development Kit for Python.
 @version    TBD
 @link       https://github.com/avadev/AvaTax-REST-V2-Python-SDK
 """
+from requests import Session
 from requests.auth import HTTPBasicAuth
 from ._str_version import str_type
 from . import client_methods
@@ -68,6 +69,12 @@ class AvataxClient(client_methods.Mixin):
                                                                 machine_name)
         self.client_header = {'X-Avalara-Client': self.client_id}
         self.timeout_limit = timeout_limit 
+        self.requests_session = None
+
+    def _get_requests_session(self):
+        if self.requests_session is None:
+            self.requests_session = Session()
+        return self.requests_session
 
     def add_credentials(self, username=None, password=None):
         """
