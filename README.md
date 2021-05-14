@@ -67,16 +67,16 @@ Now we have a client object, we can ping the AvaTax REST V2 server to ensure con
   response = client.ping()
 
   # to view respnse text
-  print(response.text())
+  print(response.text)
 
   # to view json version of the response
   print(response.json())
 
   # to view the status code
-  print(response.status_code())
+  print(response.status_code)
 
   # to view the raw response
-  print(response.raw())
+  print(response.raw)
 ```
 Note that the response from all REST calls made using this SDK will be [Request](http://docs.python-requests.org/en/master/user/quickstart/#response-content) object, which contains status code, response text, raw josn, and more information on the respnse.
 
@@ -98,10 +98,7 @@ To verify that you have added a valid credential, simply call the `ping` method 
 
 Now our client object is authenticated, we can call the create_transaction method which calls the [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/)
 ```
-  transaction_response = client.create_transaction(tax_document)
-  print(transaction_response.text())
-
-  tax_document = {
+   tax_document = {
       'addresses': {'SingleLocation': {'city': 'Irvine',
                                        'country': 'US',
                                        'line1': '123 Main Street',
@@ -121,6 +118,9 @@ Now our client object is authenticated, we can call the create_transaction metho
                  'taxCode': 'PS081282'}],
       'purchaseOrderNo': '2017-04-12-001',
       'type': 'SalesInvoice'}
+      
+  transaction_response = client.create_transaction(tax_document)
+  print(transaction_response.text)
 
 ```  
 The create_transaction method takes in a model, in python it's a dictionary type object. Which you will fill out to include all of your transaction information. In this case, we are using the [TransactionModel](https://developer.avalara.com/api-reference/avatax/rest/v2/models/TransactionModel/)
