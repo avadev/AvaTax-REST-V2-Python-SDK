@@ -1513,18 +1513,6 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
-    API to modify the reference fields at the document and the line level.
-    
-    
-    
-      :param companyId [int] 
-      :param model [TransactionReferenceFieldModel] 
-      :return FetchResult
-    """
-    def tag_transaction(self, companyId, model):        return requests.put('{}/api/v2/companies/{}/transactions/tag'.format(self.base_url, companyId),
-                               auth=self.auth, headers=self.client_header, json=model, 
-                               timeout=self.timeout_limit if self.timeout_limit else 1200)
-    r"""
     Create a new contact
     
     Create one or more new contact objects.
@@ -2182,6 +2170,22 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Retrieve the full list of Avalara-supported usage of extra parameters for classification of a item.
+    
+    Returns the full list of Avalara-supported usage of extra parameters for item classification.
+      The list of parameters is available for use with Item Classification.
+      Some parameters are only available for use if you have subscribed to certain features of AvaTax.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* values
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_classification_parameters_usage(self, include=None):        return requests.get('{}/api/v2/definitions/classification/parametersusage'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Retrieve the full list of communications service types
     
     Returns full list of service types for a given transaction type ID.
@@ -2711,7 +2715,15 @@ class Mixin:
     r"""
     Retrieve the parameters by companyCode and itemCode.
     
-    Returns the list of parameters based on the company country and state jurisdiction and the item code.
+    Returns the list of parameters based on the company's service types and the item code.
+      Ignores nexus if a service type is configured in the 'IgnoreNexusForServiceTypes' configuration section.
+      Ignores nexus for the AvaAlcohol service type.
+      NOTE: If your company code or item code contains any of these characters /, +, ? or a space, please use the following encoding before making a request:
+      * Replace '/' with '\_-ava2f-\_' For example: 'Company/Code' becomes 'Company_-ava2f-_Code'
+      * Replace '+' with '\_-ava2b-\_' For example: 'Company+Code' becomes 'Company_-ava2b-_Code'
+      * Replace '?' with '\_-ava3f-\_' For example: 'Company?Code' becomes 'Company_-ava3f-_Code'
+      * Replace '%' with '\_-ava25-\_' For example: 'Company%Code' becomes 'Company_-ava25-_Code'
+      * Replace '#' with '\_-ava23-\_' For example: 'Company#Code' becomes 'Company_-ava23-_Code'
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
@@ -2812,6 +2824,12 @@ class Mixin:
     Lists all product classification systems available to a company based on its nexus.
       Tax authorities use product classification systems as a way to identify products and associate them with a tax rate.
       More than one tax authority might use the same product classification system, but they might charge different tax rates for products.
+      NOTE: If your company code contains any of these characters /, +, ? or a space, please use the following encoding before making a request:
+      * Replace '/' with '\_-ava2f-\_' For example: 'Company/Code' becomes 'Company_-ava2f-_Code'
+      * Replace '+' with '\_-ava2b-\_' For example: 'Company+Code' becomes 'Company_-ava2b-_Code'
+      * Replace '?' with '\_-ava3f-\_' For example: 'Company?Code' becomes 'Company_-ava3f-_Code'
+      * Replace '%' with '\_-ava25-\_' For example: 'Company%Code' becomes 'Company_-ava25-_Code'
+      * Replace '#' with '\_-ava23-\_' For example: 'Company#Code' becomes 'Company_-ava23-_Code'
     
       :param companyCode [string] The company code.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* countries
@@ -2889,6 +2907,22 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Retrieve the full list of Avalara-supported usage of parameters used for returns.
+    
+    Returns the full list of Avalara-supported usage of extra parameters for the returns.
+      This list of parameters is available for use with Returns.
+      Some parameters are only available for use if you have subscribed to certain features of AvaTax.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* values
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_returns_parameters_usage(self, include=None):        return requests.get('{}/api/v2/definitions/returns/parametersusage'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Retrieve the full list of Avalara-supported permissions
     
     Returns the full list of Avalara-supported permission types.
@@ -2919,6 +2953,20 @@ class Mixin:
       :return FetchResult
     """
     def list_subscription_types(self, include=None):        return requests.get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve the list all tags supported by avalara
+    
+    Retrieves the list of suggested locations for a marketplace.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_tags(self, include=None):        return requests.get('{}/api/v2/definitions/tags'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -3496,6 +3544,26 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Bulk upload items from a product catalog
+    
+    Create/Update one or more item objects attached to this company.
+      Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
+      can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
+      and other data fields. AvaTax will automatically look up each `itemCode` and apply the correct tax codes and parameters
+      from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
+      team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
+      The tax code takes precedence over the tax code id if both are provided.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The ID of the company that owns this items.
+      :param model [ItemBulkUploadInputModel] The items you wish to upload.
+      :return ItemBulkUploadOutputModel
+    """
+    def bulk_upload_items(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/items/upload'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Add classifications to an item.
     
     Add classifications to an item.
@@ -3554,6 +3622,22 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Create tags for a item
+    
+    Creates one or more new `Tag` objects attached to this Item.
+      Item tags puts multiple labels for an item. So that item can be easily grouped by these tags.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The ID of the company that defined these items
+      :param itemId [int] The ID of the item as defined by the company that owns this tag.
+      :param model [ItemTagDetailModel] Tags you wish to associate with the Item
+      :return ItemTagDetailModel
+    """
+    def create_item_tags(self, companyId, itemId, model):        return requests.post('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Delete a single item
     
     Deletes the item object at this URL.
@@ -3606,6 +3690,37 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_item_parameter(self, companyId, itemId, id_):        return requests.delete('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete item tag by id
+    
+    Deletes the `Tag` object of an Item at this URL.
+      Item tags puts multiple labels for an item. So that item can be easily grouped by these tags.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The ID of the company that defined these items
+      :param itemId [int] The ID of the item as defined by the company that owns this tag.
+      :param itemTagDetailId [int] The ID of the item tag detail you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_item_tag(self, companyId, itemId, itemTagDetailId):        return requests.delete('{}/api/v2/companies/{}/items/{}/tags/{}'.format(self.base_url, companyId, itemId, itemTagDetailId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete all item tags
+    
+    Deletes all `Tags` objects of an Item at this URL.
+      Item tags puts multiple labels for an item. So that item can be easily grouped by these tags.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+    
+      :param companyId [int] The ID of the company that defined these items.
+      :param itemId [int] The ID of the item as defined by the company that owns this tag.
+      :return ErrorDetail
+    """
+    def delete_item_tags(self, companyId, itemId):        return requests.delete('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -3664,6 +3779,24 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Retrieve tags for an item
+    
+    Get the `Tag` objects of an Item identified by this URL.
+      Item tags puts multiple labels for an item. So that item can be easily grouped by these tags.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+    
+      :param companyId [int] The ID of the company that defined these items
+      :param itemId [int] The ID of the item as defined by the company that owns this tag.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* tagName
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :return FetchResult
+    """
+    def get_item_tags(self, companyId, itemId, include=None):        return requests.get('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Retrieve classifications for an item.
     
     List classifications for an item.
@@ -3699,7 +3832,7 @@ class Mixin:
     
       :param companyId [int] The company id
       :param itemId [int] The item id
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* name, unit
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* name, unit, isNeededForCalculation, isNeededForReturns, isNeededForClassification
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -3726,7 +3859,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that defined these items
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, classifications, parameters
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, classifications, parameters, tags
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3750,7 +3883,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, classifications, parameters
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, classifications, parameters, tags
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3758,6 +3891,32 @@ class Mixin:
       :return FetchResult
     """
     def query_items(self, include=None):        return requests.get('{}/api/v2/items'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all items associated with given tag
+    
+    Get multiple item objects associated with given tag.
+      Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
+      can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
+      and other data fields. AvaTax will automatically look up each `itemCode` and apply the correct tax codes and parameters
+      from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
+      team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+    
+      :param companyId [int] The ID of the company that defined these items.
+      :param tag [string] The master tag to be associated with item.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, classifications, parameters, tags
+      :param include [string] A comma separated list of additional data to retrieve.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def query_items_by_tag(self, companyId, tag, include=None):        return requests.get('{}/api/v2/companies/{}/items/bytags/{}'.format(self.base_url, companyId, tag),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -4835,6 +4994,60 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Creates a new tax notice responsibility type.
+    
+    This API is available by invitation only and only available for users with Compliance admin access.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param model [CreateNoticeResponsibilityTypeModel] The responsibility type to create
+      :return NoticeResponsibilityModel
+    """
+    def create_notice_responsibility_type(self, model):        return requests.post('{}/api/v2/notices/responsibilities'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Creates a new tax notice root cause type.
+    
+    This API is available by invitation only and only available for users with Compliance admin access.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param model [CreateNoticeRootCauseTypeModel] The root cause type to create
+      :return NoticeRootCauseModel
+    """
+    def create_notice_root_cause_type(self, model):        return requests.post('{}/api/v2/notices/rootcauses'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a tax notice responsibility type.
+    
+    This API is available by invitation only and only available for users with Compliance admin access.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param responsibilityId [int] The unique ID of the responsibility type
+      :return ErrorDetail
+    """
+    def delete_notice_responsibility_type(self, responsibilityId):        return requests.delete('{}/api/v2/notices/responsibilities/{}'.format(self.base_url, responsibilityId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Delete a tax notice root cause type.
+    
+    This API is available by invitation only and only available for users with Compliance admin access.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+    
+      :param rootCauseId [int] The unique ID of the root cause type
+      :return ErrorDetail
+    """
+    def delete_notice_root_cause_type(self, rootCauseId):        return requests.delete('{}/api/v2/notices/rootcauses/{}'.format(self.base_url, rootCauseId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Mark a single notification as dismissed.
     
     Marks the notification identified by this URL as dismissed.
@@ -5136,7 +5349,7 @@ class Mixin:
       * In the result of the Initiate API, you receive back a report's `id` value.
       * Check the status of a report by calling `GetReport` and passing in the report's `id` value.
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
-      This API works for all report types.
+      * We throttle this API. You can only call this API up to 5 times in a minute.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
@@ -5225,6 +5438,9 @@ class Mixin:
       A setting can refer to any type of data you need to remember about this company object.
       When creating this object, you may define your own `set`, `name`, and `value` parameters.
       To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
+      Use Set = Transactions, Name = TaxCodePrioritization/HSCodePrioritization and Value = Transaction/ItemMaster for prioritizing which TaxCodes/HsCodes should be used for calculating taxes.
+      Example: To prioritize TaxCodes passed in a Transaction over values stored with Items when calculating tax, use
+      Set = Transactions, Name = TaxCodePrioritization, Value = Transaction
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
@@ -5294,7 +5510,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these settings
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* modifiedDate, ModifiedUserId
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5320,7 +5536,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* modifiedDate, ModifiedUserId
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -6308,7 +6524,7 @@ class Mixin:
       :param companyCode [string] The company code of the company that recorded this transaction
       :param dataSourceId [int] Optionally filter transactions to those from a specific data source.
       :param include [string] Specifies objects to include in this fetch call
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exchangeRateCurrencyCode, totalDiscount, lines, addresses, locationTypes, summary, taxDetailsByTaxType, parameters, messages, invoiceMessages, isFakeTransaction
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exchangeRateCurrencyCode, totalDiscount, lines, addresses, locationTypes, summary, taxDetailsByTaxType, parameters, userDefinedFields, messages, invoiceMessages, isFakeTransaction, deliveryTerms
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -6805,7 +7021,7 @@ class Mixin:
     
       :param accountId [int] The accountID of the user you wish to list.
       :param include [string] Optional fetch commands.
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* SuppressNewUserEmail
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -6830,7 +7046,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param include [string] Optional fetch commands.
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* SuppressNewUserEmail
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
