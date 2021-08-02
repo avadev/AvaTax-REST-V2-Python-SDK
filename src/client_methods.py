@@ -2098,6 +2098,20 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    List all market place locations.
+    
+    List all market place locations.
+    
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_all_marketplace_locations(self, include=None):        return requests.get('{}/api/v2/definitions/listallmarketplacelocations'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Retrieve the full list of the AvaFile Forms available
     
     This API is deprecated.
@@ -3855,6 +3869,7 @@ class Mixin:
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * Parameters
       * Classifications
+      * Tags
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
@@ -5257,6 +5272,18 @@ class Mixin:
       :return ErrorDetail
     """
     def delete_subscription(self, accountId, id_):        return requests.delete('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve List of Accounts by Account Migration Status
+    
+    ### Security Policies
+      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+    
+      :param writeMode [TssAccountMigrationId]  (See TssAccountMigrationId::* for a list of allowable values)
+      :return AccountMigrationStatusModel
+    """
+    def list_accounts_by_tss_write_mode(self, writeMode):        return requests.get('{}/api/v2/accounts/ListAccountsByTssWriteMode/{}'.format(self.base_url, writeMode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
