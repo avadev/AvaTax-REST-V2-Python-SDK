@@ -2410,6 +2410,28 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    List jurisdictions based on the TaxType, TaxSubType and RateType provided
+    
+    Returns a list of all Avalara-supported taxing jurisdictions filtered by TaxType, TaxSubType and RateType.
+      This API allows you to examine all Avalara-supported jurisdictions. You can filter your search by supplying
+      SQL-like query for fetching only the ones you concerned about. For example: effectiveDate > '2016-01-01'
+      The jurisdictionType, effectiveDate, and endDate are filterable fields available on the JurisdictionRateTypeTaxTypeMappingModels returned by this API.
+    
+      :param country [string] The country for which you want to retrieve the jurisdiction information
+      :param region [string] The region for which you want to retrieve the jurisdiction information
+      :param taxTypeId [string] The taxtype for which you want to retrieve the jurisdiction information
+      :param taxSubTypeId [string] The taxsubtype for which you want to retrieve the jurisdiction information
+      :param rateTypeId [string] The ratetype for which you want to retrieve the jurisdiction information
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* id, country, state, jurisdictionCode, longName, taxTypeId, taxSubTypeId, taxTypeGroupId, rateTypeId
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_jurisdictions_by_rate_type_tax_type_mapping(self, country, region, taxTypeId, taxSubTypeId, include=None):        return requests.get('{}/api/v2/definitions/jurisdictions/countries/{}/regions/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url, country, region, taxTypeId, taxSubTypeId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Retrieve the list of questions that are required for a tax location
     
     Returns the list of additional questions you must answer when declaring a location in certain taxing jurisdictions.
@@ -2559,6 +2581,22 @@ class Mixin:
     """
     def list_nexus_by_form_code(self, formCode):        return requests.get('{}/api/v2/definitions/nexus/byform/{}'.format(self.base_url, formCode),
                                auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve the full list of Avalara-supported nexus for a tax type group.
+    
+    Returns all Avalara-supported nexus for the specified specified tax type group.
+      This API is intended to be useful if your user interface needs to display a selectable list of nexus filtered by tax type group.
+    
+      :param taxTypeGroup [string] The tax type group to fetch the supporting system nexus for.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxTypeGroup, taxAuthorityId, taxName, parameters, taxableNexus
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_nexus_by_tax_type_group(self, taxTypeGroup, include=None):        return requests.get('{}/api/v2/definitions/nexus/bytaxtypegroup/{}'.format(self.base_url, taxTypeGroup),
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Retrieve the full list of nexus tax type groups
@@ -2873,6 +2911,24 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Retrieve the list of rate types by country, TaxType and by TaxSubType
+    
+    Returns the list of Avalara-supported rate type file types
+      This API is intended to be useful to identify all the different rate types.
+    
+      :param country [string] The country to examine for rate types
+      :param taxTypeId [string] The taxType for the country to examine for rate types
+      :param taxSubTypeId [string] The taxSubType for the country and taxType to examine for rate types
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* id, rateType, description
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_rate_types_by_country_tax_type_tax_sub_type(self, country, taxTypeId, taxSubTypeId, include=None):        return requests.get('{}/api/v2/definitions/countries/{}/taxtypes/{}/taxsubtypes/{}/ratetypes'.format(self.base_url, country, taxTypeId, taxSubTypeId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     List all ISO 3166 regions
     
     Returns a list of all ISO 3166 region codes and their US English friendly names.
@@ -3095,6 +3151,40 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Retrieve the full list of tax sub types by Country and TaxType
+    
+    Returns the full list of Avalara-supported tax sub-types
+      This API is intended to be useful to identify all the different tax sub-types for given country and TaxType.
+    
+      :param country [string] The country to examine for taxsubtype
+      :param taxTypeId [string] The taxType for the country to examine for taxsubtype
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_tax_sub_types_by_country_and_tax_type(self, country, taxTypeId, include=None):        return requests.get('{}/api/v2/definitions/taxsubtypes/countries/{}/taxtypes/{}'.format(self.base_url, country, taxTypeId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve the full list of tax sub types by jurisdiction code and region
+    
+    Returns the full list of Avalara-supported tax sub-types by jurisdiction and region
+      This API is intended to be useful to identify all the different tax sub-types.
+    
+      :param jurisdictionCode [string] The jurisdiction code of the tax sub type.
+      :param region [string] The region of the tax sub type.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_tax_sub_types_by_jurisdiction_and_region(self, jurisdictionCode, region, include=None):        return requests.get('{}/api/v2/definitions/taxsubtypes/{}/{}'.format(self.base_url, jurisdictionCode, region),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Retrieve the full list of tax type groups
     
     Returns the full list of Avalara-supported tax type groups
@@ -3107,6 +3197,38 @@ class Mixin:
       :return FetchResult
     """
     def list_tax_type_groups(self, include=None):        return requests.get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve the list of applicable TaxTypes
+    
+    Retrieves the list of applicable TaxTypes based on Nexus of the company.
+    
+      :param country [string] The country for which you want to retrieve the unitofbasis information
+      :param companyId [int] Your companyId to retrieve the applicable taxtypes
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_tax_types_by_nexus_and_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/taxtypes/countries/{}'.format(self.base_url, country),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve the list of applicable UnitOfBasis
+    
+    Retrieves the list of applicable UnitOfBasis
+    
+      :param country [string] The country for which you want to retrieve the unitofbasis information
+      :param taxTypeId [string] The taxtype for which you want to retrieve the unitofbasis information
+      :param taxSubTypeId [string] The taxsubtype for which you want to retrieve the unitofbasis information
+      :param rateTypeId [string] The ratetype for which you want to retrieve the unitofbasis information
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_unit_of_basis_by_country_and_tax_type_and_tax_sub_type_and_rate_type(self, country, taxTypeId, taxSubTypeId, include=None):        return requests.get('{}/api/v2/definitions/unitofbasis/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url, country, taxTypeId, taxSubTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -3298,6 +3420,26 @@ class Mixin:
     """
     def delete_company_return_settings(self, companyId, filingCalendarId, companyReturnSettingId):        return requests.delete('{}/api/v2/companies/{}/filingcalendars/{}/setting/{}'.format(self.base_url, companyId, filingCalendarId, companyReturnSettingId),
                                auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Retrieve all legacy filing calendars for this company
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param companyId [int] The ID of the company that owns these batches
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxAuthorityId, taxAuthorityName, taxAuthorityType, settings
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :param returnCountry [string] A comma separated list of countries
+      :param returnRegion [string] A comma separated list of regions
+      :return FetchResult
+    """
+    def legacy_filing_calendars(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filingcalendars/Legacy'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Retrieve a filing containing the return and all its accrual returns.
@@ -4917,6 +5059,32 @@ class Mixin:
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Retrieve nexus for this company By TaxTypeGroup
+    
+    List all nexus objects defined for this company filtered by TaxTypeGroup.
+      The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
+      taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
+      accountant or lawyer prior to declaring nexus.
+      Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+      Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+      You may specify one or more of the following values in the '$include' parameter to fetch additional nested data, using commas to separate multiple values:
+       * Parameters
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+    
+      :param companyId [int] The ID of the company that owns these nexus objects
+      :param taxTypeGroup [string] Name of TaxTypeGroup to filter by
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxTypeGroup, taxAuthorityId, taxName, parameters, taxableNexus
+      :param include [string] A comma separated list of additional data to retrieve.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_nexus_by_company_and_tax_type_group(self, companyId, taxTypeGroup, include=None):        return requests.get('{}/api/v2/companies/{}/nexus/byTaxTypeGroup/{}'.format(self.base_url, companyId, taxTypeGroup),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
     Retrieve parameters for a nexus
     
     List parameters for a nexus.
@@ -6033,7 +6201,7 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these tax rules
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, rateTypeCode, taxTypeGroup, taxSubType
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, taxTypeCode, taxRuleProductDetail, rateTypeCode, taxTypeGroup, taxSubType, unitOfBasis
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -6061,7 +6229,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, rateTypeCode, taxTypeGroup, taxSubType
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, taxTypeCode, taxRuleProductDetail, rateTypeCode, taxTypeGroup, taxSubType, unitOfBasis
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
