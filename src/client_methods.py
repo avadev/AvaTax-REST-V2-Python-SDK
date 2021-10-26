@@ -3397,6 +3397,7 @@ class Mixin:
       Returns edit options when modifying a filing calendar.
       This API is available by invitation only.
       ### Security Policies
+      * This API requires openId bearer token for authentication
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyId [int] The unique ID of the company that owns the filing calendar object
@@ -3411,6 +3412,7 @@ class Mixin:
     
     This API is available by invitation only and only available for users with Compliance access
       ### Security Policies
+      * This API requires openId bearer token for authentication
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The unique ID of the company
@@ -3445,6 +3447,7 @@ class Mixin:
     Retrieve a filing containing the return and all its accrual returns.
     
     ### Security Policies
+      * This API requires openId bearer token for authentication
       * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns these returns
@@ -3458,6 +3461,7 @@ class Mixin:
     Retrieve a list of filed returns for the specified company in the year and month of a given filing period.
     
     ### Security Policies
+      * This API requires openId bearer token for authentication
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API is available by invitation only.*Exempt security roles*: ComplianceRootUser, ComplianceAdmin, ComplianceUser, TechnicalSupportAdmin, TechnicalSupportUser, CompanyUser, AccountUser, CompanyAdmin, AccountAdmin.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
