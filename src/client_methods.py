@@ -6,6 +6,8 @@ class Mixin:
     """Mixin class contain methods attached to Client class."""
 
     r"""
+    Swagger Name: AvaTaxClient
+    
     Reset this account's license key
     
     Resets the existing license key for this account to a new key.
@@ -25,10 +27,15 @@ class Mixin:
       :param model [ResetLicenseKeyModel] A request confirming that you wish to reset the license key of this account.
       :return LicenseKeyModel
     """
-    def account_reset_license_key(self, id_, model):        return requests.post('{}/api/v2/accounts/{}/resetlicensekey'.format(self.base_url, id_),
+    def account_reset_license_key(self, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/accounts/{}/resetlicensekey'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Activate an account by accepting terms and conditions
     
     Activate the account specified by the unique accountId number.
@@ -45,10 +52,15 @@ class Mixin:
       :param model [ActivateAccountModel] The activation request
       :return AccountModel
     """
-    def activate_account(self, id_, model):        return requests.post('{}/api/v2/accounts/{}/activate'.format(self.base_url, id_),
+    def activate_account(self, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/accounts/{}/activate'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve audit history for an account.
     
     Retrieve audit trace history for an account.
@@ -71,10 +83,15 @@ class Mixin:
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :return FetchResult
     """
-    def audit_account(self, id_, include=None):        return requests.get('{}/api/v2/accounts/{}/audit'.format(self.base_url, id_),
+    def audit_account(self, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts/{}/audit'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create license key for this account
     
     Creates a new license key for this account.
@@ -91,10 +108,15 @@ class Mixin:
       :param model [AccountLicenseKeyModel] 
       :return LicenseKeyModel
     """
-    def create_license_key(self, id_, model):        return requests.post('{}/api/v2/accounts/{}/licensekey'.format(self.base_url, id_),
+    def create_license_key(self, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/accounts/{}/licensekey'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete license key for this account by license key name
     
     Deletes the license key for this account using license key name.
@@ -107,10 +129,15 @@ class Mixin:
       :param licensekeyname [string] The license key name you wish to update.
       :return ErrorDetail
     """
-    def delete_license_key(self, id_, licensekeyname):        return requests.delete('{}/api/v2/accounts/{}/licensekey/{}'.format(self.base_url, id_, licensekeyname),
+    def delete_license_key(self, id_, licensekeyname):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/accounts/{}/licensekey/{}'.format(self.base_url, id_, licensekeyname),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single account
     
     Get the account object identified by this URL.
@@ -124,10 +151,15 @@ class Mixin:
       :param include [string] A comma separated list of special fetch options
       :return AccountModel
     """
-    def get_account(self, id_, include=None):        return requests.get('{}/api/v2/accounts/{}'.format(self.base_url, id_),
+    def get_account(self, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Get configuration settings for this account
     
     Retrieve a list of all configuration settings tied to this account.
@@ -145,10 +177,15 @@ class Mixin:
       :param id_ [int] 
       :return AccountConfigurationModel
     """
-    def get_account_configuration(self, id_):        return requests.get('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
+    def get_account_configuration(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve license key by license key name
     
     ### Security Policies
@@ -158,10 +195,15 @@ class Mixin:
       :param licensekeyname [string] The ID of the account to retrieve
       :return AccountLicenseKeyModel
     """
-    def get_license_key(self, id_, licensekeyname):        return requests.get('{}/api/v2/accounts/{}/licensekey/{}'.format(self.base_url, id_, licensekeyname),
+    def get_license_key(self, id_, licensekeyname):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts/{}/licensekey/{}'.format(self.base_url, id_, licensekeyname),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all license keys for this account
     
     Gets list of all the license keys used by the account.
@@ -171,10 +213,15 @@ class Mixin:
       :param id_ [int] The ID of the account to retrieve
       :return AccountLicenseKeyModel
     """
-    def get_license_keys(self, id_):        return requests.get('{}/api/v2/accounts/{}/licensekeys'.format(self.base_url, id_),
+    def get_license_keys(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts/{}/licensekeys'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all accounts
     
     List all account objects that can be seen by the current user.
@@ -195,10 +242,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_accounts(self, include=None):        return requests.get('{}/api/v2/accounts'.format(self.base_url),
+    def query_accounts(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Change configuration settings for this account
     
     Update configuration settings tied to this account.
@@ -217,10 +269,15 @@ class Mixin:
       :param model [AccountConfigurationModel] 
       :return AccountConfigurationModel
     """
-    def set_account_configuration(self, id_, model):        return requests.post('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
+    def set_account_configuration(self, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve geolocation information for a specified address
     
     Resolve an address against Avalara's address-validation system. If the address can be resolved, this API
@@ -247,10 +304,15 @@ class Mixin:
       :param textCase [TextCase] selectable text case for address validation (See TextCase::* for a list of allowable values)
       :return AddressResolutionModel
     """
-    def resolve_address(self, include=None):        return requests.get('{}/api/v2/addresses/resolve'.format(self.base_url),
+    def resolve_address(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/addresses/resolve'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve geolocation information for a specified address
     
     Resolve an address against Avalara's address-validation system. If the address can be resolved, this API
@@ -266,10 +328,15 @@ class Mixin:
       :param model [AddressValidationInfo] The address to resolve
       :return AddressResolutionModel
     """
-    def resolve_address_post(self, model):        return requests.post('{}/api/v2/addresses/resolve'.format(self.base_url),
+    def resolve_address_post(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/addresses/resolve'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a lookup file for a company
     
     
@@ -279,10 +346,15 @@ class Mixin:
       :param model [AdvancedRuleLookupFileModel] The lookup file you wish to create
       :return AdvancedRuleLookupFileModel
     """
-    def create_company_lookup_file(self, accountId, companyId, model):        return requests.post('{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(self.base_url, accountId, companyId),
+    def create_company_lookup_file(self, accountId, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(self.base_url, accountId, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a lookup file
     
     
@@ -291,10 +363,15 @@ class Mixin:
       :param id_ [string] The unique ID/GUID for the company lookup file to be deleted
       :return ErrorDetail
     """
-    def delete_lookup_file(self, accountId, id_):        return requests.delete('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
+    def delete_lookup_file(self, accountId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Get the lookup files for a company
     
     
@@ -303,10 +380,15 @@ class Mixin:
       :param companyId [int] The ID of the company for which to retrieve lookup files
       :return FetchResult
     """
-    def get_company_lookup_files(self, accountId, companyId):        return requests.get('{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(self.base_url, accountId, companyId),
+    def get_company_lookup_files(self, accountId, companyId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(self.base_url, accountId, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Get a lookup file for an accountId and companyLookupFileId
     
     
@@ -315,10 +397,15 @@ class Mixin:
       :param id_ [string] The unique ID/GUID of the company lookup file to return
       :return AdvancedRuleLookupFileModel
     """
-    def get_lookup_file(self, accountId, id_):        return requests.get('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
+    def get_lookup_file(self, accountId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a lookup file
     
     
@@ -328,10 +415,15 @@ class Mixin:
       :param model [AdvancedRuleLookupFileModel] The new values to update the lookup file
       :return AdvancedRuleLookupFileModel
     """
-    def update_lookup_file(self, accountId, id_, model):        return requests.put('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
+    def update_lookup_file(self, accountId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new AvaFileForm
     
     Create one or more AvaFileForms
@@ -343,10 +435,15 @@ class Mixin:
       :param model [AvaFileFormModel] The AvaFileForm you wish to create.
       :return AvaFileFormModel
     """
-    def create_ava_file_forms(self, model):        return requests.post('{}/api/v2/avafileforms'.format(self.base_url),
+    def create_ava_file_forms(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single AvaFileForm
     
     Marks the existing AvaFileForm object at this URL as deleted.
@@ -357,10 +454,15 @@ class Mixin:
       :param id_ [int] The ID of the AvaFileForm you wish to delete.
       :return ErrorDetail
     """
-    def delete_ava_file_form(self, id_):        return requests.delete('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
+    def delete_ava_file_form(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single AvaFileForm
     
     Get the AvaFileForm object identified by this URL.
@@ -371,10 +473,15 @@ class Mixin:
       :param id_ [int] The primary key of this AvaFileForm
       :return AvaFileFormModel
     """
-    def get_ava_file_form(self, id_):        return requests.get('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
+    def get_ava_file_form(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all AvaFileForms
     
     Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -389,10 +496,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_ava_file_forms(self, include=None):        return requests.get('{}/api/v2/avafileforms'.format(self.base_url),
+    def query_ava_file_forms(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a AvaFileForm
     
     All data from the existing object will be replaced with data in the object you PUT.
@@ -405,10 +517,15 @@ class Mixin:
       :param model [AvaFileFormModel] The AvaFileForm model you wish to update.
       :return AvaFileFormModel
     """
-    def update_ava_file_form(self, id_, model):        return requests.put('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
+    def update_ava_file_form(self, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Cancel an in progress batch
     
     Marks the in progress batch identified by this URL as cancelled.
@@ -427,10 +544,15 @@ class Mixin:
       :param id_ [int] The ID of the batch to cancel.
       :return BatchModel
     """
-    def cancel_batch(self, companyId, id_):        return requests.post('{}/api/v2/companies/{}/batches/{}/cancel'.format(self.base_url, companyId, id_),
+    def cancel_batch(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/batches/{}/cancel'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new batch
     
     Create one or more new batch objects attached to this company.
@@ -455,10 +577,15 @@ class Mixin:
       :param model [BatchModel] The batch you wish to create.
       :return BatchModel
     """
-    def create_batches(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
+    def create_batches(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new transaction batch
     
     Create a new transaction batch objects attached to this company.
@@ -482,10 +609,15 @@ class Mixin:
       :param model [CreateTransactionBatchRequestModel] The transaction batch you wish to create.
       :return CreateTransactionBatchResponseModel
     """
-    def create_transaction_batch(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/batches/transactions'.format(self.base_url, companyId),
+    def create_transaction_batch(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/batches/transactions'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single batch
     
     Marks the batch identified by this URL as deleted.
@@ -503,10 +635,15 @@ class Mixin:
       :param id_ [int] The ID of the batch to delete.
       :return ErrorDetail
     """
-    def delete_batch(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
+    def delete_batch(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Download a single batch file
     
     Download a single batch file identified by this URL.
@@ -518,10 +655,15 @@ class Mixin:
       :param id_ [int] The primary key of this batch file object
       :return String
     """
-    def download_batch(self, companyId, batchId, id_):        return requests.get('{}/api/v2/companies/{}/batches/{}/files/{}/attachment'.format(self.base_url, companyId, batchId, id_),
+    def download_batch(self, companyId, batchId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/batches/{}/files/{}/attachment'.format(self.base_url, companyId, batchId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single batch
     
     Get the batch object identified by this URL. A batch object is a large
@@ -543,10 +685,15 @@ class Mixin:
       :param id_ [int] The primary key of this batch
       :return BatchModel
     """
-    def get_batch(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
+    def get_batch(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all batches for this company
     
     List all batch objects attached to the specified company.
@@ -576,10 +723,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_batches_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
+    def list_batches_by_company(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all batches
     
     Get multiple batch objects across all companies.
@@ -606,10 +758,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_batches(self, include=None):        return requests.get('{}/api/v2/batches'.format(self.base_url),
+    def query_batches(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/batches'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a CertExpress invitation
     
     Creates an invitation for a customer to self-report certificates using the CertExpress website.
@@ -633,10 +790,15 @@ class Mixin:
       :param model [CreateCertExpressInvitationModel] the requests to send out to customers
       :return CertExpressInvitationStatusModel
     """
-    def create_cert_express_invitation(self, companyId, customerCode, model):        return requests.post('{}/api/v2/companies/{}/customers/{}/certexpressinvites'.format(self.base_url, companyId, customerCode),
+    def create_cert_express_invitation(self, companyId, customerCode, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/customers/{}/certexpressinvites'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single CertExpress invitation
     
     Retrieve an existing CertExpress invitation sent to a customer.
@@ -661,10 +823,15 @@ class Mixin:
       :param include [string] OPTIONAL: A comma separated list of special fetch options. No options are defined at this time.
       :return CertExpressInvitationModel
     """
-    def get_cert_express_invitation(self, companyId, customerCode, id_, include=None):        return requests.get('{}/api/v2/companies/{}/customers/{}/certexpressinvites/{}'.format(self.base_url, companyId, customerCode, id_),
+    def get_cert_express_invitation(self, companyId, customerCode, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/customers/{}/certexpressinvites/{}'.format(self.base_url, companyId, customerCode, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List CertExpress invitations
     
     Retrieve CertExpress invitations sent by this company.
@@ -691,10 +858,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_cert_express_invitations(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/certexpressinvites'.format(self.base_url, companyId),
+    def list_cert_express_invitations(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/certexpressinvites'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create certificates for this company
     
     Record one or more certificates document for this company.
@@ -722,10 +894,15 @@ class Mixin:
       :param model [CertificateModel] Certificates to be created
       :return CertificateModel
     """
-    def create_certificates(self, companyId, model, include=None):        return requests.post('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
+    def create_certificates(self, companyId, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Revoke and delete a certificate
     
     Revoke the certificate identified by this URL, then delete it.
@@ -746,10 +923,15 @@ class Mixin:
       :param id_ [int] The unique ID number of this certificate
       :return ErrorDetail
     """
-    def delete_certificate(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
+    def delete_certificate(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Download an image for this certificate
     
     Download an image or PDF file for this certificate.
@@ -773,10 +955,15 @@ class Mixin:
       :param type [CertificatePreviewType] The data format in which to retrieve the certificate image (See CertificatePreviewType::* for a list of allowable values)
       :return String
     """
-    def download_certificate_image(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
+    def download_certificate_image(self, companyId, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single certificate
     
     Get the current certificate identified by this URL.
@@ -801,10 +988,15 @@ class Mixin:
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.
       :return CertificateModel
     """
-    def get_certificate(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
+    def get_certificate(self, companyId, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Check a company's exemption certificate status.
     
     Checks whether this company is configured to use exemption certificates in AvaTax.
@@ -820,10 +1012,15 @@ class Mixin:
       :param companyId [int] The company ID to check
       :return ProvisionStatusModel
     """
-    def get_certificate_setup(self, companyId):        return requests.get('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
+    def get_certificate_setup(self, companyId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Link attributes to a certificate
     
     Link one or many attributes to a certificate.
@@ -846,10 +1043,15 @@ class Mixin:
       :param model [CertificateAttributeModel] The list of attributes to link to this certificate.
       :return FetchResult
     """
-    def link_attributes_to_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(self.base_url, companyId, id_),
+    def link_attributes_to_certificate(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Link customers to a certificate
     
     Link one or more customers to an existing certificate.
@@ -873,10 +1075,15 @@ class Mixin:
       :param model [LinkCustomersModel] The list of customers needed be added to the Certificate for exemption
       :return FetchResult
     """
-    def link_customers_to_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/link'.format(self.base_url, companyId, id_),
+    def link_customers_to_certificate(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all attributes applied to this certificate
     
     Retrieve the list of attributes that are linked to this certificate.
@@ -898,10 +1105,15 @@ class Mixin:
       :param id_ [int] The unique ID number of this certificate
       :return FetchResult
     """
-    def list_attributes_for_certificate(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/certificates/{}/attributes'.format(self.base_url, companyId, id_),
+    def list_attributes_for_certificate(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/certificates/{}/attributes'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List customers linked to this certificate
     
     List all customers linked to this certificate.
@@ -924,10 +1136,15 @@ class Mixin:
       :param include [string] OPTIONAL: A comma separated list of special fetch options.   No options are currently available when fetching customers.
       :return FetchResult
     """
-    def list_customers_for_certificate(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/certificates/{}/customers'.format(self.base_url, companyId, id_),
+    def list_customers_for_certificate(self, companyId, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/certificates/{}/customers'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all certificates for a company
     
     List all certificates recorded by a company
@@ -955,10 +1172,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_certificates(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
+    def query_certificates(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Request setup of exemption certificates for this company.
     
     Requests the setup of exemption certificates for this company.
@@ -975,10 +1197,15 @@ class Mixin:
       :param companyId [int] 
       :return ProvisionStatusModel
     """
-    def request_certificate_setup(self, companyId):        return requests.post('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
+    def request_certificate_setup(self, companyId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Unlink attributes from a certificate
     
     Unlink one or many attributes from a certificate.
@@ -1001,10 +1228,15 @@ class Mixin:
       :param model [CertificateAttributeModel] The list of attributes to unlink from this certificate.
       :return FetchResult
     """
-    def unlink_attributes_from_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(self.base_url, companyId, id_),
+    def unlink_attributes_from_certificate(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Unlink customers from a certificate
     
     Unlinks one or more customers from a certificate.
@@ -1029,10 +1261,15 @@ class Mixin:
       :param model [LinkCustomersModel] The list of customers to unlink from this certificate
       :return FetchResult
     """
-    def unlink_customers_from_certificate(self, companyId, id_, model):        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(self.base_url, companyId, id_),
+    def unlink_customers_from_certificate(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single certificate
     
     Replace the certificate identified by this URL with a new one.
@@ -1053,10 +1290,15 @@ class Mixin:
       :param model [CertificateModel] The new certificate object that will replace the existing one
       :return CertificateModel
     """
-    def update_certificate(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
+    def update_certificate(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Upload an image or PDF attachment for this certificate
     
     Upload an image or PDF attachment for this certificate.
@@ -1079,10 +1321,15 @@ class Mixin:
       :param file [String] The exemption certificate file you wanted to upload. Accepted formats are: PDF, JPEG, TIFF, PNG.
       :return string
     """
-    def upload_certificate_image(self, companyId, id_):        return requests.post('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
+    def upload_certificate_image(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Checks whether the integration being used to set up this company and run transactions onto this company is compliant to all requirements.
     
     Examines the most recent 100 transactions or data from the last month when verifying transaction-related integrations.
@@ -1113,10 +1360,15 @@ class Mixin:
       :param id_ [int] The ID of the company to check if its integration is certified.
       :return string
     """
-    def certify_integration(self, id_):        return requests.get('{}/api/v2/companies/{}/certify'.format(self.base_url, id_),
+    def certify_integration(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/certify'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Change the filing status of this company
     
     Changes the current filing status of this company.
@@ -1135,10 +1387,15 @@ class Mixin:
       :param model [FilingStatusChangeModel] 
       :return string
     """
-    def change_filing_status(self, id_, model):        return requests.post('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
+    def change_filing_status(self, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Quick setup for a company with a single physical address
     
     Shortcut to quickly setup a single-physical-location company with critical information and activate it.
@@ -1157,10 +1414,15 @@ class Mixin:
       :param model [CompanyInitializationModel] Information about the company you wish to create.
       :return CompanyModel
     """
-    def company_initialize(self, model):        return requests.post('{}/api/v2/companies/initialize'.format(self.base_url),
+    def company_initialize(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/initialize'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create new companies
     
     Create one or more new company objects.
@@ -1173,10 +1435,15 @@ class Mixin:
       :param model [CompanyModel] Either a single company object or an array of companies to create
       :return CompanyModel
     """
-    def create_companies(self, model):        return requests.post('{}/api/v2/companies'.format(self.base_url),
+    def create_companies(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Add parameters to a company.
     
     Add parameters to a company.
@@ -1192,10 +1459,15 @@ class Mixin:
       :param model [CompanyParameterDetailModel] The company parameters you wish to create.
       :return CompanyParameterDetailModel
     """
-    def create_company_parameters(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
+    def create_company_parameters(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Request managed returns funding setup for a company
     
     This API is available by invitation only.
@@ -1216,10 +1488,15 @@ class Mixin:
       :param model [FundingInitiateModel] The funding initialization request
       :return FundingStatusModel
     """
-    def create_funding_request(self, id_, model):        return requests.post('{}/api/v2/companies/{}/funding/setup'.format(self.base_url, id_),
+    def create_funding_request(self, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/funding/setup'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single company
     
     Deleting a company will delete all child companies, and all users attached to this company.
@@ -1229,10 +1506,15 @@ class Mixin:
       :param id_ [int] The ID of the company you wish to delete.
       :return ErrorDetail
     """
-    def delete_company(self, id_):        return requests.delete('{}/api/v2/companies/{}'.format(self.base_url, id_),
+    def delete_company(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single company parameter
     
     Delete a parameter of a company.
@@ -1246,10 +1528,15 @@ class Mixin:
       :param id_ [int] The parameter id
       :return ErrorDetail
     """
-    def delete_company_parameter(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
+    def delete_company_parameter(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Check the funding configuration of a company
     
     This API is available by invitation only.
@@ -1263,10 +1550,15 @@ class Mixin:
       :param companyId [int] The unique identifier of the company
       :return FundingConfigurationModel
     """
-    def funding_configuration_by_company(self, companyId):        return requests.get('{}/api/v2/companies/{}/funding/configuration'.format(self.base_url, companyId),
+    def funding_configuration_by_company(self, companyId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/funding/configuration'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Check the funding configuration of a company
     
     This API is available by invitation only.
@@ -1281,10 +1573,15 @@ class Mixin:
       :param currency [string] The currency of the funding. USD and CAD are the only valid currencies
       :return FundingConfigurationModel
     """
-    def funding_configurations_by_company_and_currency(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/funding/configurations'.format(self.base_url, companyId),
+    def funding_configurations_by_company_and_currency(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/funding/configurations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single company
     
     Get the company object identified by this URL.
@@ -1306,10 +1603,15 @@ class Mixin:
       :param include [string] OPTIONAL: A comma separated list of special fetch options.      * Child objects - Specify one or more of the following to retrieve objects related to each company: "Contacts", "FilingCalendars", "Items", "Locations", "Nexus", "TaxCodes", "NonReportingChildren" or "TaxRules".   * Deleted objects - Specify "FetchDeleted" to retrieve information about previously deleted objects.
       :return CompanyModel
     """
-    def get_company(self, id_, include=None):        return requests.get('{}/api/v2/companies/{}'.format(self.base_url, id_),
+    def get_company(self, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Get configuration settings for this company
     
     Retrieve a list of all configuration settings tied to this company.
@@ -1327,10 +1629,15 @@ class Mixin:
       :param id_ [int] 
       :return CompanyConfigurationModel
     """
-    def get_company_configuration(self, id_):        return requests.get('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
+    def get_company_configuration(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single company parameter
     
     Retrieves a single parameter of a company.
@@ -1344,10 +1651,15 @@ class Mixin:
       :param id_ [int] 
       :return CompanyParameterDetailModel
     """
-    def get_company_parameter_detail(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
+    def get_company_parameter_detail(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Get this company's filing status
     
     Retrieve the current filing status of this company.
@@ -1367,10 +1679,15 @@ class Mixin:
       :param id_ [int] 
       :return string
     """
-    def get_filing_status(self, id_):        return requests.get('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
+    def get_filing_status(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve parameters for a company
     
     Retrieve all parameters of a company.
@@ -1389,10 +1706,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_company_parameter_details(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
+    def list_company_parameter_details(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Check managed returns funding status for a company
     
     This API is available by invitation only.
@@ -1406,10 +1728,15 @@ class Mixin:
       :param id_ [int] The unique identifier of the company
       :return FundingStatusModel
     """
-    def list_funding_requests_by_company(self, id_):        return requests.get('{}/api/v2/companies/{}/funding'.format(self.base_url, id_),
+    def list_funding_requests_by_company(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/funding'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a list of MRS Companies with account
     
     This API is available by invitation only.
@@ -1419,10 +1746,15 @@ class Mixin:
     
       :return FetchResult
     """
-    def list_mrs_companies(self):        return requests.get('{}/api/v2/companies/mrs'.format(self.base_url),
+    def list_mrs_companies(self):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/mrs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all companies
     
     Get multiple company objects.
@@ -1449,10 +1781,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_companies(self, include=None):        return requests.get('{}/api/v2/companies'.format(self.base_url),
+    def query_companies(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Change configuration settings for this company
     
     Update configuration settings tied to this company.
@@ -1471,10 +1808,15 @@ class Mixin:
       :param model [CompanyConfigurationModel] 
       :return CompanyConfigurationModel
     """
-    def set_company_configuration(self, id_, model):        return requests.post('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
+    def set_company_configuration(self, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single company
     
     Replace the existing company object at this URL with an updated object.
@@ -1491,10 +1833,15 @@ class Mixin:
       :param model [CompanyModel] The company object you wish to update.
       :return CompanyModel
     """
-    def update_company(self, id_, model):        return requests.put('{}/api/v2/companies/{}'.format(self.base_url, id_),
+    def update_company(self, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a company parameter
     
     Update a parameter of a company.
@@ -1509,10 +1856,40 @@ class Mixin:
       :param model [CompanyParameterDetailModel] The company parameter object you wish to update.
       :return CompanyParameterDetailModel
     """
-    def update_company_parameter_detail(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
+    def update_company_parameter_detail(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
+    Retrieve jurisdiction rate information for tax authority
+    
+    This API is available by invitation only.
+      ### Security Policies
+      * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
+    
+      :param taxAuthorityId [int] Used to limit the jurisdictions returned.
+      :param effectiveDate [datetime] Used to limit the jurisdictions returned.
+      :param endDate [datetime] Used to limit the jurisdictions returned.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param include [string] A comma separated list of objects to fetch underneath this jurisdiction.
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return ComplianceJurisdictionRateModel
+    """
+    def query_tax_authority_jurisdiction_rates(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/compliance/taxauthorityjurisdictionrates'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new contact
     
     Create one or more new contact objects.
@@ -1525,10 +1902,15 @@ class Mixin:
       :param model [ContactModel] The contacts you wish to create.
       :return ContactModel
     """
-    def create_contacts(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
+    def create_contacts(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single contact
     
     Mark the existing contact object at this URL as deleted.
@@ -1539,10 +1921,15 @@ class Mixin:
       :param id_ [int] The ID of the contact you wish to delete.
       :return ErrorDetail
     """
-    def delete_contact(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
+    def delete_contact(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single contact
     
     Get the contact object identified by this URL.
@@ -1555,10 +1942,15 @@ class Mixin:
       :param id_ [int] The primary key of this contact
       :return ContactModel
     """
-    def get_contact(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
+    def get_contact(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve contacts for this company
     
     List all contact objects assigned to this company.
@@ -1574,10 +1966,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_contacts_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
+    def list_contacts_by_company(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all contacts
     
     Get multiple contact objects across all companies.
@@ -1594,10 +1991,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_contacts(self, include=None):        return requests.get('{}/api/v2/contacts'.format(self.base_url),
+    def query_contacts(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/contacts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single contact
     
     Replace the existing contact object at this URL with an updated object.
@@ -1613,10 +2015,15 @@ class Mixin:
       :param model [ContactModel] The contact you wish to update.
       :return ContactModel
     """
-    def update_contact(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
+    def update_contact(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create customers for this company
     
     Create one or more customers for this company.
@@ -1639,10 +2046,15 @@ class Mixin:
       :param model [CustomerModel] The list of customer objects to be created
       :return CustomerModel
     """
-    def create_customers(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
+    def create_customers(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a customer record
     
     Deletes the customer object referenced by this URL.
@@ -1663,10 +2075,15 @@ class Mixin:
       :param customerCode [string] The unique code representing this customer
       :return CustomerModel
     """
-    def delete_customer(self, companyId, customerCode):        return requests.delete('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
+    def delete_customer(self, companyId, customerCode):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single customer
     
     Retrieve the customer identified by this URL.
@@ -1692,10 +2109,15 @@ class Mixin:
       :param include [string] Specify optional additional objects to include in this fetch request
       :return CustomerModel
     """
-    def get_customer(self, companyId, customerCode, include=None):        return requests.get('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
+    def get_customer(self, companyId, customerCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Link attributes to a customer
     
     Link one or many attributes to a customer.
@@ -1719,10 +2141,15 @@ class Mixin:
       :param model [CustomerAttributeModel] The list of attributes to link to the customer.
       :return FetchResult
     """
-    def link_attributes_to_customer(self, companyId, customerCode, model):        return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/link'.format(self.base_url, companyId, customerCode),
+    def link_attributes_to_customer(self, companyId, customerCode, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Link certificates to a customer
     
     Link one or more certificates to a customer.
@@ -1744,10 +2171,15 @@ class Mixin:
       :param model [LinkCertificatesModel] The list of certificates to link to this customer
       :return FetchResult
     """
-    def link_certificates_to_customer(self, companyId, customerCode, model):        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/link'.format(self.base_url, companyId, customerCode),
+    def link_certificates_to_customer(self, companyId, customerCode, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Link two customer records together
     
     Links a Ship-To customer record with a Bill-To customer record.
@@ -1769,10 +2201,15 @@ class Mixin:
       :param model [LinkCustomersModel] A list of information about ship-to customers to link to this bill-to customer.
       :return CustomerModel
     """
-    def link_ship_to_customers_to_bill_customer(self, companyId, code, model):        return requests.post('{}/api/v2/companies/{}/customers/billto/{}/shipto/link'.format(self.base_url, companyId, code),
+    def link_ship_to_customers_to_bill_customer(self, companyId, code, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/customers/billto/{}/shipto/link'.format(self.base_url, companyId, code),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a customer's attributes
     
     Retrieve the attributes linked to the customer identified by this URL.
@@ -1795,10 +2232,15 @@ class Mixin:
       :param customerCode [string] The unique code representing the current customer
       :return FetchResult
     """
-    def list_attributes_for_customer(self, companyId, customerCode):        return requests.get('{}/api/v2/companies/{}/customers/{}/attributes'.format(self.base_url, companyId, customerCode),
+    def list_attributes_for_customer(self, companyId, customerCode):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/customers/{}/attributes'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List certificates linked to a customer
     
     List all certificates linked to a customer.
@@ -1824,10 +2266,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_certificates_for_customer(self, companyId, customerCode, include=None):        return requests.get('{}/api/v2/companies/{}/customers/{}/certificates'.format(self.base_url, companyId, customerCode),
+    def list_certificates_for_customer(self, companyId, customerCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/customers/{}/certificates'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List valid certificates for a location
     
     List valid certificates linked to a customer in a particular country and region.
@@ -1852,10 +2299,15 @@ class Mixin:
       :param region [string] Search for certificates matching this region. Uses the ISO 3166 two or three character state, region, or province code.
       :return ExemptionStatusModel
     """
-    def list_valid_certificates_for_customer(self, companyId, customerCode, country, region):        return requests.get('{}/api/v2/companies/{}/customers/{}/certificates/{}/{}'.format(self.base_url, companyId, customerCode, country, region),
+    def list_valid_certificates_for_customer(self, companyId, customerCode, country, region):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/customers/{}/certificates/{}/{}'.format(self.base_url, companyId, customerCode, country, region),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all customers for this company
     
     List all customers recorded by this company matching the specified criteria.
@@ -1883,10 +2335,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_customers(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
+    def query_customers(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Unlink attributes from a customer
     
     Unlink one or many attributes from a customer.
@@ -1910,10 +2367,15 @@ class Mixin:
       :param model [CustomerAttributeModel] The list of attributes to unlink from the customer.
       :return FetchResult
     """
-    def unlink_attributes_from_customer(self, companyId, customerCode, model):        return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/unlink'.format(self.base_url, companyId, customerCode),
+    def unlink_attributes_from_customer(self, companyId, customerCode, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Unlink certificates from a customer
     
     Remove one or more certificates to a customer.
@@ -1935,10 +2397,15 @@ class Mixin:
       :param model [LinkCertificatesModel] The list of certificates to link to this customer
       :return FetchResult
     """
-    def unlink_certificates_from_customer(self, companyId, customerCode, model):        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(self.base_url, companyId, customerCode),
+    def unlink_certificates_from_customer(self, companyId, customerCode, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single customer
     
     Replace the customer object at this URL with a new record.
@@ -1960,10 +2427,15 @@ class Mixin:
       :param model [CustomerModel] The new customer model that will replace the existing record at this URL
       :return CustomerModel
     """
-    def update_customer(self, companyId, customerCode, model):        return requests.put('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
+    def update_customer(self, companyId, customerCode, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create and store new datasources for the respective companies.
     
     Create one or more datasource objects.
@@ -1975,10 +2447,15 @@ class Mixin:
       :param model [DataSourceModel] 
       :return DataSourceModel
     """
-    def create_data_sources(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
+    def create_data_sources(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a datasource by datasource id for a company.
     
     Marks the existing datasource for a company as deleted.
@@ -1990,10 +2467,15 @@ class Mixin:
       :param id_ [int] The id of the datasource you wish to delete.
       :return ErrorDetail
     """
-    def delete_data_source(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
+    def delete_data_source(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Get data source by data source id
     
     Retrieve the data source by its unique ID number.
@@ -2005,10 +2487,15 @@ class Mixin:
       :param id_ [int] data source id
       :return DataSourceModel
     """
-    def get_data_source_by_id(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
+    def get_data_source_by_id(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all datasources for this company
     
     Gets multiple datasource objects for a given company.
@@ -2023,10 +2510,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_data_sources(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
+    def list_data_sources(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all datasources
     
     Get multiple datasource objects across all companies.
@@ -2042,10 +2534,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_data_sources(self, include=None):        return requests.get('{}/api/v2/datasources'.format(self.base_url),
+    def query_data_sources(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/datasources'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a datasource identified by id for a company
     
     Updates a datasource for a company.
@@ -2058,10 +2555,15 @@ class Mixin:
       :param model [DataSourceModel] 
       :return DataSourceModel
     """
-    def update_data_source(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
+    def update_data_source(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Lists all parents of an HS Code.
     
     Retrieves the specified HS code and all of its parents, reflecting all sections, chapters, headings, and subheadings
@@ -2078,10 +2580,15 @@ class Mixin:
       :param hsCode [string] The partial or full HS Code for which you would like to view all of the parents.
       :return FetchResult
     """
-    def get_cross_border_code(self, country, hsCode):        return requests.get('{}/api/v2/definitions/crossborder/{}/{}/hierarchy'.format(self.base_url, country, hsCode),
+    def get_cross_border_code(self, country, hsCode):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/crossborder/{}/{}/hierarchy'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Test whether a form supports online login verification
     
     This API is intended to be useful to identify whether the user should be allowed
@@ -2094,10 +2601,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def get_login_verifier_by_form(self, form, include=None):        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers/{}'.format(self.base_url, form),
+    def get_login_verifier_by_form(self, form, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers/{}'.format(self.base_url, form),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all market place locations.
     
     List all market place locations.
@@ -2108,10 +2620,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_all_marketplace_locations(self, include=None):        return requests.get('{}/api/v2/definitions/listallmarketplacelocations'.format(self.base_url),
+    def list_all_marketplace_locations(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/listallmarketplacelocations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of the AvaFile Forms available
     
     This API is deprecated.
@@ -2125,10 +2642,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_ava_file_forms(self, include=None):        return requests.get('{}/api/v2/definitions/avafileforms'.format(self.base_url),
+    def list_ava_file_forms(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List certificate attributes used by a company
     
     List the certificate attributes defined by a company either specified by the user or the user's default company.
@@ -2144,10 +2666,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_certificate_attributes(self, include=None):        return requests.get('{}/api/v2/definitions/certificateattributes'.format(self.base_url),
+    def list_certificate_attributes(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/certificateattributes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List the certificate exempt reasons defined by a company
     
     List the certificate exempt reasons defined by a company.
@@ -2162,10 +2689,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_certificate_exempt_reasons(self, include=None):        return requests.get('{}/api/v2/definitions/certificateexemptreasons'.format(self.base_url),
+    def list_certificate_exempt_reasons(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/certificateexemptreasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List certificate exposure zones used by a company
     
     List the certificate exposure zones defined by a company.
@@ -2180,10 +2712,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_certificate_exposure_zones(self, include=None):        return requests.get('{}/api/v2/definitions/certificateexposurezones'.format(self.base_url),
+    def list_certificate_exposure_zones(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/certificateexposurezones'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported usage of extra parameters for classification of a item.
     
     Returns the full list of Avalara-supported usage of extra parameters for item classification.
@@ -2196,10 +2733,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_classification_parameters_usage(self, include=None):        return requests.get('{}/api/v2/definitions/classification/parametersusage'.format(self.base_url),
+    def list_classification_parameters_usage(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/classification/parametersusage'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of communications service types
     
     Returns full list of service types for a given transaction type ID.
@@ -2211,10 +2753,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_communications_service_types(self, id_, include=None):        return requests.get('{}/api/v2/definitions/communications/transactiontypes/{}/servicetypes'.format(self.base_url, id_),
+    def list_communications_service_types(self, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/communications/transactiontypes/{}/servicetypes'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of communications transactiontypes
     
     Returns full list of communications transaction types which
@@ -2226,10 +2773,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_communications_transaction_types(self, include=None):        return requests.get('{}/api/v2/definitions/communications/transactiontypes'.format(self.base_url),
+    def list_communications_transaction_types(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/communications/transactiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of communications transaction/service type pairs
     
     Returns full list of communications transaction/service type pairs which
@@ -2241,10 +2793,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_communications_t_s_pairs(self, include=None):        return requests.get('{}/api/v2/definitions/communications/tspairs'.format(self.base_url),
+    def list_communications_t_s_pairs(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/communications/tspairs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all ISO 3166 countries
     
     Returns a list of all ISO 3166 country codes, and their US English friendly names.
@@ -2257,10 +2814,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_countries(self, include=None):        return requests.get('{}/api/v2/definitions/countries'.format(self.base_url),
+    def list_countries(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/countries'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List certificate exposure zones used by a company
     
     List available cover letters that can be used when sending invitation to use CertExpress to upload certificates.
@@ -2276,10 +2838,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_cover_letters(self, include=None):        return requests.get('{}/api/v2/definitions/coverletters'.format(self.base_url),
+    def list_cover_letters(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/coverletters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Lists the next level of HS Codes given a destination country and HS Code prefix.
     
     Retrieves a list of HS Codes that are the children of the prefix for the given destination country, if
@@ -2299,10 +2866,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_cross_border_codes(self, country, hsCode, include=None):        return requests.get('{}/api/v2/definitions/crossborder/{}/{}'.format(self.base_url, country, hsCode),
+    def list_cross_border_codes(self, country, hsCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/crossborder/{}/{}'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List top level HS Code Sections.
     
     Returns the full list of top level HS Code Sections. Sections are the broadest level of detail for
@@ -2315,10 +2887,15 @@ class Mixin:
     
       :return FetchResult
     """
-    def list_cross_border_sections(self):        return requests.get('{}/api/v2/definitions/crossborder/sections'.format(self.base_url),
+    def list_cross_border_sections(self):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/crossborder/sections'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all ISO 4217 currencies supported by AvaTax.
     
     Lists all ISO 4217 currencies supported by AvaTax.
@@ -2331,10 +2908,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_currencies(self, include=None):        return requests.get('{}/api/v2/definitions/currencies'.format(self.base_url),
+    def list_currencies(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/currencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported entity use codes
     
     Returns the full list of Avalara-supported entity use codes.
@@ -2349,10 +2931,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_entity_use_codes(self, include=None):        return requests.get('{}/api/v2/definitions/entityusecodes'.format(self.base_url),
+    def list_entity_use_codes(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/entityusecodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported filing frequencies.
     
     Returns the full list of Avalara-supported filing frequencies.
@@ -2364,10 +2951,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_filing_frequencies(self, include=None):        return requests.get('{}/api/v2/definitions/filingfrequencies'.format(self.base_url),
+    def list_filing_frequencies(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/filingfrequencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List jurisdictions based on the filter provided
     
     Returns a list of all Avalara-supported taxing jurisdictions.
@@ -2381,10 +2973,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_jurisdictions(self, include=None):        return requests.get('{}/api/v2/definitions/jurisdictions'.format(self.base_url),
+    def list_jurisdictions(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/jurisdictions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List jurisdictions near a specific address
     
     Returns a list of all Avalara-supported taxing jurisdictions that apply to this address.
@@ -2406,10 +3003,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_jurisdictions_by_address(self, include=None):        return requests.get('{}/api/v2/definitions/jurisdictionsnearaddress'.format(self.base_url),
+    def list_jurisdictions_by_address(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/jurisdictionsnearaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List jurisdictions based on the TaxType, TaxSubType and RateType provided
     
     Returns a list of all Avalara-supported taxing jurisdictions filtered by TaxType, TaxSubType and RateType.
@@ -2428,10 +3030,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_jurisdictions_by_rate_type_tax_type_mapping(self, country, region, taxTypeId, taxSubTypeId, include=None):        return requests.get('{}/api/v2/definitions/jurisdictions/countries/{}/regions/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url, country, region, taxTypeId, taxSubTypeId),
+    def list_jurisdictions_by_rate_type_tax_type_mapping(self, country, region, taxTypeId, taxSubTypeId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/jurisdictions/countries/{}/regions/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url, country, region, taxTypeId, taxSubTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the list of questions that are required for a tax location
     
     Returns the list of additional questions you must answer when declaring a location in certain taxing jurisdictions.
@@ -2456,10 +3063,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_location_questions_by_address(self, include=None):        return requests.get('{}/api/v2/definitions/locationquestions'.format(self.base_url),
+    def list_location_questions_by_address(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/locationquestions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all forms where logins can be verified automatically
     
     List all forms where logins can be verified automatically.
@@ -2472,10 +3084,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_login_verifiers(self, include=None):        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers'.format(self.base_url),
+    def list_login_verifiers(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the list of locations for a marketplace.
     
     Retrieves the list of suggested locations for a marketplace.
@@ -2486,10 +3103,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_marketplace_locations(self, include=None):        return requests.get('{}/api/v2/definitions/marketplacelocations'.format(self.base_url),
+    def list_marketplace_locations(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/marketplacelocations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported nexus for all countries and regions.
     
     Returns the full list of all Avalara-supported nexus for all countries and regions.
@@ -2501,10 +3123,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_nexus(self, include=None):        return requests.get('{}/api/v2/definitions/nexus'.format(self.base_url),
+    def list_nexus(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all nexus that apply to a specific address.
     
     Returns a list of all Avalara-supported taxing jurisdictions that apply to this address.
@@ -2526,10 +3153,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_nexus_by_address(self, include=None):        return requests.get('{}/api/v2/definitions/nexus/byaddress'.format(self.base_url),
+    def list_nexus_by_address(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/nexus/byaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported nexus for a country.
     
     Returns all Avalara-supported nexus for the specified country.
@@ -2542,10 +3174,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_nexus_by_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/nexus/{}'.format(self.base_url, country),
+    def list_nexus_by_country(self, country, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/nexus/{}'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported nexus for a country and region.
     
     Returns all Avalara-supported nexus for the specified country and region.
@@ -2559,10 +3196,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_nexus_by_country_and_region(self, country, region, include=None):        return requests.get('{}/api/v2/definitions/nexus/{}/{}'.format(self.base_url, country, region),
+    def list_nexus_by_country_and_region(self, country, region, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/nexus/{}/{}'.format(self.base_url, country, region),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List nexus related to a tax form
     
     Retrieves a list of nexus related to a tax form.
@@ -2579,10 +3221,15 @@ class Mixin:
       :param formCode [string] The form code that we are looking up the nexus for
       :return NexusByTaxFormModel
     """
-    def list_nexus_by_form_code(self, formCode):        return requests.get('{}/api/v2/definitions/nexus/byform/{}'.format(self.base_url, formCode),
+    def list_nexus_by_form_code(self, formCode):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/nexus/byform/{}'.format(self.base_url, formCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported nexus for a tax type group.
     
     Returns all Avalara-supported nexus for the specified specified tax type group.
@@ -2595,10 +3242,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_nexus_by_tax_type_group(self, taxTypeGroup, include=None):        return requests.get('{}/api/v2/definitions/nexus/bytaxtypegroup/{}'.format(self.base_url, taxTypeGroup),
+    def list_nexus_by_tax_type_group(self, taxTypeGroup, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/nexus/bytaxtypegroup/{}'.format(self.base_url, taxTypeGroup),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of nexus tax type groups
     
     Returns the full list of Avalara-supported nexus tax type groups
@@ -2610,10 +3262,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_nexus_tax_type_groups(self, include=None):        return requests.get('{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url),
+    def list_nexus_tax_type_groups(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported tax notice customer funding options.
     
     Returns the full list of Avalara-supported tax notice customer funding options.
@@ -2625,10 +3282,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_notice_customer_funding_options(self, include=None):        return requests.get('{}/api/v2/definitions/noticecustomerfundingoptions'.format(self.base_url),
+    def list_notice_customer_funding_options(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/noticecustomerfundingoptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported tax notice customer types.
     
     Returns the full list of Avalara-supported tax notice customer types.
@@ -2640,10 +3302,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_notice_customer_types(self, include=None):        return requests.get('{}/api/v2/definitions/noticecustomertypes'.format(self.base_url),
+    def list_notice_customer_types(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/noticecustomertypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported tax notice filing types.
     
     Returns the full list of Avalara-supported tax notice filing types.
@@ -2655,10 +3322,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_notice_filingtypes(self, include=None):        return requests.get('{}/api/v2/definitions/noticefilingtypes'.format(self.base_url),
+    def list_notice_filingtypes(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/noticefilingtypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported tax notice priorities.
     
     Returns the full list of Avalara-supported tax notice priorities.
@@ -2670,10 +3342,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_notice_priorities(self, include=None):        return requests.get('{}/api/v2/definitions/noticepriorities'.format(self.base_url),
+    def list_notice_priorities(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/noticepriorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported tax notice reasons.
     
     Returns the full list of Avalara-supported tax notice reasons.
@@ -2685,10 +3362,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_notice_reasons(self, include=None):        return requests.get('{}/api/v2/definitions/noticereasons'.format(self.base_url),
+    def list_notice_reasons(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/noticereasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported tax notice responsibility ids
     
     Returns the full list of Avalara-supported tax notice responsibility ids
@@ -2700,10 +3382,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_notice_responsibilities(self, include=None):        return requests.get('{}/api/v2/definitions/noticeresponsibilities'.format(self.base_url),
+    def list_notice_responsibilities(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/noticeresponsibilities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported tax notice root causes
     
     Returns the full list of Avalara-supported tax notice root causes
@@ -2715,10 +3402,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_notice_root_causes(self, include=None):        return requests.get('{}/api/v2/definitions/noticerootcauses'.format(self.base_url),
+    def list_notice_root_causes(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/noticerootcauses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported tax notice statuses.
     
     Returns the full list of Avalara-supported tax notice statuses.
@@ -2730,10 +3422,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_notice_statuses(self, include=None):        return requests.get('{}/api/v2/definitions/noticestatuses'.format(self.base_url),
+    def list_notice_statuses(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/noticestatuses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported tax notice types.
     
     Returns the full list of Avalara-supported tax notice types.
@@ -2745,10 +3442,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_notice_types(self, include=None):        return requests.get('{}/api/v2/definitions/noticetypes'.format(self.base_url),
+    def list_notice_types(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/noticetypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported extra parameters for creating transactions.
     
     Returns the full list of Avalara-supported extra parameters for the 'Create Transaction' API call.
@@ -2761,10 +3463,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_parameters(self, include=None):        return requests.get('{}/api/v2/definitions/parameters'.format(self.base_url),
+    def list_parameters(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/parameters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the parameters by companyCode and itemCode.
     
     Returns the list of parameters based on the company's service types and the item code.
@@ -2787,10 +3494,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_parameters_by_item(self, companyCode, itemCode, include=None):        return requests.get('{}/api/v2/definitions/parameters/byitem/{}/{}'.format(self.base_url, companyCode, itemCode),
+    def list_parameters_by_item(self, companyCode, itemCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/parameters/byitem/{}/{}'.format(self.base_url, companyCode, itemCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported usage of extra parameters for creating transactions.
     
     Returns the full list of Avalara-supported usage of extra parameters for the 'Create Transaction' API call.
@@ -2803,10 +3515,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_parameters_usage(self, include=None):        return requests.get('{}/api/v2/definitions/parametersusage'.format(self.base_url),
+    def list_parameters_usage(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/parametersusage'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported permissions
     
     Returns the full list of Avalara-supported permission types.
@@ -2816,10 +3533,15 @@ class Mixin:
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :return FetchResult
     """
-    def list_permissions(self, include=None):        return requests.get('{}/api/v2/definitions/permissions'.format(self.base_url),
+    def list_permissions(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/permissions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported postal codes.
     
     Retrieves the list of Avalara-supported postal codes.
@@ -2830,10 +3552,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_postal_codes(self, include=None):        return requests.get('{}/api/v2/definitions/postalcodes'.format(self.base_url),
+    def list_postal_codes(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/postalcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all customs duty programs recognized by AvaTax
     
     List all preferred customs duty programs recognized by AvaTax.
@@ -2850,10 +3577,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_preferred_programs(self, include=None):        return requests.get('{}/api/v2/definitions/preferredprograms'.format(self.base_url),
+    def list_preferred_programs(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/preferredprograms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all available product classification systems.
     
     List all available product classification systems.
@@ -2867,10 +3599,15 @@ class Mixin:
       :param countryCode [string] If not null, return all records with this code.
       :return FetchResult
     """
-    def list_product_classification_systems(self, include=None):        return requests.get('{}/api/v2/definitions/productclassificationsystems'.format(self.base_url),
+    def list_product_classification_systems(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/productclassificationsystems'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all product classification systems available to a company based on its nexus.
     
     Lists all product classification systems available to a company based on its nexus.
@@ -2891,10 +3628,15 @@ class Mixin:
       :param countryCode [string] If not null, return all records with this code.
       :return FetchResult
     """
-    def list_product_classification_systems_by_company(self, companyCode, include=None):        return requests.get('{}/api/v2/definitions/productclassificationsystems/bycompany/{}'.format(self.base_url, companyCode),
+    def list_product_classification_systems_by_company(self, companyCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/productclassificationsystems/bycompany/{}'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of rate types for each country
     
     Returns the full list of Avalara-supported rate type file types
@@ -2907,10 +3649,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_rate_types_by_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/countries/{}/ratetypes'.format(self.base_url, country),
+    def list_rate_types_by_country(self, country, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/countries/{}/ratetypes'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the list of rate types by country, TaxType and by TaxSubType
     
     Returns the list of Avalara-supported rate type file types
@@ -2925,10 +3672,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_rate_types_by_country_tax_type_tax_sub_type(self, country, taxTypeId, taxSubTypeId, include=None):        return requests.get('{}/api/v2/definitions/countries/{}/taxtypes/{}/taxsubtypes/{}/ratetypes'.format(self.base_url, country, taxTypeId, taxSubTypeId),
+    def list_rate_types_by_country_tax_type_tax_sub_type(self, country, taxTypeId, taxSubTypeId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/countries/{}/taxtypes/{}/taxsubtypes/{}/ratetypes'.format(self.base_url, country, taxTypeId, taxSubTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all ISO 3166 regions
     
     Returns a list of all ISO 3166 region codes and their US English friendly names.
@@ -2941,10 +3693,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_regions(self, include=None):        return requests.get('{}/api/v2/definitions/regions'.format(self.base_url),
+    def list_regions(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/regions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all ISO 3166 regions for a country
     
     Returns a list of all ISO 3166 region codes for a specific country code, and their US English friendly names.
@@ -2958,10 +3715,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_regions_by_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/countries/{}/regions'.format(self.base_url, country),
+    def list_regions_by_country(self, country, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/countries/{}/regions'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported resource file types
     
     Returns the full list of Avalara-supported resource file types
@@ -2973,10 +3735,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_resource_file_types(self, include=None):        return requests.get('{}/api/v2/definitions/resourcefiletypes'.format(self.base_url),
+    def list_resource_file_types(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/resourcefiletypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported usage of parameters used for returns.
     
     Returns the full list of Avalara-supported usage of extra parameters for the returns.
@@ -2989,10 +3756,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_returns_parameters_usage(self, include=None):        return requests.get('{}/api/v2/definitions/returns/parametersusage'.format(self.base_url),
+    def list_returns_parameters_usage(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/returns/parametersusage'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported permissions
     
     Returns the full list of Avalara-supported permission types.
@@ -3005,10 +3777,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_security_roles(self, include=None):        return requests.get('{}/api/v2/definitions/securityroles'.format(self.base_url),
+    def list_security_roles(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/securityroles'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported subscription types
     
     Returns the full list of Avalara-supported subscription types.
@@ -3022,10 +3799,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_subscription_types(self, include=None):        return requests.get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
+    def list_subscription_types(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the list all tags supported by avalara
     
     Retrieves the list of suggested locations for a marketplace.
@@ -3036,10 +3818,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_tags(self, include=None):        return requests.get('{}/api/v2/definitions/tags'.format(self.base_url),
+    def list_tags(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/tags'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported tax authorities.
     
     Returns the full list of Avalara-supported tax authorities.
@@ -3051,10 +3838,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_tax_authorities(self, include=None):        return requests.get('{}/api/v2/definitions/taxauthorities'.format(self.base_url),
+    def list_tax_authorities(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/taxauthorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported forms for each tax authority.
     
     Returns the full list of Avalara-supported forms for each tax authority.
@@ -3068,10 +3860,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_tax_authority_forms(self, include=None):        return requests.get('{}/api/v2/definitions/taxauthorityforms'.format(self.base_url),
+    def list_tax_authority_forms(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/taxauthorityforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported tax authority types.
     
     Returns the full list of Avalara-supported tax authority types.
@@ -3083,10 +3880,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_tax_authority_types(self, include=None):        return requests.get('{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url),
+    def list_tax_authority_types(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported tax codes.
     
     Retrieves the list of Avalara-supported system tax codes.
@@ -3103,10 +3905,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_tax_codes(self, include=None):        return requests.get('{}/api/v2/definitions/taxcodes'.format(self.base_url),
+    def list_tax_codes(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of Avalara-supported tax code types.
     
     Returns the full list of recognized tax code types.
@@ -3117,10 +3924,15 @@ class Mixin:
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :return TaxCodeTypesModel
     """
-    def list_tax_code_types(self, include=None):        return requests.get('{}/api/v2/definitions/taxcodetypes'.format(self.base_url),
+    def list_tax_code_types(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/taxcodetypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of the Tax Forms available
     
     Returns the full list of Avalara-supported Tax Forms
@@ -3132,10 +3944,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_tax_forms(self, include=None):        return requests.get('{}/api/v2/definitions/taxforms'.format(self.base_url),
+    def list_tax_forms(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/taxforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of tax sub types
     
     Returns the full list of Avalara-supported tax sub-types
@@ -3147,10 +3964,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_tax_sub_types(self, include=None):        return requests.get('{}/api/v2/definitions/taxsubtypes'.format(self.base_url),
+    def list_tax_sub_types(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/taxsubtypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of tax sub types by Country and TaxType
     
     Returns the full list of Avalara-supported tax sub-types
@@ -3164,10 +3986,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_tax_sub_types_by_country_and_tax_type(self, country, taxTypeId, include=None):        return requests.get('{}/api/v2/definitions/taxsubtypes/countries/{}/taxtypes/{}'.format(self.base_url, country, taxTypeId),
+    def list_tax_sub_types_by_country_and_tax_type(self, country, taxTypeId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/taxsubtypes/countries/{}/taxtypes/{}'.format(self.base_url, country, taxTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of tax sub types by jurisdiction code and region
     
     Returns the full list of Avalara-supported tax sub-types by jurisdiction and region
@@ -3181,10 +4008,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_tax_sub_types_by_jurisdiction_and_region(self, jurisdictionCode, region, include=None):        return requests.get('{}/api/v2/definitions/taxsubtypes/{}/{}'.format(self.base_url, jurisdictionCode, region),
+    def list_tax_sub_types_by_jurisdiction_and_region(self, jurisdictionCode, region, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/taxsubtypes/{}/{}'.format(self.base_url, jurisdictionCode, region),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the full list of tax type groups
     
     Returns the full list of Avalara-supported tax type groups
@@ -3196,10 +4028,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_tax_type_groups(self, include=None):        return requests.get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
+    def list_tax_type_groups(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the list of applicable TaxTypes
     
     Retrieves the list of applicable TaxTypes based on Nexus of the company.
@@ -3211,10 +4048,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_tax_types_by_nexus_and_country(self, country, include=None):        return requests.get('{}/api/v2/definitions/taxtypes/countries/{}'.format(self.base_url, country),
+    def list_tax_types_by_nexus_and_country(self, country, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/taxtypes/countries/{}'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve the list of applicable UnitOfBasis
     
     Retrieves the list of applicable UnitOfBasis
@@ -3228,10 +4070,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_unit_of_basis_by_country_and_tax_type_and_tax_sub_type_and_rate_type(self, country, taxTypeId, taxSubTypeId, include=None):        return requests.get('{}/api/v2/definitions/unitofbasis/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url, country, taxTypeId, taxSubTypeId),
+    def list_unit_of_basis_by_country_and_tax_type_and_tax_sub_type_and_rate_type(self, country, taxTypeId, taxSubTypeId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/unitofbasis/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url, country, taxTypeId, taxSubTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all defined units of measurement
     
     List all units of measurement systems defined by Avalara.
@@ -3243,10 +4090,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_unit_of_measurement(self, include=None):        return requests.get('{}/api/v2/definitions/unitofmeasurements'.format(self.base_url),
+    def list_unit_of_measurement(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/definitions/unitofmeasurements'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create one or more DistanceThreshold objects
     
     Create one or more DistanceThreshold objects for this company.
@@ -3260,10 +4112,15 @@ class Mixin:
       :param model [CompanyDistanceThresholdModel] The DistanceThreshold object or objects you wish to create.
       :return CompanyDistanceThresholdModel
     """
-    def create_distance_threshold(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
+    def create_distance_threshold(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single DistanceThreshold object
     
     Marks the DistanceThreshold object identified by this URL as deleted.
@@ -3277,10 +4134,15 @@ class Mixin:
       :param id_ [int] The unique ID number of the DistanceThreshold object you wish to delete.
       :return ErrorDetail
     """
-    def delete_distance_threshold(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
+    def delete_distance_threshold(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single DistanceThreshold
     
     Retrieves a single DistanceThreshold object defined by this URL.
@@ -3294,10 +4156,15 @@ class Mixin:
       :param id_ [int] The unique ID number referring to this DistanceThreshold object
       :return CompanyDistanceThresholdModel
     """
-    def get_distance_threshold(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
+    def get_distance_threshold(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all DistanceThresholds for this company.
     
     Lists all DistanceThreshold objects that belong to this company.
@@ -3315,10 +4182,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_distance_thresholds(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
+    def list_distance_thresholds(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all DistanceThreshold objects
     
     Lists all DistanceThreshold objects that belong to this account.
@@ -3337,10 +4209,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_distance_thresholds(self, include=None):        return requests.get('{}/api/v2/distancethresholds'.format(self.base_url),
+    def query_distance_thresholds(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/distancethresholds'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a DistanceThreshold object
     
     Replace the existing DistanceThreshold object at this URL with an updated object.
@@ -3357,10 +4234,15 @@ class Mixin:
       :param model [CompanyDistanceThresholdModel] The new DistanceThreshold object to store.
       :return CompanyDistanceThresholdModel
     """
-    def update_distance_threshold(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
+    def update_distance_threshold(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new eCommerce token.
     
     Creates a new eCommerce token.
@@ -3372,10 +4254,15 @@ class Mixin:
       :param model [CreateECommerceTokenInputModel] 
       :return ECommerceTokenOutputModel
     """
-    def create_e_commerce_token(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
+    def create_e_commerce_token(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Refresh an eCommerce token.
     
     Refresh an eCommerce token.
@@ -3387,10 +4274,15 @@ class Mixin:
       :param model [RefreshECommerceTokenInputModel] 
       :return FetchResult
     """
-    def refresh_e_commerce_token(self, companyId, model):        return requests.put('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
+    def refresh_e_commerce_token(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Add or Edit options
     
     Returns a list of options for adding tax forms for the company and tax form code specified.
@@ -3404,10 +4296,15 @@ class Mixin:
       :param model [CycleSafeEditRequestModel] Cycle Safe Options Request
       :return CycleSafeOptionResultModel
     """
-    def cycle_safe_options(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/filingcalendars/edit/cycleSafeOptions'.format(self.base_url, companyId),
+    def cycle_safe_options(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/filingcalendars/edit/cycleSafeOptions'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a company return setting
     
     This API is available by invitation only and only available for users with Compliance access
@@ -3420,10 +4317,15 @@ class Mixin:
       :param companyReturnSettingId [int] The unique ID of the company return setting that will be deleted from the filing calendar
       :return CompanyReturnSettingModel
     """
-    def delete_company_return_settings(self, companyId, filingCalendarId, companyReturnSettingId):        return requests.delete('{}/api/v2/companies/{}/filingcalendars/{}/setting/{}'.format(self.base_url, companyId, filingCalendarId, companyReturnSettingId),
+    def delete_company_return_settings(self, companyId, filingCalendarId, companyReturnSettingId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/filingcalendars/{}/setting/{}'.format(self.base_url, companyId, filingCalendarId, companyReturnSettingId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all legacy filing calendars for this company
     
     This API is available by invitation only.
@@ -3432,7 +4334,7 @@ class Mixin:
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyId [int] The ID of the company that owns these batches
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxAuthorityId, taxAuthorityName, taxAuthorityType, settings
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxTypes, taxAuthorityId, taxAuthorityName, taxAuthorityType, settings
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -3440,10 +4342,15 @@ class Mixin:
       :param returnRegion [string] A comma separated list of regions
       :return FetchResult
     """
-    def legacy_filing_calendars(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filingcalendars/Legacy'.format(self.base_url, companyId),
+    def legacy_filing_calendars(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/filingcalendars/Legacy'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a filing containing the return and all its accrual returns.
     
     ### Security Policies
@@ -3454,10 +4361,15 @@ class Mixin:
       :param filingReturnId [int] The ID of the filing return
       :return FetchResult
     """
-    def get_accrual_filings(self, companyId, filingReturnId):        return requests.get('{}/api/v2/companies/{}/filings/accrual/{}'.format(self.base_url, companyId, filingReturnId),
+    def get_accrual_filings(self, companyId, filingReturnId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/filings/accrual/{}'.format(self.base_url, companyId, filingReturnId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a list of filed returns for the specified company in the year and month of a given filing period.
     
     ### Security Policies
@@ -3477,10 +4389,15 @@ class Mixin:
       :param taxformCode [string] The unique tax form code of the form.
       :return FetchResult
     """
-    def get_filed_returns(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/filings/returns/filed'.format(self.base_url, companyId),
+    def get_filed_returns(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/filings/returns/filed'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Approves linkage to a firm for a client account
     
     This API enables the account admin of a client account to approve linkage request by a firm.
@@ -3490,10 +4407,15 @@ class Mixin:
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
-    def approve_firm_client_linkage(self, id_):        return requests.post('{}/api/v2/firmclientlinkages/{}/approve'.format(self.base_url, id_),
+    def approve_firm_client_linkage(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/firmclientlinkages/{}/approve'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Request a new FirmClient account and create an approved linkage to it
     
     This API is for use by Firms only.
@@ -3509,10 +4431,15 @@ class Mixin:
       :param model [NewFirmClientAccountRequestModel] Information about the account you wish to create.
       :return FirmClientLinkageOutputModel
     """
-    def create_and_link_new_firm_client_account(self, model):        return requests.post('{}/api/v2/firmclientlinkages/createandlinkclient'.format(self.base_url),
+    def create_and_link_new_firm_client_account(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/firmclientlinkages/createandlinkclient'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Links a firm account with the client account
     
     This API enables the firm admins/firm users to request the linkage of a firm account and a client account.
@@ -3522,10 +4449,15 @@ class Mixin:
       :param model [FirmClientLinkageInputModel] FirmClientLinkageInputModel
       :return FirmClientLinkageOutputModel
     """
-    def create_firm_client_linkage(self, model):        return requests.post('{}/api/v2/firmclientlinkages'.format(self.base_url),
+    def create_firm_client_linkage(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/firmclientlinkages'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a linkage
     
     This API marks a linkage between a firm and client as deleted.
@@ -3535,10 +4467,15 @@ class Mixin:
       :param id_ [int] 
       :return ErrorDetail
     """
-    def delete_firm_client_linkage(self, id_):        return requests.delete('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
+    def delete_firm_client_linkage(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Get linkage between a firm and client by id
     
     This API enables the firm admins/firm users to request the linkage of a firm account and a client account.
@@ -3548,10 +4485,15 @@ class Mixin:
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
-    def get_firm_client_linkage(self, id_):        return requests.get('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
+    def get_firm_client_linkage(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List client linkages for a firm or client
     
     This API enables the firm or account users to request the associated linkages to the account.
@@ -3561,10 +4503,15 @@ class Mixin:
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* firmAccountName, clientAccountName
       :return FetchResult
     """
-    def list_firm_client_linkage(self, include=None):        return requests.get('{}/api/v2/firmclientlinkages'.format(self.base_url),
+    def list_firm_client_linkage(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/firmclientlinkages'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Rejects linkage to a firm for a client account
     
     This API enables the account admin of a client account to reject linkage request by a firm.
@@ -3574,10 +4521,15 @@ class Mixin:
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
-    def reject_firm_client_linkage(self, id_):        return requests.post('{}/api/v2/firmclientlinkages/{}/reject'.format(self.base_url, id_),
+    def reject_firm_client_linkage(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/firmclientlinkages/{}/reject'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Reset linkage status between a client and firm back to requested
     
     This API enables the firm admin of a client account to reset a previously created linkage request by a firm.
@@ -3587,10 +4539,15 @@ class Mixin:
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
-    def reset_firm_client_linkage(self, id_):        return requests.post('{}/api/v2/firmclientlinkages/{}/reset'.format(self.base_url, id_),
+    def reset_firm_client_linkage(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/firmclientlinkages/{}/reset'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Revokes previously approved linkage to a firm for a client account
     
     This API enables the account admin of a client account to revoke a previously approved linkage request by a firm.
@@ -3600,10 +4557,15 @@ class Mixin:
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
-    def revoke_firm_client_linkage(self, id_):        return requests.post('{}/api/v2/firmclientlinkages/{}/revoke'.format(self.base_url, id_),
+    def revoke_firm_client_linkage(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/firmclientlinkages/{}/revoke'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     FREE API - Request a free trial of AvaTax
     
     Call this API to obtain a free AvaTax account.
@@ -3619,10 +4581,15 @@ class Mixin:
       :param model [FreeTrialRequestModel] Required information to provision a free trial account.
       :return NewAccountModel
     """
-    def request_free_trial(self, model):        return requests.post('{}/api/v2/accounts/freetrials/request'.format(self.base_url),
+    def request_free_trial(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/accounts/freetrials/request'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Request the javascript for a funding setup widget
     
     This API is available by invitation only.
@@ -3644,10 +4611,15 @@ class Mixin:
       :param id_ [int] The unique ID number of this funding request
       :return FundingStatusModel
     """
-    def activate_funding_request(self, id_):        return requests.get('{}/api/v2/fundingrequests/{}/widget'.format(self.base_url, id_),
+    def activate_funding_request(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/fundingrequests/{}/widget'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve status about a funding setup request
     
     This API is available by invitation only.
@@ -3667,10 +4639,15 @@ class Mixin:
       :param id_ [int] The unique ID number of this funding request
       :return FundingStatusModel
     """
-    def funding_request_status(self, id_):        return requests.get('{}/api/v2/fundingrequests/{}'.format(self.base_url, id_),
+    def funding_request_status(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/fundingrequests/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete all classifications for an item
     
     Delete all the classifications for a given item.
@@ -3683,10 +4660,15 @@ class Mixin:
       :param itemId [int] The ID of the item you wish to delete the classifications.
       :return ErrorDetail
     """
-    def batch_delete_item_classifications(self, companyId, itemId):        return requests.delete('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
+    def batch_delete_item_classifications(self, companyId, itemId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete all parameters for an item
     
     Delete all the parameters for a given item.
@@ -3700,10 +4682,15 @@ class Mixin:
       :param itemId [int] The ID of the item you wish to delete the parameters.
       :return ErrorDetail
     """
-    def batch_delete_item_parameters(self, companyId, itemId):        return requests.delete('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
+    def batch_delete_item_parameters(self, companyId, itemId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Bulk upload items from a product catalog
     
     Create/Update one or more item objects attached to this company.
@@ -3720,10 +4707,15 @@ class Mixin:
       :param model [ItemBulkUploadInputModel] The items you wish to upload.
       :return ItemBulkUploadOutputModel
     """
-    def bulk_upload_items(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/items/upload'.format(self.base_url, companyId),
+    def bulk_upload_items(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/items/upload'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Add classifications to an item.
     
     Add classifications to an item.
@@ -3738,10 +4730,15 @@ class Mixin:
       :param model [ItemClassificationInputModel] The item classifications you wish to create.
       :return ItemClassificationOutputModel
     """
-    def create_item_classifications(self, companyId, itemId, model):        return requests.post('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
+    def create_item_classifications(self, companyId, itemId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Add parameters to an item.
     
     Add parameters to an item.
@@ -3758,10 +4755,15 @@ class Mixin:
       :param model [ItemParameterModel] The item parameters you wish to create.
       :return ItemParameterModel
     """
-    def create_item_parameters(self, companyId, itemId, model):        return requests.post('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
+    def create_item_parameters(self, companyId, itemId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new item
     
     Creates one or more new item objects attached to this company.
@@ -3778,10 +4780,15 @@ class Mixin:
       :param model [ItemModel] The item you wish to create.
       :return ItemModel
     """
-    def create_items(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
+    def create_items(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create tags for a item
     
     Creates one or more new `Tag` objects attached to this Item.
@@ -3794,10 +4801,15 @@ class Mixin:
       :param model [ItemTagDetailModel] Tags you wish to associate with the Item
       :return ItemTagDetailModel
     """
-    def create_item_tags(self, companyId, itemId, model):        return requests.post('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
+    def create_item_tags(self, companyId, itemId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single item
     
     Deletes the item object at this URL.
@@ -3814,10 +4826,15 @@ class Mixin:
       :param id_ [int] The ID of the item you wish to delete.
       :return ErrorDetail
     """
-    def delete_item(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
+    def delete_item(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single item classification.
     
     Delete a single item classification.
@@ -3831,10 +4848,15 @@ class Mixin:
       :param id_ [int] The item classification id.
       :return ErrorDetail
     """
-    def delete_item_classification(self, companyId, itemId, id_):        return requests.delete('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
+    def delete_item_classification(self, companyId, itemId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single item parameter
     
     Delete a single item parameter.
@@ -3849,10 +4871,15 @@ class Mixin:
       :param id_ [int] The parameter id
       :return ErrorDetail
     """
-    def delete_item_parameter(self, companyId, itemId, id_):        return requests.delete('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
+    def delete_item_parameter(self, companyId, itemId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete item tag by id
     
     Deletes the `Tag` object of an Item at this URL.
@@ -3865,10 +4892,15 @@ class Mixin:
       :param itemTagDetailId [int] The ID of the item tag detail you wish to delete.
       :return ErrorDetail
     """
-    def delete_item_tag(self, companyId, itemId, itemTagDetailId):        return requests.delete('{}/api/v2/companies/{}/items/{}/tags/{}'.format(self.base_url, companyId, itemId, itemTagDetailId),
+    def delete_item_tag(self, companyId, itemId, itemTagDetailId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/items/{}/tags/{}'.format(self.base_url, companyId, itemId, itemTagDetailId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete all item tags
     
     Deletes all `Tags` objects of an Item at this URL.
@@ -3880,10 +4912,15 @@ class Mixin:
       :param itemId [int] The ID of the item as defined by the company that owns this tag.
       :return ErrorDetail
     """
-    def delete_item_tags(self, companyId, itemId):        return requests.delete('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
+    def delete_item_tags(self, companyId, itemId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single item
     
     Get the `Item` object identified by this URL.
@@ -3900,10 +4937,15 @@ class Mixin:
       :param include [string] A comma separated list of additional data to retrieve.
       :return ItemModel
     """
-    def get_item(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
+    def get_item(self, companyId, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single item classification.
     
     Retrieve a single item classification.
@@ -3917,10 +4959,15 @@ class Mixin:
       :param id_ [int] The item classification id.
       :return ItemClassificationOutputModel
     """
-    def get_item_classification(self, companyId, itemId, id_):        return requests.get('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
+    def get_item_classification(self, companyId, itemId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single item parameter
     
     Retrieve a single item parameter.
@@ -3935,10 +4982,15 @@ class Mixin:
       :param id_ [int] The parameter id
       :return ItemParameterModel
     """
-    def get_item_parameter(self, companyId, itemId, id_):        return requests.get('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
+    def get_item_parameter(self, companyId, itemId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve tags for an item
     
     Get the `Tag` objects of an Item identified by this URL.
@@ -3953,10 +5005,15 @@ class Mixin:
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :return FetchResult
     """
-    def get_item_tags(self, companyId, itemId, include=None):        return requests.get('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
+    def get_item_tags(self, companyId, itemId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve classifications for an item.
     
     List classifications for an item.
@@ -3975,10 +5032,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_item_classifications(self, companyId, itemId, include=None):        return requests.get('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
+    def list_item_classifications(self, companyId, itemId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve parameters for an item
     
     List parameters for an item.
@@ -3998,10 +5060,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_item_parameters(self, companyId, itemId, include=None):        return requests.get('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
+    def list_item_parameters(self, companyId, itemId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve items for this company
     
     List all items defined for the current company.
@@ -4029,10 +5096,15 @@ class Mixin:
       :param tagName [string] Tag Name on the basis of which you want to filter Items
       :return FetchResult
     """
-    def list_items_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
+    def list_items_by_company(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all items
     
     Get multiple item objects across all companies.
@@ -4053,10 +5125,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_items(self, include=None):        return requests.get('{}/api/v2/items'.format(self.base_url),
+    def query_items(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/items'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all items associated with given tag
     
     Get multiple item objects associated with given tag.
@@ -4079,10 +5156,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_items_by_tag(self, companyId, tag, include=None):        return requests.get('{}/api/v2/companies/{}/items/bytags/{}'.format(self.base_url, companyId, tag),
+    def query_items_by_tag(self, companyId, tag, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/items/bytags/{}'.format(self.base_url, companyId, tag),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Sync items from a product catalog
     
     Syncs a list of items with AvaTax without waiting for them to be created. It is ideal for syncing large product catalogs
@@ -4101,10 +5183,15 @@ class Mixin:
       :param model [SyncItemsRequestModel] The request object.
       :return SyncItemsResponseModel
     """
-    def sync_items(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/items/sync'.format(self.base_url, companyId),
+    def sync_items(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/items/sync'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single item
     
     Replace the existing `Item` object at this URL with an updated object.
@@ -4124,10 +5211,15 @@ class Mixin:
       :param model [ItemModel] The item object you wish to update.
       :return ItemModel
     """
-    def update_item(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
+    def update_item(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update an item classification.
     
     Update an item classification.
@@ -4143,10 +5235,15 @@ class Mixin:
       :param model [ItemClassificationInputModel] The item object you wish to update.
       :return ItemClassificationOutputModel
     """
-    def update_item_classification(self, companyId, itemId, id_, model):        return requests.put('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
+    def update_item_classification(self, companyId, itemId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update an item parameter
     
     Update an item parameter.
@@ -4162,10 +5259,15 @@ class Mixin:
       :param model [ItemParameterModel] The item object you wish to update.
       :return ItemParameterModel
     """
-    def update_item_parameter(self, companyId, itemId, id_, model):        return requests.put('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
+    def update_item_parameter(self, companyId, itemId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create one or more overrides
     
     Creates one or more jurisdiction override objects for this account.
@@ -4180,10 +5282,15 @@ class Mixin:
       :param model [JurisdictionOverrideModel] The jurisdiction override objects to create
       :return JurisdictionOverrideModel
     """
-    def create_jurisdiction_overrides(self, accountId, model):        return requests.post('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
+    def create_jurisdiction_overrides(self, accountId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single override
     
     Marks the item object at this URL as deleted.
@@ -4194,10 +5301,15 @@ class Mixin:
       :param id_ [int] The ID of the override you wish to delete
       :return ErrorDetail
     """
-    def delete_jurisdiction_override(self, accountId, id_):        return requests.delete('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
+    def delete_jurisdiction_override(self, accountId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single override
     
     Get the item object identified by this URL.
@@ -4212,10 +5324,15 @@ class Mixin:
       :param id_ [int] The primary key of this override
       :return JurisdictionOverrideModel
     """
-    def get_jurisdiction_override(self, accountId, id_):        return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
+    def get_jurisdiction_override(self, accountId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve overrides for this account
     
     List all jurisdiction override objects defined for this account.
@@ -4236,10 +5353,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_jurisdiction_overrides_by_account(self, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
+    def list_jurisdiction_overrides_by_account(self, accountId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all overrides
     
     Get multiple jurisdiction override objects across all companies.
@@ -4259,10 +5381,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_jurisdiction_overrides(self, include=None):        return requests.get('{}/api/v2/jurisdictionoverrides'.format(self.base_url),
+    def query_jurisdiction_overrides(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/jurisdictionoverrides'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single jurisdictionoverride
     
     Replace the existing jurisdictionoverride object at this URL with an updated object.
@@ -4274,10 +5401,15 @@ class Mixin:
       :param model [JurisdictionOverrideModel] The jurisdictionoverride object you wish to update.
       :return JurisdictionOverrideModel
     """
-    def update_jurisdiction_override(self, accountId, id_, model):        return requests.put('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
+    def update_jurisdiction_override(self, accountId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Add parameters to a location.
     
     Add parameters to a location.
@@ -4294,10 +5426,15 @@ class Mixin:
       :param model [LocationParameterModel] The location parameters you wish to create.
       :return LocationParameterModel
     """
-    def create_location_parameters(self, companyId, locationId, model):        return requests.post('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
+    def create_location_parameters(self, companyId, locationId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new location
     
     Create one or more new location objects attached to this company.
@@ -4308,10 +5445,15 @@ class Mixin:
       :param model [LocationModel] The location you wish to create.
       :return LocationModel
     """
-    def create_locations(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
+    def create_locations(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single location
     
     Mark the location object at this URL as deleted.
@@ -4322,10 +5464,15 @@ class Mixin:
       :param id_ [int] The ID of the location you wish to delete.
       :return ErrorDetail
     """
-    def delete_location(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
+    def delete_location(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single location parameter
     
     Delete a single location parameter.
@@ -4340,10 +5487,15 @@ class Mixin:
       :param id_ [int] The parameter id
       :return ErrorDetail
     """
-    def delete_location_parameter(self, companyId, locationId, id_):        return requests.delete('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
+    def delete_location_parameter(self, companyId, locationId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single location
     
     Get the location object identified by this URL.
@@ -4362,10 +5514,15 @@ class Mixin:
       :param include [string] A comma separated list of additional data to retrieve.
       :return LocationModel
     """
-    def get_location(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
+    def get_location(self, companyId, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single company location parameter
     
     Retrieve a single location parameter.
@@ -4380,10 +5537,15 @@ class Mixin:
       :param id_ [int] The parameter id
       :return LocationParameterModel
     """
-    def get_location_parameter(self, companyId, locationId, id_):        return requests.get('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
+    def get_location_parameter(self, companyId, locationId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve parameters for a location
     
     List parameters for a location.
@@ -4403,10 +5565,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_location_parameters(self, companyId, locationId, include=None):        return requests.get('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
+    def list_location_parameters(self, companyId, locationId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve locations for this company
     
     List all location objects defined for this company.
@@ -4430,10 +5597,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_locations_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
+    def list_locations_by_company(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all locations
     
     Get multiple location objects across all companies.
@@ -4456,10 +5628,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_locations(self, include=None):        return requests.get('{}/api/v2/locations'.format(self.base_url),
+    def query_locations(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/locations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single location
     
     Replace the existing location object at this URL with an updated object.
@@ -4473,10 +5650,15 @@ class Mixin:
       :param model [LocationModel] The location you wish to update.
       :return LocationModel
     """
-    def update_location(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
+    def update_location(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a location parameter
     
     Update a location parameter.
@@ -4492,10 +5674,15 @@ class Mixin:
       :param model [LocationParameterModel] The location parameter object you wish to update.
       :return LocationParameterModel
     """
-    def update_location_parameter(self, companyId, locationId, id_, model):        return requests.put('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
+    def update_location_parameter(self, companyId, locationId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Validate the location against local requirements
     
     Returns validation information for this location.
@@ -4508,10 +5695,15 @@ class Mixin:
       :param id_ [int] The primary key of this location
       :return LocationValidationModel
     """
-    def validate_location(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/locations/{}/validate'.format(self.base_url, companyId, id_),
+    def validate_location(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/locations/{}/validate'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Adjust a MultiDocument transaction
     
     Adjusts the current MultiDocument transaction uniquely identified by this URL.
@@ -4537,10 +5729,15 @@ class Mixin:
       :param model [AdjustMultiDocumentModel] The adjust request you wish to execute
       :return MultiDocumentModel
     """
-    def adjust_multi_document_transaction(self, code, type, model, include=None):        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/adjust'.format(self.base_url, code, type),
+    def adjust_multi_document_transaction(self, code, type, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/adjust'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Get audit information about a MultiDocument transaction
     
     Retrieve audit information about a MultiDocument transaction stored in AvaTax.
@@ -4569,10 +5766,15 @@ class Mixin:
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :return AuditMultiDocumentModel
     """
-    def audit_multi_document_transaction(self, code, type):        return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}/audit'.format(self.base_url, code, type),
+    def audit_multi_document_transaction(self, code, type):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}/audit'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Commit a MultiDocument transaction
     
     Marks a list of transactions by changing its status to `Committed`.
@@ -4594,10 +5796,15 @@ class Mixin:
       :param model [CommitMultiDocumentModel] The commit request you wish to execute
       :return MultiDocumentModel
     """
-    def commit_multi_document_transaction(self, model):        return requests.post('{}/api/v2/transactions/multidocument/commit'.format(self.base_url),
+    def commit_multi_document_transaction(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/transactions/multidocument/commit'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new MultiDocument transaction
     
     Records a new MultiDocument transaction in AvaTax.
@@ -4639,10 +5846,15 @@ class Mixin:
       :param model [CreateMultiDocumentModel] the multi document transaction model
       :return MultiDocumentModel
     """
-    def create_multi_document_transaction(self, model, include=None):        return requests.post('{}/api/v2/transactions/multidocument'.format(self.base_url),
+    def create_multi_document_transaction(self, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/transactions/multidocument'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a MultiDocument transaction
     
     Get the current MultiDocument transaction identified by this URL.
@@ -4670,10 +5882,15 @@ class Mixin:
       :param include [string] Specifies objects to include in the response after transaction is created
       :return MultiDocumentModel
     """
-    def get_multi_document_transaction_by_code_and_type(self, code, type, include=None):        return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}'.format(self.base_url, code, type),
+    def get_multi_document_transaction_by_code_and_type(self, code, type, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a MultiDocument transaction by ID
     
     Get the unique MultiDocument transaction identified by this URL.
@@ -4707,10 +5924,15 @@ class Mixin:
       :param include [string] Specifies objects to include in the response after transaction is created
       :return MultiDocumentModel
     """
-    def get_multi_document_transaction_by_id(self, id_, include=None):        return requests.get('{}/api/v2/transactions/multidocument/{}'.format(self.base_url, id_),
+    def get_multi_document_transaction_by_id(self, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/transactions/multidocument/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all MultiDocument transactions
     
     List all MultiDocument transactions within this account.
@@ -4745,10 +5967,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_multi_document_transactions(self, include=None):        return requests.get('{}/api/v2/transactions/multidocument'.format(self.base_url),
+    def list_multi_document_transactions(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/transactions/multidocument'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a refund for a MultiDocument transaction
     
     Create a refund for a MultiDocument transaction.
@@ -4795,10 +6022,15 @@ class Mixin:
       :param model [RefundTransactionModel] Information about the refund to create
       :return MultiDocumentModel
     """
-    def refund_multi_document_transaction(self, code, type, model, include=None):        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/refund'.format(self.base_url, code, type),
+    def refund_multi_document_transaction(self, code, type, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/refund'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Verify a MultiDocument transaction
     
     Verifies that the MultiDocument transaction uniquely identified by this URL matches certain expected values.
@@ -4819,10 +6051,15 @@ class Mixin:
       :param model [VerifyMultiDocumentModel] Information from your accounting system to verify against this MultiDocument transaction as it is stored in AvaTax
       :return MultiDocumentModel
     """
-    def verify_multi_document_transaction(self, model):        return requests.post('{}/api/v2/transactions/multidocument/verify'.format(self.base_url),
+    def verify_multi_document_transaction(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/transactions/multidocument/verify'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Void a MultiDocument transaction
     
     Voids the current transaction uniquely identified by this URL.
@@ -4847,10 +6084,15 @@ class Mixin:
       :param model [VoidTransactionModel] The void request you wish to execute
       :return MultiDocumentModel
     """
-    def void_multi_document_transaction(self, code, type, model):        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/void'.format(self.base_url, code, type),
+    def void_multi_document_transaction(self, code, type, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/void'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new nexus
     
     Creates one or more new nexus declarations attached to this company.
@@ -4874,10 +6116,15 @@ class Mixin:
       :param model [NexusModel] The nexus you wish to create.
       :return NexusModel
     """
-    def create_nexus(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
+    def create_nexus(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Add parameters to a nexus.
     
     Add parameters to the nexus.
@@ -4894,10 +6141,15 @@ class Mixin:
       :param model [NexusParameterDetailModel] The nexus parameters you wish to create.
       :return NexusParameterDetailModel
     """
-    def create_nexus_parameters(self, companyId, nexusId, model):        return requests.post('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
+    def create_nexus_parameters(self, companyId, nexusId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Creates nexus for a list of addresses.
     
     This call is intended to simplify adding all applicable nexus to a company, for an address or addresses. Calling this
@@ -4918,10 +6170,15 @@ class Mixin:
       :param model [DeclareNexusByAddressModel] The nexus you wish to create.
       :return NexusByAddressModel
     """
-    def declare_nexus_by_address(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/nexus/byaddress'.format(self.base_url, companyId),
+    def declare_nexus_by_address(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/nexus/byaddress'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single nexus
     
     Marks the existing nexus object at this URL as deleted.
@@ -4938,10 +6195,15 @@ class Mixin:
       :param cascadeDelete [boolean] If true, deletes all the child nexus if they exist along with parent nexus
       :return ErrorDetail
     """
-    def delete_nexus(self, companyId, id_, include=None):        return requests.delete('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
+    def delete_nexus(self, companyId, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single nexus parameter
     
     Delete a single nexus parameter.
@@ -4956,10 +6218,15 @@ class Mixin:
       :param id_ [int] The parameter id
       :return ErrorDetail
     """
-    def delete_nexus_parameter(self, companyId, nexusId, id_):        return requests.delete('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
+    def delete_nexus_parameter(self, companyId, nexusId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete all parameters for an nexus
     
     Delete all the parameters for a given nexus.
@@ -4973,10 +6240,15 @@ class Mixin:
       :param nexusId [int] The ID of the nexus you wish to delete the parameters.
       :return ErrorDetail
     """
-    def delete_nexus_parameters(self, companyId, nexusId):        return requests.delete('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
+    def delete_nexus_parameters(self, companyId, nexusId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single nexus
     
     Get the nexus object identified by this URL.
@@ -4993,10 +6265,15 @@ class Mixin:
       :param include [string] 
       :return NexusModel
     """
-    def get_nexus(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
+    def get_nexus(self, companyId, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List company nexus related to a tax form
     
     Retrieves a list of nexus related to a tax form.
@@ -5016,10 +6293,15 @@ class Mixin:
       :param include [string] 
       :return NexusByTaxFormModel
     """
-    def get_nexus_by_form_code(self, companyId, formCode, include=None):        return requests.get('{}/api/v2/companies/{}/nexus/byform/{}'.format(self.base_url, companyId, formCode),
+    def get_nexus_by_form_code(self, companyId, formCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/nexus/byform/{}'.format(self.base_url, companyId, formCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single nexus parameter
     
     Retrieve a single nexus parameter.
@@ -5034,10 +6316,15 @@ class Mixin:
       :param id_ [int] The parameter id
       :return NexusParameterDetailModel
     """
-    def get_nexus_parameter(self, companyId, nexusId, id_):        return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
+    def get_nexus_parameter(self, companyId, nexusId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve nexus for this company
     
     List all nexus objects defined for this company.
@@ -5059,10 +6346,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_nexus_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
+    def list_nexus_by_company(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve nexus for this company By TaxTypeGroup
     
     List all nexus objects defined for this company filtered by TaxTypeGroup.
@@ -5085,10 +6377,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_nexus_by_company_and_tax_type_group(self, companyId, taxTypeGroup, include=None):        return requests.get('{}/api/v2/companies/{}/nexus/byTaxTypeGroup/{}'.format(self.base_url, companyId, taxTypeGroup),
+    def list_nexus_by_company_and_tax_type_group(self, companyId, taxTypeGroup, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/nexus/byTaxTypeGroup/{}'.format(self.base_url, companyId, taxTypeGroup),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve parameters for a nexus
     
     List parameters for a nexus.
@@ -5108,10 +6405,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_nexus_parameters(self, companyId, nexusId, include=None):        return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
+    def list_nexus_parameters(self, companyId, nexusId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all nexus
     
     Get multiple nexus objects across all companies.
@@ -5132,10 +6434,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_nexus(self, include=None):        return requests.get('{}/api/v2/nexus'.format(self.base_url),
+    def query_nexus(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single nexus
     
     Replace the existing nexus declaration object at this URL with an updated object.
@@ -5160,10 +6467,15 @@ class Mixin:
       :param model [NexusModel] The nexus object you wish to update.
       :return NexusModel
     """
-    def update_nexus(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
+    def update_nexus(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update an nexus parameter
     
     Update an nexus parameter.
@@ -5179,10 +6491,15 @@ class Mixin:
       :param model [NexusParameterDetailModel] The nexus object you wish to update.
       :return NexusParameterDetailModel
     """
-    def update_nexus_parameter(self, companyId, nexusId, id_, model):        return requests.put('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
+    def update_nexus_parameter(self, companyId, nexusId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Creates a new tax notice responsibility type.
     
     This API is available by invitation only and only available for users with Compliance admin access.
@@ -5193,10 +6510,15 @@ class Mixin:
       :param model [CreateNoticeResponsibilityTypeModel] The responsibility type to create
       :return NoticeResponsibilityModel
     """
-    def create_notice_responsibility_type(self, model):        return requests.post('{}/api/v2/notices/responsibilities'.format(self.base_url),
+    def create_notice_responsibility_type(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/notices/responsibilities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Creates a new tax notice root cause type.
     
     This API is available by invitation only and only available for users with Compliance admin access.
@@ -5207,10 +6529,15 @@ class Mixin:
       :param model [CreateNoticeRootCauseTypeModel] The root cause type to create
       :return NoticeRootCauseModel
     """
-    def create_notice_root_cause_type(self, model):        return requests.post('{}/api/v2/notices/rootcauses'.format(self.base_url),
+    def create_notice_root_cause_type(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/notices/rootcauses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a tax notice responsibility type.
     
     This API is available by invitation only and only available for users with Compliance admin access.
@@ -5220,10 +6547,15 @@ class Mixin:
       :param responsibilityId [int] The unique ID of the responsibility type
       :return ErrorDetail
     """
-    def delete_notice_responsibility_type(self, responsibilityId):        return requests.delete('{}/api/v2/notices/responsibilities/{}'.format(self.base_url, responsibilityId),
+    def delete_notice_responsibility_type(self, responsibilityId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/notices/responsibilities/{}'.format(self.base_url, responsibilityId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a tax notice root cause type.
     
     This API is available by invitation only and only available for users with Compliance admin access.
@@ -5233,10 +6565,15 @@ class Mixin:
       :param rootCauseId [int] The unique ID of the root cause type
       :return ErrorDetail
     """
-    def delete_notice_root_cause_type(self, rootCauseId):        return requests.delete('{}/api/v2/notices/rootcauses/{}'.format(self.base_url, rootCauseId),
+    def delete_notice_root_cause_type(self, rootCauseId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/notices/rootcauses/{}'.format(self.base_url, rootCauseId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Mark a single notification as dismissed.
     
     Marks the notification identified by this URL as dismissed.
@@ -5255,10 +6592,15 @@ class Mixin:
       :param id_ [int] The id of the notification you wish to mark as dismissed.
       :return NotificationModel
     """
-    def dismiss_notification(self, id_):        return requests.put('{}/api/v2/notifications/{}/dismiss'.format(self.base_url, id_),
+    def dismiss_notification(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/notifications/{}/dismiss'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single notification.
     
     Retrieve a single notification by its unique ID number.
@@ -5273,10 +6615,15 @@ class Mixin:
       :param id_ [int] The id of the notification to retrieve.
       :return NotificationModel
     """
-    def get_notification(self, id_):        return requests.get('{}/api/v2/notifications/{}'.format(self.base_url, id_),
+    def get_notification(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all notifications.
     
     List all notifications.
@@ -5296,10 +6643,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_notifications(self, include=None):        return requests.get('{}/api/v2/notifications'.format(self.base_url),
+    def list_notifications(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Request a new Avalara account
     
     This API is for use by partner provisioning services customers only.
@@ -5321,10 +6673,15 @@ class Mixin:
       :param model [NewAccountRequestModel] Information about the account you wish to create and the selected product offerings.
       :return NewAccountModel
     """
-    def request_new_account(self, model):        return requests.post('{}/api/v2/accounts/request'.format(self.base_url),
+    def request_new_account(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/accounts/request'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Request a new entitilement to an existing customer
     
     This API is for use by partner provisioning services customers only. This will allow the partners to allow
@@ -5338,10 +6695,15 @@ class Mixin:
       :param offer [string] The offer to be added to an already existing customer
       :return OfferModel
     """
-    def request_new_entitlement(self, id_, offer):        return requests.post('{}/api/v2/accounts/{}/entitlements/{}'.format(self.base_url, id_, offer),
+    def request_new_entitlement(self, id_, offer):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/accounts/{}/entitlements/{}'.format(self.base_url, id_, offer),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new account
     
     # For Registrar Use Only
@@ -5354,10 +6716,15 @@ class Mixin:
       :param model [AccountModel] The account you wish to create.
       :return AccountModel
     """
-    def create_account(self, model):        return requests.post('{}/api/v2/accounts'.format(self.base_url),
+    def create_account(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/accounts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create new notifications.
     
     This API is available by invitation only.
@@ -5376,10 +6743,15 @@ class Mixin:
       :param model [NotificationModel] The notifications you wish to create.
       :return NotificationModel
     """
-    def create_notifications(self, model):        return requests.post('{}/api/v2/notifications'.format(self.base_url),
+    def create_notifications(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new subscription
     
     This API is for use by Avalara Registrar administrative users only.
@@ -5393,10 +6765,15 @@ class Mixin:
       :param model [SubscriptionModel] The subscription you wish to create.
       :return SubscriptionModel
     """
-    def create_subscriptions(self, accountId, model):        return requests.post('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
+    def create_subscriptions(self, accountId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single account
     
     # For Registrar Use Only
@@ -5409,10 +6786,15 @@ class Mixin:
       :param id_ [int] The ID of the account you wish to delete.
       :return ErrorDetail
     """
-    def delete_account(self, id_):        return requests.delete('{}/api/v2/accounts/{}'.format(self.base_url, id_),
+    def delete_account(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single notification.
     
     This API is available by invitation only.
@@ -5429,10 +6811,15 @@ class Mixin:
       :param id_ [int] The id of the notification you wish to delete.
       :return ErrorDetail
     """
-    def delete_notification(self, id_):        return requests.delete('{}/api/v2/notifications/{}'.format(self.base_url, id_),
+    def delete_notification(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single subscription
     
     # For Registrar Use Only
@@ -5445,10 +6832,15 @@ class Mixin:
       :param id_ [int] The ID of the subscription you wish to delete.
       :return ErrorDetail
     """
-    def delete_subscription(self, accountId, id_):        return requests.delete('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
+    def delete_subscription(self, accountId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve List of Accounts by Account Migration Status
     
     ### Security Policies
@@ -5457,10 +6849,15 @@ class Mixin:
       :param writeMode [TssAccountMigrationId]  (See TssAccountMigrationId::* for a list of allowable values)
       :return AccountMigrationStatusModel
     """
-    def list_accounts_by_tss_write_mode(self, writeMode):        return requests.get('{}/api/v2/accounts/ListAccountsByTssWriteMode/{}'.format(self.base_url, writeMode),
+    def list_accounts_by_tss_write_mode(self, writeMode):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts/ListAccountsByTssWriteMode/{}'.format(self.base_url, writeMode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Reset a user's password programmatically
     
     # For Registrar Use Only
@@ -5477,10 +6874,15 @@ class Mixin:
       :param model [SetPasswordModel] The new password for this user
       :return string
     """
-    def reset_password(self, userId, model, include=None):        return requests.post('{}/api/v2/passwords/{}/reset'.format(self.base_url, userId),
+    def reset_password(self, userId, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/passwords/{}/reset'.format(self.base_url, userId),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single account
     
     # For Registrar Use Only
@@ -5493,10 +6895,15 @@ class Mixin:
       :param model [AccountModel] The account object you wish to update.
       :return AccountModel
     """
-    def update_account(self, id_, model):        return requests.put('{}/api/v2/accounts/{}'.format(self.base_url, id_),
+    def update_account(self, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single notification.
     
     This API is available by invitation only.
@@ -5514,10 +6921,15 @@ class Mixin:
       :param model [NotificationModel] The notification object you wish to update.
       :return NotificationModel
     """
-    def update_notification(self, id_, model):        return requests.put('{}/api/v2/notifications/{}'.format(self.base_url, id_),
+    def update_notification(self, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single subscription
     
     # For Registrar Use Only
@@ -5535,10 +6947,15 @@ class Mixin:
       :param model [SubscriptionModel] The subscription you wish to update.
       :return SubscriptionModel
     """
-    def update_subscription(self, accountId, id_, model):        return requests.put('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
+    def update_subscription(self, accountId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Download a report
     
     This API downloads the file associated with a report.
@@ -5557,10 +6974,15 @@ class Mixin:
       :param id_ [int] The unique ID number of this report
       :return String
     """
-    def download_report(self, id_):        return requests.get('{}/api/v2/reports/{}/attachment'.format(self.base_url, id_),
+    def download_report(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/reports/{}/attachment'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single report
     
     Retrieve a single report by its unique ID number.
@@ -5575,10 +6997,15 @@ class Mixin:
       :param id_ [int] The unique ID number of the report to retrieve
       :return ReportModel
     """
-    def get_report(self, id_):        return requests.get('{}/api/v2/reports/{}'.format(self.base_url, id_),
+    def get_report(self, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/reports/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Initiate an ExportDocumentLine report task
     
     Begins running an `ExportDocumentLine` report task and returns the identity of the report.
@@ -5602,10 +7029,15 @@ class Mixin:
       :param model [ExportDocumentLineModel] Options that may be configured to customize the report.
       :return ReportModel
     """
-    def initiate_export_document_line_report(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/reports/exportdocumentline/initiate'.format(self.base_url, companyId),
+    def initiate_export_document_line_report(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/reports/exportdocumentline/initiate'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all report tasks for account
     
     List all report tasks for your account.
@@ -5625,10 +7057,15 @@ class Mixin:
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :return FetchResult
     """
-    def list_reports(self, include=None):        return requests.get('{}/api/v2/reports'.format(self.base_url),
+    def list_reports(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/reports'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new setting
     
     Create one or more new setting objects attached to this company.
@@ -5649,10 +7086,15 @@ class Mixin:
       :param model [SettingModel] The setting you wish to create.
       :return SettingModel
     """
-    def create_settings(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
+    def create_settings(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single setting
     
     Mark the setting object at this URL as deleted.
@@ -5670,10 +7112,15 @@ class Mixin:
       :param id_ [int] The ID of the setting you wish to delete.
       :return ErrorDetail
     """
-    def delete_setting(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
+    def delete_setting(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single setting
     
     Get a single setting object by its unique ID.
@@ -5691,10 +7138,15 @@ class Mixin:
       :param id_ [int] The primary key of this setting
       :return SettingModel
     """
-    def get_setting(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
+    def get_setting(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all settings for this company
     
     List all setting objects attached to this company.
@@ -5718,10 +7170,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_settings_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
+    def list_settings_by_company(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all settings
     
     Get multiple setting objects across all companies.
@@ -5744,10 +7201,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_settings(self, include=None):        return requests.get('{}/api/v2/settings'.format(self.base_url),
+    def query_settings(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/settings'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single setting
     
     Replace the existing setting object at this URL with an updated object.
@@ -5768,10 +7230,15 @@ class Mixin:
       :param model [SettingModel] The setting you wish to update.
       :return SettingModel
     """
-    def update_setting(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
+    def update_setting(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single subscription
     
     Get the subscription object identified by this URL.
@@ -5784,10 +7251,15 @@ class Mixin:
       :param id_ [int] The primary key of this subscription
       :return SubscriptionModel
     """
-    def get_subscription(self, accountId, id_):        return requests.get('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
+    def get_subscription(self, accountId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve subscriptions for this account
     
     List all subscription objects attached to this account.
@@ -5805,10 +7277,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_subscriptions_by_account(self, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
+    def list_subscriptions_by_account(self, accountId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all subscriptions
     
     Get multiple subscription objects across all accounts.
@@ -5825,10 +7302,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_subscriptions(self, include=None):        return requests.get('{}/api/v2/subscriptions'.format(self.base_url),
+    def query_subscriptions(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new tax code
     
     Create one or more new taxcode objects attached to this company.
@@ -5843,10 +7325,15 @@ class Mixin:
       :param model [TaxCodeModel] The tax code you wish to create.
       :return TaxCodeModel
     """
-    def create_tax_codes(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
+    def create_tax_codes(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single tax code
     
     Marks the existing TaxCode object at this URL as deleted.
@@ -5857,10 +7344,15 @@ class Mixin:
       :param id_ [int] The ID of the tax code you wish to delete.
       :return ErrorDetail
     """
-    def delete_tax_code(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
+    def delete_tax_code(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single tax code
     
     Get the taxcode object identified by this URL.
@@ -5875,10 +7367,15 @@ class Mixin:
       :param id_ [int] The primary key of this tax code
       :return TaxCodeModel
     """
-    def get_tax_code(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
+    def get_tax_code(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve tax codes for this company
     
     List all taxcode objects attached to this company.
@@ -5899,10 +7396,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_tax_codes_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
+    def list_tax_codes_by_company(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all tax codes
     
     Get multiple taxcode objects across all companies.
@@ -5922,10 +7424,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_tax_codes(self, include=None):        return requests.get('{}/api/v2/taxcodes'.format(self.base_url),
+    def query_tax_codes(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single tax code
     
     Replace the existing taxcode object at this URL with an updated object.
@@ -5943,10 +7450,15 @@ class Mixin:
       :param model [TaxCodeModel] The tax code you wish to update.
       :return TaxCodeModel
     """
-    def update_tax_code(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
+    def update_tax_code(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Build a multi-location tax content file
     
     Builds a tax content file containing information useful for a retail point-of-sale solution.
@@ -5973,10 +7485,15 @@ class Mixin:
       :param model [PointOfSaleDataRequestModel] Parameters about the desired file format and report format, specifying which company, locations and TaxCodes to include.
       :return String
     """
-    def build_tax_content_file(self, model):        return requests.post('{}/api/v2/pointofsaledata/build'.format(self.base_url),
+    def build_tax_content_file(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/pointofsaledata/build'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Build a tax content file for a single location
     
     Builds a tax content file containing information useful for a retail point-of-sale solution.
@@ -6008,10 +7525,15 @@ class Mixin:
       :param includeJurisCodes [boolean] When true, the file will include jurisdiction codes in the result.
       :return String
     """
-    def build_tax_content_file_for_location(self, companyId, id_, include=None):        return requests.get('{}/api/v2/companies/{}/locations/{}/pointofsaledata'.format(self.base_url, companyId, id_),
+    def build_tax_content_file_for_location(self, companyId, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/locations/{}/pointofsaledata'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Download a file listing tax rates by postal code
     
     Download a CSV file containing all five digit postal codes in the United States and their sales
@@ -6054,10 +7576,15 @@ class Mixin:
       :param region [string] A two character region code which limits results to a specific region.
       :return String
     """
-    def download_tax_rates_by_zip_code(self, date, include=None):        return requests.get('{}/api/v2/taxratesbyzipcode/download/{}'.format(self.base_url, date),
+    def download_tax_rates_by_zip_code(self, date, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/taxratesbyzipcode/download/{}'.format(self.base_url, date),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Sales tax rates for a specified address
     
     Usage of this API is subject to rate limits. Users who exceed the rate limit will receive HTTP
@@ -6086,10 +7613,15 @@ class Mixin:
       :param country [string] Name or ISO 3166 code identifying the country.     This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries     For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
       :return TaxRateModel
     """
-    def tax_rates_by_address(self, include=None):        return requests.get('{}/api/v2/taxrates/byaddress'.format(self.base_url),
+    def tax_rates_by_address(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/taxrates/byaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Sales tax rates for a specified country and postal code. This API is only available for US postal codes.
     
     This API is only available for a US postal codes.
@@ -6114,10 +7646,15 @@ class Mixin:
       :param postalCode [string] The postal code of the location.
       :return TaxRateModel
     """
-    def tax_rates_by_postal_code(self, include=None):        return requests.get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
+    def tax_rates_by_postal_code(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new tax rule
     
     Create one or more custom tax rules attached to this company.
@@ -6137,10 +7674,15 @@ class Mixin:
       :param model [TaxRuleModel] The tax rule you wish to create.
       :return TaxRuleModel
     """
-    def create_tax_rules(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
+    def create_tax_rules(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single tax rule
     
     Mark the custom tax rule identified by this URL as deleted.
@@ -6160,10 +7702,15 @@ class Mixin:
       :param id_ [int] The ID of the tax rule you wish to delete.
       :return ErrorDetail
     """
-    def delete_tax_rule(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
+    def delete_tax_rule(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single tax rule
     
     Get the taxrule object identified by this URL.
@@ -6183,10 +7730,15 @@ class Mixin:
       :param id_ [int] The primary key of this tax rule
       :return TaxRuleModel
     """
-    def get_tax_rule(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
+    def get_tax_rule(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve tax rules for this company
     
     List all taxrule objects attached to this company.
@@ -6212,10 +7764,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_tax_rules(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
+    def list_tax_rules(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all tax rules
     
     Get multiple taxrule objects across all companies.
@@ -6240,10 +7797,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_tax_rules(self, include=None):        return requests.get('{}/api/v2/taxrules'.format(self.base_url),
+    def query_tax_rules(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/taxrules'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single tax rule
     
     Replace the existing custom tax rule object at this URL with an updated object.
@@ -6264,10 +7826,15 @@ class Mixin:
       :param model [TaxRuleModel] The tax rule you wish to update.
       :return TaxRuleModel
     """
-    def update_tax_rule(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
+    def update_tax_rule(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Add lines to an existing unlocked transaction
     
     Add lines to an existing unlocked transaction.
@@ -6294,10 +7861,15 @@ class Mixin:
       :param model [AddTransactionLineModel] information about the transaction and lines to be added
       :return TransactionModel
     """
-    def add_lines(self, model, include=None):        return requests.post('{}/api/v2/companies/transactions/lines/add'.format(self.base_url),
+    def add_lines(self, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/transactions/lines/add'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Correct a previously created transaction
     
     Replaces the current transaction uniquely identified by this URL with a new transaction.
@@ -6334,10 +7906,15 @@ class Mixin:
       :param model [AdjustTransactionModel] The adjustment you wish to make
       :return TransactionModel
     """
-    def adjust_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/adjust'.format(self.base_url, companyCode, transactionCode),
+    def adjust_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/adjust'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Get audit information about a transaction
     
     Retrieve audit information about a transaction stored in AvaTax.
@@ -6366,10 +7943,15 @@ class Mixin:
       :param transactionCode [string] The code identifying the transaction
       :return AuditTransactionModel
     """
-    def audit_transaction(self, companyCode, transactionCode):        return requests.get('{}/api/v2/companies/{}/transactions/{}/audit'.format(self.base_url, companyCode, transactionCode),
+    def audit_transaction(self, companyCode, transactionCode):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/transactions/{}/audit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Get audit information about a transaction
     
     Retrieve audit information about a transaction stored in AvaTax.
@@ -6399,10 +7981,15 @@ class Mixin:
       :param documentType [DocumentType] The document type of the original transaction (See DocumentType::* for a list of allowable values)
       :return AuditTransactionModel
     """
-    def audit_transaction_with_type(self, companyCode, transactionCode, documentType):        return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}/audit'.format(self.base_url, companyCode, transactionCode, documentType),
+    def audit_transaction_with_type(self, companyCode, transactionCode, documentType):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}/audit'.format(self.base_url, companyCode, transactionCode, documentType),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Lock a set of documents
     
     This API is available by invitation only.
@@ -6417,10 +8004,15 @@ class Mixin:
       :param model [BulkLockTransactionModel] bulk lock request
       :return BulkLockTransactionResult
     """
-    def bulk_lock_transaction(self, model):        return requests.post('{}/api/v2/transactions/lock'.format(self.base_url),
+    def bulk_lock_transaction(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/transactions/lock'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Change a transaction's code
     
     Renames a transaction uniquely identified by this URL by changing its `code` value.
@@ -6456,10 +8048,15 @@ class Mixin:
       :param model [ChangeTransactionCodeModel] The code change request you wish to execute
       :return TransactionModel
     """
-    def change_transaction_code(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/changecode'.format(self.base_url, companyCode, transactionCode),
+    def change_transaction_code(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/changecode'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Commit a transaction for reporting
     
     Marks a transaction by changing its status to `Committed`.
@@ -6493,10 +8090,15 @@ class Mixin:
       :param model [CommitTransactionModel] The commit request you wish to execute
       :return TransactionModel
     """
-    def commit_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.format(self.base_url, companyCode, transactionCode),
+    def commit_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create or adjust a transaction
     
     Records a new transaction or adjust an existing transaction in AvaTax.
@@ -6532,10 +8134,15 @@ class Mixin:
       :param model [CreateOrAdjustTransactionModel] The transaction you wish to create or adjust
       :return TransactionModel
     """
-    def create_or_adjust_transaction(self, model, include=None):        return requests.post('{}/api/v2/transactions/createoradjust'.format(self.base_url),
+    def create_or_adjust_transaction(self, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/transactions/createoradjust'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new transaction
     
     Records a new transaction in AvaTax.
@@ -6576,10 +8183,15 @@ class Mixin:
       :param model [CreateTransactionModel] The transaction you wish to create
       :return TransactionModel
     """
-    def create_transaction(self, model, include=None):        return requests.post('{}/api/v2/transactions/create'.format(self.base_url),
+    def create_transaction(self, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/transactions/create'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Remove lines from an existing unlocked transaction
     
     Remove lines to an existing unlocked transaction.
@@ -6603,10 +8215,15 @@ class Mixin:
       :param model [RemoveTransactionLineModel] information about the transaction and lines to be removed
       :return TransactionModel
     """
-    def delete_lines(self, model, include=None):        return requests.post('{}/api/v2/companies/transactions/lines/delete'.format(self.base_url),
+    def delete_lines(self, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/transactions/lines/delete'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single transaction by code
     
     Get the current transaction identified by this company code, transaction code, and document type.
@@ -6639,10 +8256,15 @@ class Mixin:
       :param include [string] Specifies objects to include in this fetch call
       :return TransactionModel
     """
-    def get_transaction_by_code(self, companyCode, transactionCode, include=None):        return requests.get('{}/api/v2/companies/{}/transactions/{}'.format(self.base_url, companyCode, transactionCode),
+    def get_transaction_by_code(self, companyCode, transactionCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/transactions/{}'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single transaction by code
     
     DEPRECATED: Please use the `GetTransactionByCode` API instead.
@@ -6663,10 +8285,15 @@ class Mixin:
       :param include [string] Specifies objects to include in this fetch call
       :return TransactionModel
     """
-    def get_transaction_by_code_and_type(self, companyCode, transactionCode, documentType, include=None):        return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}'.format(self.base_url, companyCode, transactionCode, documentType),
+    def get_transaction_by_code_and_type(self, companyCode, transactionCode, documentType, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}'.format(self.base_url, companyCode, transactionCode, documentType),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single transaction by ID
     
     Get the unique transaction identified by this URL.
@@ -6690,10 +8317,15 @@ class Mixin:
       :param include [string] Specifies objects to include in this fetch call
       :return TransactionModel
     """
-    def get_transaction_by_id(self, id_, include=None):        return requests.get('{}/api/v2/transactions/{}'.format(self.base_url, id_),
+    def get_transaction_by_id(self, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/transactions/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all transactions
     
     List all transactions attached to this company.
@@ -6731,10 +8363,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_transactions_by_company(self, companyCode, include=None):        return requests.get('{}/api/v2/companies/{}/transactions'.format(self.base_url, companyCode),
+    def list_transactions_by_company(self, companyCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/transactions'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Lock a single transaction
     
     Lock a transaction uniquely identified by this URL.
@@ -6770,10 +8407,15 @@ class Mixin:
       :param model [LockTransactionModel] The lock request you wish to execute
       :return TransactionModel
     """
-    def lock_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/lock'.format(self.base_url, companyCode, transactionCode),
+    def lock_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/lock'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a refund for a transaction
     
     Create a refund for a transaction.
@@ -6819,10 +8461,15 @@ class Mixin:
       :param model [RefundTransactionModel] Information about the refund to create
       :return TransactionModel
     """
-    def refund_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/refund'.format(self.base_url, companyCode, transactionCode),
+    def refund_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/refund'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Perform multiple actions on a transaction
     
     Performs one or more actions against the current transaction uniquely identified by this URL.
@@ -6856,10 +8503,15 @@ class Mixin:
       :param model [SettleTransactionModel] The data from an external system to reconcile against AvaTax
       :return TransactionModel
     """
-    def settle_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/settle'.format(self.base_url, companyCode, transactionCode),
+    def settle_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/settle'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Uncommit a transaction for reporting
     
     Adjusts a transaction by changing it to an uncommitted status.
@@ -6890,10 +8542,15 @@ class Mixin:
       :param include [string] Specifies objects to include in this fetch call
       :return TransactionModel
     """
-    def uncommit_transaction(self, companyCode, transactionCode, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/uncommit'.format(self.base_url, companyCode, transactionCode),
+    def uncommit_transaction(self, companyCode, transactionCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/uncommit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Unvoids a transaction
     
     Unvoids a voided transaction
@@ -6922,10 +8579,15 @@ class Mixin:
       :param include [string] Specifies objects to include in this fetch call
       :return TransactionModel
     """
-    def unvoid_transaction(self, companyCode, transactionCode, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/unvoid'.format(self.base_url, companyCode, transactionCode),
+    def unvoid_transaction(self, companyCode, transactionCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/unvoid'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Verify a transaction
     
     Verifies that the transaction uniquely identified by this URL matches certain expected values.
@@ -6959,10 +8621,15 @@ class Mixin:
       :param model [VerifyTransactionModel] The data from an external system to reconcile against AvaTax
       :return TransactionModel
     """
-    def verify_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/verify'.format(self.base_url, companyCode, transactionCode),
+    def verify_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/verify'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Void a transaction
     
     Voids the current transaction uniquely identified by this URL.
@@ -6997,10 +8664,15 @@ class Mixin:
       :param model [VoidTransactionModel] The void request you wish to execute. To void a transaction the code must be set to 'DocVoided'
       :return TransactionModel
     """
-    def void_transaction(self, companyCode, transactionCode, model, include=None):        return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(self.base_url, companyCode, transactionCode),
+    def void_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create a new UPC
     
     Create one or more new UPC objects attached to this company.
@@ -7013,10 +8685,15 @@ class Mixin:
       :param model [UPCModel] The UPC you wish to create.
       :return UPCModel
     """
-    def create_u_p_cs(self, companyId, model):        return requests.post('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
+    def create_u_p_cs(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single UPC
     
     Marks the UPC object identified by this URL as deleted.
@@ -7028,10 +8705,15 @@ class Mixin:
       :param id_ [int] The ID of the UPC you wish to delete.
       :return ErrorDetail
     """
-    def delete_u_p_c(self, companyId, id_):        return requests.delete('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
+    def delete_u_p_c(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single UPC
     
     Get the UPC object identified by this URL.
@@ -7044,10 +8726,15 @@ class Mixin:
       :param id_ [int] The primary key of this UPC
       :return UPCModel
     """
-    def get_u_p_c(self, companyId, id_):        return requests.get('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
+    def get_u_p_c(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve UPCs for this company
     
     List all UPC objects attached to this company.
@@ -7066,10 +8753,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_u_p_cs_by_company(self, companyId, include=None):        return requests.get('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
+    def list_u_p_cs_by_company(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all UPCs
     
     Get multiple UPC objects across all companies.
@@ -7087,10 +8779,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_u_p_cs(self, include=None):        return requests.get('{}/api/v2/upcs'.format(self.base_url),
+    def query_u_p_cs(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/upcs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single UPC
     
     Replace the existing UPC object at this URL with an updated object.
@@ -7106,10 +8803,76 @@ class Mixin:
       :param model [UPCModel] The UPC you wish to update.
       :return UPCModel
     """
-    def update_u_p_c(self, companyId, id_, model):        return requests.put('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
+    def update_u_p_c(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
+    Delete a User Defined Field by User Defined Field id for a company.
+    
+    Marks the existing user defined field for a company as deleted.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
+    
+      :param companyId [int] The id of the company the User Defined Field belongs to.
+      :param id_ [int] The id of the User Defined Field you wish to delete.
+      :return ErrorDetail
+    """
+    def delete_user_defined_field(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/companies/{}/userdefinedfields/{}'.format(self.base_url, companyId, accountId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    
+    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
+    
+      :param companyId [int] 
+      :param udfType [UserDefinedFieldType] Document or Line level UDF (See UserDefinedFieldType::* for a list of allowable values)
+      :param allowDefaults [boolean] If true this will add defaulted UDFs to the list that are not named yet
+      :return FetchResult
+    """
+    def list_user_defined_fields_by_company_id(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/companies/{}/userdefinedfields'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    Update a User Defined Field identified by id for a company
+    
+    Updates a User Defined Field for a company.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
+    
+      :param companyId [int] The id of the company the user defined field belongs to.
+      :param id [int] 
+      :param model [CompanyUserDefinedFieldModel] 
+      :return CompanyUserDefinedFieldModel
+    """
+    def update_user_defined_field(self, companyId, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/companies/{}/userdefinedfields'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
     Change Password
     
     Allows a user to change their password via an API call.
@@ -7123,10 +8886,15 @@ class Mixin:
       :param model [PasswordChangeModel] An object containing your current password and the new password.
       :return string
     """
-    def change_password(self, model):        return requests.put('{}/api/v2/passwords'.format(self.base_url),
+    def change_password(self, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/passwords'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Create new users
     
     Create one or more new user objects attached to this account.
@@ -7142,10 +8910,15 @@ class Mixin:
       :param model [UserModel] The user or array of users you wish to create.
       :return UserModel
     """
-    def create_users(self, accountId, model):        return requests.post('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
+    def create_users(self, accountId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.post('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Delete a single user
     
     Mark the user object identified by this URL as deleted.
@@ -7159,10 +8932,15 @@ class Mixin:
       :param accountId [int] The accountID of the user you wish to delete.
       :return ErrorDetail
     """
-    def delete_user(self, id_, accountId):        return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
+    def delete_user(self, id_, accountId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve a single user
     
     Get the user object identified by this URL.
@@ -7177,10 +8955,15 @@ class Mixin:
       :param include [string] Optional fetch commands.
       :return UserModel
     """
-    def get_user(self, id_, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
+    def get_user(self, id_, accountId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all entitlements for a single user
     
     Return a list of all entitlements to which this user has rights to access.
@@ -7203,10 +8986,15 @@ class Mixin:
       :param accountId [int] The accountID of the user you wish to get.
       :return UserEntitlementModel
     """
-    def get_user_entitlements(self, id_, accountId):        return requests.get('{}/api/v2/accounts/{}/users/{}/entitlements'.format(self.base_url, accountId, id_),
+    def get_user_entitlements(self, id_, accountId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts/{}/users/{}/entitlements'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve users for this account
     
     List all user objects attached to this account.
@@ -7228,10 +9016,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def list_users_by_account(self, accountId, include=None):        return requests.get('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
+    def list_users_by_account(self, accountId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Retrieve all users
     
     Get multiple user objects across all accounts.
@@ -7253,10 +9046,15 @@ class Mixin:
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
       :return FetchResult
     """
-    def query_users(self, include=None):        return requests.get('{}/api/v2/users'.format(self.base_url),
+    def query_users(self, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/users'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Update a single user
     
     Replace the existing user object at this URL with an updated object.
@@ -7271,10 +9069,15 @@ class Mixin:
       :param model [UserModel] The user object you wish to update.
       :return UserModel
     """
-    def update_user(self, id_, accountId, model):        return requests.put('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
+    def update_user(self, id_, accountId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.put('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Checks if the current user is subscribed to a specific service
     
     Returns a subscription object for the current account, or 404 Not Found if this subscription is not enabled for this account.
@@ -7287,10 +9090,15 @@ class Mixin:
       :param serviceTypeId [string] The service to check
       :return SubscriptionModel
     """
-    def get_my_subscription(self, serviceTypeId):        return requests.get('{}/api/v2/utilities/subscriptions/{}'.format(self.base_url, serviceTypeId),
+    def get_my_subscription(self, serviceTypeId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/utilities/subscriptions/{}'.format(self.base_url, serviceTypeId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     List all services to which the current user is subscribed
     
     Returns the list of all subscriptions enabled for the currently logged in user.
@@ -7302,10 +9110,15 @@ class Mixin:
     
       :return FetchResult
     """
-    def list_my_subscriptions(self):        return requests.get('{}/api/v2/utilities/subscriptions'.format(self.base_url),
+    def list_my_subscriptions(self):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/utilities/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
+    Swagger Name: AvaTaxClient
+    
     Tests connectivity and version of the service
     
     Check connectivity to AvaTax and return information about the AvaTax API server.
@@ -7326,6 +9139,121 @@ class Mixin:
     
       :return PingResultModel
     """
-    def ping(self):        return requests.get('{}/api/v2/utilities/ping'.format(self.base_url),
+    def ping(self):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","21.12.0")        
+        return requests.get('{}/api/v2/utilities/ping'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxBeverageClient
+    
+    Determines whether an individual meets or exceeds the minimum legal drinking age.
+    
+    The request must meet the following criteria in order to be evaluated:
+      * *firstName*, *lastName*, and *address* are required fields.
+      * One of the following sets of attributes are required for the *address*:
+       * *line1, city, region*
+       * *line1, postalCode*
+      Optionally, the transaction and its lines may use the following parameters:
+      * A *DOB* (Date of Birth) field. The value should be ISO-8601 compliant (e.g. 2020-07-21).
+      * Beyond the required *address* fields above, a *country* field is permitted
+       * The valid values for this attribute are [*US, USA*]
+      **Security Policies**
+      This API depends on the active subscription *AgeVerification*
+    
+      :param simulatedFailureCode [string] (Optional) The failure code included in the simulated response of the endpoint. Note that this endpoint is only available in Sandbox for testing purposes.
+      :param model [AgeVerifyRequest] Information about the individual whose age is being verified.
+      :return AgeVerifyResult
+    """
+    def verify_age(self, model, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","")        
+        return requests.post('{}/api/v2/ageverification/verify'.format(self.base_url),
+                               auth=self.auth, headers=self.client_header, params=include, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxBeverageClient
+    
+    Removes the transaction from consideration when evaluating regulations that span multiple transactions.
+    
+    
+    
+      :param companyCode [string] The company code of the company that recorded the transaction
+      :param transactionCode [string] The transaction code to retrieve
+      :param documentType [string] (Optional): The document type of the transaction to operate on. If omitted, defaults to "SalesInvoice"
+      :return 
+    """
+    def deregister_shipment(self, companyCode, transactionCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","")        
+        return requests.delete('{}/api/v2/companies/{}/transactions/{}/shipment/registration'.format(self.base_url, companyCode, transactionCode),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxBeverageClient
+    
+    Registers the transaction so that it may be included when evaluating regulations that span multiple transactions.
+    
+    
+    
+      :param companyCode [string] The company code of the company that recorded the transaction
+      :param transactionCode [string] The transaction code to retrieve
+      :param documentType [string] (Optional): The document type of the transaction to operate on. If omitted, defaults to "SalesInvoice"
+      :return 
+    """
+    def register_shipment(self, companyCode, transactionCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","")        
+        return requests.put('{}/api/v2/companies/{}/transactions/{}/shipment/registration'.format(self.base_url, companyCode, transactionCode),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxBeverageClient
+    
+    Evaluates a transaction against a set of direct-to-consumer shipping regulations and, if compliant, registers the transaction so that it may be included when evaluating regulations that span multiple transactions.
+    
+    
+    
+      :param companyCode [string] The company code of the company that recorded the transaction
+      :param transactionCode [string] The transaction code to retrieve
+      :param documentType [string] (Optional): The document type of the transaction to operate on. If omitted, defaults to "SalesInvoice"
+      :return ShippingVerifyResult
+    """
+    def register_shipment_if_compliant(self, companyCode, transactionCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","")        
+        return requests.put('{}/api/v2/companies/{}/transactions/{}/shipment/registerIfCompliant'.format(self.base_url, companyCode, transactionCode),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxBeverageClient
+    
+    Evaluates a transaction against a set of direct-to-consumer shipping regulations.
+    
+    The transaction and its lines must meet the following criteria in order to be evaluated:
+      * The transaction must be recorded. Using a type of *SalesInvoice* is recommended.
+      * A parameter with the name *AlcoholRouteType* must be specified and the value must be one of the following: '*DTC*', '*Retailer DTC*'
+      * A parameter with the name *RecipientName* must be specified and the value must be the name of the recipient.
+      * Each alcohol line must include a *ContainerSize* parameter that describes the volume of a single container. Use the *unit* field to specify one of the following units: '*Litre*', '*Millilitre*', '*gallon (US fluid)*', '*quart (US fluid)*', '*ounce (fluid US customary)*'
+      * Each alcohol line must include a *PackSize* parameter that describes the number of containers in a pack. Specify *Count* in the *unit* field.
+      Optionally, the transaction and its lines may use the following parameters:
+      * The *ShipDate* parameter may be used if the date of shipment is different than the date of the transaction. The value should be ISO-8601 compliant (e.g. 2020-07-21).
+      * The *RecipientDOB* parameter may be used to evaluate age restrictions. The value should be ISO-8601 compliant (e.g. 2020-07-21).
+      * The *PurchaserDOB* parameter may be used to evaluate age restrictions. The value should be ISO-8601 compliant (e.g. 2020-07-21).
+      * The *SalesLocation* parameter may be used to describe whether the sale was made *OnSite* or *OffSite*. *OffSite* is the default value.
+      * The *AlcoholContent* parameter may be used to describe the alcohol percentage by volume of the item. Specify *Percentage* in the *unit* field.
+      **Security Policies**
+      This API depends on all of the following active subscriptions: *AvaAlcohol, AutoAddress, AvaTaxPro*
+    
+      :param companyCode [string] The company code of the company that recorded the transaction
+      :param transactionCode [string] The transaction code to retrieve
+      :param documentType [string] (Optional): The document type of the transaction to operate on. If omitted, defaults to "SalesInvoice"
+      :return ShippingVerifyResult
+    """
+    def verify_shipment(self, companyCode, transactionCode, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","")        
+        return requests.get('{}/api/v2/companies/{}/transactions/{}/shipment/verify'.format(self.base_url, companyCode, transactionCode),
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200) 
