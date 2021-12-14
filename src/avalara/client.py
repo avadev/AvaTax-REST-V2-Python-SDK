@@ -63,7 +63,7 @@ class AvataxClient(client_methods.Mixin):
         self.app_name = app_name
         self.app_version = app_version
         self.machine_name = machine_name
-        self.client_id = '{}; {}; Python SDK; 18.5; {};'.format(app_name,
+        self.client_id = '{}; {}; Python SDK; API_VERSION; {};'.format(app_name,
                                                                 app_version,
                                                                 machine_name)
         self.client_header = {'X-Avalara-Client': self.client_id}
