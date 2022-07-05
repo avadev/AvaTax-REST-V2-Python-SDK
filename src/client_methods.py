@@ -20,7 +20,7 @@ class Mixin:
       The email will specify which user reset the license key and it will contain the new key to use to update your connectors.
       Note: The reset license key functionality will only be available for existing active license key i.e. when you reset license key for the account, the Default license key will be reset.The reset license key functionality is not available for newly created license keys i.e. license keys other than Default
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the account you wish to update.
       :param model [ResetLicenseKeyModel] A request confirming that you wish to reset the license key of this account.
@@ -28,7 +28,7 @@ class Mixin:
     """
     def account_reset_license_key(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/accounts/{}/resetlicensekey'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -45,7 +45,7 @@ class Mixin:
       If you have not read or accepted the terms and conditions, this API call will return the
       unchanged account model.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the account to activate
       :param model [ActivateAccountModel] The activation request
@@ -53,7 +53,7 @@ class Mixin:
     """
     def activate_account(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/accounts/{}/activate'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -73,7 +73,7 @@ class Mixin:
       * Old records may be migrated out of immediately available storage. To request older data, please contact your account manager.
       * New records must migrate to available storage before they can be retrieved. You may need to wait a period of time before newly created records can be fetched.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the account you wish to audit.
       :param start [datetime] The start datetime of audit history you with to retrieve, e.g. "2018-06-08T17:00:00Z". Defaults to the past 15 minutes.
@@ -84,7 +84,7 @@ class Mixin:
     """
     def audit_account(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/accounts/{}/audit'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -101,7 +101,7 @@ class Mixin:
       You will reference this key using license key name. The existing license key will be using 'Default' as license key name.
       Hence make sure that the license key name is unique per account considering the existing license key name 'Default'
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the account you wish to update.
       :param model [AccountLicenseKeyModel] 
@@ -109,7 +109,7 @@ class Mixin:
     """
     def create_license_key(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/accounts/{}/licensekey'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -122,7 +122,7 @@ class Mixin:
       To delete a license key for your account, you must specify the accountID of the account and license key name.
       This API is only available to account administrators for the account in question.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the account you wish to update.
       :param licensekeyname [string] The license key name you wish to update.
@@ -130,7 +130,7 @@ class Mixin:
     """
     def delete_license_key(self, id_, licensekeyname):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/accounts/{}/licensekey/{}'.format(self.base_url, id_, licensekeyname),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -144,7 +144,7 @@ class Mixin:
       * Subscriptions
       * Users
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the account to retrieve
       :param include [string] A comma separated list of special fetch options
@@ -152,7 +152,7 @@ class Mixin:
     """
     def get_account(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -171,14 +171,14 @@ class Mixin:
       Avalara-based account settings for `TaxServiceConfig` and `AddressServiceConfig` affect your account's
       tax calculation and address resolution, and should only be changed with care.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] 
       :return AccountConfigurationModel
     """
     def get_account_configuration(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -188,7 +188,7 @@ class Mixin:
     Retrieve license key by license key name
     
     ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the account to retrieve
       :param licensekeyname [string] The ID of the account to retrieve
@@ -196,7 +196,7 @@ class Mixin:
     """
     def get_license_key(self, id_, licensekeyname):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/accounts/{}/licensekey/{}'.format(self.base_url, id_, licensekeyname),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -207,14 +207,14 @@ class Mixin:
     
     Gets list of all the license keys used by the account.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the account to retrieve
       :return AccountLicenseKeyModel
     """
     def get_license_keys(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/accounts/{}/licensekeys'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -232,7 +232,7 @@ class Mixin:
       * Users
       For more information about filtering in REST, please see the documentation at http://developer.avalara.com/avatax/filtering-in-rest/ .
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param include [string] A comma separated list of objects to fetch underneath this account. Any object with a URL path underneath this account can be fetched by specifying its name.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* subscriptions, users
@@ -243,7 +243,7 @@ class Mixin:
     """
     def query_accounts(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/accounts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -262,7 +262,7 @@ class Mixin:
       Avalara-based account settings for `TaxServiceConfig` and `AddressServiceConfig` affect your account's
       tax calculation and address resolution, and should only be changed with care.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
       :param model [AccountConfigurationModel] 
@@ -270,7 +270,7 @@ class Mixin:
     """
     def set_account_configuration(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -290,7 +290,7 @@ class Mixin:
       2. line1 + city + region
       3. line1 + postal code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AutoAddress.
     
       :param line1 [string] Line 1
@@ -305,7 +305,7 @@ class Mixin:
     """
     def resolve_address(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/addresses/resolve'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -321,7 +321,7 @@ class Mixin:
       This is the same API as the GET /api/v2/addresses/resolve endpoint.
       Both verbs are supported to provide for flexible implementation.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AutoAddress.
     
       :param model [AddressValidationInfo] The address to resolve
@@ -329,7 +329,7 @@ class Mixin:
     """
     def resolve_address_post(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/addresses/resolve'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -347,7 +347,7 @@ class Mixin:
     """
     def create_company_lookup_file(self, accountId, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(self.base_url, accountId, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -364,7 +364,7 @@ class Mixin:
     """
     def delete_lookup_file(self, accountId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -381,7 +381,7 @@ class Mixin:
     """
     def get_company_lookup_files(self, accountId, companyId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(self.base_url, accountId, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -398,7 +398,7 @@ class Mixin:
     """
     def get_lookup_file(self, accountId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -416,7 +416,7 @@ class Mixin:
     """
     def update_lookup_file(self, accountId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -436,7 +436,7 @@ class Mixin:
     """
     def create_ava_file_forms(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -455,7 +455,7 @@ class Mixin:
     """
     def delete_ava_file_form(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -466,7 +466,7 @@ class Mixin:
     
     Get the AvaFileForm object identified by this URL.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The primary key of this AvaFileForm
@@ -474,7 +474,7 @@ class Mixin:
     """
     def get_ava_file_form(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -486,7 +486,7 @@ class Mixin:
     Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* outletTypeId
@@ -497,7 +497,7 @@ class Mixin:
     """
     def query_ava_file_forms(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -518,7 +518,7 @@ class Mixin:
     """
     def update_ava_file_form(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -537,7 +537,7 @@ class Mixin:
       required, please use the
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this batch.
       :param id_ [int] The ID of the batch to cancel.
@@ -545,7 +545,7 @@ class Mixin:
     """
     def cancel_batch(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/batches/{}/cancel'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -570,7 +570,7 @@ class Mixin:
       the API is called from a browser). In this situation, please split the request into
       smaller batches.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this batch.
       :param model [BatchModel] The batch you wish to create.
@@ -578,7 +578,7 @@ class Mixin:
     """
     def create_batches(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -602,7 +602,7 @@ class Mixin:
       the API is called from a browser). In this situation, please split the request into
       smaller batches.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this batch.
       :param model [CreateTransactionBatchRequestModel] The transaction batch you wish to create.
@@ -610,7 +610,7 @@ class Mixin:
     """
     def create_transaction_batch(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/batches/transactions'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -628,7 +628,7 @@ class Mixin:
       required, please use the
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
       ### Security Policies
-      * This API requires one of the following user roles: CSPAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: BatchServiceAdmin, CSPAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this batch.
       :param id_ [int] The ID of the batch to delete.
@@ -636,7 +636,7 @@ class Mixin:
     """
     def delete_batch(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -647,7 +647,7 @@ class Mixin:
     
     Download a single batch file identified by this URL.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this batch
       :param batchId [int] The ID of the batch object
@@ -656,7 +656,7 @@ class Mixin:
     """
     def download_batch(self, companyId, batchId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/batches/{}/files/{}/attachment'.format(self.base_url, companyId, batchId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -678,7 +678,7 @@ class Mixin:
       required, please use the
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this batch
       :param id_ [int] The primary key of this batch
@@ -686,7 +686,7 @@ class Mixin:
     """
     def get_batch(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -712,7 +712,7 @@ class Mixin:
       required, please use the
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these batches
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* files
@@ -724,7 +724,7 @@ class Mixin:
     """
     def list_batches_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -748,7 +748,7 @@ class Mixin:
       required, please use the
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* files
       :param include [string] A comma separated list of additional data to retrieve.
@@ -759,7 +759,7 @@ class Mixin:
     """
     def query_batches(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/batches'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -781,7 +781,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that will record certificates
@@ -791,7 +791,7 @@ class Mixin:
     """
     def create_cert_express_invitation(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/customers/{}/certexpressinvites'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -813,7 +813,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that issued this invitation
@@ -824,7 +824,7 @@ class Mixin:
     """
     def get_cert_express_invitation(self, companyId, customerCode, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/customers/{}/certexpressinvites/{}'.format(self.base_url, companyId, customerCode, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -846,7 +846,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that issued this invitation
@@ -859,7 +859,7 @@ class Mixin:
     """
     def list_cert_express_invitations(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/certexpressinvites'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -885,7 +885,7 @@ class Mixin:
       certificate storage for this company, call `RequestCertificateSetup`.
       If the users specified in the certificates do not exist, the API will create the user and link them to the certificate
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company recording this certificate
@@ -895,7 +895,7 @@ class Mixin:
     """
     def create_certificates(self, companyId, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -915,7 +915,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
@@ -924,7 +924,7 @@ class Mixin:
     """
     def delete_certificate(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -945,7 +945,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
@@ -956,7 +956,7 @@ class Mixin:
     """
     def download_certificate_image(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -979,7 +979,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company that recorded this certificate
@@ -989,7 +989,7 @@ class Mixin:
     """
     def get_certificate(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1005,7 +1005,7 @@ class Mixin:
       document store. To request setup, please call `RequestCertificateSetup` and your company will
       be configured with data storage in the auditable certificate system.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The company ID to check
@@ -1013,7 +1013,7 @@ class Mixin:
     """
     def get_certificate_setup(self, companyId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1034,7 +1034,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
@@ -1044,7 +1044,7 @@ class Mixin:
     """
     def link_attributes_to_certificate(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1066,7 +1066,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
@@ -1076,7 +1076,7 @@ class Mixin:
     """
     def link_customers_to_certificate(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1097,7 +1097,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
@@ -1106,7 +1106,7 @@ class Mixin:
     """
     def list_attributes_for_certificate(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/certificates/{}/attributes'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1127,7 +1127,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
@@ -1137,7 +1137,7 @@ class Mixin:
     """
     def list_customers_for_certificate(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/certificates/{}/customers'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1160,7 +1160,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company to search
@@ -1173,7 +1173,7 @@ class Mixin:
     """
     def query_certificates(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1190,7 +1190,7 @@ class Mixin:
       be configured with data storage in the auditable certificate system.
       This API will return the current status of exemption certificate setup for this company.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] 
@@ -1198,7 +1198,7 @@ class Mixin:
     """
     def request_certificate_setup(self, companyId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1219,7 +1219,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
@@ -1229,7 +1229,7 @@ class Mixin:
     """
     def unlink_attributes_from_certificate(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1252,7 +1252,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
@@ -1262,7 +1262,7 @@ class Mixin:
     """
     def unlink_customers_from_certificate(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1281,7 +1281,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company that recorded this certificate
@@ -1291,7 +1291,7 @@ class Mixin:
     """
     def update_certificate(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1312,7 +1312,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this certificate
@@ -1322,7 +1322,7 @@ class Mixin:
     """
     def upload_certificate_image(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1354,14 +1354,14 @@ class Mixin:
       16. Any document has currencyCode not being USD for accounts with AvaGlobal subscription.
       17. All documents have countryCode used for accounts with AvaGlobal subscription.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the company to check if its integration is certified.
       :return string
     """
     def certify_integration(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/certify'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1380,7 +1380,7 @@ class Mixin:
       * Avalara compliance team members may change a company from `FirstFiling` to `Active`.
       All other status changes must be requested through the Avalara customer support team.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] 
       :param model [FilingStatusChangeModel] 
@@ -1388,7 +1388,7 @@ class Mixin:
     """
     def change_filing_status(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1408,14 +1408,14 @@ class Mixin:
       If you need additional features or options not present in this 'Quick Setup' API call, please use the full 'Create Company' call instead.
       Please allow 1 minute before making transactions using the company.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param model [CompanyInitializationModel] Information about the company you wish to create.
       :return CompanyModel
     """
     def company_initialize(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/initialize'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1429,14 +1429,14 @@ class Mixin:
       You may attach nested data objects such as contacts, locations, and nexus with this CREATE call, and those objects will be created with the company.
       NOTE: Please do not use these blacklisted characters in company name and code: ';', '\', '|'.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param model [CompanyModel] Either a single company object or an array of companies to create
       :return CompanyModel
     """
     def create_companies(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1452,7 +1452,7 @@ class Mixin:
       To see available parameters for this company, call `/api/v2/definitions/parameters?$filter=attributeType eq Company`
       Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this company parameter.
       :param model [CompanyParameterDetailModel] The company parameters you wish to create.
@@ -1460,7 +1460,7 @@ class Mixin:
     """
     def create_company_parameters(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1481,7 +1481,7 @@ class Mixin:
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       ### Security Policies
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The unique identifier of the company
       :param model [FundingInitiateModel] The funding initialization request
@@ -1489,7 +1489,7 @@ class Mixin:
     """
     def create_funding_request(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/funding/setup'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1500,14 +1500,14 @@ class Mixin:
     
     Deleting a company will delete all child companies, and all users attached to this company.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the company you wish to delete.
       :return ErrorDetail
     """
     def delete_company(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1521,7 +1521,7 @@ class Mixin:
       A parameter added to a company will be used by default in tax calculation but will not show on the transaction line referencing the company.
       A company location parameter specified on a transaction line will override a company parameter if they share the same parameter name.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id
       :param id_ [int] The parameter id
@@ -1529,7 +1529,7 @@ class Mixin:
     """
     def delete_company_parameter(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1543,7 +1543,7 @@ class Mixin:
       Returns the funding configuration of the requested company.
       .
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyId [int] The unique identifier of the company
@@ -1551,7 +1551,7 @@ class Mixin:
     """
     def funding_configuration_by_company(self, companyId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/funding/configuration'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1565,7 +1565,7 @@ class Mixin:
       Returns the funding configuration of the requested company.
       .
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyId [int] The unique identifier of the company
@@ -1574,7 +1574,7 @@ class Mixin:
     """
     def funding_configurations_by_company_and_currency(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/funding/configurations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1596,7 +1596,7 @@ class Mixin:
        * UPC
        * Parameters
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the company to retrieve.
       :param include [string] OPTIONAL: A comma separated list of special fetch options.      * Child objects - Specify one or more of the following to retrieve objects related to each company: "Contacts", "FilingCalendars", "Items", "Locations", "Nexus", "TaxCodes", "NonReportingChildren" or "TaxRules".   * Deleted objects - Specify "FetchDeleted" to retrieve information about previously deleted objects.
@@ -1604,7 +1604,7 @@ class Mixin:
     """
     def get_company(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1623,14 +1623,14 @@ class Mixin:
       Avalara-based company settings for `AvaCertServiceConfig` affect your company's exemption certificate
       processing, and should be changed with care.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] 
       :return CompanyConfigurationModel
     """
     def get_company_configuration(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1644,7 +1644,7 @@ class Mixin:
       A parameter added to a company will be used by default in tax calculation but will not show on the transaction line referencing the company.
       A company location parameter specified on a transaction line will override a company parameter if they share the same parameter name.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] 
       :param id_ [int] 
@@ -1652,7 +1652,7 @@ class Mixin:
     """
     def get_company_parameter_detail(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1673,14 +1673,14 @@ class Mixin:
       * `Active` - The company is currently active and is filing tax returns via Avalara Managed Returns.
       * `Inactive` - The company is currently inactive.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] 
       :return string
     """
     def get_filing_status(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1695,7 +1695,7 @@ class Mixin:
       Each object in the result is an ach entry trace record for a payment made on behalf of this company.
       ### Security Policies
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The unique identifier of the company
       :param periodyear [int] The period year
@@ -1704,7 +1704,7 @@ class Mixin:
     """
     def list_a_c_h_entry_details_for_company(self, id_, periodyear, periodmonth):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/paymentdetails/{}/{}'.format(self.base_url, id_, periodyear, periodmonth),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1720,7 +1720,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The company id
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* name, unit
@@ -1731,7 +1731,7 @@ class Mixin:
     """
     def list_company_parameter_details(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1746,14 +1746,14 @@ class Mixin:
       Each object in the result is a request that was made to setup or adjust funding status for this company.
       ### Security Policies
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The unique identifier of the company
       :return FundingStatusModel
     """
     def list_funding_requests_by_company(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/funding'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1765,13 +1765,13 @@ class Mixin:
     This API is available by invitation only.
       Get a list of companies with an active MRS service.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :return FetchResult
     """
     def list_mrs_companies(self):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/mrs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1795,7 +1795,7 @@ class Mixin:
       * UPC
       * Parameters
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param include [string] A comma separated list of objects to fetch underneath this company. Any object with a URL path underneath this company can be fetched by specifying its name.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* IsFein, contacts, items, locations, nexus, settings, taxCodes, taxRules, upcs, nonReportingChildCompanies, exemptCerts, parameters, supplierandcustomers
@@ -1806,7 +1806,7 @@ class Mixin:
     """
     def query_companies(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1825,7 +1825,7 @@ class Mixin:
       Avalara-based company settings for `AvaCertServiceConfig` affect your company's exemption certificate
       processing, and should be changed with care.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
       :param model [CompanyConfigurationModel] 
@@ -1833,7 +1833,7 @@ class Mixin:
     """
     def set_company_configuration(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1850,7 +1850,7 @@ class Mixin:
       To set a field's value to `null`, you may either set its value to `null` or omit that field from the object you PUT.
       NOTE: Please do not use these blacklisted characters in company name and code: ';', '\', '|'.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the company you wish to update.
       :param model [CompanyModel] The company object you wish to update.
@@ -1858,7 +1858,7 @@ class Mixin:
     """
     def update_company(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1872,7 +1872,7 @@ class Mixin:
       A parameter added to a company will be used by default in tax calculation but will not show on the transaction line referencing the company.
       A company location parameter specified on a transaction line will override a company parameter if they share the same parameter name.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id.
       :param id_ [int] The company parameter id
@@ -1881,7 +1881,7 @@ class Mixin:
     """
     def update_company_parameter_detail(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1906,7 +1906,7 @@ class Mixin:
     """
     def query_tax_authority_jurisdiction_rates(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/compliance/taxauthorityjurisdictionrates'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1919,7 +1919,7 @@ class Mixin:
       A 'contact' is a person associated with a company who is designated to handle certain responsibilities of
       a tax collecting and filing entity.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this contact.
       :param model [ContactModel] The contacts you wish to create.
@@ -1927,7 +1927,7 @@ class Mixin:
     """
     def create_contacts(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1938,7 +1938,7 @@ class Mixin:
     
     Mark the existing contact object at this URL as deleted.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this contact.
       :param id_ [int] The ID of the contact you wish to delete.
@@ -1946,7 +1946,7 @@ class Mixin:
     """
     def delete_contact(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1959,7 +1959,7 @@ class Mixin:
       A 'contact' is a person associated with a company who is designated to handle certain responsibilities of
       a tax collecting and filing entity.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company for this contact
       :param id_ [int] The primary key of this contact
@@ -1967,7 +1967,7 @@ class Mixin:
     """
     def get_contact(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1980,7 +1980,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns these contacts
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -1991,7 +1991,7 @@ class Mixin:
     """
     def list_contacts_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2006,7 +2006,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -2016,7 +2016,7 @@ class Mixin:
     """
     def query_contacts(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/contacts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2031,7 +2031,7 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this contact belongs to.
       :param id_ [int] The ID of the contact you wish to update
@@ -2040,7 +2040,7 @@ class Mixin:
     """
     def update_contact(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2062,7 +2062,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
@@ -2071,7 +2071,7 @@ class Mixin:
     """
     def create_customers(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2091,7 +2091,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
@@ -2100,7 +2100,7 @@ class Mixin:
     """
     def delete_customer(self, companyId, customerCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2124,7 +2124,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
@@ -2134,7 +2134,7 @@ class Mixin:
     """
     def get_customer(self, companyId, customerCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2156,7 +2156,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded the provided customer
@@ -2166,7 +2166,7 @@ class Mixin:
     """
     def link_attributes_to_customer(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2186,7 +2186,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
@@ -2196,7 +2196,7 @@ class Mixin:
     """
     def link_certificates_to_customer(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2216,7 +2216,7 @@ class Mixin:
       Note that you can only link a ship-to customer record to a bill-to customer record. You may not link two customers
       of the same kind together.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company defining customers.
@@ -2226,7 +2226,7 @@ class Mixin:
     """
     def link_ship_to_customers_to_bill_customer(self, companyId, code, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/customers/billto/{}/shipto/link'.format(self.base_url, companyId, code),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2248,7 +2248,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded the provided customer
@@ -2257,7 +2257,7 @@ class Mixin:
     """
     def list_attributes_for_customer(self, companyId, customerCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/customers/{}/attributes'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2277,7 +2277,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
@@ -2291,7 +2291,7 @@ class Mixin:
     """
     def list_certificates_for_customer(self, companyId, customerCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/customers/{}/certificates'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2313,7 +2313,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
@@ -2324,7 +2324,7 @@ class Mixin:
     """
     def list_valid_certificates_for_customer(self, companyId, customerCode, country, region):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/customers/{}/certificates/{}/{}'.format(self.base_url, companyId, customerCode, country, region),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2347,7 +2347,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
@@ -2360,7 +2360,7 @@ class Mixin:
     """
     def query_customers(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2382,7 +2382,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded the customer
@@ -2392,7 +2392,7 @@ class Mixin:
     """
     def unlink_attributes_from_customer(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2412,7 +2412,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
@@ -2422,7 +2422,7 @@ class Mixin:
     """
     def unlink_certificates_from_customer(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2442,7 +2442,7 @@ class Mixin:
       certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
       certificate storage for this company, call `RequestCertificateSetup`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The unique ID number of the company that recorded this customer
@@ -2452,7 +2452,7 @@ class Mixin:
     """
     def update_customer(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2463,7 +2463,7 @@ class Mixin:
     
     Create one or more datasource objects.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company you which to create the datasources
@@ -2472,7 +2472,7 @@ class Mixin:
     """
     def create_data_sources(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2483,7 +2483,7 @@ class Mixin:
     
     Marks the existing datasource for a company as deleted.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company the datasource belongs to.
@@ -2492,7 +2492,7 @@ class Mixin:
     """
     def delete_data_source(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2503,7 +2503,7 @@ class Mixin:
     
     Retrieve the data source by its unique ID number.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] 
@@ -2512,7 +2512,7 @@ class Mixin:
     """
     def get_data_source_by_id(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2523,7 +2523,7 @@ class Mixin:
     
     Gets multiple datasource objects for a given company.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company you wish to retrieve the datasources.
@@ -2535,7 +2535,7 @@ class Mixin:
     """
     def list_data_sources(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2548,7 +2548,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isEnabled, isSynced, isAuthorized, name, externalState
@@ -2559,7 +2559,7 @@ class Mixin:
     """
     def query_data_sources(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/datasources'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2570,7 +2570,7 @@ class Mixin:
     
     Updates a datasource for a company.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company the datasource belongs to.
@@ -2580,7 +2580,7 @@ class Mixin:
     """
     def update_data_source(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2605,7 +2605,7 @@ class Mixin:
     """
     def get_cross_border_code(self, country, hsCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/crossborder/{}/{}/hierarchy'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2626,7 +2626,7 @@ class Mixin:
     """
     def get_login_verifier_by_form(self, form, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers/{}'.format(self.base_url, form),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2645,7 +2645,7 @@ class Mixin:
     """
     def list_all_marketplace_locations(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/listallmarketplacelocations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2667,7 +2667,7 @@ class Mixin:
     """
     def list_ava_file_forms(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2691,7 +2691,7 @@ class Mixin:
     """
     def list_certificate_attributes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/certificateattributes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2714,7 +2714,7 @@ class Mixin:
     """
     def list_certificate_exempt_reasons(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/certificateexemptreasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2737,7 +2737,7 @@ class Mixin:
     """
     def list_certificate_exposure_zones(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/certificateexposurezones'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2758,7 +2758,7 @@ class Mixin:
     """
     def list_classification_parameters_usage(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/classification/parametersusage'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2778,7 +2778,7 @@ class Mixin:
     """
     def list_communications_service_types(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/communications/transactiontypes/{}/servicetypes'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2798,7 +2798,7 @@ class Mixin:
     """
     def list_communications_transaction_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/communications/transactiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2818,7 +2818,7 @@ class Mixin:
     """
     def list_communications_t_s_pairs(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/communications/tspairs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2839,7 +2839,7 @@ class Mixin:
     """
     def list_countries(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/countries'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2863,7 +2863,7 @@ class Mixin:
     """
     def list_cover_letters(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/coverletters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2891,7 +2891,7 @@ class Mixin:
     """
     def list_cross_border_codes(self, country, hsCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/crossborder/{}/{}'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2912,7 +2912,7 @@ class Mixin:
     """
     def list_cross_border_sections(self):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/crossborder/sections'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2933,7 +2933,7 @@ class Mixin:
     """
     def list_currencies(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/currencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2956,7 +2956,7 @@ class Mixin:
     """
     def list_entity_use_codes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/entityusecodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2976,7 +2976,7 @@ class Mixin:
     """
     def list_filing_frequencies(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/filingfrequencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2998,7 +2998,7 @@ class Mixin:
     """
     def list_jurisdictions(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/jurisdictions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3028,7 +3028,7 @@ class Mixin:
     """
     def list_jurisdictions_by_address(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/jurisdictionsnearaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3054,7 +3054,7 @@ class Mixin:
     """
     def list_jurisdictions_by_rate_type_tax_type_mapping(self, country, taxTypeId, taxSubTypeId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/jurisdictions/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url, country, taxTypeId, taxSubTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3087,7 +3087,7 @@ class Mixin:
     """
     def list_location_questions_by_address(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/locationquestions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3108,7 +3108,7 @@ class Mixin:
     """
     def list_login_verifiers(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3127,7 +3127,7 @@ class Mixin:
     """
     def list_marketplace_locations(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/marketplacelocations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3147,7 +3147,7 @@ class Mixin:
     """
     def list_nexus(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3177,7 +3177,7 @@ class Mixin:
     """
     def list_nexus_by_address(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/nexus/byaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3198,7 +3198,7 @@ class Mixin:
     """
     def list_nexus_by_country(self, country, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/nexus/{}'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3220,7 +3220,7 @@ class Mixin:
     """
     def list_nexus_by_country_and_region(self, country, region, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/nexus/{}/{}'.format(self.base_url, country, region),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3238,14 +3238,14 @@ class Mixin:
       a tax form, you may want to know whether you have declared nexus in all the jurisdictions related to that tax
       form in order to better understand how the form will be filled out.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param formCode [string] The form code that we are looking up the nexus for
       :return NexusByTaxFormModel
     """
     def list_nexus_by_form_code(self, formCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/nexus/byform/{}'.format(self.base_url, formCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3266,7 +3266,7 @@ class Mixin:
     """
     def list_nexus_by_tax_type_group(self, taxTypeGroup, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/nexus/bytaxtypegroup/{}'.format(self.base_url, taxTypeGroup),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3286,7 +3286,7 @@ class Mixin:
     """
     def list_nexus_tax_type_groups(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3306,7 +3306,7 @@ class Mixin:
     """
     def list_notice_customer_funding_options(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/noticecustomerfundingoptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3326,7 +3326,7 @@ class Mixin:
     """
     def list_notice_customer_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/noticecustomertypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3346,7 +3346,7 @@ class Mixin:
     """
     def list_notice_filingtypes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/noticefilingtypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3366,7 +3366,7 @@ class Mixin:
     """
     def list_notice_priorities(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/noticepriorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3386,7 +3386,7 @@ class Mixin:
     """
     def list_notice_reasons(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/noticereasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3406,7 +3406,7 @@ class Mixin:
     """
     def list_notice_responsibilities(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/noticeresponsibilities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3426,7 +3426,7 @@ class Mixin:
     """
     def list_notice_root_causes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/noticerootcauses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3446,7 +3446,7 @@ class Mixin:
     """
     def list_notice_statuses(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/noticestatuses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3466,7 +3466,7 @@ class Mixin:
     """
     def list_notice_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/noticetypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3487,7 +3487,7 @@ class Mixin:
     """
     def list_parameters(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/parameters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3509,7 +3509,7 @@ class Mixin:
       * Replace ''' with '\_-ava27-\_' For example: 'Item'Code' becomes 'Item_-ava27-_Code'
       * Replace '"' with '\_-ava22-\_' For example: 'Item"Code' becomes 'Item_-ava22-_Code'
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyCode [string] Company code.
       :param itemCode [string] Item code.
@@ -3521,7 +3521,7 @@ class Mixin:
     """
     def list_parameters_by_item(self, companyCode, itemCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/parameters/byitem/{}/{}'.format(self.base_url, companyCode, itemCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3542,7 +3542,7 @@ class Mixin:
     """
     def list_parameters_usage(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/parametersusage'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3560,7 +3560,7 @@ class Mixin:
     """
     def list_permissions(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/permissions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3579,7 +3579,7 @@ class Mixin:
     """
     def list_postal_codes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/postalcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3604,7 +3604,7 @@ class Mixin:
     """
     def list_preferred_programs(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/preferredprograms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3626,7 +3626,7 @@ class Mixin:
     """
     def list_product_classification_systems(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/productclassificationsystems'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3655,7 +3655,7 @@ class Mixin:
     """
     def list_product_classification_systems_by_company(self, companyCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/productclassificationsystems/bycompany/{}'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3676,7 +3676,7 @@ class Mixin:
     """
     def list_rate_types_by_country(self, country, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/countries/{}/ratetypes'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3699,7 +3699,7 @@ class Mixin:
     """
     def list_rate_types_by_country_tax_type_tax_sub_type(self, country, taxTypeId, taxSubTypeId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/countries/{}/taxtypes/{}/taxsubtypes/{}/ratetypes'.format(self.base_url, country, taxTypeId, taxSubTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3720,7 +3720,7 @@ class Mixin:
     """
     def list_regions(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/regions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3742,7 +3742,7 @@ class Mixin:
     """
     def list_regions_by_country(self, country, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/countries/{}/regions'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3762,7 +3762,7 @@ class Mixin:
     """
     def list_resource_file_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/resourcefiletypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3783,7 +3783,7 @@ class Mixin:
     """
     def list_returns_parameters_usage(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/returns/parametersusage'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3804,7 +3804,7 @@ class Mixin:
     """
     def list_security_roles(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/securityroles'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3826,7 +3826,7 @@ class Mixin:
     """
     def list_subscription_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3845,7 +3845,7 @@ class Mixin:
     """
     def list_tags(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/tags'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3865,7 +3865,7 @@ class Mixin:
     """
     def list_tax_authorities(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/taxauthorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3887,7 +3887,7 @@ class Mixin:
     """
     def list_tax_authority_forms(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/taxauthorityforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3907,7 +3907,7 @@ class Mixin:
     """
     def list_tax_authority_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3922,7 +3922,7 @@ class Mixin:
       If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
       taxability rules for this product in all supported jurisdictions.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -3932,7 +3932,7 @@ class Mixin:
     """
     def list_tax_codes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3951,7 +3951,7 @@ class Mixin:
     """
     def list_tax_code_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/taxcodetypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3971,7 +3971,7 @@ class Mixin:
     """
     def list_tax_forms(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/taxforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3991,7 +3991,7 @@ class Mixin:
     """
     def list_tax_sub_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/taxsubtypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4013,7 +4013,7 @@ class Mixin:
     """
     def list_tax_sub_types_by_country_and_tax_type(self, country, taxTypeId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/taxsubtypes/countries/{}/taxtypes/{}'.format(self.base_url, country, taxTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4035,7 +4035,7 @@ class Mixin:
     """
     def list_tax_sub_types_by_jurisdiction_and_region(self, jurisdictionCode, region, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/taxsubtypes/{}/{}'.format(self.base_url, jurisdictionCode, region),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4055,7 +4055,7 @@ class Mixin:
     """
     def list_tax_type_groups(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4075,7 +4075,7 @@ class Mixin:
     """
     def list_tax_types_by_nexus_and_country(self, country, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/taxtypes/countries/{}'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4097,7 +4097,7 @@ class Mixin:
     """
     def list_unit_of_basis_by_country_and_tax_type_and_tax_sub_type_and_rate_type(self, country, taxTypeId, taxSubTypeId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/unitofbasis/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url, country, taxTypeId, taxSubTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4117,7 +4117,7 @@ class Mixin:
     """
     def list_unit_of_measurement(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/definitions/unitofmeasurements'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4131,7 +4131,7 @@ class Mixin:
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold
       :param model [CompanyDistanceThresholdModel] The DistanceThreshold object or objects you wish to create.
@@ -4139,7 +4139,7 @@ class Mixin:
     """
     def create_distance_threshold(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4153,7 +4153,7 @@ class Mixin:
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold
       :param id_ [int] The unique ID number of the DistanceThreshold object you wish to delete.
@@ -4161,7 +4161,7 @@ class Mixin:
     """
     def delete_distance_threshold(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4175,7 +4175,7 @@ class Mixin:
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns this DistanceThreshold object
       :param id_ [int] The unique ID number referring to this DistanceThreshold object
@@ -4183,7 +4183,7 @@ class Mixin:
     """
     def get_distance_threshold(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4197,7 +4197,7 @@ class Mixin:
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company whose DistanceThreshold objects you wish to list.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -4209,7 +4209,7 @@ class Mixin:
     """
     def list_distance_thresholds(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4225,7 +4225,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
@@ -4236,7 +4236,7 @@ class Mixin:
     """
     def query_distance_thresholds(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/distancethresholds'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4252,7 +4252,7 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold object.
       :param id_ [int] The unique ID number of the DistanceThreshold object to replace.
@@ -4261,7 +4261,7 @@ class Mixin:
     """
     def update_distance_threshold(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4273,7 +4273,7 @@ class Mixin:
     Creates a new eCommerce token.
       This API is used to create a new eCommerce token. An eCommerce token is required in order to launch the CertCapture eCommerce plugin. Create a token for each of your CertCapture customers.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The company ID that will be issued this certificate.
       :param model [CreateECommerceTokenInputModel] 
@@ -4281,7 +4281,7 @@ class Mixin:
     """
     def create_e_commerce_token(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4293,7 +4293,7 @@ class Mixin:
     Refresh an eCommerce token.
       CertCapture eCommerce tokens expire after one hour. This API is used to refresh an eCommerce token that is about to expire. This API can only be used with active tokens. If your token has expired, you must generate a new one.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The company ID that the refreshed certificate belongs to.
       :param model [RefreshECommerceTokenInputModel] 
@@ -4301,7 +4301,7 @@ class Mixin:
     """
     def refresh_e_commerce_token(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4312,14 +4312,14 @@ class Mixin:
     
     This API enables the account admin of a client account to approve linkage request by a firm.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
     def approve_firm_client_linkage(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/firmclientlinkages/{}/approve'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4343,7 +4343,7 @@ class Mixin:
     """
     def create_and_link_new_firm_client_account(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/firmclientlinkages/createandlinkclient'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4354,14 +4354,14 @@ class Mixin:
     
     This API enables the firm admins/firm users to request the linkage of a firm account and a client account.
       ### Security Policies
-      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param model [FirmClientLinkageInputModel] FirmClientLinkageInputModel
       :return FirmClientLinkageOutputModel
     """
     def create_firm_client_linkage(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/firmclientlinkages'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4372,14 +4372,14 @@ class Mixin:
     
     This API marks a linkage between a firm and client as deleted.
       ### Security Policies
-      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
       :return ErrorDetail
     """
     def delete_firm_client_linkage(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4390,14 +4390,14 @@ class Mixin:
     
     This API enables the firm admins/firm users to request the linkage of a firm account and a client account.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
     def get_firm_client_linkage(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4408,14 +4408,14 @@ class Mixin:
     
     This API enables the firm or account users to request the associated linkages to the account.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* firmAccountName, clientAccountName
       :return FetchResult
     """
     def list_firm_client_linkage(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/firmclientlinkages'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4426,14 +4426,14 @@ class Mixin:
     
     This API enables the account admin of a client account to reject linkage request by a firm.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
     def reject_firm_client_linkage(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/firmclientlinkages/{}/reject'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4444,14 +4444,14 @@ class Mixin:
     
     This API enables the firm admin of a client account to reset a previously created linkage request by a firm.
       ### Security Policies
-      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
     def reset_firm_client_linkage(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/firmclientlinkages/{}/reset'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4462,14 +4462,14 @@ class Mixin:
     
     This API enables the account admin of a client account to revoke a previously approved linkage request by a firm.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
     def revoke_firm_client_linkage(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/firmclientlinkages/{}/revoke'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4493,7 +4493,7 @@ class Mixin:
     """
     def request_free_trial(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/accounts/freetrials/request'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4515,7 +4515,7 @@ class Mixin:
       Use the 'methodReturn.javaScript' return value to insert this widget into your HTML page.
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The unique ID number of this funding request
@@ -4523,7 +4523,7 @@ class Mixin:
     """
     def activate_funding_request(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/fundingrequests/{}/widget'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4543,7 +4543,7 @@ class Mixin:
       This API checks the status on an existing funding request.
       This API requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param id_ [int] The unique ID number of this funding request
@@ -4551,7 +4551,7 @@ class Mixin:
     """
     def funding_request_status(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/fundingrequests/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4564,7 +4564,7 @@ class Mixin:
       A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this item.
       :param itemId [int] The ID of the item you wish to delete the classifications.
@@ -4572,7 +4572,7 @@ class Mixin:
     """
     def batch_delete_item_classifications(self, companyId, itemId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4586,7 +4586,7 @@ class Mixin:
       A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this item.
       :param itemId [int] The ID of the item you wish to delete the parameters.
@@ -4594,7 +4594,7 @@ class Mixin:
     """
     def batch_delete_item_parameters(self, companyId, itemId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4611,7 +4611,7 @@ class Mixin:
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
       The tax code takes precedence over the tax code id if both are provided.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this items.
       :param model [ItemBulkUploadInputModel] The items you wish to upload.
@@ -4619,7 +4619,7 @@ class Mixin:
     """
     def bulk_upload_items(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/items/upload'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4633,7 +4633,7 @@ class Mixin:
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
       An item may only have one classification per tax system.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id.
       :param itemId [int] The item id.
@@ -4642,7 +4642,7 @@ class Mixin:
     """
     def create_item_classifications(self, companyId, itemId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4658,7 +4658,7 @@ class Mixin:
       To see available parameters for this item, call `/api/v2/definitions/parameters?$filter=attributeType eq Product`
       Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this item parameter.
       :param itemId [int] The item id.
@@ -4667,7 +4667,7 @@ class Mixin:
     """
     def create_item_parameters(self, companyId, itemId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4684,7 +4684,7 @@ class Mixin:
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
       The tax code takes precedence over the tax code id if both are provided.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this item.
       :param model [ItemModel] The item you wish to create.
@@ -4692,7 +4692,7 @@ class Mixin:
     """
     def create_items(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4704,7 +4704,7 @@ class Mixin:
     Creates one or more new `Tag` objects attached to this Item.
       Item tags puts multiple labels for an item. So that item can be easily grouped by these tags.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that defined these items
       :param itemId [int] The ID of the item as defined by the company that owns this tag.
@@ -4713,7 +4713,7 @@ class Mixin:
     """
     def create_item_tags(self, companyId, itemId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4727,7 +4727,7 @@ class Mixin:
       major physical similarities. Taxability rules are associated with tax codes. Customers can map their Items to tax codes,
       allowing them to take advantage of thousands of tax rules in the AvaTax engine and resulting in accurate taxability determinations.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company creating this request.
       :param model [ItemTaxCodeClassificationRequestInputModel] The request you wish to create.
@@ -4735,7 +4735,7 @@ class Mixin:
     """
     def create_tax_code_classification_request(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/classificationrequests/taxcode'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4757,7 +4757,7 @@ class Mixin:
       * Replace ''' with '\_-ava27-\_' For example: 'Item'Code' becomes 'Item_-ava27-_Code'
       * Replace '"' with '\_-ava22-\_' For example: 'Item"Code' becomes 'Item_-ava22-_Code'
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this item.
       :param itemCode [string] The code of the item you want to delete.
@@ -4765,7 +4765,7 @@ class Mixin:
     """
     def delete_catalogue_item(self, companyId, itemCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/itemcatalogue/{}'.format(self.base_url, companyId, itemCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4782,7 +4782,7 @@ class Mixin:
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
       Deleting an item will also delete the parameters and classifications associated with that item.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this item.
       :param id_ [int] The ID of the item you wish to delete.
@@ -4790,7 +4790,7 @@ class Mixin:
     """
     def delete_item(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4803,7 +4803,7 @@ class Mixin:
       A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id.
       :param itemId [int] The item id.
@@ -4812,7 +4812,7 @@ class Mixin:
     """
     def delete_item_classification(self, companyId, itemId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4826,7 +4826,7 @@ class Mixin:
       A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id
       :param itemId [int] The item id
@@ -4835,7 +4835,7 @@ class Mixin:
     """
     def delete_item_parameter(self, companyId, itemId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4847,7 +4847,7 @@ class Mixin:
     Deletes the `Tag` object of an Item at this URL.
       Item tags puts multiple labels for an item. So that item can be easily grouped by these tags.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that defined these items
       :param itemId [int] The ID of the item as defined by the company that owns this tag.
@@ -4856,7 +4856,7 @@ class Mixin:
     """
     def delete_item_tag(self, companyId, itemId, itemTagDetailId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/tags/{}'.format(self.base_url, companyId, itemId, itemTagDetailId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4868,7 +4868,7 @@ class Mixin:
     Deletes all `Tags` objects of an Item at this URL.
       Item tags puts multiple labels for an item. So that item can be easily grouped by these tags.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that defined these items.
       :param itemId [int] The ID of the item as defined by the company that owns this tag.
@@ -4876,7 +4876,7 @@ class Mixin:
     """
     def delete_item_tags(self, companyId, itemId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4891,7 +4891,7 @@ class Mixin:
       allowing them to take advantage of thousands of tax rules in the AvaTax engine and resulting in accurate taxability determinations.
       Enable includeClassificationDetails flag to get details of classification request status.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that defined these items
       :param includeClassificationDetails [boolean] A Boolean field that specifies whether to get a detailed classification status.
@@ -4903,7 +4903,7 @@ class Mixin:
     """
     def get_classification_status(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/classificationrequests/taxcode'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4919,7 +4919,7 @@ class Mixin:
       from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this item object
       :param id_ [int] The primary key of this item
@@ -4928,7 +4928,7 @@ class Mixin:
     """
     def get_item(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4941,7 +4941,7 @@ class Mixin:
       A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The company id.
       :param itemId [int] The item id.
@@ -4950,7 +4950,7 @@ class Mixin:
     """
     def get_item_classification(self, companyId, itemId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4964,7 +4964,7 @@ class Mixin:
       A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The company id
       :param itemId [int] The item id
@@ -4973,7 +4973,7 @@ class Mixin:
     """
     def get_item_parameter(self, companyId, itemId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4985,7 +4985,7 @@ class Mixin:
     Get the `Tag` objects of an Item identified by this URL.
       Item tags puts multiple labels for an item. So that item can be easily grouped by these tags.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that defined these items
       :param itemId [int] The ID of the item as defined by the company that owns this tag.
@@ -4996,7 +4996,7 @@ class Mixin:
     """
     def get_item_tags(self, companyId, itemId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5015,7 +5015,7 @@ class Mixin:
       * Replace ''' with '\_-ava27-\_' For example: 'Item'Code' becomes 'Item_-ava27-_Code'
       * Replace '"' with '\_-ava22-\_' For example: 'Item"Code' becomes 'Item_-ava22-_Code'
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this item object
       :param itemCode [string] The ItemCode of the item for which you want to retrieve premium classification
@@ -5024,7 +5024,7 @@ class Mixin:
     """
     def get_premium_classification(self, companyId, itemCode, systemCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/items/{}/premiumClassification/{}'.format(self.base_url, companyId, itemCode, systemCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5038,7 +5038,7 @@ class Mixin:
       major physical similarities. Taxability rules are associated with tax codes. Customers can map their Items to tax codes,
       allowing them to take advantage of thousands of tax rules in the AvaTax engine and resulting in accurate taxability determinations.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that defined these items
       :param requestId [int] The ID of the classification request
@@ -5050,7 +5050,7 @@ class Mixin:
     """
     def get_tax_code_recommendations(self, companyId, requestId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/classificationrequests/taxcode/{}/recommendations'.format(self.base_url, companyId, requestId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5069,7 +5069,7 @@ class Mixin:
       * Replace ''' with '\_-ava27-\_' For example: 'Item'Code' becomes 'Item_-ava27-_Code'
       * Replace '"' with '\_-ava22-\_' For example: 'Item"Code' becomes 'Item_-ava22-_Code'
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this item object
       :param itemCode [string] ItemCode for the item
@@ -5081,7 +5081,7 @@ class Mixin:
     """
     def list_import_restrictions(self, companyId, itemCode, countryOfImport, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/items/{}/restrictions/import/{}'.format(self.base_url, companyId, itemCode, countryOfImport),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5096,7 +5096,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` classification; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` classifications.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The company id.
       :param itemId [int] The item id.
@@ -5108,7 +5108,7 @@ class Mixin:
     """
     def list_item_classifications(self, companyId, itemId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5124,7 +5124,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The company id
       :param itemId [int] The item id
@@ -5136,7 +5136,7 @@ class Mixin:
     """
     def list_item_parameters(self, companyId, itemId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5159,7 +5159,7 @@ class Mixin:
       * Classifications
       * Tags
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that defined these items
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, upc, classifications, parameters, tags
@@ -5172,7 +5172,7 @@ class Mixin:
     """
     def list_items_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5190,7 +5190,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, upc, classifications, parameters, tags
       :param include [string] A comma separated list of additional data to retrieve.
@@ -5201,7 +5201,7 @@ class Mixin:
     """
     def query_items(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/items'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5219,7 +5219,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that defined these items.
       :param tag [string] The master tag to be associated with item.
@@ -5232,7 +5232,7 @@ class Mixin:
     """
     def query_items_by_tag(self, companyId, tag, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/items/bytags/{}'.format(self.base_url, companyId, tag),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5246,7 +5246,7 @@ class Mixin:
       a new or update an existing item. This can be used to sync the items with Avalara. For example, an accounting software
       system can use this to sync all their items from an ERP with Avalara.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this item.
       :param model [ItemCatalogueInputModel] The items you want to create or update.
@@ -5254,7 +5254,7 @@ class Mixin:
     """
     def sync_item_catalogue(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/itemcatalogue'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5273,7 +5273,7 @@ class Mixin:
       from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this item.
       :param model [SyncItemsRequestModel] The request object.
@@ -5281,7 +5281,7 @@ class Mixin:
     """
     def sync_items(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/items/sync'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5300,7 +5300,7 @@ class Mixin:
       you may either set its value to null or omit that field from the object you post.
       The tax code takes precedence over the tax code id if both are provided.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this item belongs to.
       :param id_ [int] The ID of the item you wish to update
@@ -5309,7 +5309,7 @@ class Mixin:
     """
     def update_item(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5323,7 +5323,7 @@ class Mixin:
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
       An item may only have one classification per tax system.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id.
       :param itemId [int] The item id.
@@ -5333,7 +5333,7 @@ class Mixin:
     """
     def update_item_classification(self, companyId, itemId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5347,7 +5347,7 @@ class Mixin:
       A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id.
       :param itemId [int] The item id
@@ -5357,7 +5357,7 @@ class Mixin:
     """
     def update_item_parameter(self, companyId, itemId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5372,7 +5372,7 @@ class Mixin:
       between two different jurisdictions, you can choose to set up a jurisdiction override
       to switch this address to use different taxing jurisdictions.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that owns this override
       :param model [JurisdictionOverrideModel] The jurisdiction override objects to create
@@ -5380,7 +5380,7 @@ class Mixin:
     """
     def create_jurisdiction_overrides(self, accountId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5391,7 +5391,7 @@ class Mixin:
     
     Marks the item object at this URL as deleted.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that owns this override
       :param id_ [int] The ID of the override you wish to delete
@@ -5399,7 +5399,7 @@ class Mixin:
     """
     def delete_jurisdiction_override(self, accountId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5414,7 +5414,7 @@ class Mixin:
       between two different jurisdictions, you can choose to set up a jurisdiction override
       to switch this address to use different taxing jurisdictions.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param accountId [int] The ID of the account that owns this override
       :param id_ [int] The primary key of this override
@@ -5422,7 +5422,7 @@ class Mixin:
     """
     def get_jurisdiction_override(self, accountId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5439,7 +5439,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param accountId [int] The ID of the account that owns this override
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* country, Jurisdictions
@@ -5451,7 +5451,7 @@ class Mixin:
     """
     def list_jurisdiction_overrides_by_account(self, accountId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5468,7 +5468,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* country, Jurisdictions
       :param include [string] A comma separated list of additional data to retrieve.
@@ -5479,7 +5479,7 @@ class Mixin:
     """
     def query_jurisdiction_overrides(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/jurisdictionoverrides'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5490,7 +5490,7 @@ class Mixin:
     
     Replace the existing jurisdictionoverride object at this URL with an updated object.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that this jurisdictionoverride belongs to.
       :param id_ [int] The ID of the jurisdictionoverride you wish to update
@@ -5499,7 +5499,7 @@ class Mixin:
     """
     def update_jurisdiction_override(self, accountId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5515,7 +5515,7 @@ class Mixin:
       To see available parameters for this location, call `/api/v2/definitions/parameters?$filter=attributeType eq Company`
       Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this location parameter.
       :param locationId [int] The location id.
@@ -5524,7 +5524,7 @@ class Mixin:
     """
     def create_location_parameters(self, companyId, locationId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5535,7 +5535,7 @@ class Mixin:
     
     Create one or more new location objects attached to this company.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this location.
       :param model [LocationModel] The location you wish to create.
@@ -5543,7 +5543,7 @@ class Mixin:
     """
     def create_locations(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5554,7 +5554,7 @@ class Mixin:
     
     Mark the location object at this URL as deleted.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this location.
       :param id_ [int] The ID of the location you wish to delete.
@@ -5562,7 +5562,7 @@ class Mixin:
     """
     def delete_location(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5576,7 +5576,7 @@ class Mixin:
       A parameter added to a location will be used by default in tax calculation but will not show on the transaction line referencing the location.
       A parameter specified on a transaction line will override a location parameter if they share the same parameter name.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id
       :param locationId [int] The location id
@@ -5585,7 +5585,7 @@ class Mixin:
     """
     def delete_location_parameter(self, companyId, locationId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5603,7 +5603,7 @@ class Mixin:
       * LocationSettings
       * parameters
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
@@ -5612,7 +5612,7 @@ class Mixin:
     """
     def get_location(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5626,7 +5626,7 @@ class Mixin:
       A parameter added to a location will be used by default in tax calculation but will not show on the transaction line referencing the location.
       A parameter specified on a transaction line will override a location parameter if they share the same parameter name.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The company id
       :param locationId [int] The location id
@@ -5635,7 +5635,7 @@ class Mixin:
     """
     def get_location_parameter(self, companyId, locationId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5651,7 +5651,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The company id
       :param locationId [int] The ID of the location
@@ -5663,7 +5663,7 @@ class Mixin:
     """
     def list_location_parameters(self, companyId, locationId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5683,7 +5683,7 @@ class Mixin:
       * LocationSettings
       * parameters
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns these locations
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isMarketplaceOutsideUsa, settings, parameters
@@ -5695,7 +5695,7 @@ class Mixin:
     """
     def list_locations_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5715,7 +5715,7 @@ class Mixin:
       * LocationSettings
       * parameters
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isMarketplaceOutsideUsa, settings, parameters
       :param include [string] A comma separated list of additional data to retrieve. You may specify `LocationSettings` to retrieve location settings.
@@ -5726,7 +5726,7 @@ class Mixin:
     """
     def query_locations(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/locations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5739,7 +5739,7 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this location belongs to.
       :param id_ [int] The ID of the location you wish to update
@@ -5748,7 +5748,7 @@ class Mixin:
     """
     def update_location(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5762,7 +5762,7 @@ class Mixin:
       A parameter added to a location will be used by default in tax calculation but will not show on the transaction line referencing the location.
       A parameter specified on a transaction line will override a location parameter if they share the same parameter name.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id.
       :param locationId [int] The location id
@@ -5772,7 +5772,7 @@ class Mixin:
     """
     def update_location_parameter(self, companyId, locationId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5785,7 +5785,7 @@ class Mixin:
       This API call is intended to compare this location against the currently known taxing authority rules and regulations,
       and provide information about what additional work is required to completely setup this location.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
@@ -5793,7 +5793,7 @@ class Mixin:
     """
     def validate_location(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/locations/{}/validate'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5816,7 +5816,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param code [string] The transaction code for this MultiDocument transaction
@@ -5827,7 +5827,7 @@ class Mixin:
     """
     def adjust_multi_document_transaction(self, code, type, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/adjust'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5855,7 +5855,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param code [string] The transaction code for this MultiDocument transaction
@@ -5864,7 +5864,7 @@ class Mixin:
     """
     def audit_multi_document_transaction(self, code, type):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}/audit'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5886,7 +5886,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param model [CommitMultiDocumentModel] The commit request you wish to execute
@@ -5894,7 +5894,7 @@ class Mixin:
     """
     def commit_multi_document_transaction(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/transactions/multidocument/commit'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5935,7 +5935,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -5944,7 +5944,7 @@ class Mixin:
     """
     def create_multi_document_transaction(self, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/transactions/multidocument'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5970,7 +5970,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param code [string] The multidocument code to retrieve
@@ -5980,7 +5980,7 @@ class Mixin:
     """
     def get_multi_document_transaction_by_code_and_type(self, code, type, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6013,7 +6013,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param id_ [int] The unique ID number of the MultiDocument transaction to retrieve
@@ -6022,7 +6022,7 @@ class Mixin:
     """
     def get_multi_document_transaction_by_id(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/transactions/multidocument/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6053,7 +6053,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* documents
@@ -6065,7 +6065,7 @@ class Mixin:
     """
     def list_multi_document_transactions(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/transactions/multidocument'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6109,7 +6109,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param code [string] The code of this MultiDocument transaction
@@ -6120,7 +6120,7 @@ class Mixin:
     """
     def refund_multi_document_transaction(self, code, type, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/refund'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6141,7 +6141,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param model [VerifyMultiDocumentModel] Information from your accounting system to verify against this MultiDocument transaction as it is stored in AvaTax
@@ -6149,7 +6149,7 @@ class Mixin:
     """
     def verify_multi_document_transaction(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/transactions/multidocument/verify'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6172,7 +6172,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param code [string] The transaction code for this MultiDocument transaction
@@ -6182,7 +6182,7 @@ class Mixin:
     """
     def void_multi_document_transaction(self, code, type, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/void'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6206,7 +6206,7 @@ class Mixin:
       Please note that nexus changes may not take effect immediately and you should plan to update your nexus settings in advance
       of calculating tax for a location.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this nexus.
       :param model [NexusModel] The nexus you wish to create.
@@ -6214,7 +6214,7 @@ class Mixin:
     """
     def create_nexus(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6230,7 +6230,7 @@ class Mixin:
       To see available parameters for this item, call `/api/v2/definitions/parameters?$filter=attributeType eq Nexus`
       Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this nexus parameter.
       :param nexusId [int] The nexus id.
@@ -6239,7 +6239,7 @@ class Mixin:
     """
     def create_nexus_parameters(self, companyId, nexusId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6260,7 +6260,7 @@ class Mixin:
       Please note that nexus changes may not take effect immediately and you should plan to update your nexus settings in advance
       of calculating tax for a location.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that will own this nexus.
       :param model [DeclareNexusByAddressModel] The nexus you wish to create.
@@ -6268,7 +6268,7 @@ class Mixin:
     """
     def declare_nexus_by_address(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/nexus/byaddress'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6284,7 +6284,7 @@ class Mixin:
       Please note that nexus changes may not take effect immediately and you should plan to update your nexus settings in advance
       of calculating tax for a location.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this nexus.
       :param id_ [int] The ID of the nexus you wish to delete.
@@ -6293,7 +6293,7 @@ class Mixin:
     """
     def delete_nexus(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6307,7 +6307,7 @@ class Mixin:
       A parameter added to an nexus will be used by default in tax calculation but will not show on the transaction line referencing the nexus.
       A parameter specified on a transaction line will override an nexus parameter if they share the same parameter name.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id
       :param nexusId [int] The nexus id
@@ -6316,7 +6316,7 @@ class Mixin:
     """
     def delete_nexus_parameter(self, companyId, nexusId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6330,7 +6330,7 @@ class Mixin:
       A parameter added to an nexus will be used by default in tax calculation but will not show on the transaction line referencing the nexus.
       A parameter specified on a transaction line will override an nexus parameter if they share the same parameter name.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this nexus.
       :param nexusId [int] The ID of the nexus you wish to delete the parameters.
@@ -6338,7 +6338,7 @@ class Mixin:
     """
     def delete_nexus_parameters(self, companyId, nexusId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6354,7 +6354,7 @@ class Mixin:
       You may specify one or more of the following values in the '$include' parameter to fetch additional nested data, using commas to separate multiple values:
        * Parameters
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this nexus object
       :param id_ [int] The primary key of this nexus
@@ -6363,7 +6363,7 @@ class Mixin:
     """
     def get_nexus(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6382,7 +6382,7 @@ class Mixin:
       You may specify one or more of the following values in the '$include' parameter to fetch additional nested data, using commas to separate multiple values:
        * Parameters
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this nexus object
       :param formCode [string] The form code that we are looking up the nexus for
@@ -6391,7 +6391,7 @@ class Mixin:
     """
     def get_nexus_by_form_code(self, companyId, formCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/nexus/byform/{}'.format(self.base_url, companyId, formCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6405,7 +6405,7 @@ class Mixin:
       A parameter added to an nexus will be used by default in tax calculation but will not show on the transaction line referencing the nexus.
       A parameter specified on a transaction line will override an nexus parameter if they share the same parameter name.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The company id
       :param nexusId [int] The nexus id
@@ -6414,7 +6414,7 @@ class Mixin:
     """
     def get_nexus_parameter(self, companyId, nexusId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6432,7 +6432,7 @@ class Mixin:
       You may specify one or more of the following values in the '$include' parameter to fetch additional nested data, using commas to separate multiple values:
        * Parameters
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these nexus objects
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxTypeGroup, taxAuthorityId, taxName, parameters, taxableNexus
@@ -6444,7 +6444,7 @@ class Mixin:
     """
     def list_nexus_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6462,7 +6462,7 @@ class Mixin:
       You may specify one or more of the following values in the '$include' parameter to fetch additional nested data, using commas to separate multiple values:
        * Parameters
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these nexus objects
       :param taxTypeGroup [string] Name of TaxTypeGroup to filter by
@@ -6475,7 +6475,7 @@ class Mixin:
     """
     def list_nexus_by_company_and_tax_type_group(self, companyId, taxTypeGroup, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/nexus/byTaxTypeGroup/{}'.format(self.base_url, companyId, taxTypeGroup),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6491,7 +6491,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The company id
       :param nexusId [int] The nexus id
@@ -6503,7 +6503,7 @@ class Mixin:
     """
     def list_nexus_parameters(self, companyId, nexusId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6521,7 +6521,7 @@ class Mixin:
       You may specify one or more of the following values in the '$include' parameter to fetch additional nested data, using commas to separate multiple values:
        * Parameters
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxTypeGroup, taxAuthorityId, taxName, parameters, taxableNexus
       :param include [string] A comma separated list of additional data to retrieve.
@@ -6532,7 +6532,7 @@ class Mixin:
     """
     def query_nexus(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6556,7 +6556,7 @@ class Mixin:
       Please note that nexus changes may not take effect immediately and you should plan to update your nexus settings in advance
       of calculating tax for a location.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this nexus belongs to.
       :param id_ [int] The ID of the nexus you wish to update
@@ -6565,7 +6565,7 @@ class Mixin:
     """
     def update_nexus(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6579,7 +6579,7 @@ class Mixin:
       A parameter added to a nexus will be used in tax calculation based on the locationcode and parameter value the transaction state line might have lines added.
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.????? I dont know about this?
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The company id.
       :param nexusId [int] The nexus id
@@ -6589,7 +6589,7 @@ class Mixin:
     """
     def update_nexus_parameter(self, companyId, nexusId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6600,7 +6600,7 @@ class Mixin:
     
     This API is available by invitation only and only available for users with Compliance admin access.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param model [CreateNoticeResponsibilityTypeModel] The responsibility type to create
@@ -6608,7 +6608,7 @@ class Mixin:
     """
     def create_notice_responsibility_type(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/notices/responsibilities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6619,7 +6619,7 @@ class Mixin:
     
     This API is available by invitation only and only available for users with Compliance admin access.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param model [CreateNoticeRootCauseTypeModel] The root cause type to create
@@ -6627,7 +6627,7 @@ class Mixin:
     """
     def create_notice_root_cause_type(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/notices/rootcauses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6638,14 +6638,14 @@ class Mixin:
     
     This API is available by invitation only and only available for users with Compliance admin access.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param responsibilityId [int] The unique ID of the responsibility type
       :return ErrorDetail
     """
     def delete_notice_responsibility_type(self, responsibilityId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/notices/responsibilities/{}'.format(self.base_url, responsibilityId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6656,14 +6656,14 @@ class Mixin:
     
     This API is available by invitation only and only available for users with Compliance admin access.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param rootCauseId [int] The unique ID of the root cause type
       :return ErrorDetail
     """
     def delete_notice_root_cause_type(self, rootCauseId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/notices/rootcauses/{}'.format(self.base_url, rootCauseId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6683,14 +6683,14 @@ class Mixin:
       determine if they were resolved appropriately.
       A Global notification with null accountId and companyId cannot be dismissed and will expire within a given time span.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The id of the notification you wish to mark as dismissed.
       :return NotificationModel
     """
     def dismiss_notification(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/notifications/{}/dismiss'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6706,14 +6706,14 @@ class Mixin:
       An example of a notification would be a message about new software, or a change to AvaTax that may
       affect you, or a potential issue with your company's tax profile.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The id of the notification to retrieve.
       :return NotificationModel
     """
     def get_notification(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6731,7 +6731,7 @@ class Mixin:
       You may search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -6741,7 +6741,7 @@ class Mixin:
     """
     def list_notifications(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6762,7 +6762,7 @@ class Mixin:
       conditions, the account will be created in `New` status and they can receive a license key by logging
       onto the AvaTax website and reviewing terms and conditions online.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API is available by invitation only.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Provisioning:RequestNewAccount].
     
@@ -6771,7 +6771,7 @@ class Mixin:
     """
     def request_new_account(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/accounts/request'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6783,7 +6783,7 @@ class Mixin:
     This API is for use by partner provisioning services customers only. This will allow the partners to allow
       the add new entitlement to an existing customer
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API is available by invitation only.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Provisioning:RequestNewAccount].
     
@@ -6793,7 +6793,7 @@ class Mixin:
     """
     def request_new_entitlement(self, id_, offer):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/accounts/{}/entitlements/{}'.format(self.base_url, id_, offer),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6807,14 +6807,14 @@ class Mixin:
       Create a single new account object.
       When creating an account object you may attach subscriptions and users as part of the 'Create' call.
       ### Security Policies
-      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param model [AccountModel] The account you wish to create.
       :return AccountModel
     """
     def create_account(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/accounts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6833,7 +6833,7 @@ class Mixin:
       An example of a notification would be a message about new software, or a change to AvaTax that may
       affect you, or a potential issue with your company's tax profile.
       ### Security Policies
-      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [NotificationsAPI:Create].
     
       :param model [NotificationModel] The notifications you wish to create.
@@ -6841,7 +6841,7 @@ class Mixin:
     """
     def create_notifications(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6855,7 +6855,7 @@ class Mixin:
       A 'subscription' indicates a licensed subscription to a named Avalara service.
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
       ### Security Policies
-      * This API requires one of the following user roles: Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that owns this subscription.
       :param model [SubscriptionModel] The subscription you wish to create.
@@ -6863,7 +6863,7 @@ class Mixin:
     """
     def create_subscriptions(self, accountId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6884,7 +6884,7 @@ class Mixin:
     """
     def delete_account(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6901,7 +6901,7 @@ class Mixin:
       An example of a notification would be a message about new software, or a change to AvaTax that may
       affect you, or a potential issue with your company's tax profile.
       ### Security Policies
-      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [NotificationsAPI:Create].
     
       :param id_ [int] The id of the notification you wish to delete.
@@ -6909,7 +6909,7 @@ class Mixin:
     """
     def delete_notification(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6922,7 +6922,7 @@ class Mixin:
       This API is for use by Avalara Registrar administrative users only.
       Mark the existing account identified by this URL as deleted.
       ### Security Policies
-      * This API requires one of the following user roles: Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that owns this subscription.
       :param id_ [int] The ID of the subscription you wish to delete.
@@ -6930,7 +6930,7 @@ class Mixin:
     """
     def delete_subscription(self, accountId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6945,7 +6945,7 @@ class Mixin:
       This API is only available for Avalara Registrar Admins, and can be used to reset the password of any
       user based on internal Avalara business processes.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API is available to Avalara system-level (registrar-level) users only.
     
       :param userId [int] The unique ID of the user whose password will be changed
@@ -6955,7 +6955,7 @@ class Mixin:
     """
     def reset_password(self, userId, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/passwords/{}/reset'.format(self.base_url, userId),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6968,7 +6968,7 @@ class Mixin:
       This API is for use by Avalara Registrar administrative users only.
       Replace an existing account object with an updated account object.
       ### Security Policies
-      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param id_ [int] The ID of the account you wish to update.
       :param model [AccountModel] The account object you wish to update.
@@ -6976,7 +6976,7 @@ class Mixin:
     """
     def update_account(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6993,7 +6993,7 @@ class Mixin:
       An example of a notification would be a message about new software, or a change to AvaTax that may
       affect you, or a potential issue with your company's tax profile.
       ### Security Policies
-      * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [NotificationsAPI:Create].
     
       :param id_ [int] The id of the notification you wish to update.
@@ -7002,7 +7002,7 @@ class Mixin:
     """
     def update_notification(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7019,7 +7019,7 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
-      * This API requires one of the following user roles: Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param accountId [int] The ID of the account that this subscription belongs to.
       :param id_ [int] The ID of the subscription you wish to update
@@ -7028,7 +7028,7 @@ class Mixin:
     """
     def update_subscription(self, accountId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7048,14 +7048,14 @@ class Mixin:
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       * We throttle this API. You can only call this API up to 5 times in a minute.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param id_ [int] The unique ID number of this report
       :return String
     """
     def download_report(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/reports/{}/attachment'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7078,7 +7078,7 @@ class Mixin:
     """
     def get_report(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/reports/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7102,7 +7102,7 @@ class Mixin:
       * Follow the steps above with numberOfPartitions = 3 and partition = 2
       * Once all three reports are downloaded merge the files on the client side.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The unique ID number of the company to report on.
       :param model [ExportDocumentLineModel] Options that may be configured to customize the report.
@@ -7110,7 +7110,7 @@ class Mixin:
     """
     def initiate_export_document_line_report(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/reports/exportdocumentline/initiate'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7128,7 +7128,7 @@ class Mixin:
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       This API call returns information about all report types across your entire account.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The id of the company for which to get reports.
       :param pageKey [string] Provide a page key to retrieve the next page of results.
@@ -7138,7 +7138,7 @@ class Mixin:
     """
     def list_reports(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/reports'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7159,7 +7159,7 @@ class Mixin:
       Example: To prioritize TaxCodes passed in a Transaction over values stored with Items when calculating tax, use
       Set = Transactions, Name = TaxCodePrioritization, Value = Transaction
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this setting.
       :param model [SettingModel] The setting you wish to create.
@@ -7167,7 +7167,7 @@ class Mixin:
     """
     def create_settings(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7185,7 +7185,7 @@ class Mixin:
       When creating this object, you may define your own `set`, `name`, and `value` parameters.
       To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this setting.
       :param id_ [int] The ID of the setting you wish to delete.
@@ -7193,7 +7193,7 @@ class Mixin:
     """
     def delete_setting(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7211,7 +7211,7 @@ class Mixin:
       When creating this object, you may define your own `set`, `name`, and `value` parameters.
       To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this setting
       :param id_ [int] The primary key of this setting
@@ -7219,7 +7219,7 @@ class Mixin:
     """
     def get_setting(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7239,7 +7239,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these settings
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* modifiedDate, ModifiedUserId
@@ -7251,7 +7251,7 @@ class Mixin:
     """
     def list_settings_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7271,7 +7271,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* modifiedDate, ModifiedUserId
       :param include [string] A comma separated list of additional data to retrieve.
@@ -7282,7 +7282,7 @@ class Mixin:
     """
     def query_settings(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/settings'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7302,7 +7302,7 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you `PUT`.
       To set a field's value to `null`, you may either set its value to `null` or omit that field from the object when calling update.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this setting belongs to.
       :param id_ [int] The ID of the setting you wish to update
@@ -7311,7 +7311,7 @@ class Mixin:
     """
     def update_setting(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7324,7 +7324,7 @@ class Mixin:
       A 'subscription' indicates a licensed subscription to a named Avalara service.
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param accountId [int] The ID of the account that owns this subscription
       :param id_ [int] The primary key of this subscription
@@ -7332,7 +7332,7 @@ class Mixin:
     """
     def get_subscription(self, accountId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7347,7 +7347,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param accountId [int] The ID of the account that owns these subscriptions
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* subscriptionDescription
@@ -7358,7 +7358,7 @@ class Mixin:
     """
     def list_subscriptions_by_account(self, accountId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7373,7 +7373,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* subscriptionDescription
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -7383,7 +7383,7 @@ class Mixin:
     """
     def query_subscriptions(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7398,7 +7398,7 @@ class Mixin:
       If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
       taxability rules for this product in all supported jurisdictions.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this tax code.
       :param model [TaxCodeModel] The tax code you wish to create.
@@ -7406,7 +7406,7 @@ class Mixin:
     """
     def create_tax_codes(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7417,7 +7417,7 @@ class Mixin:
     
     Marks the existing TaxCode object at this URL as deleted.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this tax code.
       :param id_ [int] The ID of the tax code you wish to delete.
@@ -7425,7 +7425,7 @@ class Mixin:
     """
     def delete_tax_code(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7440,7 +7440,7 @@ class Mixin:
       If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
       taxability rules for this product in all supported jurisdictions.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this tax code
       :param id_ [int] The primary key of this tax code
@@ -7448,7 +7448,7 @@ class Mixin:
     """
     def get_tax_code(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7465,7 +7465,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these tax codes
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -7477,7 +7477,7 @@ class Mixin:
     """
     def list_tax_codes_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7494,7 +7494,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
@@ -7505,7 +7505,7 @@ class Mixin:
     """
     def query_tax_codes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7522,7 +7522,7 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this tax code belongs to.
       :param id_ [int] The ID of the tax code you wish to update
@@ -7531,7 +7531,7 @@ class Mixin:
     """
     def update_tax_code(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7558,7 +7558,7 @@ class Mixin:
       file for a single location at a time, please use `BuildTaxContentFileForLocation`.
       NOTE: This API does not work for Tennessee tax holiday scenarios.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param model [PointOfSaleDataRequestModel] Parameters about the desired file format and report format, specifying which company, locations and TaxCodes to include.
@@ -7566,7 +7566,7 @@ class Mixin:
     """
     def build_tax_content_file(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/pointofsaledata/build'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7593,7 +7593,7 @@ class Mixin:
       file for a multiple locations in a single file, please use `BuildTaxContentFile`.
       NOTE: This API does not work for Tennessee tax holiday scenarios.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
     
       :param companyId [int] The ID number of the company that owns this location.
@@ -7606,7 +7606,7 @@ class Mixin:
     """
     def build_tax_content_file_for_location(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/locations/{}/pointofsaledata'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7649,7 +7649,7 @@ class Mixin:
       * TAX_SHIPPING_AND_HANDLING_TOGETHER - This column contains 'Y' if shipping and handling are taxable when sent together.
       For more detailed tax content, please use the `BuildTaxContentFile` API which allows usage of exact items and exact locations.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param date [datetime] The date for which point-of-sale data would be calculated (today by default). Example input: 2016-12-31
       :param region [string] A two character region code which limits results to a specific region.
@@ -7657,7 +7657,7 @@ class Mixin:
     """
     def download_tax_rates_by_zip_code(self, date, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/taxratesbyzipcode/download/{}'.format(self.base_url, date),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7694,7 +7694,7 @@ class Mixin:
     """
     def tax_rates_by_address(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/taxrates/byaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7727,7 +7727,7 @@ class Mixin:
     """
     def tax_rates_by_postal_code(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7747,7 +7747,7 @@ class Mixin:
       Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
       auditor, legal representative, and accounting team.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this tax rule.
       :param model [TaxRuleModel] The tax rule you wish to create.
@@ -7755,7 +7755,7 @@ class Mixin:
     """
     def create_tax_rules(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7775,7 +7775,7 @@ class Mixin:
       Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
       auditor, legal representative, and accounting team.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that owns this tax rule.
       :param id_ [int] The ID of the tax rule you wish to delete.
@@ -7783,7 +7783,7 @@ class Mixin:
     """
     def delete_tax_rule(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7803,7 +7803,7 @@ class Mixin:
       Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
       auditor, legal representative, and accounting team.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns this tax rule
       :param id_ [int] The primary key of this tax rule
@@ -7811,7 +7811,7 @@ class Mixin:
     """
     def get_tax_rule(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7833,7 +7833,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The ID of the company that owns these tax rules
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, taxTypeCode, taxRuleProductDetail, rateTypeCode, taxTypeGroup, taxSubType, unitOfBasis
@@ -7845,7 +7845,7 @@ class Mixin:
     """
     def list_tax_rules(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7867,7 +7867,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, taxTypeCode, taxRuleProductDetail, rateTypeCode, taxTypeGroup, taxSubType, unitOfBasis
       :param include [string] A comma separated list of additional data to retrieve.
@@ -7878,7 +7878,7 @@ class Mixin:
     """
     def query_tax_rules(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/taxrules'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7898,7 +7898,7 @@ class Mixin:
       Please use custom tax rules carefully and ensure that these tax rules match the behavior agreed upon with your
       auditor, legal representative, and accounting team.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyId [int] The ID of the company that this tax rule belongs to.
       :param id_ [int] The ID of the tax rule you wish to update
@@ -7907,7 +7907,7 @@ class Mixin:
     """
     def update_tax_rule(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7933,7 +7933,7 @@ class Mixin:
       * LinesOnly (omit details - reduces API response size)
        If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -7942,7 +7942,7 @@ class Mixin:
     """
     def add_lines(self, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/transactions/lines/add'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7975,7 +7975,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
@@ -7987,7 +7987,7 @@ class Mixin:
     """
     def adjust_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/adjust'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8015,7 +8015,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The code identifying the company that owns this transaction
@@ -8024,7 +8024,7 @@ class Mixin:
     """
     def audit_transaction(self, companyCode, transactionCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/transactions/{}/audit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8052,7 +8052,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The code identifying the company that owns this transaction
@@ -8062,7 +8062,7 @@ class Mixin:
     """
     def audit_transaction_with_type(self, companyCode, transactionCode, documentType):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}/audit'.format(self.base_url, companyCode, transactionCode, documentType),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8085,7 +8085,7 @@ class Mixin:
     """
     def bulk_lock_transaction(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/transactions/lock'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8117,7 +8117,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
@@ -8129,7 +8129,7 @@ class Mixin:
     """
     def change_transaction_code(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/changecode'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8160,7 +8160,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to commit
@@ -8171,7 +8171,7 @@ class Mixin:
     """
     def commit_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8206,7 +8206,7 @@ class Mixin:
       * \_-ava2b-\_
       * \_-ava3f-\_
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -8215,7 +8215,7 @@ class Mixin:
     """
     def create_or_adjust_transaction(self, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/transactions/createoradjust'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8255,7 +8255,7 @@ class Mixin:
       * \_-ava2b-\_
       * \_-ava3f-\_
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -8264,7 +8264,7 @@ class Mixin:
     """
     def create_transaction(self, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/transactions/create'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8287,7 +8287,7 @@ class Mixin:
       * LinesOnly (omit details - reduces API response size)
        If you omit the `$include` parameter, the API will assume you want `Summary,Addresses`.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -8296,7 +8296,7 @@ class Mixin:
     """
     def delete_lines(self, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/transactions/lines/delete'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8326,7 +8326,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
@@ -8337,7 +8337,7 @@ class Mixin:
     """
     def get_transaction_by_code(self, companyCode, transactionCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/transactions/{}'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8355,7 +8355,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
@@ -8366,7 +8366,7 @@ class Mixin:
     """
     def get_transaction_by_code_and_type(self, companyCode, transactionCode, documentType, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}'.format(self.base_url, companyCode, transactionCode, documentType),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8388,7 +8388,7 @@ class Mixin:
       * LinesOnly (omit details - reduces API response size)
       * TaxDetailsByTaxType - Includes the aggregated tax, exempt tax, taxable and non-taxable for each tax type returned in the transaction summary.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param id_ [int] The unique ID number of the transaction to retrieve
@@ -8397,7 +8397,7 @@ class Mixin:
     """
     def get_transaction_by_id(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/transactions/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8429,7 +8429,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
@@ -8443,7 +8443,7 @@ class Mixin:
     """
     def list_transactions_by_company(self, companyCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/transactions'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8475,7 +8475,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
     
       :param companyCode [string] The company code of the company that recorded this transaction
@@ -8487,7 +8487,7 @@ class Mixin:
     """
     def lock_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/lock'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8528,7 +8528,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The code of the company that made the original sale
@@ -8541,7 +8541,7 @@ class Mixin:
     """
     def refund_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/refund'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8572,7 +8572,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
     
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to settle
@@ -8583,7 +8583,7 @@ class Mixin:
     """
     def settle_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/settle'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8611,7 +8611,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
@@ -8622,7 +8622,7 @@ class Mixin:
     """
     def uncommit_transaction(self, companyCode, transactionCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/uncommit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8648,7 +8648,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
@@ -8659,7 +8659,7 @@ class Mixin:
     """
     def unvoid_transaction(self, companyCode, transactionCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/unvoid'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8689,7 +8689,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
@@ -8701,7 +8701,7 @@ class Mixin:
     """
     def verify_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/verify'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8732,7 +8732,7 @@ class Mixin:
       * Replace '#' with '\_-ava23-\_' For example: document#Code becomes document_-ava23-_Code
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, CompanyAdmin, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyCode [string] The company code of the company that recorded this transaction
@@ -8744,7 +8744,7 @@ class Mixin:
     """
     def void_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8756,7 +8756,7 @@ class Mixin:
     Create one or more new UPC objects attached to this company.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that owns this UPC.
@@ -8765,7 +8765,7 @@ class Mixin:
     """
     def create_u_p_cs(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8776,7 +8776,7 @@ class Mixin:
     
     Marks the UPC object identified by this URL as deleted.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that owns this UPC.
@@ -8785,7 +8785,7 @@ class Mixin:
     """
     def delete_u_p_c(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8797,7 +8797,7 @@ class Mixin:
     Get the UPC object identified by this URL.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that owns this UPC
@@ -8806,7 +8806,7 @@ class Mixin:
     """
     def get_u_p_c(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8820,7 +8820,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that owns these UPCs
@@ -8833,7 +8833,7 @@ class Mixin:
     """
     def list_u_p_cs_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8847,7 +8847,7 @@ class Mixin:
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaUpc.
     
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -8859,7 +8859,7 @@ class Mixin:
     """
     def query_u_p_cs(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/upcs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8873,7 +8873,7 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaUpc.
     
       :param companyId [int] The ID of the company that this UPC belongs to.
@@ -8883,7 +8883,7 @@ class Mixin:
     """
     def update_u_p_c(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8894,7 +8894,7 @@ class Mixin:
     
     Marks the existing user defined field for a company as deleted.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company the User Defined Field belongs to.
@@ -8903,7 +8903,7 @@ class Mixin:
     """
     def delete_user_defined_field(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/companies/{}/userdefinedfields/{}'.format(self.base_url, companyId, accountId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8913,7 +8913,7 @@ class Mixin:
     
     
     ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] 
@@ -8923,7 +8923,7 @@ class Mixin:
     """
     def list_user_defined_fields_by_company_id(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/companies/{}/userdefinedfields'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8934,7 +8934,7 @@ class Mixin:
     
     Updates a User Defined Field for a company.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
     
       :param companyId [int] The id of the company the user defined field belongs to.
@@ -8944,7 +8944,7 @@ class Mixin:
     """
     def update_user_defined_field(self, companyId, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/companies/{}/userdefinedfields'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8959,14 +8959,14 @@ class Mixin:
       This API only allows the currently authenticated user to change their password; it cannot be used to apply to a
       different user than the one authenticating the current API call.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param model [PasswordChangeModel] An object containing your current password and the new password.
       :return string
     """
     def change_password(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/passwords'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8982,7 +8982,7 @@ class Mixin:
       A newly created user will receive an email inviting them to create their password. This means that you
       must provide a valid email address for all user accounts created.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param accountId [int] The unique ID number of the account where these users will be created.
       :param model [UserModel] The user or array of users you wish to create.
@@ -8990,7 +8990,7 @@ class Mixin:
     """
     def create_users(self, accountId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.post('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9004,7 +9004,7 @@ class Mixin:
       Account and company administrators may only delete users within the appropriate organizations
       they control.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, Compliance Root User, CSPTester, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TreasuryAdmin.
+      * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, CSPTester, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TreasuryAdmin.
     
       :param id_ [int] The ID of the user you wish to delete.
       :param accountId [int] The accountID of the user you wish to delete.
@@ -9012,7 +9012,7 @@ class Mixin:
     """
     def delete_user(self, id_, accountId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9026,7 +9026,7 @@ class Mixin:
        You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * FetchDeleted
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the user to retrieve.
       :param accountId [int] The accountID of the user you wish to get.
@@ -9035,7 +9035,7 @@ class Mixin:
     """
     def get_user(self, id_, accountId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9058,7 +9058,7 @@ class Mixin:
       * If the 'permissions' array within entitlements does not contain 'AccountSvc.CompanySave', the call will fail.
       For a full list of defined permissions, please use '/api/v2/definitions/permissions' .
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the user to retrieve.
       :param accountId [int] The accountID of the user you wish to get.
@@ -9066,7 +9066,7 @@ class Mixin:
     """
     def get_user_entitlements(self, id_, accountId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/accounts/{}/users/{}/entitlements'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9084,7 +9084,7 @@ class Mixin:
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * FetchDeleted
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param accountId [int] The accountID of the user you wish to list.
       :param include [string] Optional fetch commands.
@@ -9096,7 +9096,7 @@ class Mixin:
     """
     def list_users_by_account(self, accountId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9115,7 +9115,7 @@ class Mixin:
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * FetchDeleted
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param include [string] Optional fetch commands.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* SuppressNewUserEmail
@@ -9126,7 +9126,7 @@ class Mixin:
     """
     def query_users(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/users'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9140,7 +9140,7 @@ class Mixin:
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
-      * This API requires one of the following user roles: AccountAdmin, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
     
       :param id_ [int] The ID of the user you wish to update.
       :param accountId [int] The accountID of the user you wish to update.
@@ -9149,7 +9149,7 @@ class Mixin:
     """
     def update_user(self, id_, accountId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.put('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9170,7 +9170,7 @@ class Mixin:
     """
     def get_my_subscription(self, serviceTypeId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/utilities/subscriptions/{}'.format(self.base_url, serviceTypeId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9190,7 +9190,7 @@ class Mixin:
     """
     def list_my_subscriptions(self):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/utilities/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9219,7 +9219,7 @@ class Mixin:
     """
     def ping(self):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.5.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","22.6.1")   
         return requests.get('{}/api/v2/utilities/ping'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
