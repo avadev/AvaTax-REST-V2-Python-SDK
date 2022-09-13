@@ -1,5 +1,5 @@
 """Test the client model."""
-from avalara.client import AvataxClient
+from src.avalara.client import AvataxClient
 
 
 def test_client_can_be_created(unauth_client):
@@ -29,7 +29,10 @@ def test_client_has_machine_name_attribute(unauth_client):
 
 def test_that_client_id_is_created(unauth_client):
     """Test that the client id is created and properly formatted."""
-    assert unauth_client.client_id == 'test app; ver 0.0; Python SDK; 18.5; test machine;'
+    assert (
+        unauth_client.client_id
+        == 'test app; ver 0.0; Python SDK; 18.5; test machine;'
+    )
 
 
 def test_client_can_obtain_production_url_as_base_url():
@@ -40,6 +43,7 @@ def test_client_can_obtain_production_url_as_base_url():
 
 def test_client_can_obtain_their_own_base_url():
     """Test the client can input a url as the base url."""
-    client = AvataxClient('test app', 'ver 0.0', 'test machine', 'https://myurl.com')
+    client = AvataxClient(
+        'test app', 'ver 0.0', 'test machine', 'https://myurl.com'
+    )
     assert client.base_url == 'https://myurl.com'
-

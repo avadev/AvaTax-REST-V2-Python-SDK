@@ -123,11 +123,22 @@ class Mixin:
         :return:  TransactionBuilder
         """
         self.create_model.setdefault('addresses', {})
-        self.create_model['addresses'][address_type] = {'latitude': float(lat),
-                                                        'longitude': float(long_)}
+        self.create_model['addresses'][address_type] = {
+            'latitude': float(lat),
+            'longitude': float(long_),
+        }
         return self
 
-    def with_line(self, amount, quantity, item_code, tax_code, line_number=None):
+    def with_line(
+        self,
+        amount,
+        quantity,
+        item_code,
+        tax_code="",
+        line_number=None,
+        tax_included=False,
+        exemption_code="",
+    ):
         r"""
         Add a line to the transaction.
 
@@ -136,42 +147,58 @@ class Mixin:
         :param  string  item_code: Code of the item.
         :param  string  tax_code:  Tax Code of the item. If left blank, \
         the default item (P0000000) is assumed.
-        :param  [int]  line_number: Value of the line number.
+        :param  Any     line_number: Value of the line number.
+        :param  bool    tax_included: Is line amount tax included, defaults \
+            to false
+        :param  string    exemption_code: exemption_code in case of exempt \
+            line, defaults to blank
         :return:  TransactionBuilder
         """
+        # fix for issue #133
+        # in case line number is set as string, use it as transaction line
+        # number and continue incrementing object level line number for other
+        # lines (with no line numbers)
+        txn_line_number = self.line_num
         if line_number is not None:
-            self.line_num = line_number;
-        
+            if isinstance(
+                line_number, (int, float, complex)
+            ) and not isinstance(line_number, bool):
+                self.line_num = line_number
+                txn_line_number = self.line_num
+            else:
+                txn_line_number = line_number
+
         temp = {
-            'number': str(self.line_num),
+            'number': str(txn_line_number),
             'amount': amount,
             'quantity': quantity,
             'itemCode': str(item_code),
-            'taxCode': str(tax_code)
+            'taxCode': str(tax_code),
+            'taxIncluded': tax_included,
+            'exemptionCode': str(exemption_code),
         }
+
         self.create_model['lines'].append(temp)
         self.line_num += 1
         return self
 
-    def with_exempt_line(self, amount, item_code, exemption_code):
+    def with_exempt_line(self, amount, item_code, exemption_code, quantity=1):
         """
         Add a line with an exemption to this transaction.
 
         :param   float   amount:         The amount of this line item
         :param   string  item_code:      The code for the item
         :param   string  exemption_code:  The exemption code for this line item
+        :param   int     quantity:       quantity, defaults to 1
         :return:  TransactionBuilder
         """
+        self.with_line(
+            quantity=quantity,
+            item_code=item_code,
+            amount=amount,
+            exemption_code=exemption_code,
+        )
 
-        temp = {
-            'number': str(self.line_num),
-            'quantity': 1,
-            'amount': amount,
-            'exemptionCode': str(exemption_code),
-            'itemCode': str(item_code)
-        }
-        self.create_model['lines'].append(temp)
-        self.line_num += 1
         return self
 
     def with_diagnostics(self):
@@ -238,7 +265,12 @@ class Mixin:
         """
         line = self.create_model['lines']
         if not len(line):  # if length is zero
-            raise Exception('No lines have been added. The {} method applies to the most recent line. To use this function, first add a line.'.format(member_name))
+            raise Exception(
+                'No lines have been added. The {} method applies to the most \
+                    recent line. To use this function, first add a line.'.format(
+                    member_name
+                )
+            )
         return line[-1]
 
     def create(self, include=None):
@@ -270,7 +302,7 @@ class Mixin:
             'type': str(type_),
             'reason': str(reason),
             'taxAmount': float(tax_amount),
-            'taxDate': tax_date
+            'taxDate': tax_date,
         }
         return self
 
@@ -293,7 +325,7 @@ class Mixin:
             'type': str(type_),
             'reason': str(reason),
             'taxAmount': tax_amount,
-            'taxDate': tax_date
+            'taxDate': tax_date,
         }
         return self
 
@@ -321,9 +353,7 @@ class Mixin:
             'number': self.line_num,
             'quantity': 1,
             'amount': amount,
-            'addresses': {
-                type_: address
-            }
+            'addresses': {type_: address},
         }
 
         self.create_model['lines'].append(temp)
@@ -341,5 +371,5 @@ class Mixin:
         return {
             'newTransaction': self.create_model,
             'adjustmentDescription': desc,
-            'adjustmentReason': reason
+            'adjustmentReason': reason,
         }

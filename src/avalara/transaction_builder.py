@@ -52,10 +52,11 @@ class TransactionBuilder(transaction_builder_methods.Mixin):
         # Keeps track of line number when adding multiple lines
         self.line_num = 1
         # The in-progress model
+
         self.create_model = {
             'companyCode': comp_code,
             'customerCode': cust_code,
             'type': type_,
             'date': '{}'.format(datetime.now()),
-            'lines': []
+            'lines': [],
         }
