@@ -1,7 +1,7 @@
 """Test the add_credential method."""
 import pytest
 from requests.auth import HTTPBasicAuth
-from avalara.client import AvataxClient
+from src.avalara.client import AvataxClient
 
 
 def test_username_auth(unauth_client):
@@ -59,4 +59,3 @@ def test_no_auth_if_no_cred_is_added(unauth_client):
 def test_if_valid_pair_sandbox_cred_in_place(auth_client):
     """Test if there is a pair of valid Avatax credentials stored in env."""
     assert auth_client is not None
-
