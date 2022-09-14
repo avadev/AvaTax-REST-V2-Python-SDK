@@ -64,6 +64,69 @@ def test_with_line_method(mt_trans):
     assert trans.create_model['lines'][-1] == temp
 
 
+def test_with_line_method_with_string_line_number(mt_trans):
+    """Test method functionality of the Transaction Builder."""
+    expected_resp_str_line_number = {
+        'amount': 20,
+        'number': 'shipping-1',
+        'quantity': 100,
+        'itemCode': 'ITEM2001',
+        'taxCode': '1234567',
+        'taxIncluded': False,
+        'exemptionCode': '',
+    }
+    expected_resp_int_line_number = {
+        'amount': 100,
+        'number': '5',
+        'quantity': 1,
+        'itemCode': 'ITEM2005',
+        'taxCode': '5555555',
+        'taxIncluded': False,
+        'exemptionCode': '',
+    }
+    trans = mt_trans.with_line(
+        amount=20,
+        quantity=100,
+        item_code='ITEM2001',
+        tax_code=1234567,
+        tax_included=False,
+        line_number='shipping-1',
+        exemption_code="",
+    ).with_line(
+        amount=100,
+        quantity=1,
+        item_code='ITEM2005',
+        tax_code=5555555,
+        tax_included=False,
+        line_number=5,
+        exemption_code="",
+    )
+    assert trans.create_model['lines'][0] == expected_resp_str_line_number
+    assert trans.create_model['lines'][1] == expected_resp_int_line_number
+
+
+def test_with_line_method_with_optional_parameters(mt_trans):
+    """Test method functionality of the Transaction Builder."""
+    expected_resp_int_line_number = {
+        'amount': 100,
+        'number': '5',
+        'quantity': 1,
+        'itemCode': 'ITEM2005',
+        'taxCode': '',
+        'taxIncluded': True,
+        'exemptionCode': 'EXEMPT_CUST_002',
+    }
+    trans = mt_trans.with_line(
+        amount=100,
+        quantity=1,
+        item_code='ITEM2005',
+        tax_included=True,
+        line_number=5,
+        exemption_code="EXEMPT_CUST_002",
+    )
+    assert trans.create_model['lines'][0] == expected_resp_int_line_number
+
+
 def test_with_line_method_line_number_not_null(mt_trans):
     """Test method functionality of the Transaction Builder."""
     temp = {
@@ -91,6 +154,26 @@ def test_with_exempt_line_method(mt_trans):
         'taxCode': '',
     }
     trans = mt_trans.with_exempt_line(20, 'ITEM2001', 1234567)
+    assert trans.create_model['lines'][-1] == temp
+
+
+def test_with_exempt_line_method_quantity(mt_trans):
+    """Test method functionality of the Transaction Builder."""
+    temp = {
+        'amount': 100,
+        'number': '1',
+        'quantity': 5,
+        'itemCode': 'ITEM2001',
+        'exemptionCode': 'EXEMPT_THIS_CUSTOMER',
+        'taxIncluded': False,
+        'taxCode': '',
+    }
+    trans = mt_trans.with_exempt_line(
+        quantity=5,
+        amount=100,
+        item_code='ITEM2001',
+        exemption_code='EXEMPT_THIS_CUSTOMER',
+    )
     assert trans.create_model['lines'][-1] == temp
 
 
