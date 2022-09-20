@@ -31,7 +31,7 @@ def test_that_client_id_is_created(unauth_client):
     """Test that the client id is created and properly formatted."""
     assert (
         unauth_client.client_id
-        == 'test app; ver 0.0; Python SDK; 18.5; test machine;'
+        == 'test app; ver 0.0; Python SDK; API_VERSION; test machine;'
     )
 
 
