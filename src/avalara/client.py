@@ -24,17 +24,27 @@ AvaTax Software Development Kit for Python.
 @version    TBD
 @link       https://github.com/avadev/AvaTax-REST-V2-Python-SDK
 """
+
 from requests.auth import HTTPBasicAuth
-from ._str_version import str_type
+
 from . import client_methods
-import os
+from ._str_version import str_type
+from .ava_logger import ava_log, decorate_all_methods
 
 
+@decorate_all_methods(ava_log)  # class decorator to implement logging
 class AvataxClient(client_methods.Mixin):
     """Class for our Avatax client."""
 
-    def __init__(self, app_name=None, app_version=None, machine_name=None,
-                 environment=None, timeout_limit=None):
+    def __init__(
+            self,
+            app_name=None,
+            app_version=None,
+            machine_name=None,
+            environment=None,
+            timeout_limit=None,
+            is_log_req_resp_allowed=False
+    ):
         """
         Initialize the sandbox client.
 
@@ -47,11 +57,13 @@ class AvataxClient(client_methods.Mixin):
             :param  string  environment: Default environment is production,
                 input sandbox, for the sandbox API
             :param  int/float The timeout limit for every call made by this client instance. (default: 10 sec)
+            :param  bool is_log_req_resp_allowed: is logging request and response is allowed (default: False)
         :return: object
         """
-        if not all(isinstance(i, str_type) for i in [app_name,
-                                                     machine_name,
-                                                     environment]):
+        if not all(
+                isinstance(i, str_type)
+                for i in [app_name, machine_name, environment]
+        ):
             raise ValueError('Input(s) must be string or none type object')
         self.base_url = 'https://rest.avatax.com'
         if environment:
@@ -63,11 +75,16 @@ class AvataxClient(client_methods.Mixin):
         self.app_name = app_name
         self.app_version = app_version
         self.machine_name = machine_name
-        self.client_id = '{}; {}; Python SDK; API_VERSION; {};'.format(app_name,
-                                                                app_version,
-                                                                machine_name)
+        self.client_id = '{}; {}; Python SDK; API_VERSION; {};'.format(
+            app_name, app_version, machine_name
+        )
         self.client_header = {'X-Avalara-Client': self.client_id}
-        self.timeout_limit = timeout_limit 
+        self.timeout_limit = timeout_limit
+        self.is_log_req_resp_allowed = is_log_req_resp_allowed
+        self.logger = None
+        # if self.logger is set, logging is done using supplied logger configuration
+        # if not set, logging is done using basic configuration
+
 
     def add_credentials(self, username=None, password=None):
         """
