@@ -4,11 +4,6 @@ import json
 import requests
 import avalara.client
 
-# set basic configuration for logging framework
-logging.basicConfig(level=logging.INFO,
-                    format="\n%(asctime)s %(levelname)s Avalara_sdk_Log : %(message)s",
-                    datefmt="%m-%d-%Y %I:%M:%S %p %Z")
-
 
 def ava_log(func):
     """
