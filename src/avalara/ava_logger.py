@@ -2,7 +2,9 @@ import functools
 import logging
 import json
 import requests
-import avalara.client
+
+from . import client
+
 
 
 def ava_log(func):
@@ -26,7 +28,7 @@ def ava_log(func):
         # 3) Execute actual method and create log entry in case of http response only
         # 4) In case of exception though log error
         try:
-            if isinstance(args[0], avalara.client.AvataxClient):
+            if isinstance(args[0], client.AvataxClient):
                 if hasattr(args[0], "logger") and (args[0].__getattribute__("logger") is not None):
                     logger = args[0].__getattribute__("logger")
                 if hasattr(args[0], "is_log_req_resp_allowed"):
