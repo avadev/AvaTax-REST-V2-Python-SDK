@@ -24,15 +24,13 @@ AvaTax Software Development Kit for Python.
 @version    TBD
 @link       https://github.com/avadev/AvaTax-REST-V2-Python-SDK
 """
-
+import  logging
 from requests.auth import HTTPBasicAuth
 
 from . import client_methods
 from ._str_version import str_type
-from .ava_logger import ava_log, decorate_all_methods
 
 
-@decorate_all_methods(ava_log)  # class decorator to implement logging
 class AvataxClient(client_methods.Mixin):
     """Class for our Avatax client."""
 
@@ -43,7 +41,8 @@ class AvataxClient(client_methods.Mixin):
             machine_name=None,
             environment=None,
             timeout_limit=None,
-            is_log_req_resp_allowed=False
+            is_log_req_resp_allowed=False,
+            logger=None
     ):
         """
         Initialize the sandbox client.
@@ -81,9 +80,8 @@ class AvataxClient(client_methods.Mixin):
         self.client_header = {'X-Avalara-Client': self.client_id}
         self.timeout_limit = timeout_limit
         self.is_log_req_resp_allowed = is_log_req_resp_allowed
-        self.logger = None
+        self.logger = logger
         # if self.logger is set, logging is done using supplied logger configuration
-        # if not set, logging is done using basic configuration
 
 
     def add_credentials(self, username=None, password=None):

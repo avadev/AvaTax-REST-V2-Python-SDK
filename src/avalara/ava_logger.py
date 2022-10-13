@@ -1,6 +1,8 @@
 import functools
 import logging
 import json
+import time
+
 import requests
 
 from . import client
@@ -27,6 +29,7 @@ def ava_log(func):
         #    wants to use specific configuration)
         # 3) Execute actual method and create log entry in case of http response only
         # 4) In case of exception though log error
+        execution_start_time = time.perf_counter()
         try:
             if isinstance(args[0], client.AvataxClient):
                 if hasattr(args[0], "logger") and (args[0].__getattribute__("logger") is not None):
@@ -42,6 +45,9 @@ def ava_log(func):
             ava_log_entry["error"] = str(e)
             raise e
         finally:
+            total_execution_time = time.perf_counter() - execution_start_time
+            if ava_log_entry["execution_time"] is None:
+                ava_log_entry["execution_time"] = total_execution_time * 1000
             json_data = json.dumps(ava_log_entry, indent=4)
             if is_error_log:
                 logger.error(json_data)
