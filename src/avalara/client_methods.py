@@ -1,17 +1,15 @@
 import requests
+from ._str_version import str_type
 
-from avalara.ava_logger import decorate_all_methods, ava_log
 
-
-@decorate_all_methods(ava_log)  # class decorator to implement logging
 class Mixin:
     """Mixin class contain methods attached to Client class."""
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Reset this account's license key
-    
+
     Resets the existing license key for this account to a new key.
       To reset your account, you must specify the ID of the account you wish to reset and confirm the action.
       This API is only available to account administrators for the account in question, and may only be called after
@@ -24,30 +22,24 @@ class Mixin:
       Note: The reset license key functionality will only be available for existing active license key i.e. when you reset license key for the account, the Default license key will be reset.The reset license key functionality is not available for newly created license keys i.e. license keys other than Default
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] The ID of the account you wish to update.
       :param model [ResetLicenseKeyModel] A request confirming that you wish to reset the license key of this account.
       :return LicenseKeyModel
     """
 
     def account_reset_license_key(self, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/accounts/{}/resetlicensekey'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/accounts/{}/resetlicensekey'.format(self.base_url, id_),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Activate an account by accepting terms and conditions
-    
+
     Activate the account specified by the unique accountId number.
       This activation request can only be called by account administrators. You must indicate
       that you have read and accepted Avalara's terms and conditions to call this API.
@@ -57,30 +49,24 @@ class Mixin:
       unchanged account model.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] The ID of the account to activate
       :param model [ActivateAccountModel] The activation request
       :return AccountModel
     """
 
     def activate_account(self, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/accounts/{}/activate'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/accounts/{}/activate'.format(self.base_url, id_),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve audit history for an account.
-    
+
     Retrieve audit trace history for an account.
       Your audit trace history contains a record of all API calls made against the AvaTax REST API that returned an error. You can use this API to investigate
       problems and see exactly what information was sent back and forth between your code and AvaTax.
@@ -93,7 +79,7 @@ class Mixin:
       * New records must migrate to available storage before they can be retrieved. You may need to wait a period of time before newly created records can be fetched.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The ID of the account you wish to audit.
       :param start [datetime] The start datetime of audit history you with to retrieve, e.g. "2018-06-08T17:00:00Z". Defaults to the past 15 minutes.
       :param end [datetime] The end datetime of audit history you with to retrieve, e.g. "2018-06-08T17:15:00Z. Defaults to the current time. Maximum of an hour after the start time.
@@ -103,23 +89,17 @@ class Mixin:
     """
 
     def audit_account(self, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/accounts/{}/audit'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/accounts/{}/audit'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create license key for this account
-    
+
     Creates a new license key for this account.
       To create a license key for your account, you must specify the ID of the account and license key name.
       This API is only available to account administrators for the account in question, and may only be called after
@@ -129,91 +109,71 @@ class Mixin:
       Hence make sure that the license key name is unique per account considering the existing license key name 'Default'
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] The ID of the account you wish to update.
       :param model [AccountLicenseKeyModel] 
       :return LicenseKeyModel
     """
 
     def create_license_key(self, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/accounts/{}/licensekey'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/accounts/{}/licensekey'.format(self.base_url, id_),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete license key for this account by license key name
-    
+
     Deletes the license key for this account using license key name.
       To delete a license key for your account, you must specify the accountID of the account and license key name.
       This API is only available to account administrators for the account in question.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] The ID of the account you wish to update.
       :param licensekeyname [string] The license key name you wish to update.
       :return ErrorDetail
     """
 
     def delete_license_key(self, id_, licensekeyname):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/accounts/{}/licensekey/{}'.format(
-                self.base_url, id_, licensekeyname
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/accounts/{}/licensekey/{}'.format(self.base_url, id_, licensekeyname),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single account
-    
+
     Get the account object identified by this URL.
       You may use the '$include' parameter to fetch additional nested data:
       * Subscriptions
       * Users
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The ID of the account to retrieve
       :param include [string] A comma separated list of special fetch options
       :return AccountModel
     """
 
     def get_account(self, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/accounts/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/accounts/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Get configuration settings for this account
-    
+
     Retrieve a list of all configuration settings tied to this account.
       Configuration settings provide you with the ability to control features of your account and of your
       tax software. The category names `TaxServiceConfig` and `AddressServiceConfig` are reserved for
@@ -225,83 +185,63 @@ class Mixin:
       tax calculation and address resolution, and should only be changed with care.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param id_ [int] 
       :return AccountConfigurationModel
     """
 
     def get_account_configuration(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve license key by license key name
-    
+
     ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The ID of the account to retrieve
       :param licensekeyname [string] The ID of the account to retrieve
       :return AccountLicenseKeyModel
     """
 
     def get_license_key(self, id_, licensekeyname):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/accounts/{}/licensekey/{}'.format(
-                self.base_url, id_, licensekeyname
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/accounts/{}/licensekey/{}'.format(self.base_url, id_, licensekeyname),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all license keys for this account
-    
+
     Gets list of all the license keys used by the account.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The ID of the account to retrieve
       :return AccountLicenseKeyModel
     """
 
     def get_license_keys(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/accounts/{}/licensekeys'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/accounts/{}/licensekeys'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all accounts
-    
+
     List all account objects that can be seen by the current user.
       This API lists all accounts you are allowed to see. In general, most users will only be able to see their own account.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -312,7 +252,7 @@ class Mixin:
       For more information about filtering in REST, please see the documentation at http://developer.avalara.com/avatax/filtering-in-rest/ .
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param include [string] A comma separated list of objects to fetch underneath this account. Any object with a URL path underneath this account can be fetched by specifying its name.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* subscriptions, users
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -322,23 +262,17 @@ class Mixin:
     """
 
     def query_accounts(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/accounts'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/accounts'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Change configuration settings for this account
-    
+
     Update configuration settings tied to this account.
       Configuration settings provide you with the ability to control features of your account and of your
       tax software. The category names `TaxServiceConfig` and `AddressServiceConfig` are reserved for
@@ -350,30 +284,24 @@ class Mixin:
       tax calculation and address resolution, and should only be changed with care.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] 
       :param model [AccountConfigurationModel] 
       :return AccountConfigurationModel
     """
 
     def set_account_configuration(self, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve geolocation information for a specified address
-    
+
     Resolve an address against Avalara's address-validation system. If the address can be resolved, this API
       provides the latitude and longitude of the resolved location. The value 'resolutionQuality' can be used
       to identify how closely this address can be located. If the address cannot be clearly located, use the
@@ -387,7 +315,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AutoAddress.
-    
+
       :param line1 [string] Line 1
       :param line2 [string] Line 2
       :param line3 [string] Line 3
@@ -400,23 +328,17 @@ class Mixin:
     """
 
     def resolve_address(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/addresses/resolve'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/addresses/resolve'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve geolocation information for a specified address
-    
+
     Resolve an address against Avalara's address-validation system. If the address can be resolved, this API
       provides the latitude and longitude of the resolved location. The value 'resolutionQuality' can be used
       to identify how closely this address can be located. If the address cannot be clearly located, use the
@@ -426,31 +348,25 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AutoAddress.
-    
+
       :param model [AddressValidationInfo] The address to resolve
       :return AddressResolutionModel
     """
 
     def resolve_address_post(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/addresses/resolve'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/addresses/resolve'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a lookup file for a company
-    
-    
-    
+
+
+
       :param accountId [int] The ID of the account for the company
       :param companyId [int] The ID of the company for which the lookup file is to be created
       :param model [AdvancedRuleLookupFileModel] The lookup file you wish to create
@@ -458,108 +374,79 @@ class Mixin:
     """
 
     def create_company_lookup_file(self, accountId, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(
-                self.base_url, accountId, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(self.base_url, accountId, companyId),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a lookup file
-    
-    
-    
+
+
+
       :param accountId [int] The ID of the account for the company the lookup file is for
       :param id_ [string] The unique ID/GUID for the company lookup file to be deleted
       :return ErrorDetail
     """
 
     def delete_lookup_file(self, accountId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.delete(
-            '{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(
-                self.base_url, accountId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Get the lookup files for a company
-    
-    
-    
+
+
+
       :param accountId [int] The account ID for the company
       :param companyId [int] The ID of the company for which to retrieve lookup files
       :return FetchResult
     """
 
     def get_company_lookup_files(self, accountId, companyId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(
-                self.base_url, accountId, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/advancedrules/accounts/{}/companies/{}/lookupFiles'.format(self.base_url, accountId, companyId),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Get a lookup file for an accountId and companyLookupFileId
-    
-    
-    
+
+
+
       :param accountId [int] The ID of the account for the lookup file
       :param id_ [string] The unique ID/GUID of the company lookup file to return
       :return AdvancedRuleLookupFileModel
     """
 
     def get_lookup_file(self, accountId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(
-                self.base_url, accountId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a lookup file
-    
-    
-    
+
+
+
       :param accountId [int] The ID of the account for the company the lookup file is for
       :param id_ [string] The unique ID/GUID of the company lookup file to be updated
       :param model [AdvancedRuleLookupFileModel] The new values to update the lookup file
@@ -567,113 +454,87 @@ class Mixin:
     """
 
     def update_lookup_file(self, accountId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(
-                self.base_url, accountId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/advancedrules/accounts/{}/lookupFiles/{}'.format(self.base_url, accountId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new AvaFileForm
-    
+
     Create one or more AvaFileForms
       A 'AvaFileForm' represents a form supported by our returns team
       ### Security Policies
       * This API requires the user role Compliance Root User.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param model [AvaFileFormModel] The AvaFileForm you wish to create.
       :return AvaFileFormModel
     """
 
     def create_ava_file_forms(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/avafileforms'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/avafileforms'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single AvaFileForm
-    
+
     Marks the existing AvaFileForm object at this URL as deleted.
       ### Security Policies
       * This API requires one of the following user roles: Compliance Root User, ComplianceUser, FirmAdmin.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param id_ [int] The ID of the AvaFileForm you wish to delete.
       :return ErrorDetail
     """
 
     def delete_ava_file_form(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single AvaFileForm
-    
+
     Get the AvaFileForm object identified by this URL.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param id_ [int] The primary key of this AvaFileForm
       :return AvaFileFormModel
     """
 
     def get_ava_file_form(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all AvaFileForms
-    
+
     Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, Compliance Temp User, ComplianceAdmin, ComplianceUser, FirmAdmin, FirmUser, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* outletTypeId
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -682,52 +543,40 @@ class Mixin:
     """
 
     def query_ava_file_forms(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/avafileforms'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/avafileforms'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a AvaFileForm
-    
+
     All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
       * This API requires the user role Compliance Root User.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param id_ [int] The ID of the AvaFileForm you wish to update
       :param model [AvaFileFormModel] The AvaFileForm model you wish to update.
       :return AvaFileFormModel
     """
 
     def update_ava_file_form(self, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Cancel an in progress batch
-    
+
     Marks the in progress batch identified by this URL as cancelled.
       Only JSON batches can be cancelled. If you attempt to cancel a file batch, you will receive an error message.
       Only in progress batches can be cancelled. If you attempt to cancel a batch that its status is not Waiting or Processing, you will receive an error message.
@@ -739,32 +588,24 @@ class Mixin:
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this batch.
       :param id_ [int] The ID of the batch to cancel.
       :return BatchModel
     """
 
     def cancel_batch(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/batches/{}/cancel'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/batches/{}/cancel'.format(self.base_url, companyId, id_),
+                             auth=self.auth, headers=self.client_header, params=None,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new batch
-    
+
     Create one or more new batch objects attached to this company.
       Each batch object may have one or more file objects (currently only one file is supported).
       When a batch is created, it is added to the AvaTax Batch Queue and will be
@@ -782,30 +623,24 @@ class Mixin:
       smaller batches.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this batch.
       :param model [BatchModel] The batch you wish to create.
       :return BatchModel
     """
 
     def create_batches(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new transaction batch
-    
+
     Create a new transaction batch objects attached to this company.
       When a transaction batch is created, it is added to the AvaTax Batch v2 Queue and will be
       processed as quickly as possible in the order it was received. To check the
@@ -822,32 +657,24 @@ class Mixin:
       smaller batches.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this batch.
       :param model [CreateTransactionBatchRequestModel] The transaction batch you wish to create.
       :return CreateTransactionBatchResponseModel
     """
 
     def create_transaction_batch(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/batches/transactions'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/batches/transactions'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single batch
-    
+
     Marks the batch identified by this URL as deleted.
       If you attempt to delete a batch that is being processed, you will receive an error message.
       Deleting a batch does not delete any transactions that were created by importing the batch.
@@ -858,36 +685,28 @@ class Mixin:
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
       ### Security Policies
       * This API requires one of the following user roles: BatchServiceAdmin, CSPAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this batch.
       :param id_ [int] The ID of the batch to delete.
       :return ErrorDetail
     """
 
     def delete_batch(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/batches/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Download a single batch file
-    
+
     Download a single batch file identified by this URL.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns this batch
       :param batchId [int] The ID of the batch object
       :param id_ [int] The primary key of this batch file object
@@ -895,25 +714,18 @@ class Mixin:
     """
 
     def download_batch(self, companyId, batchId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/batches/{}/files/{}/attachment'.format(
-                self.base_url, companyId, batchId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/batches/{}/files/{}/attachment'.format(self.base_url, companyId, batchId, id_),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single batch
-    
+
     Get the batch object identified by this URL. A batch object is a large
       collection of API calls stored in a compact file.
       Use this endpoint to retrieve the results or check the status of a batch.
@@ -928,32 +740,24 @@ class Mixin:
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns this batch
       :param id_ [int] The primary key of this batch
       :return BatchModel
     """
 
     def get_batch(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/batches/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all batches for this company
-    
+
     List all batch objects attached to the specified company.
       A batch object is a large collection of API calls stored in a compact file.
       Search for specific objects using the criteria in the `$filter` parameter;
@@ -972,7 +776,7 @@ class Mixin:
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns these batches
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* files
       :param include [string] A comma separated list of additional data to retrieve.
@@ -983,23 +787,17 @@ class Mixin:
     """
 
     def list_batches_by_company(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all batches
-    
+
     Get multiple batch objects across all companies.
       A batch object is a large collection of API calls stored in a compact file.
       Search for specific objects using the criteria in the `$filter` parameter;
@@ -1016,7 +814,7 @@ class Mixin:
       [CreateTransaction API](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/CreateTransaction/).
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* files
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -1026,23 +824,17 @@ class Mixin:
     """
 
     def query_batches(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/batches'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/batches'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a CertExpress invitation
-    
+
     Creates an invitation for a customer to self-report certificates using the CertExpress website.
       This invitation is delivered by your choice of method, or you can present a hyperlink to the user
       directly in your connector. Your customer will be redirected to https://app.certexpress.com/ where
@@ -1058,7 +850,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that will record certificates
       :param customerCode [string] The number of the customer where the request is sent to
       :param model [CreateCertExpressInvitationModel] the requests to send out to customers
@@ -1066,25 +858,18 @@ class Mixin:
     """
 
     def create_cert_express_invitation(self, companyId, customerCode, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/customers/{}/certexpressinvites'.format(
-                self.base_url, companyId, customerCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/customers/{}/certexpressinvites'.format(self.base_url, companyId, customerCode),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single CertExpress invitation
-    
+
     Retrieve an existing CertExpress invitation sent to a customer.
       A CertExpression invitation allows a customer to follow a helpful step-by-step guide to provide information
       about their certificates. This step by step guide allows the customer to complete and upload the full
@@ -1100,7 +885,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that issued this invitation
       :param customerCode [string] The number of the customer where the request is sent to
       :param id_ [int] The unique ID number of this CertExpress invitation
@@ -1108,28 +893,20 @@ class Mixin:
       :return CertExpressInvitationModel
     """
 
-    def get_cert_express_invitation(
-            self, companyId, customerCode, id_, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def get_cert_express_invitation(self, companyId, customerCode, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/customers/{}/certexpressinvites/{}'.format(
-                self.base_url, companyId, customerCode, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/customers/{}/certexpressinvites/{}'.format(self.base_url, companyId, customerCode,
+                                                                               id_),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List CertExpress invitations
-    
+
     Retrieve CertExpress invitations sent by this company.
       A CertExpression invitation allows a customer to follow a helpful step-by-step guide to provide information
       about their certificates. This step by step guide allows the customer to complete and upload the full
@@ -1145,7 +922,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that issued this invitation
       :param include [string] OPTIONAL: A comma separated list of special fetch options.      No options are defined at this time.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* companyId, customer, coverLetter, exposureZones, exemptReasons, requestLink
@@ -1156,25 +933,17 @@ class Mixin:
     """
 
     def list_cert_express_invitations(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/certexpressinvites'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/certexpressinvites'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create certificates for this company
-    
+
     Record one or more certificates document for this company.
       A certificate is a document stored in either AvaTax Exemptions or CertCapture. The certificate document
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
@@ -1194,7 +963,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The ID number of the company recording this certificate
       :param preValidatedExemptionReason [boolean] If set to true, the certificate will bypass the human verification process.
       :param model [CertificateModel] Certificates to be created
@@ -1202,26 +971,17 @@ class Mixin:
     """
 
     def create_certificates(self, companyId, model, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/certificates'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, params=include, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Revoke and delete a certificate
-    
+
     Revoke the certificate identified by this URL, then delete it.
       A certificate is a document stored in either AvaTax Exemptions or CertCapture. The certificate document
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
@@ -1235,32 +995,24 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :return ErrorDetail
     """
 
     def delete_certificate(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/certificates/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Download an image for this certificate
-    
+
     Download an image or PDF file for this certificate.
       This API can be used to download either a single-page preview of the certificate or a full PDF document.
       To retrieve a preview image, set the `$type` parameter to `Jpeg` and the `$page` parameter to `1`.
@@ -1275,7 +1027,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param page [int] If you choose `$type`=`Jpeg`, you must specify which page number to retrieve.
@@ -1284,25 +1036,17 @@ class Mixin:
     """
 
     def download_certificate_image(self, companyId, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/certificates/{}/attachment'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single certificate
-    
+
     Get the current certificate identified by this URL.
       A certificate is a document stored in either AvaTax Exemptions or CertCapture. The certificate document
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
@@ -1319,7 +1063,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.
@@ -1327,25 +1071,17 @@ class Mixin:
     """
 
     def get_certificate(self, companyId, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/certificates/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Check a company's exemption certificate status.
-    
+
     Checks whether this company is configured to use exemption certificates in AvaTax.
       Exemption certificates are tracked through a different auditable data store than the one that
       holds AvaTax transactions. To use the AvaTax exemption certificate document store, please call
@@ -1355,31 +1091,23 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The company ID to check
       :return ProvisionStatusModel
     """
 
     def get_certificate_setup(self, companyId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/certificates/setup'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Link attributes to a certificate
-    
+
     Link one or many attributes to a certificate.
       A certificate may have multiple attributes that control its behavior. You may link or unlink attributes to a
       certificate at any time. The full list of defined attributes may be found using `ListCertificateAttributes`.
@@ -1394,7 +1122,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [CertificateAttributeModel] The list of attributes to link to this certificate.
@@ -1402,25 +1130,18 @@ class Mixin:
     """
 
     def link_attributes_to_certificate(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(self.base_url, companyId, id_),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Link customers to a certificate
-    
+
     Link one or more customers to an existing certificate.
       Customers and certificates must be linked before a customer can make use of a certificate to obtain
       a tax exemption in AvaTax. Since some certificates may cover more than one business entity, a certificate
@@ -1436,7 +1157,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [LinkCustomersModel] The list of customers needed be added to the Certificate for exemption
@@ -1444,25 +1165,18 @@ class Mixin:
     """
 
     def link_customers_to_certificate(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/certificates/{}/customers/link'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/certificates/{}/customers/link'.format(self.base_url, companyId, id_),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all attributes applied to this certificate
-    
+
     Retrieve the list of attributes that are linked to this certificate.
       A certificate may have multiple attributes that control its behavior. You may link or unlink attributes to a
       certificate at any time. The full list of defined attributes may be found using [ListCertificateAttributes](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Definitions/ListCertificateAttributes/) API.
@@ -1477,32 +1191,24 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :return FetchResult
     """
 
     def list_attributes_for_certificate(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/certificates/{}/attributes'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/certificates/{}/attributes'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List customers linked to this certificate
-    
+
     List all customers linked to this certificate.
       Customers must be linked to a certificate in order to make use of its tax exemption features. You
       can link or unlink customers to a certificate at any time.
@@ -1517,7 +1223,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param include [string] OPTIONAL: A comma separated list of special fetch options.   No options are currently available when fetching customers.
@@ -1525,25 +1231,17 @@ class Mixin:
     """
 
     def list_customers_for_certificate(self, companyId, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/certificates/{}/customers'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/certificates/{}/customers'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all certificates for a company
-    
+
     List all certificates recorded by a company
       A certificate is a document stored in either AvaTax Exemptions or CertCapture. The certificate document
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
@@ -1560,7 +1258,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The ID number of the company to search
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, status, ecmsId, ecmsStatus, pdf, pages
@@ -1571,25 +1269,17 @@ class Mixin:
     """
 
     def query_certificates(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/certificates'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Request setup of exemption certificates for this company.
-    
+
     Requests the setup of exemption certificates for this company.
       Exemption certificates are tracked through a different auditable data store than the one that
       holds AvaTax transactions. To use the AvaTax exemption certificate document store, please call
@@ -1600,31 +1290,23 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] 
       :return ProvisionStatusModel
     """
 
     def request_certificate_setup(self, companyId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/certificates/setup'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, params=None,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Unlink attributes from a certificate
-    
+
     Unlink one or many attributes from a certificate.
       A certificate may have multiple attributes that control its behavior. You may link or unlink attributes to a
       certificate at any time. The full list of defined attributes may be found using `ListCertificateAttributes`.
@@ -1639,7 +1321,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [CertificateAttributeModel] The list of attributes to unlink from this certificate.
@@ -1647,25 +1329,18 @@ class Mixin:
     """
 
     def unlink_attributes_from_certificate(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(self.base_url, companyId, id_),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Unlink customers from a certificate
-    
+
     Unlinks one or more customers from a certificate.
       Unlinking a certificate from a customer will prevent the certificate from being used to generate
       tax exemptions for the customer in the future. If any previous transactions for this customer had
@@ -1682,7 +1357,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [LinkCustomersModel] The list of customers to unlink from this certificate
@@ -1690,25 +1365,18 @@ class Mixin:
     """
 
     def unlink_customers_from_certificate(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(self.base_url, companyId, id_),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single certificate
-    
+
     Replace the certificate identified by this URL with a new one.
       A certificate is a document stored in either AvaTax Exemptions or CertCapture. The certificate document
       can contain information about a customer's eligibility for exemption from sales or use taxes based on
@@ -1721,7 +1389,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param model [CertificateModel] The new certificate object that will replace the existing one
@@ -1729,25 +1397,17 @@ class Mixin:
     """
 
     def update_certificate(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/certificates/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Upload an image or PDF attachment for this certificate
-    
+
     Upload an image or PDF attachment for this certificate.
       Image attachments can be of the format `PDF`, `JPEG`, `TIFF`, or `PNG`. To upload a multi-page image, please
       use the `PDF` data type.
@@ -1762,7 +1422,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
       :param file [String] The exemption certificate file you wanted to upload. Accepted formats are: PDF, JPEG, TIFF, PNG.
@@ -1770,25 +1430,17 @@ class Mixin:
     """
 
     def upload_certificate_image(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/certificates/{}/attachment'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
+                             auth=self.auth, headers=self.client_header, params=None,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Checks whether the integration being used to set up this company and run transactions onto this company is compliant to all requirements.
-    
+
     Examines the most recent 100 transactions or data from the last month when verifying transaction-related integrations.
       For partners who write integrations against AvaTax for many clients, this API is a way to do a quick self testing to verify whether the
       written integrations for a company are sufficient enough to be delivered to the respective customers to start using it.
@@ -1813,29 +1465,23 @@ class Mixin:
       17. All documents have countryCode used for accounts with AvaGlobal subscription.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The ID of the company to check if its integration is certified.
       :return string
     """
 
     def certify_integration(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/certify'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/certify'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Change the filing status of this company
-    
+
     Changes the current filing status of this company.
       For customers using Avalara's Managed Returns Service, each company within their account can request
       for Avalara to file tax returns on their behalf. Avalara compliance team members will review all
@@ -1847,30 +1493,24 @@ class Mixin:
       All other status changes must be requested through the Avalara customer support team.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] 
       :param model [FilingStatusChangeModel] 
       :return string
     """
 
     def change_filing_status(self, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Quick setup for a company with a single physical address
-    
+
     Shortcut to quickly setup a single-physical-location company with critical information and activate it.
       This API provides quick and simple company setup functionality and does the following things:
       * Create a company object with its own tax profile
@@ -1883,58 +1523,46 @@ class Mixin:
       Please allow 1 minute before making transactions using the company.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param model [CompanyInitializationModel] Information about the company you wish to create.
       :return CompanyModel
     """
 
     def company_initialize(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/initialize'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/initialize'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create new companies
-    
+
     Create one or more new company objects.
       A 'company' represents a single corporation or individual that is registered to handle transactional taxes.
       You may attach nested data objects such as contacts, locations, and nexus with this CREATE call, and those objects will be created with the company.
       NOTE: Please do not use these blacklisted characters in company name and code: ';', '\', '|'.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param model [CompanyModel] Either a single company object or an array of companies to create
       :return CompanyModel
     """
 
     def create_companies(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Add parameters to a company.
-    
+
     Add parameters to a company.
       Some companies can be taxed and reported differently depending on the properties of the company, such as IsPrimaryAddress. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to a company will be used by default in tax calculation but will not show on the transaction line referencing the company.
@@ -1943,32 +1571,24 @@ class Mixin:
       Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this company parameter.
       :param model [CompanyParameterDetailModel] The company parameters you wish to create.
       :return CompanyParameterDetailModel
     """
 
     def create_company_parameters(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/parameters'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Request managed returns funding setup for a company
-    
+
     This API is available by invitation only.
       Companies that use the Avalara Managed Returns or the SST Certified Service Provider services are
       required to setup their funding configuration before Avalara can begin filing tax returns on their
@@ -1982,7 +1602,7 @@ class Mixin:
       ### Security Policies
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The unique identifier of the company
       :param businessUnit [POABusinessUnit] The company's business unit (See POABusinessUnit::* for a list of allowable values)
       :param subscriptionType [POASubscriptionType] The company's subscription type (See POASubscriptionType::* for a list of allowable values)
@@ -1991,82 +1611,61 @@ class Mixin:
     """
 
     def create_funding_request(self, id_, model, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/funding/setup'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/funding/setup'.format(self.base_url, id_),
+                             auth=self.auth, headers=self.client_header, params=include, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single company
-    
+
     Deleting a company will delete all child companies, and all users attached to this company.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] The ID of the company you wish to delete.
       :return ErrorDetail
     """
 
     def delete_company(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single company parameter
-    
+
     Delete a parameter of a company.
       Some companies can be taxed and reported differently depending on the properties of the company, such as IsPrimaryAddress. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to a company will be used by default in tax calculation but will not show on the transaction line referencing the company.
       A company location parameter specified on a transaction line will override a company parameter if they share the same parameter name.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The company id
       :param id_ [int] The parameter id
       :return ErrorDetail
     """
 
     def delete_company_parameter(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/parameters/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Check the funding configuration of a company
-    
+
     This API is available by invitation only.
       Requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       Returns the funding configuration of the requested company.
@@ -2074,31 +1673,23 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param companyId [int] The unique identifier of the company
       :return FundingConfigurationModel
     """
 
     def funding_configuration_by_company(self, companyId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/funding/configuration'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/funding/configuration'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Check the funding configuration of a company
-    
+
     This API is available by invitation only.
       Requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       Returns the funding configuration of the requested company.
@@ -2106,34 +1697,24 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param companyId [int] The unique identifier of the company
       :param currency [string] The currency of the funding. USD and CAD are the only valid currencies
       :return FundingConfigurationModel
     """
 
-    def funding_configurations_by_company_and_currency(
-            self, companyId, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/funding/configurations'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+    def funding_configurations_by_company_and_currency(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/funding/configurations'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single company
-    
+
     Get the company object identified by this URL.
       A 'company' represents a single corporation or individual that is registered to handle transactional taxes.
       You may specify one or more of the following values in the '$include' parameter to fetch additional nested data, using commas to separate multiple values:
@@ -2148,30 +1729,24 @@ class Mixin:
        * Parameters
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The ID of the company to retrieve.
       :param include [string] OPTIONAL: A comma separated list of special fetch options.      * Child objects - Specify one or more of the following to retrieve objects related to each company: "Contacts", "FilingCalendars", "Items", "Locations", "Nexus", "TaxCodes", "NonReportingChildren" or "TaxRules".   * Deleted objects - Specify "FetchDeleted" to retrieve information about previously deleted objects.
       :return CompanyModel
     """
 
     def get_company(self, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Get configuration settings for this company
-    
+
     Retrieve a list of all configuration settings tied to this company.
       Configuration settings provide you with the ability to control features of your account and of your
       tax software. The category name `AvaCertServiceConfig` is reserved for
@@ -2183,61 +1758,47 @@ class Mixin:
       processing, and should be changed with care.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param id_ [int] 
       :return CompanyConfigurationModel
     """
 
     def get_company_configuration(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single company parameter
-    
+
     Retrieves a single parameter of a company.
       Some companies can be taxed and reported differently depending on the properties of the company, such as IsPrimaryAddress. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to a company will be used by default in tax calculation but will not show on the transaction line referencing the company.
       A company location parameter specified on a transaction line will override a company parameter if they share the same parameter name.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param companyId [int] 
       :param id_ [int] 
       :return CompanyParameterDetailModel
     """
 
     def get_company_parameter_detail(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/parameters/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Get this company's filing status
-    
+
     Retrieve the current filing status of this company.
       For customers using Avalara's Managed Returns Service, each company within their account can request
       for Avalara to file tax returns on their behalf. Avalara compliance team members will review all
@@ -2251,29 +1812,23 @@ class Mixin:
       * `Inactive` - The company is currently inactive.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] 
       :return string
     """
 
     def get_filing_status(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Get ACH entry detail report for company and period
-    
+
     This API is available by invitation only.
       Requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       Returns a list of ACH entry details for the given company and period.
@@ -2281,35 +1836,26 @@ class Mixin:
       ### Security Policies
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The unique identifier of the company
       :param periodyear [int] The period year
       :param periodmonth [int] The period month
       :return ACHEntryDetailModel
     """
 
-    def list_a_c_h_entry_details_for_company(
-            self, id_, periodyear, periodmonth
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def list_a_c_h_entry_details_for_company(self, id_, periodyear, periodmonth):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/paymentdetails/{}/{}'.format(
-                self.base_url, id_, periodyear, periodmonth
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/paymentdetails/{}/{}'.format(self.base_url, id_, periodyear, periodmonth),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve parameters for a company
-    
+
     Retrieve all parameters of a company.
       Some companies can be taxed and reported differently depending on the properties of the company, such as IsPrimaryAddress. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to a company will be used by default in tax calculation but will not show on the transaction line referencing the company.
@@ -2318,7 +1864,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param companyId [int] The company id
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* name, unit
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -2328,25 +1874,17 @@ class Mixin:
     """
 
     def list_company_parameter_details(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/parameters'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Check managed returns funding status for a company
-    
+
     This API is available by invitation only.
       Requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
       Returns a list of funding setup requests and their current status.
@@ -2354,55 +1892,43 @@ class Mixin:
       ### Security Policies
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The unique identifier of the company
       :return FundingStatusModel
     """
 
     def list_funding_requests_by_company(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/funding'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/funding'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a list of MRS Companies with account
-    
+
     This API is available by invitation only.
       Get a list of companies with an active MRS service.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :return FetchResult
     """
 
     def list_mrs_companies(self):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/mrs'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/mrs'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all companies
-    
+
     Get multiple company objects.
       A `company` represents a single corporation or individual that is registered to handle transactional taxes.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -2419,7 +1945,7 @@ class Mixin:
       * Parameters
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param include [string] A comma separated list of objects to fetch underneath this company. Any object with a URL path underneath this company can be fetched by specifying its name.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* IsFein, contacts, items, locations, nexus, settings, taxCodes, taxRules, upcs, nonReportingChildCompanies, exemptCerts, parameters, supplierandcustomers
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -2429,23 +1955,17 @@ class Mixin:
     """
 
     def query_companies(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Change configuration settings for this company
-    
+
     Update configuration settings tied to this company.
       Configuration settings provide you with the ability to control features of your account and of your
       tax software. The category names `AvaCertServiceConfig` is reserved for
@@ -2457,30 +1977,24 @@ class Mixin:
       processing, and should be changed with care.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] 
       :param model [CompanyConfigurationModel] 
       :return CompanyConfigurationModel
     """
 
     def set_company_configuration(self, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single company
-    
+
     Replace the existing company object at this URL with an updated object.
       A `CompanyModel` represents a single corporation or individual that is registered to handle transactional taxes.
       All data from the existing object will be replaced with data in the object you PUT.
@@ -2490,37 +2004,31 @@ class Mixin:
       NOTE: Please do not use these blacklisted characters in company name and code: ';', '\', '|'.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] The ID of the company you wish to update.
       :param model [CompanyModel] The company object you wish to update.
       :return CompanyModel
     """
 
     def update_company(self, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a company parameter
-    
+
     Update a parameter of a company.
       Some companies can be taxed and reported differently depending on the properties of the company, such as IsPrimaryAddress. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to a company will be used by default in tax calculation but will not show on the transaction line referencing the company.
       A company location parameter specified on a transaction line will override a company parameter if they share the same parameter name.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The company id.
       :param id_ [int] The company parameter id
       :param model [CompanyParameterDetailModel] The company parameter object you wish to update.
@@ -2528,29 +2036,21 @@ class Mixin:
     """
 
     def update_company_parameter_detail(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/parameters/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve jurisdiction rate information for tax authority
-    
+
     This API is available by invitation only.
       ### Security Policies
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param taxAuthorityId [int] Used to limit the jurisdictions returned.
       :param effectiveDate [datetime] Used to limit the jurisdictions returned.
       :param endDate [datetime] Used to limit the jurisdictions returned.
@@ -2563,120 +2063,90 @@ class Mixin:
     """
 
     def query_tax_authority_jurisdiction_rates(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/compliance/taxauthorityjurisdictionrates'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/compliance/taxauthorityjurisdictionrates'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new contact
-    
+
     Create one or more new contact objects.
       A 'contact' is a person associated with a company who is designated to handle certain responsibilities of
       a tax collecting and filing entity.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this contact.
       :param model [ContactModel] The contacts you wish to create.
       :return ContactModel
     """
 
     def create_contacts(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single contact
-    
+
     Mark the existing contact object at this URL as deleted.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this contact.
       :param id_ [int] The ID of the contact you wish to delete.
       :return ErrorDetail
     """
 
     def delete_contact(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/contacts/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single contact
-    
+
     Get the contact object identified by this URL.
       A 'contact' is a person associated with a company who is designated to handle certain responsibilities of
       a tax collecting and filing entity.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param companyId [int] The ID of the company for this contact
       :param id_ [int] The primary key of this contact
       :return ContactModel
     """
 
     def get_contact(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/contacts/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve contacts for this company
-    
+
     List all contact objects assigned to this company.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param companyId [int] The ID of the company that owns these contacts
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -2686,23 +2156,17 @@ class Mixin:
     """
 
     def list_contacts_by_company(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all contacts
-    
+
     Get multiple contact objects across all companies.
       A 'contact' is a person associated with a company who is designated to handle certain responsibilities of
       a tax collecting and filing entity.
@@ -2710,7 +2174,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -2719,23 +2183,17 @@ class Mixin:
     """
 
     def query_contacts(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/contacts'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/contacts'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single contact
-    
+
     Replace the existing contact object at this URL with an updated object.
       A 'contact' is a person associated with a company who is designated to handle certain responsibilities of
       a tax collecting and filing entity.
@@ -2743,7 +2201,7 @@ class Mixin:
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that this contact belongs to.
       :param id_ [int] The ID of the contact you wish to update
       :param model [ContactModel] The contact you wish to update.
@@ -2751,25 +2209,17 @@ class Mixin:
     """
 
     def update_contact(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/contacts/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create customers for this company
-    
+
     Create one or more customers for this company.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -2785,32 +2235,24 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param model [CustomerModel] The list of customer objects to be created
       :return CustomerModel
     """
 
     def create_customers(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/customers'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a customer record
-    
+
     Deletes the customer object referenced by this URL.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -2824,32 +2266,24 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :return CustomerModel
     """
 
     def delete_customer(self, companyId, customerCode):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/customers/{}'.format(
-                self.base_url, companyId, customerCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single customer
-    
+
     Retrieve the customer identified by this URL.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -2867,7 +2301,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param include [string] Specify optional additional objects to include in this fetch request
@@ -2875,25 +2309,17 @@ class Mixin:
     """
 
     def get_customer(self, companyId, customerCode, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/customers/{}'.format(
-                self.base_url, companyId, customerCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Link attributes to a customer
-    
+
     Link one or many attributes to a customer.
       A customer may have multiple attributes that control its behavior. You may link or unlink attributes to a
       customer at any time. The full list of defined attributes may be found using `QueryCompanyCustomerAttributes` API.
@@ -2909,7 +2335,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded the provided customer
       :param customerCode [string] The unique code representing the current customer
       :param model [CustomerAttributeModel] The list of attributes to link to the customer.
@@ -2917,25 +2343,18 @@ class Mixin:
     """
 
     def link_attributes_to_customer(self, companyId, customerCode, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.put(
-            '{}/api/v2/companies/{}/customers/{}/attributes/link'.format(
-                self.base_url, companyId, customerCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/customers/{}/attributes/link'.format(self.base_url, companyId, customerCode),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Link certificates to a customer
-    
+
     Link one or more certificates to a customer.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -2949,7 +2368,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param model [LinkCertificatesModel] The list of certificates to link to this customer
@@ -2957,25 +2376,18 @@ class Mixin:
     """
 
     def link_certificates_to_customer(self, companyId, customerCode, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/customers/{}/certificates/link'.format(
-                self.base_url, companyId, customerCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/customers/{}/certificates/link'.format(self.base_url, companyId, customerCode),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Link two customer records together
-    
+
     Links a Ship-To customer record with a Bill-To customer record.
       Customer records represent businesses or individuals who can provide exemption certificates. Some customers
       may have certificates that are linked to their shipping address or their billing address. To group these
@@ -2989,7 +2401,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company defining customers.
       :param code [string] The code of the bill-to customer to link.
       :param model [LinkCustomersModel] A list of information about ship-to customers to link to this bill-to customer.
@@ -2997,25 +2409,18 @@ class Mixin:
     """
 
     def link_ship_to_customers_to_bill_customer(self, companyId, code, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/customers/billto/{}/shipto/link'.format(
-                self.base_url, companyId, code
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/customers/billto/{}/shipto/link'.format(self.base_url, companyId, code),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a customer's attributes
-    
+
     Retrieve the attributes linked to the customer identified by this URL.
       A customer may have multiple attributes that control its behavior. You may link or unlink attributes to a
       customer at any time. The full list of defined attributes may be found using `QueryCompanyCustomerAttributes` API.
@@ -3031,32 +2436,25 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded the provided customer
       :param customerCode [string] The unique code representing the current customer
       :return FetchResult
     """
 
     def list_attributes_for_customer(self, companyId, customerCode):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/customers/{}/attributes'.format(
-                self.base_url, companyId, customerCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/customers/{}/attributes'.format(self.base_url, companyId, customerCode),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List certificates linked to a customer
-    
+
     List all certificates linked to a customer.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -3070,7 +2468,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.
@@ -3081,28 +2479,19 @@ class Mixin:
       :return FetchResult
     """
 
-    def list_certificates_for_customer(
-            self, companyId, customerCode, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def list_certificates_for_customer(self, companyId, customerCode, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/customers/{}/certificates'.format(
-                self.base_url, companyId, customerCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/customers/{}/certificates'.format(self.base_url, companyId, customerCode),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List valid certificates for a location
-    
+
     List valid certificates linked to a customer in a particular country and region.
       This API is intended to help identify whether a customer has already provided a certificate that
       applies to a particular country and region. This API is intended to help you remind a customer
@@ -3118,7 +2507,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param country [string] Search for certificates matching this country. Uses the ISO 3166 two character country code.
@@ -3126,28 +2515,20 @@ class Mixin:
       :return ExemptionStatusModel
     """
 
-    def list_valid_certificates_for_customer(
-            self, companyId, customerCode, country, region
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def list_valid_certificates_for_customer(self, companyId, customerCode, country, region):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/customers/{}/certificates/{}/{}'.format(
-                self.base_url, companyId, customerCode, country, region
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/customers/{}/certificates/{}/{}'.format(self.base_url, companyId, customerCode,
+                                                                            country, region),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all customers for this company
-    
+
     List all customers recorded by this company matching the specified criteria.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -3164,7 +2545,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param include [string] OPTIONAL - You can specify the value `certificates` to fetch information about certificates linked to the customer.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* shipTos
@@ -3175,25 +2556,17 @@ class Mixin:
     """
 
     def query_customers(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/customers'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Unlink attributes from a customer
-    
+
     Unlink one or many attributes from a customer.
       A customer may have multiple attributes that control its behavior. You may link or unlink attributes to a
       customer at any time. The full list of defined attributes may be found using `QueryCompanyCustomerAttributes` API.
@@ -3209,7 +2582,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded the customer
       :param customerCode [string] The unique code representing the current customer
       :param model [CustomerAttributeModel] The list of attributes to unlink from the customer.
@@ -3217,25 +2590,18 @@ class Mixin:
     """
 
     def unlink_attributes_from_customer(self, companyId, customerCode, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.put(
-            '{}/api/v2/companies/{}/customers/{}/attributes/unlink'.format(
-                self.base_url, companyId, customerCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/customers/{}/attributes/unlink'.format(self.base_url, companyId, customerCode),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Unlink certificates from a customer
-    
+
     Remove one or more certificates to a customer.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -3249,35 +2615,26 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param model [LinkCertificatesModel] The list of certificates to link to this customer
       :return FetchResult
     """
 
-    def unlink_certificates_from_customer(
-            self, companyId, customerCode, model
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def unlink_certificates_from_customer(self, companyId, customerCode, model):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(
-                self.base_url, companyId, customerCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(self.base_url, companyId, customerCode),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single customer
-    
+
     Replace the customer object at this URL with a new record.
       A customer object defines information about a person or business that purchases products from your
       company. When you create a tax transaction in AvaTax, you can use the `customerCode` from this
@@ -3291,7 +2648,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param model [CustomerModel] The new customer model that will replace the existing record at this URL
@@ -3299,120 +2656,88 @@ class Mixin:
     """
 
     def update_customer(self, companyId, customerCode, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/customers/{}'.format(
-                self.base_url, companyId, customerCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create and store new datasources for the respective companies.
-    
+
     Create one or more datasource objects.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyId [int] The id of the company you which to create the datasources
       :param model [DataSourceModel] 
       :return DataSourceModel
     """
 
     def create_data_sources(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/datasources'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a datasource by datasource id for a company.
-    
+
     Marks the existing datasource for a company as deleted.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyId [int] The id of the company the datasource belongs to.
       :param id_ [int] The id of the datasource you wish to delete.
       :return ErrorDetail
     """
 
     def delete_data_source(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/datasources/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Get data source by data source id
-    
+
     Retrieve the data source by its unique ID number.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyId [int] 
       :param id_ [int] data source id
       :return DataSourceModel
     """
 
     def get_data_source_by_id(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/datasources/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all datasources for this company
-    
+
     Gets multiple datasource objects for a given company.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyId [int] The id of the company you wish to retrieve the datasources.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isEnabled, isSynced, isAuthorized, name, externalState
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -3422,32 +2747,24 @@ class Mixin:
     """
 
     def list_data_sources(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/datasources'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all datasources
-    
+
     Get multiple datasource objects across all companies.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isEnabled, isSynced, isAuthorized, name, externalState
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3456,28 +2773,22 @@ class Mixin:
     """
 
     def query_data_sources(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/datasources'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/datasources'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a datasource identified by id for a company
-    
+
     Updates a datasource for a company.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyId [int] The id of the company the datasource belongs to.
       :param id_ [int] The id of the datasource you wish to delete.
       :param model [DataSourceModel] 
@@ -3485,25 +2796,17 @@ class Mixin:
     """
 
     def update_data_source(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/datasources/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Lists all parents of an HS Code.
-    
+
     Retrieves the specified HS code and all of its parents, reflecting all sections, chapters, headings, and subheadings
       a list of HS Codes that are the parents and information branches of the HS Code for the given
       destination country, if lower detail is available.
@@ -3513,35 +2816,27 @@ class Mixin:
       when HS Codes can have multiple levels of generic descriptions.
       ### Security Policies
       * This API depends on the following active services:*Required* (all): AvaTaxGlobal.
-    
+
       :param country [string] The name or code of the destination country.
       :param hsCode [string] The partial or full HS Code for which you would like to view all of the parents.
       :return FetchResult
     """
 
     def get_cross_border_code(self, country, hsCode):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/crossborder/{}/{}/hierarchy'.format(
-                self.base_url, country, hsCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/crossborder/{}/{}/hierarchy'.format(self.base_url, country, hsCode),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Test whether a form supports online login verification
-    
+
     This API is intended to be useful to identify whether the user should be allowed
       to automatically verify their login and password. This API will provide a result only if the form supports automatic online login verification.
-    
+
       :param form [string] The name of the form you would like to verify. This is the tax form code
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxFormCodes, scraperType, expectedResponseTime, requiredFilingCalendarDataFields
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -3551,27 +2846,19 @@ class Mixin:
     """
 
     def get_login_verifier_by_form(self, form, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/filingcalendars/loginverifiers/{}'.format(
-                self.base_url, form
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers/{}'.format(self.base_url, form),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all market place locations.
-    
+
     List all market place locations.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3580,30 +2867,22 @@ class Mixin:
     """
 
     def list_all_marketplace_locations(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/listallmarketplacelocations'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/listallmarketplacelocations'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of the AvaFile Forms available
-    
+
     This API is deprecated.
       Please use the ListTaxForms API.
       Returns the full list of Avalara-supported AvaFile Forms
       This API is intended to be useful to identify all the different AvaFile Forms
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* outletTypeId
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3612,29 +2891,23 @@ class Mixin:
     """
 
     def list_ava_file_forms(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/avafileforms'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/avafileforms'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List certificate attributes used by a company
-    
+
     List the certificate attributes defined by a company either specified by the user or the user's default company.
       A certificate may have multiple attributes that control its behavior. You may apply or remove attributes to a
       certificate at any time.
       If you see the 'CertCaptureNotConfiguredError', please use CheckProvision and RequestProvision endpoints to
       check and provision account.
-    
+
       :param companyid [int] Id of the company the user wish to fetch the certificates' attributes from. If not specified the API will use user's default company.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -3644,31 +2917,23 @@ class Mixin:
     """
 
     def list_certificate_attributes(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/certificateattributes'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/certificateattributes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List the certificate exempt reasons defined by a company
-    
+
     List the certificate exempt reasons defined by a company.
       An exemption reason defines why a certificate allows a customer to be exempt
       for purposes of tax calculation.
       If you see the 'CertCaptureNotConfiguredError', please use CheckProvision and RequestProvision endpoints to
       check and provision account.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3677,31 +2942,23 @@ class Mixin:
     """
 
     def list_certificate_exempt_reasons(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/certificateexemptreasons'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/certificateexemptreasons'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List certificate exposure zones used by a company
-    
+
     List the certificate exposure zones defined by a company.
       An exposure zone is a location where a certificate can be valid. Exposure zones may indicate a taxing
       authority or other legal entity to which a certificate may apply.
       If you see the 'CertCaptureNotConfiguredError', please use CheckProvision and RequestProvision endpoints to
       check and provision account.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* id, companyId, name, tag, description, created, modified, region, country
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3710,29 +2967,21 @@ class Mixin:
     """
 
     def list_certificate_exposure_zones(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/certificateexposurezones'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/certificateexposurezones'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported usage of extra parameters for classification of a item.
-    
+
     Returns the full list of Avalara-supported usage of extra parameters for item classification.
       The list of parameters is available for use with Item Classification.
       Some parameters are only available for use if you have subscribed to certain features of AvaTax.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* values
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3741,27 +2990,19 @@ class Mixin:
     """
 
     def list_classification_parameters_usage(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/classification/parametersusage'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/classification/parametersusage'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of communications service types
-    
+
     Returns full list of service types for a given transaction type ID.
-    
+
       :param id_ [int] The transaction type ID to examine
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* requiredParameters
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -3771,28 +3012,21 @@ class Mixin:
     """
 
     def list_communications_service_types(self, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/definitions/communications/transactiontypes/{}/servicetypes'.format(
-                self.base_url, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/definitions/communications/transactiontypes/{}/servicetypes'.format(self.base_url, id_),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of communications transactiontypes
-    
+
     Returns full list of communications transaction types which
       are accepted in communication tax calculation requests.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3801,28 +3035,20 @@ class Mixin:
     """
 
     def list_communications_transaction_types(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/communications/transactiontypes'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/communications/transactiontypes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of communications transaction/service type pairs
-    
+
     Returns full list of communications transaction/service type pairs which
       are accepted in communication tax calculation requests.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* requiredParameters
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3831,29 +3057,21 @@ class Mixin:
     """
 
     def list_communications_t_s_pairs(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/communications/tspairs'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/communications/tspairs'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all ISO 3166 countries
-    
+
     Returns a list of all ISO 3166 country codes, and their US English friendly names.
       This API is intended to be useful when presenting a dropdown box in your website to allow customers to select a country for
       a shipping address.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* alpha3Code, isEuropeanUnion, localizedNames, addressesRequireRegion
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3862,30 +3080,24 @@ class Mixin:
     """
 
     def list_countries(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/countries'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/countries'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List certificate exposure zones used by a company
-    
+
     List available cover letters that can be used when sending invitation to use CertExpress to upload certificates.
       The CoverLetter model represents a message sent along with an invitation to use CertExpress to
       upload certificates. An invitation allows customers to use CertExpress to upload their exemption
       certificates directly; this cover letter explains why the invitation was sent.
       If you see the 'CertCaptureNotConfiguredError', please use CheckProvision and RequestProvision endpoints to
       check and provision account.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* id, companyId, subject, description, createdDate, modifiedDate, pageCount, templateFilename, version
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3894,23 +3106,17 @@ class Mixin:
     """
 
     def list_cover_letters(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/coverletters'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/coverletters'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Lists the next level of HS Codes given a destination country and HS Code prefix.
-    
+
     Retrieves a list of HS Codes that are the children of the prefix for the given destination country, if
       additional children are available.
       HS Code is interchangeable with "tariff code" and definitions are generally unique to a destination country.
@@ -3919,7 +3125,7 @@ class Mixin:
       This API is intended to be useful to identify the correct HS Code to use for your item.
       ### Security Policies
       * This API depends on the following active services:*Required* (all): AvaTaxGlobal.
-    
+
       :param country [string] The name or code of the destination country.
       :param hsCode [string] The Section or partial HS Code for which you would like to view the next level of HS Code detail, if more detail is available.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* hsCodeSource, system, destinationCountry, isDecisionNode, zeroPaddingCount, isSystemDefined, isTaxable, effDate, endDate, hsCodeSourceLength
@@ -3930,25 +3136,17 @@ class Mixin:
     """
 
     def list_cross_border_codes(self, country, hsCode, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/crossborder/{}/{}'.format(
-                self.base_url, country, hsCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/crossborder/{}/{}'.format(self.base_url, country, hsCode),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List top level HS Code Sections.
-    
+
     Returns the full list of top level HS Code Sections. Sections are the broadest level of detail for
       classifying tariff codes and the items to which they apply. HS Codes are organized
       by Section/Chapter/Heading/Subheading/Classification.
@@ -3956,32 +3154,26 @@ class Mixin:
       further LandedCost HS Code lookups.
       ### Security Policies
       * This API depends on the following active services:*Required* (all): AvaTaxGlobal.
-    
+
       :return FetchResult
     """
 
     def list_cross_border_sections(self):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/crossborder/sections'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/crossborder/sections'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all ISO 4217 currencies supported by AvaTax.
-    
+
     Lists all ISO 4217 currencies supported by AvaTax.
       This API produces a list of currency codes that can be used when calling AvaTax. The values from this API can be used to fill out the
       `currencyCode` field in a `CreateTransactionModel`.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3990,29 +3182,23 @@ class Mixin:
     """
 
     def list_currencies(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/currencies'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/currencies'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported entity use codes
-    
+
     Returns the full list of Avalara-supported entity use codes.
       Entity/Use Codes are definitions of the entity who is purchasing something, or the purpose for which the transaction
       is occurring. This information is generally used to determine taxability of the product.
       In order to facilitate correct reporting of your taxes, you are encouraged to select the proper entity use codes for
       all transactions that are exempt.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* validCountries
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4021,26 +3207,20 @@ class Mixin:
     """
 
     def list_entity_use_codes(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/entityusecodes'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/entityusecodes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported filing frequencies.
-    
+
     Returns the full list of Avalara-supported filing frequencies.
       This API is intended to be useful to identify all the different filing frequencies that can be used in notices.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4049,28 +3229,22 @@ class Mixin:
     """
 
     def list_filing_frequencies(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/filingfrequencies'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/filingfrequencies'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List jurisdictions based on the filter provided
-    
+
     Returns a list of all Avalara-supported taxing jurisdictions.
       This API allows you to examine all Avalara-supported jurisdictions. You can filter your search by supplying
       SQL-like query for fetching only the ones you concerned about. For example: effectiveDate > '2016-01-01'
       The rate, salesRate, and useRate fields are not available on the JurisdictionModels returned by this API.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* rate, salesRate, signatureCode, useRate
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4079,29 +3253,23 @@ class Mixin:
     """
 
     def list_jurisdictions(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/jurisdictions'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/jurisdictions'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List jurisdictions near a specific address
-    
+
     Returns a list of all Avalara-supported taxing jurisdictions that apply to this address.
       This API allows you to identify which jurisdictions are nearby a specific address according to the best available geocoding information.
       It is intended to allow you to create a "Jurisdiction Override", which allows an address to be configured as belonging to a nearby
       jurisdiction in AvaTax.
       The results of this API call can be passed to the `CreateJurisdictionOverride` API call.
-    
+
       :param line1 [string] The first address line portion of this address.
       :param line2 [string] The second address line portion of this address.
       :param line3 [string] The third address line portion of this address.
@@ -4117,31 +3285,23 @@ class Mixin:
     """
 
     def list_jurisdictions_by_address(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/jurisdictionsnearaddress'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/jurisdictionsnearaddress'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List jurisdictions based on the provided taxTypeId, taxSubTypeId, country, and rateTypeId
-    
+
     Returns a list of all Avalara-supported taxing jurisdictions filtered by taxTypeId, taxSubTypeId, country, and rateTypeId.
       You can optionally pass region as a query parameter to retrieve jurisdictions that are under that region.
       This API allows you to examine all Avalara-supported jurisdictions. You can filter your search by supplying
       SQL-like query for fetching only the ones you concerned about. For example: effectiveDate > '2016-01-01'
       The jurisdictionType, effectiveDate, and endDate are filterable fields available on the JurisdictionRateTypeTaxTypeMappingModels returned by this API.
-    
+
       :param country [string] The country for which you want to retrieve the jurisdiction information
       :param taxTypeId [string] The taxtype for which you want to retrieve the jurisdiction information
       :param taxSubTypeId [string] The taxsubtype for which you want to retrieve the jurisdiction information
@@ -4154,30 +3314,23 @@ class Mixin:
       :return FetchResult
     """
 
-    def list_jurisdictions_by_rate_type_tax_type_mapping(
-            self, country, taxTypeId, taxSubTypeId, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def list_jurisdictions_by_rate_type_tax_type_mapping(self, country, taxTypeId, taxSubTypeId, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/definitions/jurisdictions/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(
-                self.base_url, country, taxTypeId, taxSubTypeId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/definitions/jurisdictions/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url, country,
+                                                                                                 taxTypeId,
+                                                                                                 taxSubTypeId),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List jurisdiction types based on the provided taxTypeId, taxSubTypeId, country, and rateTypeId
-    
+
     Returns a list of all applicable jurisdiction types based on country, taxTypeId, taxSubTypeId, and rateTypeId
-    
+
       :param country [string] The country for which you want to retrieve the jurisdiction information
       :param taxTypeId [string] The taxtype for which you want to retrieve the jurisdiction information
       :param taxSubTypeId [string] The taxsubtype for which you want to retrieve the jurisdiction information
@@ -4185,35 +3338,28 @@ class Mixin:
       :return string
     """
 
-    def list_jurisdiction_types_by_rate_type_tax_type_mapping(
-            self, country, taxTypeId, taxSubTypeId, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def list_jurisdiction_types_by_rate_type_tax_type_mapping(self, country, taxTypeId, taxSubTypeId, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/definitions/jurisdictionTypes/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(
-                self.base_url, country, taxTypeId, taxSubTypeId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/definitions/jurisdictionTypes/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url,
+                                                                                                     country, taxTypeId,
+                                                                                                     taxSubTypeId),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the list of questions that are required for a tax location
-    
+
     Returns the list of additional questions you must answer when declaring a location in certain taxing jurisdictions.
       Some tax jurisdictions require that you register or provide additional information to configure each physical place where
       your company does business.
       This information is not usually required in order to calculate tax correctly, but is almost always required to file your tax correctly.
       You can call this API call for any address and obtain information about what questions must be answered in order to properly
       file tax in that location.
-    
+
       :param line1 [string] The first line of this location's address.
       :param line2 [string] The second line of this location's address.
       :param line3 [string] The third line of this location's address.
@@ -4231,27 +3377,21 @@ class Mixin:
     """
 
     def list_location_questions_by_address(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/locationquestions'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/locationquestions'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all forms where logins can be verified automatically
-    
+
     List all forms where logins can be verified automatically.
       This API is intended to be useful to identify whether the user should be allowed
       to automatically verify their login and password.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxFormCodes, scraperType, expectedResponseTime, requiredFilingCalendarDataFields
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4260,27 +3400,19 @@ class Mixin:
     """
 
     def list_login_verifiers(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/filingcalendars/loginverifiers'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/filingcalendars/loginverifiers'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the list of locations for a marketplace.
-    
+
     Retrieves the list of suggested locations for a marketplace.
-    
+
       :param marketplaceId [string] MarketplaceId of a marketplace
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4289,26 +3421,20 @@ class Mixin:
     """
 
     def list_marketplace_locations(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/marketplacelocations'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/marketplacelocations'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported nexus for all countries and regions.
-    
+
     Returns the full list of all Avalara-supported nexus for all countries and regions.
       This API is intended to be useful if your user interface needs to display a selectable list of nexus.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxTypeGroup, taxAuthorityId, taxName, parameters, taxableNexus
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4317,29 +3443,23 @@ class Mixin:
     """
 
     def list_nexus(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/nexus'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/nexus'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all nexus that apply to a specific address.
-    
+
     Returns a list of all Avalara-supported taxing jurisdictions that apply to this address.
       This API allows you to identify which tax authorities apply to a physical location, salesperson address, or point of sale.
       In general, it is usually expected that a company will declare nexus in all the jurisdictions that apply to each physical address
       where the company does business.
       The results of this API call can be passed to the 'Create Nexus' API call to declare nexus for this address.
-    
+
       :param line1 [string] The first address line portion of this address.
       :param line2 [string] The first address line portion of this address.
       :param line3 [string] The first address line portion of this address.
@@ -4355,26 +3475,20 @@ class Mixin:
     """
 
     def list_nexus_by_address(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/nexus/byaddress'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/nexus/byaddress'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported nexus for a country.
-    
+
     Returns all Avalara-supported nexus for the specified country.
       This API is intended to be useful if your user interface needs to display a selectable list of nexus filtered by country.
-    
+
       :param country [string] The country in which you want to fetch the system nexus
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxTypeGroup, taxAuthorityId, taxName, parameters, taxableNexus
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -4384,26 +3498,20 @@ class Mixin:
     """
 
     def list_nexus_by_country(self, country, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/nexus/{}'.format(self.base_url, country),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/nexus/{}'.format(self.base_url, country),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported nexus for a country and region.
-    
+
     Returns all Avalara-supported nexus for the specified country and region.
       This API is intended to be useful if your user interface needs to display a selectable list of nexus filtered by country and region.
-    
+
       :param country [string] The two-character ISO-3166 code for the country.
       :param region [string] The two or three character region code for the region.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxTypeGroup, taxAuthorityId, taxName, parameters, taxableNexus
@@ -4414,25 +3522,17 @@ class Mixin:
     """
 
     def list_nexus_by_country_and_region(self, country, region, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/nexus/{}/{}'.format(
-                self.base_url, country, region
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/nexus/{}/{}'.format(self.base_url, country, region),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List nexus related to a tax form
-    
+
     Retrieves a list of nexus related to a tax form.
       The concept of `Nexus` indicates a place where your company has sufficient physical presence and is obligated
       to collect and remit transaction-based taxes.
@@ -4443,34 +3543,26 @@ class Mixin:
       form in order to better understand how the form will be filled out.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param formCode [string] The form code that we are looking up the nexus for
       :return NexusByTaxFormModel
     """
 
     def list_nexus_by_form_code(self, formCode):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/nexus/byform/{}'.format(
-                self.base_url, formCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/nexus/byform/{}'.format(self.base_url, formCode),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported nexus for a tax type group.
-    
+
     Returns all Avalara-supported nexus for the specified specified tax type group.
       This API is intended to be useful if your user interface needs to display a selectable list of nexus filtered by tax type group.
-    
+
       :param taxTypeGroup [string] The tax type group to fetch the supporting system nexus for.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxTypeGroup, taxAuthorityId, taxName, parameters, taxableNexus
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -4480,28 +3572,20 @@ class Mixin:
     """
 
     def list_nexus_by_tax_type_group(self, taxTypeGroup, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/nexus/bytaxtypegroup/{}'.format(
-                self.base_url, taxTypeGroup
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/nexus/bytaxtypegroup/{}'.format(self.base_url, taxTypeGroup),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of nexus tax type groups
-    
+
     Returns the full list of Avalara-supported nexus tax type groups
       This API is intended to be useful to identify all the different tax sub-types.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* subscriptionTypeId, subscriptionDescription, tabName, showColumn
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4510,26 +3594,20 @@ class Mixin:
     """
 
     def list_nexus_tax_type_groups(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported tax notice customer funding options.
-    
+
     Returns the full list of Avalara-supported tax notice customer funding options.
       This API is intended to be useful to identify all the different notice customer funding options that can be used in notices.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* activeFlag, sortOrder
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4538,28 +3616,20 @@ class Mixin:
     """
 
     def list_notice_customer_funding_options(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/noticecustomerfundingoptions'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/noticecustomerfundingoptions'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported tax notice customer types.
-    
+
     Returns the full list of Avalara-supported tax notice customer types.
       This API is intended to be useful to identify all the different notice customer types.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* activeFlag, sortOrder
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4568,26 +3638,20 @@ class Mixin:
     """
 
     def list_notice_customer_types(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/noticecustomertypes'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/noticecustomertypes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported tax notice filing types.
-    
+
     Returns the full list of Avalara-supported tax notice filing types.
       This API is intended to be useful to identify all the different notice filing types that can be used in notices.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* description, activeFlag, sortOrder
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4596,26 +3660,20 @@ class Mixin:
     """
 
     def list_notice_filingtypes(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/noticefilingtypes'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/noticefilingtypes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported tax notice priorities.
-    
+
     Returns the full list of Avalara-supported tax notice priorities.
       This API is intended to be useful to identify all the different notice priorities that can be used in notices.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* activeFlag, sortOrder
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4624,26 +3682,20 @@ class Mixin:
     """
 
     def list_notice_priorities(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/noticepriorities'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/noticepriorities'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported tax notice reasons.
-    
+
     Returns the full list of Avalara-supported tax notice reasons.
       This API is intended to be useful to identify all the different tax notice reasons.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* description, activeFlag, sortOrder
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4652,26 +3704,20 @@ class Mixin:
     """
 
     def list_notice_reasons(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/noticereasons'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/noticereasons'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported tax notice responsibility ids
-    
+
     Returns the full list of Avalara-supported tax notice responsibility ids
       This API is intended to be useful to identify all the different tax notice responsibilities.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* sortOrder
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4680,28 +3726,20 @@ class Mixin:
     """
 
     def list_notice_responsibilities(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/noticeresponsibilities'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/noticeresponsibilities'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported tax notice root causes
-    
+
     Returns the full list of Avalara-supported tax notice root causes
       This API is intended to be useful to identify all the different tax notice root causes.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* sortOrder
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4710,26 +3748,20 @@ class Mixin:
     """
 
     def list_notice_root_causes(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/noticerootcauses'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/noticerootcauses'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported tax notice statuses.
-    
+
     Returns the full list of Avalara-supported tax notice statuses.
       This API is intended to be useful to identify all the different tax notice statuses.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isOpen, sortOrder
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4738,26 +3770,20 @@ class Mixin:
     """
 
     def list_notice_statuses(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/noticestatuses'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/noticestatuses'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported tax notice types.
-    
+
     Returns the full list of Avalara-supported tax notice types.
       This API is intended to be useful to identify all the different notice types that can be used in notices.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* activeFlag, sortOrder
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4766,27 +3792,21 @@ class Mixin:
     """
 
     def list_notice_types(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/noticetypes'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/noticetypes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported extra parameters for creating transactions.
-    
+
     Returns the full list of Avalara-supported extra parameters for the 'Create Transaction' API call.
       This list of parameters is available for use when configuring your transaction.
       Some parameters are only available for use if you have subscribed to certain features of AvaTax.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* serviceTypes, regularExpression, values
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4795,23 +3815,17 @@ class Mixin:
     """
 
     def list_parameters(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/parameters'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/parameters'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the parameters by companyCode and itemCode.
-    
+
     Returns the list of parameters based on the company's service types and the item code.
       Ignores nexus if a service type is configured in the 'IgnoreNexusForServiceTypes' configuration section.
       Ignores nexus for the AvaAlcohol service type.
@@ -4826,7 +3840,7 @@ class Mixin:
       * Replace '"' with '\_-ava22-\_' For example: 'Item"Code' becomes 'Item_-ava22-_Code'
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyCode [string] Company code.
       :param itemCode [string] Item code.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* serviceTypes, regularExpression, values
@@ -4837,29 +3851,22 @@ class Mixin:
     """
 
     def list_parameters_by_item(self, companyCode, itemCode, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/definitions/parameters/byitem/{}/{}'.format(
-                self.base_url, companyCode, itemCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/definitions/parameters/byitem/{}/{}'.format(self.base_url, companyCode, itemCode),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported usage of extra parameters for creating transactions.
-    
+
     Returns the full list of Avalara-supported usage of extra parameters for the 'Create Transaction' API call.
       This list of parameters is available for use when configuring your transaction.
       Some parameters are only available for use if you have subscribed to certain features of AvaTax.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* values
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4868,51 +3875,39 @@ class Mixin:
     """
 
     def list_parameters_usage(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/parametersusage'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/parametersusage'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported permissions
-    
+
     Returns the full list of Avalara-supported permission types.
       This API is intended to be useful to identify the capabilities of a particular user logon.
-    
+
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :return FetchResult
     """
 
     def list_permissions(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/permissions'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/permissions'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported postal codes.
-    
+
     Retrieves the list of Avalara-supported postal codes.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4921,23 +3916,17 @@ class Mixin:
     """
 
     def list_postal_codes(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/postalcodes'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/postalcodes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all customs duty programs recognized by AvaTax
-    
+
     List all preferred customs duty programs recognized by AvaTax.
       A customs duty program is an optional program you can use to obtain favorable treatment from customs and duty agents.
       An example of a preferred program is NAFTA, which provides preferential rates for products being shipped from neighboring
@@ -4945,7 +3934,7 @@ class Mixin:
       To select a preferred program for calculating customs and duty rates, call this API to find the appropriate code for your
       preferred program. Next, set the parameter `AvaTax.LC.PreferredProgram` in your `CreateTransaction` call to the code of
       the program.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* effectiveDate, endDate
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4954,27 +3943,21 @@ class Mixin:
     """
 
     def list_preferred_programs(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/preferredprograms'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/preferredprograms'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all available product classification systems.
-    
+
     List all available product classification systems.
       Tax authorities use product classification systems as a way to identify products and associate them with a tax rate.
       More than one tax authority might use the same product classification system, but they might charge different tax rates for products.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* countries
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4984,25 +3967,17 @@ class Mixin:
     """
 
     def list_product_classification_systems(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/productclassificationsystems'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/productclassificationsystems'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all product classification systems available to a company based on its nexus.
-    
+
     Lists all product classification systems available to a company based on its nexus.
       Tax authorities use product classification systems as a way to identify products and associate them with a tax rate.
       More than one tax authority might use the same product classification system, but they might charge different tax rates for products.
@@ -5012,7 +3987,7 @@ class Mixin:
       * Replace '?' with '\_-ava3f-\_' For example: 'Company?Code' becomes 'Company_-ava3f-_Code'
       * Replace '%' with '\_-ava25-\_' For example: 'Company%Code' becomes 'Company_-ava25-_Code'
       * Replace '#' with '\_-ava23-\_' For example: 'Company#Code' becomes 'Company_-ava23-_Code'
-    
+
       :param companyCode [string] The company code.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* countries
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -5022,31 +3997,22 @@ class Mixin:
       :return FetchResult
     """
 
-    def list_product_classification_systems_by_company(
-            self, companyCode, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def list_product_classification_systems_by_company(self, companyCode, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/definitions/productclassificationsystems/bycompany/{}'.format(
-                self.base_url, companyCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/definitions/productclassificationsystems/bycompany/{}'.format(self.base_url, companyCode),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of rate types for each country
-    
+
     Returns the full list of Avalara-supported rate type file types
       This API is intended to be useful to identify all the different rate types.
-    
+
       :param country [string] The country to examine for rate types
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -5056,28 +4022,20 @@ class Mixin:
     """
 
     def list_rate_types_by_country(self, country, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/countries/{}/ratetypes'.format(
-                self.base_url, country
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/countries/{}/ratetypes'.format(self.base_url, country),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the list of rate types by country, TaxType and by TaxSubType
-    
+
     Returns the list of Avalara-supported rate type file types
       This API is intended to be useful to identify all the different rate types.
-    
+
       :param country [string] The country to examine for rate types
       :param taxTypeId [string] The taxType for the country to examine for rate types
       :param taxSubTypeId [string] The taxSubType for the country and taxType to examine for rate types
@@ -5088,32 +4046,24 @@ class Mixin:
       :return FetchResult
     """
 
-    def list_rate_types_by_country_tax_type_tax_sub_type(
-            self, country, taxTypeId, taxSubTypeId, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def list_rate_types_by_country_tax_type_tax_sub_type(self, country, taxTypeId, taxSubTypeId, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/definitions/countries/{}/taxtypes/{}/taxsubtypes/{}/ratetypes'.format(
-                self.base_url, country, taxTypeId, taxSubTypeId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/definitions/countries/{}/taxtypes/{}/taxsubtypes/{}/ratetypes'.format(self.base_url, country,
+                                                                                             taxTypeId, taxSubTypeId),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all ISO 3166 regions
-    
+
     Returns a list of all ISO 3166 region codes and their US English friendly names.
       This API is intended to be useful when presenting a dropdown box in your website to allow customers to select a region
       within the country for a shipping addresses.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* localizedNames
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5122,27 +4072,21 @@ class Mixin:
     """
 
     def list_regions(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/regions'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/regions'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all ISO 3166 regions for a country
-    
+
     Returns a list of all ISO 3166 region codes for a specific country code, and their US English friendly names.
       This API is intended to be useful when presenting a dropdown box in your website to allow customers to select a region
       within the country for a shipping addresses.
-    
+
       :param country [string] The country of which you want to fetch ISO 3166 regions
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* localizedNames
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -5152,28 +4096,20 @@ class Mixin:
     """
 
     def list_regions_by_country(self, country, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/countries/{}/regions'.format(
-                self.base_url, country
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/countries/{}/regions'.format(self.base_url, country),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported resource file types
-    
+
     Returns the full list of Avalara-supported resource file types
       This API is intended to be useful to identify all the different resource file types.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5182,27 +4118,21 @@ class Mixin:
     """
 
     def list_resource_file_types(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/resourcefiletypes'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/resourcefiletypes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported usage of parameters used for returns.
-    
+
     Returns the full list of Avalara-supported usage of extra parameters for the returns.
       This list of parameters is available for use with Returns.
       Some parameters are only available for use if you have subscribed to certain features of AvaTax.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* values
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5211,29 +4141,21 @@ class Mixin:
     """
 
     def list_returns_parameters_usage(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/returns/parametersusage'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/returns/parametersusage'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported permissions
-    
+
     Returns the full list of Avalara-supported permission types.
       This API is intended to be useful when designing a user interface for selecting the security role of a user account.
       Some security roles are restricted for Avalara internal use.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5242,28 +4164,22 @@ class Mixin:
     """
 
     def list_security_roles(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/securityroles'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/securityroles'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported subscription types
-    
+
     Returns the full list of Avalara-supported subscription types.
       This API is intended to be useful for identifying which features you have added to your account.
       You may always contact Avalara's sales department for information on available products or services.
       You cannot change your subscriptions directly through the API.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5272,25 +4188,19 @@ class Mixin:
     """
 
     def list_subscription_types(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the list all tags supported by avalara
-    
+
     Retrieves the list of suggested locations for a marketplace.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5299,26 +4209,20 @@ class Mixin:
     """
 
     def list_tags(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/tags'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/tags'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported tax authorities.
-    
+
     Returns the full list of Avalara-supported tax authorities.
       This API is intended to be useful to identify all the different authorities that receive tax.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5327,28 +4231,22 @@ class Mixin:
     """
 
     def list_tax_authorities(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/taxauthorities'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/taxauthorities'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported forms for each tax authority.
-    
+
     Returns the full list of Avalara-supported forms for each tax authority.
       This list represents tax forms that Avalara recognizes.
       Customers who subscribe to Avalara Managed Returns Service can request these forms to be filed automatically
       based on the customer's AvaTax data.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5357,26 +4255,20 @@ class Mixin:
     """
 
     def list_tax_authority_forms(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/taxauthorityforms'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/taxauthorityforms'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported tax authority types.
-    
+
     Returns the full list of Avalara-supported tax authority types.
       This API is intended to be useful to identify all the different authority types.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5385,23 +4277,17 @@ class Mixin:
     """
 
     def list_tax_authority_types(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported tax codes.
-    
+
     Retrieves the list of Avalara-supported system tax codes.
       A 'TaxCode' represents a uniquely identified type of product, good, or service.
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
@@ -5409,7 +4295,7 @@ class Mixin:
       taxability rules for this product in all supported jurisdictions.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5418,53 +4304,41 @@ class Mixin:
     """
 
     def list_tax_codes(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/taxcodes'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/taxcodes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of Avalara-supported tax code types.
-    
+
     Returns the full list of recognized tax code types.
       A 'Tax Code Type' represents a broad category of tax codes, and is less detailed than a single TaxCode.
       This API is intended to be useful for broadly searching for tax codes by tax code type.
-    
+
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :return TaxCodeTypesModel
     """
 
     def list_tax_code_types(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/taxcodetypes'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/taxcodetypes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of the Tax Forms available
-    
+
     Returns the full list of Avalara-supported Tax Forms
       This API is intended to be useful to identify all the different Tax Forms
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5473,26 +4347,20 @@ class Mixin:
     """
 
     def list_tax_forms(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/taxforms'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/taxforms'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of tax sub types
-    
+
     Returns the full list of Avalara-supported tax sub-types
       This API is intended to be useful to identify all the different tax sub-types.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5501,26 +4369,20 @@ class Mixin:
     """
 
     def list_tax_sub_types(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/taxsubtypes'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/taxsubtypes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of tax sub types by Country and TaxType
-    
+
     Returns the full list of Avalara-supported tax sub-types
       This API is intended to be useful to identify all the different tax sub-types for given country and TaxType.
-    
+
       :param country [string] The country to examine for taxsubtype
       :param taxTypeId [string] The taxType for the country to examine for taxsubtype
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -5530,31 +4392,22 @@ class Mixin:
       :return FetchResult
     """
 
-    def list_tax_sub_types_by_country_and_tax_type(
-            self, country, taxTypeId, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def list_tax_sub_types_by_country_and_tax_type(self, country, taxTypeId, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/definitions/taxsubtypes/countries/{}/taxtypes/{}'.format(
-                self.base_url, country, taxTypeId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/definitions/taxsubtypes/countries/{}/taxtypes/{}'.format(self.base_url, country, taxTypeId),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of tax sub types by jurisdiction code and region
-    
+
     Returns the full list of Avalara-supported tax sub-types by jurisdiction and region
       This API is intended to be useful to identify all the different tax sub-types.
-    
+
       :param jurisdictionCode [string] The jurisdiction code of the tax sub type.
       :param region [string] The region of the tax sub type.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
@@ -5564,31 +4417,21 @@ class Mixin:
       :return FetchResult
     """
 
-    def list_tax_sub_types_by_jurisdiction_and_region(
-            self, jurisdictionCode, region, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/taxsubtypes/{}/{}'.format(
-                self.base_url, jurisdictionCode, region
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+    def list_tax_sub_types_by_jurisdiction_and_region(self, jurisdictionCode, region, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/taxsubtypes/{}/{}'.format(self.base_url, jurisdictionCode, region),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the full list of tax type groups
-    
+
     Returns the full list of Avalara-supported tax type groups
       This API is intended to be useful to identify all the different tax type groups.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* subscriptionTypeId, subscriptionDescription, tabName, showColumn, displaySequence
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5597,25 +4440,19 @@ class Mixin:
     """
 
     def list_tax_type_groups(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the list of applicable TaxTypes
-    
+
     Retrieves the list of applicable TaxTypes based on Nexus of the company.
-    
+
       :param country [string] The country for which you want to retrieve the unitofbasis information
       :param companyId [int] Your companyId to retrieve the applicable taxtypes
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -5625,27 +4462,19 @@ class Mixin:
     """
 
     def list_tax_types_by_nexus_and_country(self, country, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/taxtypes/countries/{}'.format(
-                self.base_url, country
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/taxtypes/countries/{}'.format(self.base_url, country),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve the list of applicable UnitOfBasis
-    
+
     Retrieves the list of applicable UnitOfBasis
-    
+
       :param country [string] The country for which you want to retrieve the unitofbasis information
       :param taxTypeId [string] The taxtype for which you want to retrieve the unitofbasis information
       :param taxSubTypeId [string] The taxsubtype for which you want to retrieve the unitofbasis information
@@ -5656,31 +4485,24 @@ class Mixin:
       :return FetchResult
     """
 
-    def list_unit_of_basis_by_country_and_tax_type_and_tax_sub_type_and_rate_type(
-            self, country, taxTypeId, taxSubTypeId, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def list_unit_of_basis_by_country_and_tax_type_and_tax_sub_type_and_rate_type(self, country, taxTypeId,
+                                                                                  taxSubTypeId, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/definitions/unitofbasis/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(
-                self.base_url, country, taxTypeId, taxSubTypeId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/definitions/unitofbasis/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url, country,
+                                                                                               taxTypeId, taxSubTypeId),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all defined units of measurement
-    
+
     List all units of measurement systems defined by Avalara.
       A unit of measurement system is a method of measuring a quantity, such as distance, mass, or others.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* id
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5689,126 +4511,96 @@ class Mixin:
     """
 
     def list_unit_of_measurement(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/definitions/unitofmeasurements'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/definitions/unitofmeasurements'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create one or more DistanceThreshold objects
-    
+
     Create one or more DistanceThreshold objects for this company.
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold
       :param model [CompanyDistanceThresholdModel] The DistanceThreshold object or objects you wish to create.
       :return CompanyDistanceThresholdModel
     """
 
     def create_distance_threshold(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/distancethresholds'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single DistanceThreshold object
-    
+
     Marks the DistanceThreshold object identified by this URL as deleted.
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold
       :param id_ [int] The unique ID number of the DistanceThreshold object you wish to delete.
       :return ErrorDetail
     """
 
     def delete_distance_threshold(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/distancethresholds/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single DistanceThreshold
-    
+
     Retrieves a single DistanceThreshold object defined by this URL.
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param companyId [int] The ID of the company that owns this DistanceThreshold object
       :param id_ [int] The unique ID number referring to this DistanceThreshold object
       :return CompanyDistanceThresholdModel
     """
 
     def get_distance_threshold(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/distancethresholds/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all DistanceThresholds for this company.
-    
+
     Lists all DistanceThreshold objects that belong to this company.
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
       to correctly calculate some value-added taxes.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param companyId [int] The ID of the company whose DistanceThreshold objects you wish to list.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
@@ -5819,25 +4611,17 @@ class Mixin:
     """
 
     def list_distance_thresholds(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/distancethresholds'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all DistanceThreshold objects
-    
+
     Lists all DistanceThreshold objects that belong to this account.
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
@@ -5846,7 +4630,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -5856,23 +4640,17 @@ class Mixin:
     """
 
     def query_distance_thresholds(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/distancethresholds'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/distancethresholds'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a DistanceThreshold object
-    
+
     Replace the existing DistanceThreshold object at this URL with an updated object.
       A company-distance-threshold model indicates the distance between a company
       and the taxing borders of various countries. Distance thresholds are necessary
@@ -5881,7 +4659,7 @@ class Mixin:
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The unique ID number of the company that owns this DistanceThreshold object.
       :param id_ [int] The unique ID number of the DistanceThreshold object to replace.
       :param model [CompanyDistanceThresholdModel] The new DistanceThreshold object to store.
@@ -5889,113 +4667,81 @@ class Mixin:
     """
 
     def update_distance_threshold(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/distancethresholds/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new eCommerce token.
-    
+
     Creates a new eCommerce token.
       This API is used to create a new eCommerce token. An eCommerce token is required in order to launch the CertCapture eCommerce plugin. Create a token for each of your CertCapture customers.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param companyId [int] The company ID that will be issued this certificate.
       :param model [CreateECommerceTokenInputModel] 
       :return ECommerceTokenOutputModel
     """
 
     def create_e_commerce_token(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/ecommercetokens'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Refresh an eCommerce token.
-    
+
     Refresh an eCommerce token.
       CertCapture eCommerce tokens expire after one hour. This API is used to refresh an eCommerce token that is about to expire. This API can only be used with active tokens. If your token has expired, you must generate a new one.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param companyId [int] The company ID that the refreshed certificate belongs to.
       :param model [RefreshECommerceTokenInputModel] 
       :return FetchResult
     """
 
     def refresh_e_commerce_token(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/ecommercetokens'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Approves linkage to a firm for a client account
-    
+
     This API enables the account admin of a client account to approve linkage request by a firm.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
 
     def approve_firm_client_linkage(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/firmclientlinkages/{}/approve'.format(
-                self.base_url, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/firmclientlinkages/{}/approve'.format(self.base_url, id_),
+                             auth=self.auth, headers=self.client_header, params=None,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Request a new FirmClient account and create an approved linkage to it
-    
+
     This API is for use by Firms only.
       Avalara allows firms to manage returns for clients without the clients needing to use AvaTax service.
       Firms can create accounts of FirmClient for customers they are managing using this API.
@@ -6005,217 +4751,163 @@ class Mixin:
       The created account will be created in `Active` status but there will be no user or license key associated with account.
       ### Security Policies
       * This API requires one of the following user roles: FirmAdmin, Registrar, SiteAdmin, SystemAdmin.
-    
+
       :param model [NewFirmClientAccountRequestModel] Information about the account you wish to create.
       :return FirmClientLinkageOutputModel
     """
 
     def create_and_link_new_firm_client_account(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/firmclientlinkages/createandlinkclient'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/firmclientlinkages/createandlinkclient'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Links a firm account with the client account
-    
+
     This API enables the firm admins/firm users to request the linkage of a firm account and a client account.
       ### Security Policies
       * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param model [FirmClientLinkageInputModel] FirmClientLinkageInputModel
       :return FirmClientLinkageOutputModel
     """
 
     def create_firm_client_linkage(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/firmclientlinkages'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/firmclientlinkages'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a linkage
-    
+
     This API marks a linkage between a firm and client as deleted.
       ### Security Policies
       * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] 
       :return ErrorDetail
     """
 
     def delete_firm_client_linkage(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Get linkage between a firm and client by id
-    
+
     This API enables the firm admins/firm users to request the linkage of a firm account and a client account.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
 
     def get_firm_client_linkage(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List client linkages for a firm or client
-    
+
     This API enables the firm or account users to request the associated linkages to the account.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* firmAccountName, clientAccountName
       :return FetchResult
     """
 
     def list_firm_client_linkage(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/firmclientlinkages'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/firmclientlinkages'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Rejects linkage to a firm for a client account
-    
+
     This API enables the account admin of a client account to reject linkage request by a firm.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
 
     def reject_firm_client_linkage(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/firmclientlinkages/{}/reject'.format(
-                self.base_url, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/firmclientlinkages/{}/reject'.format(self.base_url, id_),
+                             auth=self.auth, headers=self.client_header, params=None,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Reset linkage status between a client and firm back to requested
-    
+
     This API enables the firm admin of a client account to reset a previously created linkage request by a firm.
       ### Security Policies
       * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
 
     def reset_firm_client_linkage(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/firmclientlinkages/{}/reset'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/firmclientlinkages/{}/reset'.format(self.base_url, id_),
+                             auth=self.auth, headers=self.client_header, params=None,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Revokes previously approved linkage to a firm for a client account
-    
+
     This API enables the account admin of a client account to revoke a previously approved linkage request by a firm.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] 
       :return FirmClientLinkageOutputModel
     """
 
     def revoke_firm_client_linkage(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/firmclientlinkages/{}/revoke'.format(
-                self.base_url, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/firmclientlinkages/{}/revoke'.format(self.base_url, id_),
+                             auth=self.auth, headers=self.client_header, params=None,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     FREE API - Request a free trial of AvaTax
-    
+
     Call this API to obtain a free AvaTax account.
       This API is free to use. No authentication credentials are required to call this API. You must read and
       accept [Avalara's terms and conditions](https://www1.avalara.com/us/en/legal/terms.html) for the account to be
@@ -6225,29 +4917,23 @@ class Mixin:
       After your free trial concludes, you will still be able to use the [Free AvaTax API Suite](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Free/).
       ### Security Policies
       * This API may be called without providing authentication credentials.
-    
+
       :param model [FreeTrialRequestModel] Required information to provision a free trial account.
       :return NewAccountModel
     """
 
     def request_free_trial(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/accounts/freetrials/request'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/accounts/freetrials/request'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Request the javascript for a funding setup widget
-    
+
     This API is available by invitation only.
       Companies that use the Avalara Managed Returns or the SST Certified Service Provider services are
       required to setup their funding configuration before Avalara can begin filing tax returns on their
@@ -6263,7 +4949,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param id_ [int] The unique ID number of this funding request
       :param businessUnit [POABusinessUnit] The company's business unit (See POABusinessUnit::* for a list of allowable values)
       :param subscriptionType [POASubscriptionType] The company's subscription type (See POASubscriptionType::* for a list of allowable values)
@@ -6271,23 +4957,17 @@ class Mixin:
     """
 
     def activate_funding_request(self, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/fundingrequests/{}/widget'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/fundingrequests/{}/widget'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve status about a funding setup request
-    
+
     This API is available by invitation only.
       Companies that use the Avalara Managed Returns or the SST Certified Service Provider services are
       required to setup their funding configuration before Avalara can begin filing tax returns on their
@@ -6301,7 +4981,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param id_ [int] The unique ID number of this funding request
       :param businessUnit [POABusinessUnit] The company's business unit (See POABusinessUnit::* for a list of allowable values)
       :param subscriptionType [POASubscriptionType] The company's subscription type (See POASubscriptionType::* for a list of allowable values)
@@ -6309,86 +4989,65 @@ class Mixin:
     """
 
     def funding_request_status(self, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/fundingrequests/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/fundingrequests/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete all classifications for an item
-    
+
     Delete all the classifications for a given item.
       A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this item.
       :param itemId [int] The ID of the item you wish to delete the classifications.
       :return ErrorDetail
     """
 
     def batch_delete_item_classifications(self, companyId, itemId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.delete(
-            '{}/api/v2/companies/{}/items/{}/classifications'.format(
-                self.base_url, companyId, itemId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete all parameters for an item
-    
+
     Delete all the parameters for a given item.
       Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this item.
       :param itemId [int] The ID of the item you wish to delete the parameters.
       :return ErrorDetail
     """
 
     def batch_delete_item_parameters(self, companyId, itemId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/items/{}/parameters'.format(
-                self.base_url, companyId, itemId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Bulk upload items from a product catalog
-    
+
     Create/Update one or more item objects attached to this company.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -6398,39 +5057,31 @@ class Mixin:
       The tax code takes precedence over the tax code id if both are provided.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this items.
       :param model [ItemBulkUploadInputModel] The items you wish to upload.
       :return ItemBulkUploadOutputModel
     """
 
     def bulk_upload_items(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/items/upload'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/items/upload'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Add classifications to an item.
-    
+
     Add classifications to an item.
       A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
       An item may only have one classification per tax system.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The company id.
       :param itemId [int] The item id.
       :param model [ItemClassificationInputModel] The item classifications you wish to create.
@@ -6438,25 +5089,17 @@ class Mixin:
     """
 
     def create_item_classifications(self, companyId, itemId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/items/{}/classifications'.format(
-                self.base_url, companyId, itemId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Add parameters to an item.
-    
+
     Add parameters to an item.
       Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
@@ -6465,7 +5108,7 @@ class Mixin:
       Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this item parameter.
       :param itemId [int] The item id.
       :param model [ItemParameterModel] The item parameters you wish to create.
@@ -6473,25 +5116,17 @@ class Mixin:
     """
 
     def create_item_parameters(self, companyId, itemId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/items/{}/parameters'.format(
-                self.base_url, companyId, itemId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new item
-    
+
     Creates one or more new item objects attached to this company.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -6501,35 +5136,29 @@ class Mixin:
       The tax code takes precedence over the tax code id if both are provided.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this item.
       :param model [ItemModel] The item you wish to create.
       :return ItemModel
     """
 
     def create_items(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create tags for a item
-    
+
     Creates one or more new `Tag` objects attached to this Item.
       Item tags puts multiple labels for an item. So that item can be easily grouped by these tags.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that defined these items
       :param itemId [int] The ID of the item as defined by the company that owns this tag.
       :param model [ItemTagDetailModel] Tags you wish to associate with the Item
@@ -6537,57 +5166,41 @@ class Mixin:
     """
 
     def create_item_tags(self, companyId, itemId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/items/{}/tags'.format(
-                self.base_url, companyId, itemId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new tax code classification request
-    
+
     Creates a new tax code classification request.
       Avalara AvaTax system tax codes represent various goods and services classified by industry or consumer categories and
       major physical similarities. Taxability rules are associated with tax codes. Customers can map their Items to tax codes,
       allowing them to take advantage of thousands of tax rules in the AvaTax engine and resulting in accurate taxability determinations.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company creating this request.
       :param model [ItemTaxCodeClassificationRequestInputModel] The request you wish to create.
       :return ItemTaxCodeClassificationRequestOutputModel
     """
 
     def create_tax_code_classification_request(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/classificationrequests/taxcode'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/classificationrequests/taxcode'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single item
-    
+
     Deletes the item object at this URL.
       Items are a way of separating your tax calculation process from your tax configuration details.
       Use this endpoint to delete an existing item with item code.
@@ -6602,32 +5215,24 @@ class Mixin:
       * Replace '"' with '\_-ava22-\_' For example: 'Item"Code' becomes 'Item_-ava22-_Code'
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this item.
       :param itemCode [string] The code of the item you want to delete.
       :return ErrorDetail
     """
 
     def delete_catalogue_item(self, companyId, itemCode):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/itemcatalogue/{}'.format(
-                self.base_url, companyId, itemCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/itemcatalogue/{}'.format(self.base_url, companyId, itemCode),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single item
-    
+
     Deletes the item object at this URL.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -6637,38 +5242,30 @@ class Mixin:
       Deleting an item will also delete the parameters and classifications associated with that item.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this item.
       :param id_ [int] The ID of the item you wish to delete.
       :return ErrorDetail
     """
 
     def delete_item(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/items/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single item classification.
-    
+
     Delete a single item classification.
       A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The company id.
       :param itemId [int] The item id.
       :param id_ [int] The item classification id.
@@ -6676,32 +5273,25 @@ class Mixin:
     """
 
     def delete_item_classification(self, companyId, itemId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.delete(
-            '{}/api/v2/companies/{}/items/{}/classifications/{}'.format(
-                self.base_url, companyId, itemId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single item parameter
-    
+
     Delete a single item parameter.
       Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The company id
       :param itemId [int] The item id
       :param id_ [int] The parameter id
@@ -6709,30 +5299,23 @@ class Mixin:
     """
 
     def delete_item_parameter(self, companyId, itemId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.delete(
-            '{}/api/v2/companies/{}/items/{}/parameters/{}'.format(
-                self.base_url, companyId, itemId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete item tag by id
-    
+
     Deletes the `Tag` object of an Item at this URL.
       Item tags puts multiple labels for an item. So that item can be easily grouped by these tags.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that defined these items
       :param itemId [int] The ID of the item as defined by the company that owns this tag.
       :param itemTagDetailId [int] The ID of the item tag detail you wish to delete.
@@ -6740,55 +5323,40 @@ class Mixin:
     """
 
     def delete_item_tag(self, companyId, itemId, itemTagDetailId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.delete(
-            '{}/api/v2/companies/{}/items/{}/tags/{}'.format(
-                self.base_url, companyId, itemId, itemTagDetailId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/items/{}/tags/{}'.format(self.base_url, companyId, itemId, itemTagDetailId),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete all item tags
-    
+
     Deletes all `Tags` objects of an Item at this URL.
       Item tags puts multiple labels for an item. So that item can be easily grouped by these tags.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that defined these items.
       :param itemId [int] The ID of the item as defined by the company that owns this tag.
       :return ErrorDetail
     """
 
     def delete_item_tags(self, companyId, itemId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/items/{}/tags'.format(
-                self.base_url, companyId, itemId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Get the status of classification requests for a company
-    
+
     Get the status of tax code classification requests for a company.
       Avalara AvaTax system tax codes represent various goods and services classified by industry or consumer categories and
       major physical similarities. Taxability rules are associated with tax codes. Customers can map their Items to tax codes,
@@ -6796,7 +5364,7 @@ class Mixin:
       Enable includeClassificationDetails flag to get details of classification request status.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that defined these items
       :param includeClassificationDetails [boolean] A Boolean field that specifies whether to get a detailed classification status.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* classificationDetails, totalItems, status
@@ -6807,25 +5375,17 @@ class Mixin:
     """
 
     def get_classification_status(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/classificationrequests/taxcode'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/classificationrequests/taxcode'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single item
-    
+
     Get the `Item` object identified by this URL.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -6834,7 +5394,7 @@ class Mixin:
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns this item object
       :param id_ [int] The primary key of this item
       :param include [string] A comma separated list of additional data to retrieve.
@@ -6842,31 +5402,23 @@ class Mixin:
     """
 
     def get_item(self, companyId, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/items/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single item classification.
-    
+
     Retrieve a single item classification.
       A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The company id.
       :param itemId [int] The item id.
       :param id_ [int] The item classification id.
@@ -6874,32 +5426,25 @@ class Mixin:
     """
 
     def get_item_classification(self, companyId, itemId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/items/{}/classifications/{}'.format(
-                self.base_url, companyId, itemId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single item parameter
-    
+
     Retrieve a single item parameter.
       Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The company id
       :param itemId [int] The item id
       :param id_ [int] The parameter id
@@ -6907,30 +5452,23 @@ class Mixin:
     """
 
     def get_item_parameter(self, companyId, itemId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/items/{}/parameters/{}'.format(
-                self.base_url, companyId, itemId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve tags for an item
-    
+
     Get the `Tag` objects of an Item identified by this URL.
       Item tags puts multiple labels for an item. So that item can be easily grouped by these tags.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that defined these items
       :param itemId [int] The ID of the item as defined by the company that owns this tag.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* tagName
@@ -6940,25 +5478,17 @@ class Mixin:
     """
 
     def get_item_tags(self, companyId, itemId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/items/{}/tags'.format(
-                self.base_url, companyId, itemId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve premium classification for a company's item based on its ItemCode and SystemCode.
-    
+
     Retrieves the premium classification for an ItemCode and SystemCode.
       NOTE: If your item code contains any of these characters /, +, ?,",' ,% or #, please use the following encoding before making a request:
       * Replace '/' with '\_-ava2f-\_' For example: 'Item/Code' becomes 'Item_-ava2f-_Code'
@@ -6970,7 +5500,7 @@ class Mixin:
       * Replace '"' with '\_-ava22-\_' For example: 'Item"Code' becomes 'Item_-ava22-_Code'
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns this item object
       :param itemCode [string] The ItemCode of the item for which you want to retrieve premium classification
       :param systemCode [string] The SystemCode for which you want to retrieve premium classification
@@ -6978,32 +5508,26 @@ class Mixin:
     """
 
     def get_premium_classification(self, companyId, itemCode, systemCode):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/items/{}/premiumClassification/{}'.format(
-                self.base_url, companyId, itemCode, systemCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/items/{}/premiumClassification/{}'.format(self.base_url, companyId, itemCode,
+                                                                              systemCode),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Get tax code recommendations
-    
+
     Get tax code recommendations.
       Avalara AvaTax system tax codes represent various goods and services classified by industry or consumer categories and
       major physical similarities. Taxability rules are associated with tax codes. Customers can map their Items to tax codes,
       allowing them to take advantage of thousands of tax rules in the AvaTax engine and resulting in accurate taxability determinations.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that defined these items
       :param requestId [int] The ID of the classification request
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* recommendations, url
@@ -7014,25 +5538,19 @@ class Mixin:
     """
 
     def get_tax_code_recommendations(self, companyId, requestId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/classificationrequests/taxcode/{}/recommendations'.format(
-                self.base_url, companyId, requestId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/classificationrequests/taxcode/{}/recommendations'.format(self.base_url, companyId,
+                                                                                              requestId),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve Restrictions for Item by CountryOfImport
-    
+
     Retrieve Restrictions for Item by CountryOfImport. This API will only return import restriction for the countryOfImport.
       NOTE: If your item code contains any of these characters /, +, ? or a space, please use the following encoding before making a request:
       * Replace '/' with '\_-ava2f-\_' For example: 'Item/Code' becomes 'Item_-ava2f-_Code'
@@ -7044,7 +5562,7 @@ class Mixin:
       * Replace '"' with '\_-ava22-\_' For example: 'Item"Code' becomes 'Item_-ava22-_Code'
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns this item object
       :param itemCode [string] ItemCode for the item
       :param countryOfImport [string] Country for which you want the restrictions for the Item.
@@ -7054,28 +5572,20 @@ class Mixin:
       :return FetchResult
     """
 
-    def list_import_restrictions(
-            self, companyId, itemCode, countryOfImport, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def list_import_restrictions(self, companyId, itemCode, countryOfImport, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/items/{}/restrictions/import/{}'.format(
-                self.base_url, companyId, itemCode, countryOfImport
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/items/{}/restrictions/import/{}'.format(self.base_url, companyId, itemCode,
+                                                                            countryOfImport),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve classifications for an item.
-    
+
     List classifications for an item.
       A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
@@ -7083,7 +5593,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` classifications.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The company id.
       :param itemId [int] The item id.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* productCode, systemCode
@@ -7094,25 +5604,17 @@ class Mixin:
     """
 
     def list_item_classifications(self, companyId, itemId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/items/{}/classifications'.format(
-                self.base_url, companyId, itemId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve parameters for an item
-    
+
     List parameters for an item.
       Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
@@ -7121,7 +5623,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The company id
       :param itemId [int] The item id
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* name, unit, isNeededForCalculation, isNeededForReturns, isNeededForClassification
@@ -7132,25 +5634,17 @@ class Mixin:
     """
 
     def list_item_parameters(self, companyId, itemId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/items/{}/parameters'.format(
-                self.base_url, companyId, itemId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve items for this company
-    
+
     List all items defined for the current company.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -7166,7 +5660,7 @@ class Mixin:
       * Tags
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that defined these items
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, upc, classifications, parameters, tags
       :param include [string] A comma separated list of additional data to retrieve.
@@ -7178,23 +5672,17 @@ class Mixin:
     """
 
     def list_items_by_company(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all items
-    
+
     Get multiple item objects across all companies.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -7205,7 +5693,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, upc, classifications, parameters, tags
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -7215,23 +5703,17 @@ class Mixin:
     """
 
     def query_items(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/items'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/items'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all items associated with given tag
-    
+
     Get multiple item objects associated with given tag.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -7242,7 +5724,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that defined these items.
       :param tag [string] The master tag to be associated with item.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, upc, classifications, parameters, tags
@@ -7254,57 +5736,41 @@ class Mixin:
     """
 
     def query_items_by_tag(self, companyId, tag, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/items/bytags/{}'.format(
-                self.base_url, companyId, tag
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/items/bytags/{}'.format(self.base_url, companyId, tag),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create or update items from a product catalog.
-    
+
     Creates/updates one or more item objects with additional properties and the AvaTax category attached to this company.
       Items are a way of separating your tax calculation process from your tax configuration details. Use this endpoint to create
       a new or update an existing item. This can be used to sync the items with Avalara. For example, an accounting software
       system can use this to sync all their items from an ERP with Avalara.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this item.
       :param model [ItemCatalogueInputModel] The items you want to create or update.
       :return ItemCatalogueOutputModel
     """
 
     def sync_item_catalogue(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/itemcatalogue'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/itemcatalogue'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Sync items from a product catalog
-    
+
     Syncs a list of items with AvaTax without waiting for them to be created. It is ideal for syncing large product catalogs
       with AvaTax.
       Any invalid or duplicate items will be ignored. To diagnose why an item is not created, use the normal create transaction API to receive validation information.
@@ -7316,32 +5782,24 @@ class Mixin:
       team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this item.
       :param model [SyncItemsRequestModel] The request object.
       :return SyncItemsResponseModel
     """
 
     def sync_items(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/items/sync'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/items/sync'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single item
-    
+
     Replace the existing `Item` object at this URL with an updated object.
       Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
       can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
@@ -7353,7 +5811,7 @@ class Mixin:
       The tax code takes precedence over the tax code id if both are provided.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that this item belongs to.
       :param id_ [int] The ID of the item you wish to update
       :param model [ItemModel] The item object you wish to update.
@@ -7361,32 +5819,24 @@ class Mixin:
     """
 
     def update_item(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/items/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update an item classification.
-    
+
     Update an item classification.
       A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems which may have different tax rates for a product.
       When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
       An item may only have one classification per tax system.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The company id.
       :param itemId [int] The item id.
       :param id_ [int] The item classification id.
@@ -7395,32 +5845,25 @@ class Mixin:
     """
 
     def update_item_classification(self, companyId, itemId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.put(
-            '{}/api/v2/companies/{}/items/{}/classifications/{}'.format(
-                self.base_url, companyId, itemId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update an item parameter
-    
+
     Update an item parameter.
       Some items can be taxed differently depending on the properties of that item, such as the item grade or by a particular measurement of that item. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The company id.
       :param itemId [int] The item id
       :param id_ [int] The item parameter id
@@ -7429,25 +5872,18 @@ class Mixin:
     """
 
     def update_item_parameter(self, companyId, itemId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.put(
-            '{}/api/v2/companies/{}/items/{}/parameters/{}'.format(
-                self.base_url, companyId, itemId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create one or more overrides
-    
+
     Creates one or more jurisdiction override objects for this account.
       A Jurisdiction Override is a configuration setting that allows you to select the taxing
       jurisdiction for a specific address. If you encounter an address that is on the boundary
@@ -7455,61 +5891,45 @@ class Mixin:
       to switch this address to use different taxing jurisdictions.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param accountId [int] The ID of the account that owns this override
       :param model [JurisdictionOverrideModel] The jurisdiction override objects to create
       :return JurisdictionOverrideModel
     """
 
     def create_jurisdiction_overrides(self, accountId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/accounts/{}/jurisdictionoverrides'.format(
-                self.base_url, accountId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single override
-    
+
     Marks the item object at this URL as deleted.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param accountId [int] The ID of the account that owns this override
       :param id_ [int] The ID of the override you wish to delete
       :return ErrorDetail
     """
 
     def delete_jurisdiction_override(self, accountId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(
-                self.base_url, accountId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single override
-    
+
     Get the item object identified by this URL.
       A Jurisdiction Override is a configuration setting that allows you to select the taxing
       jurisdiction for a specific address. If you encounter an address that is on the boundary
@@ -7517,32 +5937,24 @@ class Mixin:
       to switch this address to use different taxing jurisdictions.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param accountId [int] The ID of the account that owns this override
       :param id_ [int] The primary key of this override
       :return JurisdictionOverrideModel
     """
 
     def get_jurisdiction_override(self, accountId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(
-                self.base_url, accountId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve overrides for this account
-    
+
     List all jurisdiction override objects defined for this account.
       A Jurisdiction Override is a configuration setting that allows you to select the taxing
       jurisdiction for a specific address. If you encounter an address that is on the boundary
@@ -7552,7 +5964,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param accountId [int] The ID of the account that owns this override
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* country, Jurisdictions
       :param include [string] A comma separated list of additional data to retrieve.
@@ -7563,25 +5975,17 @@ class Mixin:
     """
 
     def list_jurisdiction_overrides_by_account(self, accountId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/accounts/{}/jurisdictionoverrides'.format(
-                self.base_url, accountId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all overrides
-    
+
     Get multiple jurisdiction override objects across all companies.
       A Jurisdiction Override is a configuration setting that allows you to select the taxing
       jurisdiction for a specific address. If you encounter an address that is on the boundary
@@ -7591,7 +5995,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* country, Jurisdictions
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -7601,27 +6005,21 @@ class Mixin:
     """
 
     def query_jurisdiction_overrides(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/jurisdictionoverrides'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/jurisdictionoverrides'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single jurisdictionoverride
-    
+
     Replace the existing jurisdictionoverride object at this URL with an updated object.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param accountId [int] The ID of the account that this jurisdictionoverride belongs to.
       :param id_ [int] The ID of the jurisdictionoverride you wish to update
       :param model [JurisdictionOverrideModel] The jurisdictionoverride object you wish to update.
@@ -7629,25 +6027,17 @@ class Mixin:
     """
 
     def update_jurisdiction_override(self, accountId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(
-                self.base_url, accountId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Add parameters to a location.
-    
+
     Add parameters to a location.
       Some locations can be taxed differently depending on the properties of that location. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to a location will be used by default in tax calculation but will not show on the transaction line referencing the location.
@@ -7656,7 +6046,7 @@ class Mixin:
       Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this location parameter.
       :param locationId [int] The location id.
       :param model [LocationParameterModel] The location parameters you wish to create.
@@ -7664,90 +6054,67 @@ class Mixin:
     """
 
     def create_location_parameters(self, companyId, locationId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/locations/{}/parameters'.format(
-                self.base_url, companyId, locationId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new location
-    
+
     Create one or more new location objects attached to this company.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this location.
       :param model [LocationModel] The location you wish to create.
       :return LocationModel
     """
 
     def create_locations(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/locations'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single location
-    
+
     Mark the location object at this URL as deleted.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this location.
       :param id_ [int] The ID of the location you wish to delete.
       :return ErrorDetail
     """
 
     def delete_location(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/locations/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single location parameter
-    
+
     Delete a single location parameter.
       Some locations can be taxed differently depending on the properties of that location. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to a location will be used by default in tax calculation but will not show on the transaction line referencing the location.
       A parameter specified on a transaction line will override a location parameter if they share the same parameter name.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The company id
       :param locationId [int] The location id
       :param id_ [int] The parameter id
@@ -7755,25 +6122,18 @@ class Mixin:
     """
 
     def delete_location_parameter(self, companyId, locationId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.delete(
-            '{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(
-                self.base_url, companyId, locationId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single location
-    
+
     Get the location object identified by this URL.
       An 'Location' represents a physical address where a company does business.
       Many taxing authorities require that you define a list of all locations where your company does business.
@@ -7784,7 +6144,7 @@ class Mixin:
       * parameters
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
       :param include [string] A comma separated list of additional data to retrieve.
@@ -7792,32 +6152,24 @@ class Mixin:
     """
 
     def get_location(self, companyId, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/locations/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single company location parameter
-    
+
     Retrieve a single location parameter.
       Some locations can be taxed differently depending on the properties of that location. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to a location will be used by default in tax calculation but will not show on the transaction line referencing the location.
       A parameter specified on a transaction line will override a location parameter if they share the same parameter name.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param companyId [int] The company id
       :param locationId [int] The location id
       :param id_ [int] The parameter id
@@ -7825,25 +6177,18 @@ class Mixin:
     """
 
     def get_location_parameter(self, companyId, locationId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(
-                self.base_url, companyId, locationId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve parameters for a location
-    
+
     List parameters for a location.
       Some locations can be taxed differently depending on the properties of that location. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to a location will be used by default in tax calculation but will not show on the transaction line referencing the location.
@@ -7852,7 +6197,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param companyId [int] The company id
       :param locationId [int] The ID of the location
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* name, unit
@@ -7863,25 +6208,18 @@ class Mixin:
     """
 
     def list_location_parameters(self, companyId, locationId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/locations/{}/parameters'.format(
-                self.base_url, companyId, locationId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve locations for this company
-    
+
     List all location objects defined for this company.
       An 'Location' represents a physical address where a company does business.
       Many taxing authorities require that you define a list of all locations where your company does business.
@@ -7894,7 +6232,7 @@ class Mixin:
       * parameters
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param companyId [int] The ID of the company that owns these locations
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isMarketplaceOutsideUsa, settings, parameters
       :param include [string] A comma separated list of additional data to retrieve.
@@ -7905,25 +6243,17 @@ class Mixin:
     """
 
     def list_locations_by_company(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/locations'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all locations
-    
+
     Get multiple location objects across all companies.
       An 'Location' represents a physical address where a company does business.
       Many taxing authorities require that you define a list of all locations where your company does business.
@@ -7936,7 +6266,7 @@ class Mixin:
       * parameters
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isMarketplaceOutsideUsa, settings, parameters
       :param include [string] A comma separated list of additional data to retrieve. You may specify `LocationSettings` to retrieve location settings.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -7946,29 +6276,23 @@ class Mixin:
     """
 
     def query_locations(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/locations'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/locations'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single location
-    
+
     Replace the existing location object at this URL with an updated object.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that this location belongs to.
       :param id_ [int] The ID of the location you wish to update
       :param model [LocationModel] The location you wish to update.
@@ -7976,32 +6300,24 @@ class Mixin:
     """
 
     def update_location(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/locations/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a location parameter
-    
+
     Update a location parameter.
       Some locations can be taxed differently depending on the properties of that location. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to a location will be used by default in tax calculation but will not show on the transaction line referencing the location.
       A parameter specified on a transaction line will override a location parameter if they share the same parameter name.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The company id.
       :param locationId [int] The location id
       :param id_ [int] The location parameter id
@@ -8010,56 +6326,41 @@ class Mixin:
     """
 
     def update_location_parameter(self, companyId, locationId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.put(
-            '{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(
-                self.base_url, companyId, locationId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Validate the location against local requirements
-    
+
     Returns validation information for this location.
       This API call is intended to compare this location against the currently known taxing authority rules and regulations,
       and provide information about what additional work is required to completely setup this location.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param companyId [int] The ID of the company that owns this location
       :param id_ [int] The primary key of this location
       :return LocationValidationModel
     """
 
     def validate_location(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/locations/{}/validate'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/locations/{}/validate'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Adjust a MultiDocument transaction
-    
+
     Adjusts the current MultiDocument transaction uniquely identified by this URL.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
@@ -8076,7 +6377,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in this fetch call
@@ -8084,29 +6385,18 @@ class Mixin:
       :return MultiDocumentModel
     """
 
-    def adjust_multi_document_transaction(
-            self, code, type, model, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/transactions/multidocument/{}/type/{}/adjust'.format(
-                self.base_url, code, type
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+    def adjust_multi_document_transaction(self, code, type, model, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/adjust'.format(self.base_url, code, type),
+                             auth=self.auth, headers=self.client_header, params=include, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Get audit information about a MultiDocument transaction
-    
+
     Retrieve audit information about a MultiDocument transaction stored in AvaTax.
       The audit API retrieves audit information related to a specific MultiDocument transaction. This audit
       information includes the following:
@@ -8128,32 +6418,24 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :return AuditMultiDocumentModel
     """
 
     def audit_multi_document_transaction(self, code, type):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/transactions/multidocument/{}/type/{}/audit'.format(
-                self.base_url, code, type
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}/audit'.format(self.base_url, code, type),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Commit a MultiDocument transaction
-    
+
     Marks a list of transactions by changing its status to `Committed`.
       Transactions that are committed are available to be reported to a tax authority by Avalara Managed Returns.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
@@ -8169,31 +6451,23 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param model [CommitMultiDocumentModel] The commit request you wish to execute
       :return MultiDocumentModel
     """
 
     def commit_multi_document_transaction(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/transactions/multidocument/commit'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/transactions/multidocument/commit'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new MultiDocument transaction
-    
+
     Records a new MultiDocument transaction in AvaTax.
       A traditional transaction requires exactly two parties: a seller and a buyer. MultiDocument transactions can
       involve a marketplace of vendors, each of which contributes some portion of the final transaction. Within
@@ -8228,31 +6502,24 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateMultiDocumentModel] the multi document transaction model
       :return MultiDocumentModel
     """
 
     def create_multi_document_transaction(self, model, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/transactions/multidocument'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/transactions/multidocument'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, params=include, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a MultiDocument transaction
-    
+
     Get the current MultiDocument transaction identified by this URL.
       If this transaction was adjusted, the return value of this API will be the current transaction with this code.
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
@@ -8272,35 +6539,25 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param code [string] The multidocument code to retrieve
       :param type [DocumentType] The transaction type to retrieve (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in the response after transaction is created
       :return MultiDocumentModel
     """
 
-    def get_multi_document_transaction_by_code_and_type(
-            self, code, type, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/transactions/multidocument/{}/type/{}'.format(
-                self.base_url, code, type
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+    def get_multi_document_transaction_by_code_and_type(self, code, type, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}'.format(self.base_url, code, type),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a MultiDocument transaction by ID
-    
+
     Get the unique MultiDocument transaction identified by this URL.
       A traditional transaction requires exactly two parties: a seller and a buyer. MultiDocument transactions can
       involve a marketplace of vendors, each of which contributes some portion of the final transaction. Within
@@ -8327,32 +6584,24 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param id_ [int] The unique ID number of the MultiDocument transaction to retrieve
       :param include [string] Specifies objects to include in the response after transaction is created
       :return MultiDocumentModel
     """
 
     def get_multi_document_transaction_by_id(self, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/transactions/multidocument/{}'.format(
-                self.base_url, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/transactions/multidocument/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all MultiDocument transactions
-    
+
     List all MultiDocument transactions within this account.
       This endpoint is limited to returning 1,000 MultiDocument transactions at a time. To retrieve more than 1,000 MultiDocument
       transactions, please use the pagination features of the API.
@@ -8377,7 +6626,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* documents
       :param include [string] Specifies objects to include in the response after transaction is created
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -8387,23 +6636,17 @@ class Mixin:
     """
 
     def list_multi_document_transactions(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/transactions/multidocument'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/transactions/multidocument'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a refund for a MultiDocument transaction
-    
+
     Create a refund for a MultiDocument transaction.
       A traditional transaction requires exactly two parties: a seller and a buyer. MultiDocument transactions can
       involve a marketplace of vendors, each of which contributes some portion of the final transaction. Within
@@ -8441,7 +6684,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param code [string] The code of this MultiDocument transaction
       :param type [DocumentType] The type of this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -8449,29 +6692,18 @@ class Mixin:
       :return MultiDocumentModel
     """
 
-    def refund_multi_document_transaction(
-            self, code, type, model, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/transactions/multidocument/{}/type/{}/refund'.format(
-                self.base_url, code, type
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+    def refund_multi_document_transaction(self, code, type, model, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/refund'.format(self.base_url, code, type),
+                             auth=self.auth, headers=self.client_header, params=include, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Verify a MultiDocument transaction
-    
+
     Verifies that the MultiDocument transaction uniquely identified by this URL matches certain expected values.
       If the transaction does not match these expected values, this API will return an error code indicating which value did not match.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
@@ -8486,31 +6718,23 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param model [VerifyMultiDocumentModel] Information from your accounting system to verify against this MultiDocument transaction as it is stored in AvaTax
       :return MultiDocumentModel
     """
 
     def verify_multi_document_transaction(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/transactions/multidocument/verify'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/transactions/multidocument/verify'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Void a MultiDocument transaction
-    
+
     Voids the current transaction uniquely identified by this URL.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
@@ -8527,7 +6751,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param code [string] The transaction code for this MultiDocument transaction
       :param type [DocumentType] The transaction type for this MultiDocument transaction (See DocumentType::* for a list of allowable values)
       :param model [VoidTransactionModel] The void request you wish to execute
@@ -8535,25 +6759,17 @@ class Mixin:
     """
 
     def void_multi_document_transaction(self, code, type, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/transactions/multidocument/{}/type/{}/void'.format(
-                self.base_url, code, type
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/void'.format(self.base_url, code, type),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new nexus
-    
+
     Creates one or more new nexus declarations attached to this company.
       The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
       taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
@@ -8570,30 +6786,24 @@ class Mixin:
       of calculating tax for a location.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this nexus.
       :param model [NexusModel] The nexus you wish to create.
       :return NexusModel
     """
 
     def create_nexus(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Add parameters to a nexus.
-    
+
     Add parameters to the nexus.
       Some tax calculation and reporting are different depending on the properties of the nexus, such as isRemoteSeller. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an nexus will be used by default in tax calculation but will not show on the transaction line referencing the nexus.
@@ -8602,7 +6812,7 @@ class Mixin:
       Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this nexus parameter.
       :param nexusId [int] The nexus id.
       :param model [NexusParameterDetailModel] The nexus parameters you wish to create.
@@ -8610,25 +6820,17 @@ class Mixin:
     """
 
     def create_nexus_parameters(self, companyId, nexusId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/nexus/{}/parameters'.format(
-                self.base_url, companyId, nexusId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Creates nexus for a list of addresses.
-    
+
     This call is intended to simplify adding all applicable nexus to a company, for an address or addresses. Calling this
       API declares nexus for this company, for the list of addresses provided,
       for the date range provided. You may also use this API to extend effective date on an already-declared nexus.
@@ -8642,32 +6844,24 @@ class Mixin:
       of calculating tax for a location.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that will own this nexus.
       :param model [DeclareNexusByAddressModel] The nexus you wish to create.
       :return NexusByAddressModel
     """
 
     def declare_nexus_by_address(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/nexus/byaddress'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/nexus/byaddress'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single nexus
-    
+
     Marks the existing nexus object at this URL as deleted.
       The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
       taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
@@ -8676,7 +6870,7 @@ class Mixin:
       of calculating tax for a location.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this nexus.
       :param id_ [int] The ID of the nexus you wish to delete.
       :param cascadeDelete [boolean] If true, deletes all the child nexus if they exist along with parent nexus
@@ -8684,32 +6878,24 @@ class Mixin:
     """
 
     def delete_nexus(self, companyId, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/nexus/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=include,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single nexus parameter
-    
+
     Delete a single nexus parameter.
       Some tax calculation and reporting are different depending on the properties of the nexus, such as isRemoteSeller. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an nexus will be used by default in tax calculation but will not show on the transaction line referencing the nexus.
       A parameter specified on a transaction line will override an nexus parameter if they share the same parameter name.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The company id
       :param nexusId [int] The nexus id
       :param id_ [int] The parameter id
@@ -8717,57 +6903,42 @@ class Mixin:
     """
 
     def delete_nexus_parameter(self, companyId, nexusId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.delete(
-            '{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(
-                self.base_url, companyId, nexusId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete all parameters for an nexus
-    
+
     Delete all the parameters for a given nexus.
       Some tax calculation and reporting are different depending on the properties of the nexus, such as isRemoteSeller. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an nexus will be used by default in tax calculation but will not show on the transaction line referencing the nexus.
       A parameter specified on a transaction line will override an nexus parameter if they share the same parameter name.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this nexus.
       :param nexusId [int] The ID of the nexus you wish to delete the parameters.
       :return ErrorDetail
     """
 
     def delete_nexus_parameters(self, companyId, nexusId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/nexus/{}/parameters'.format(
-                self.base_url, companyId, nexusId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single nexus
-    
+
     Get the nexus object identified by this URL.
       The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
       taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
@@ -8776,7 +6947,7 @@ class Mixin:
        * Parameters
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns this nexus object
       :param id_ [int] The primary key of this nexus
       :param include [string] 
@@ -8784,25 +6955,17 @@ class Mixin:
     """
 
     def get_nexus(self, companyId, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/nexus/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List company nexus related to a tax form
-    
+
     Retrieves a list of nexus related to a tax form.
       The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
       taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
@@ -8814,7 +6977,7 @@ class Mixin:
        * Parameters
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns this nexus object
       :param formCode [string] The form code that we are looking up the nexus for
       :param include [string] 
@@ -8822,32 +6985,24 @@ class Mixin:
     """
 
     def get_nexus_by_form_code(self, companyId, formCode, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/nexus/byform/{}'.format(
-                self.base_url, companyId, formCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/nexus/byform/{}'.format(self.base_url, companyId, formCode),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single nexus parameter
-    
+
     Retrieve a single nexus parameter.
       Some tax calculation and reporting are different depending on the properties of the nexus, such as isRemoteSeller.In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an nexus will be used by default in tax calculation but will not show on the transaction line referencing the nexus.
       A parameter specified on a transaction line will override an nexus parameter if they share the same parameter name.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The company id
       :param nexusId [int] The nexus id
       :param id_ [int] The parameter id
@@ -8855,25 +7010,18 @@ class Mixin:
     """
 
     def get_nexus_parameter(self, companyId, nexusId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(
-                self.base_url, companyId, nexusId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve nexus for this company
-    
+
     List all nexus objects defined for this company.
       The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
       taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
@@ -8884,7 +7032,7 @@ class Mixin:
        * Parameters
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns these nexus objects
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxTypeGroup, taxAuthorityId, taxName, parameters, taxableNexus
       :param include [string] A comma separated list of additional data to retrieve.
@@ -8895,23 +7043,17 @@ class Mixin:
     """
 
     def list_nexus_by_company(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve nexus for this company By TaxTypeGroup
-    
+
     List all nexus objects defined for this company filtered by TaxTypeGroup.
       The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
       taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
@@ -8922,7 +7064,7 @@ class Mixin:
        * Parameters
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns these nexus objects
       :param taxTypeGroup [string] Name of TaxTypeGroup to filter by
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxTypeGroup, taxAuthorityId, taxName, parameters, taxableNexus
@@ -8933,28 +7075,19 @@ class Mixin:
       :return FetchResult
     """
 
-    def list_nexus_by_company_and_tax_type_group(
-            self, companyId, taxTypeGroup, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def list_nexus_by_company_and_tax_type_group(self, companyId, taxTypeGroup, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/nexus/byTaxTypeGroup/{}'.format(
-                self.base_url, companyId, taxTypeGroup
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/nexus/byTaxTypeGroup/{}'.format(self.base_url, companyId, taxTypeGroup),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve parameters for a nexus
-    
+
     List parameters for a nexus.
       Some tax calculation and reporting are different depending on the properties of the nexus, such as isRemoteSeller. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to an nexus will be used by default in tax calculation but will not show on the transaction line referencing the nexus.
@@ -8963,7 +7096,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The company id
       :param nexusId [int] The nexus id
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* name, unit
@@ -8974,25 +7107,17 @@ class Mixin:
     """
 
     def list_nexus_parameters(self, companyId, nexusId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/nexus/{}/parameters'.format(
-                self.base_url, companyId, nexusId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all nexus
-    
+
     Get multiple nexus objects across all companies.
       The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
       taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
@@ -9003,7 +7128,7 @@ class Mixin:
        * Parameters
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* streamlinedSalesTax, isSSTActive, taxTypeGroup, taxAuthorityId, taxName, parameters, taxableNexus
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -9013,23 +7138,17 @@ class Mixin:
     """
 
     def query_nexus(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/nexus'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/nexus'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single nexus
-    
+
     Replace the existing nexus declaration object at this URL with an updated object.
       The concept of Nexus indicates a place where your company is legally obligated to collect and remit transactional
       taxes. The legal requirements for nexus may vary per country and per jurisdiction; please seek advice from your
@@ -9046,7 +7165,7 @@ class Mixin:
       of calculating tax for a location.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that this nexus belongs to.
       :param id_ [int] The ID of the nexus you wish to update
       :param model [NexusModel] The nexus object you wish to update.
@@ -9054,32 +7173,24 @@ class Mixin:
     """
 
     def update_nexus(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/nexus/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update an nexus parameter
-    
+
     Update an nexus parameter.
       Some tax calculation and reporting are different depending on the properties of the nexus, such as isRemoteSeller. In AvaTax, these tax-affecting properties are called "parameters".
       A parameter added to a nexus will be used in tax calculation based on the locationcode and parameter value the transaction state line might have lines added.
       A parameter specified on a transaction line will override an item parameter if they share the same parameter name.????? I dont know about this?
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The company id.
       :param nexusId [int] The nexus id
       :param id_ [int] The nexus parameter id
@@ -9088,135 +7199,100 @@ class Mixin:
     """
 
     def update_nexus_parameter(self, companyId, nexusId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.put(
-            '{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(
-                self.base_url, companyId, nexusId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Creates a new tax notice responsibility type.
-    
+
     This API is available by invitation only and only available for users with Compliance admin access.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param model [CreateNoticeResponsibilityTypeModel] The responsibility type to create
       :return NoticeResponsibilityModel
     """
 
     def create_notice_responsibility_type(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/notices/responsibilities'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/notices/responsibilities'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Creates a new tax notice root cause type.
-    
+
     This API is available by invitation only and only available for users with Compliance admin access.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param model [CreateNoticeRootCauseTypeModel] The root cause type to create
       :return NoticeRootCauseModel
     """
 
     def create_notice_root_cause_type(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/notices/rootcauses'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/notices/rootcauses'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a tax notice responsibility type.
-    
+
     This API is available by invitation only and only available for users with Compliance admin access.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param responsibilityId [int] The unique ID of the responsibility type
       :return ErrorDetail
     """
 
     def delete_notice_responsibility_type(self, responsibilityId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/notices/responsibilities/{}'.format(
-                self.base_url, responsibilityId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/notices/responsibilities/{}'.format(self.base_url, responsibilityId),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a tax notice root cause type.
-    
+
     This API is available by invitation only and only available for users with Compliance admin access.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param rootCauseId [int] The unique ID of the root cause type
       :return ErrorDetail
     """
 
     def delete_notice_root_cause_type(self, rootCauseId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/notices/rootcauses/{}'.format(
-                self.base_url, rootCauseId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/notices/rootcauses/{}'.format(self.base_url, rootCauseId),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Mark a single notification as dismissed.
-    
+
     Marks the notification identified by this URL as dismissed.
       A notification is a message from Avalara that may have relevance to your business. You may want
       to regularly review notifications and then dismiss them when you are certain that you have addressed
@@ -9229,29 +7305,23 @@ class Mixin:
       A Global notification with null accountId and companyId cannot be dismissed and will expire within a given time span.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The id of the notification you wish to mark as dismissed.
       :return NotificationModel
     """
 
     def dismiss_notification(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/notifications/{}/dismiss'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/notifications/{}/dismiss'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single notification.
-    
+
     Retrieve a single notification by its unique ID number.
       A notification is a message from Avalara that may have relevance to your business. You may want
       to regularly review notifications and then dismiss them when you are certain that you have addressed
@@ -9260,29 +7330,23 @@ class Mixin:
       affect you, or a potential issue with your company's tax profile.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The id of the notification to retrieve.
       :return NotificationModel
     """
 
     def get_notification(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/notifications/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/notifications/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all notifications.
-    
+
     List all notifications.
       A notification is a message from Avalara that may have relevance to your business. You may want
       to regularly review notifications and then dismiss them when you are certain that you have addressed
@@ -9293,7 +7357,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -9302,23 +7366,17 @@ class Mixin:
     """
 
     def list_notifications(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/notifications'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/notifications'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Request a new Avalara account
-    
+
     This API is for use by partner provisioning services customers only.
       Avalara invites select partners to refer new customers to the AvaTax service using the onboarding features
       of AvaTax. These partners can create accounts for new customers using this API.
@@ -9334,90 +7392,70 @@ class Mixin:
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API is available by invitation only.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Provisioning:RequestNewAccount].
-    
+
       :param model [NewAccountRequestModel] Information about the account you wish to create and the selected product offerings.
       :return NewAccountModel
     """
 
     def request_new_account(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/accounts/request'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/accounts/request'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Request a new entitilement to an existing customer
-    
+
     This API is for use by partner provisioning services customers only. This will allow the partners to allow
       the add new entitlement to an existing customer
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API is available by invitation only.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Provisioning:RequestNewAccount].
-    
+
       :param id_ [int] The avatax account id of the customer
       :param offer [string] The offer to be added to an already existing customer
       :return OfferModel
     """
 
     def request_new_entitlement(self, id_, offer):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/accounts/{}/entitlements/{}'.format(
-                self.base_url, id_, offer
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/accounts/{}/entitlements/{}'.format(self.base_url, id_, offer),
+                             auth=self.auth, headers=self.client_header, params=None,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new account
-    
+
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Create a single new account object.
       When creating an account object you may attach subscriptions and users as part of the 'Create' call.
       ### Security Policies
       * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param model [AccountModel] The account you wish to create.
       :return AccountModel
     """
 
     def create_account(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/accounts'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/accounts'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create new notifications.
-    
+
     This API is available by invitation only.
       Create a single notification.
       A notification is a message from Avalara that may have relevance to your business. You may want
@@ -9430,90 +7468,95 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [NotificationsAPI:Create].
-    
+
       :param model [NotificationModel] The notifications you wish to create.
       :return NotificationModel
     """
 
     def create_notifications(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/notifications'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/notifications'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
+    Create Avalara-supported subscription (ServiceTypes)
+
+    For Registrar Use Only
+      This API is for use by Avalara Registrar administrative users only.
+      Create one service/subscription object.
+      Returns the newly created Avalara-supported subscription (service) type.
+      This API is intended to be useful for adding new Avalara-supported subscription type (service type).
+      You may always contact Avalara's sales department for information on available products or services.
+      ### Security Policies
+      * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+
+      :param model [SubscriptionTypeModel] The subscription type object you wish to create.
+      :return SubscriptionTypeModel
+    """
+
+    def create_service_types(self, model):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/servicetypes'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
+
+    r"""
+    Swagger Name: AvaTaxClient
+
     Create a new subscription
-    
+
     This API is for use by Avalara Registrar administrative users only.
       Create one or more new subscription objects attached to this account.
       A 'subscription' indicates a licensed subscription to a named Avalara service.
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
       ### Security Policies
       * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param accountId [int] The ID of the account that owns this subscription.
       :param model [SubscriptionModel] The subscription you wish to create.
       :return SubscriptionModel
     """
 
     def create_subscriptions(self, accountId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/accounts/{}/subscriptions'.format(
-                self.base_url, accountId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single account
-    
+
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Delete an account.
       Deleting an account will delete all companies, all account level users and license keys attached to this account.
       ### Security Policies
       * This API requires the user role SystemAdmin.
-    
+
       :param id_ [int] The ID of the account you wish to delete.
       :return ErrorDetail
     """
 
     def delete_account(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/accounts/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/accounts/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single notification.
-    
+
     This API is available by invitation only.
       Delete the existing notification identified by this URL.
       A notification is a message from Avalara that may have relevance to your business. You may want
@@ -9524,60 +7567,97 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [NotificationsAPI:Create].
-    
+
       :param id_ [int] The id of the notification you wish to delete.
       :return ErrorDetail
     """
 
     def delete_notification(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/notifications/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/notifications/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
+    Delete a single Subscription (ServiceTypes) object
+
+    For Registrar Use Only
+      This API is for use by Avalara Registrar administrative users only.
+      Marks the Subscription (ServiceTypes) object identified by this URL as deleted.
+      This API is useful for deleting an existing Avalara-supported subscription type (service type).
+      ### Security Policies
+      * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+
+      :param id_ [int] The unique ID number of the Subscription object you wish to delete.
+      :return ErrorDetail
+    """
+
+    def delete_service_type(self, id_):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/servicetypes/{}'.format(self.base_url, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+
+    r"""
+    Swagger Name: AvaTaxClient
+
     Delete a single subscription
-    
+
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Mark the existing account identified by this URL as deleted.
       ### Security Policies
       * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param accountId [int] The ID of the account that owns this subscription.
       :param id_ [int] The ID of the subscription you wish to delete.
       :return ErrorDetail
     """
 
     def delete_subscription(self, accountId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/accounts/{}/subscriptions/{}'.format(
-                self.base_url, accountId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
+    Retrieve the full list of Avalara-supported subscription (ServiceTypes)
+
+    For Registrar Use Only
+      This API is for use by Avalara Registrar administrative users only.
+      Returns the full list of Avalara-supported subscription types.
+      This API is intended to be useful for identifying which features you have added to your account.
+      You may always contact Avalara's sales department for information on available products or services.
+      You cannot change your subscriptions/service directly through the API.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+
+    def list_service_types(self, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/servicetypes/servicetypes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
+
+    r"""
+    Swagger Name: AvaTaxClient
+
     Reset a user's password programmatically
-    
+
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Allows a system admin to reset the password for a specific user via the API.
@@ -9586,7 +7666,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API is available to Avalara system-level (registrar-level) users only.
-    
+
       :param userId [int] The unique ID of the user whose password will be changed
       :param isUndoMigrateRequest [boolean] If user's password was migrated to AI, undo this.
       :param model [SetPasswordModel] The new password for this user
@@ -9594,53 +7674,40 @@ class Mixin:
     """
 
     def reset_password(self, userId, model, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/passwords/{}/reset'.format(self.base_url, userId),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/passwords/{}/reset'.format(self.base_url, userId),
+                             auth=self.auth, headers=self.client_header, params=include, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single account
-    
+
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Replace an existing account object with an updated account object.
       ### Security Policies
       * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param id_ [int] The ID of the account you wish to update.
       :param model [AccountModel] The account object you wish to update.
       :return AccountModel
     """
 
     def update_account(self, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/accounts/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/accounts/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single notification.
-    
+
     This API is available by invitation only.
       Replaces the notification identified by this URL with a new notification.
       A notification is a message from Avalara that may have relevance to your business. You may want
@@ -9651,30 +7718,49 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: BatchServiceAdmin, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [NotificationsAPI:Create].
-    
+
       :param id_ [int] The id of the notification you wish to update.
       :param model [NotificationModel] The notification object you wish to update.
       :return NotificationModel
     """
 
     def update_notification(self, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/notifications/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/notifications/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
+    Update existing Avalara-supported subscription (ServiceTypes)
+
+    For Registrar Use Only
+      This API is for use by Avalara Registrar administrative users only.
+      Returns the updated Avalara-supported service types.
+      This API is intended to be useful for updating an existing subscription(service) type detail.
+      You may always contact Avalara's sales department for information on available products or services.
+      ### Security Policies
+      * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+
+      :param id_ [int] The unique ID number of the existing subscription type object to replace.
+      :param model [SubscriptionTypeModel] The subscription type object to update.
+      :return SubscriptionTypeModel
+    """
+
+    def update_service_type(self, id_, model):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/servicetypes/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
+
+    r"""
+    Swagger Name: AvaTaxClient
+
     Update a single subscription
-    
+
     # For Registrar Use Only
       This API is for use by Avalara Registrar administrative users only.
       Replace the existing subscription object at this URL with an updated object.
@@ -9684,7 +7770,7 @@ class Mixin:
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
       * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param accountId [int] The ID of the account that this subscription belongs to.
       :param id_ [int] The ID of the subscription you wish to update
       :param model [SubscriptionModel] The subscription you wish to update.
@@ -9692,25 +7778,17 @@ class Mixin:
     """
 
     def update_subscription(self, accountId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/accounts/{}/subscriptions/{}'.format(
-                self.base_url, accountId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Download a report
-    
+
     This API downloads the file associated with a report.
       If the report is not yet complete, you will receive a `ReportNotFinished` error. To check if a report is complete,
       use the `GetReport` API.
@@ -9723,29 +7801,23 @@ class Mixin:
       * We throttle this API. You can only call this API up to 5 times in a minute.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param id_ [int] The unique ID number of this report
       :return String
     """
 
     def download_report(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/reports/{}/attachment'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/reports/{}/attachment'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single report
-    
+
     Retrieve a single report by its unique ID number.
       Reports are run as asynchronous report tasks on the server. When complete, the report file will be available for download
       for up to 30 days after completion. To run an asynchronous report, you should follow these steps:
@@ -9754,29 +7826,23 @@ class Mixin:
       * Check the status of a report by calling `GetReport` and passing in the report's `id` value.
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       This API call returns information about any report type.
-    
+
       :param id_ [int] The unique ID number of the report to retrieve
       :return ReportModel
     """
 
     def get_report(self, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/reports/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/reports/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Initiate an ExportDocumentLine report task
-    
+
     Begins running an `ExportDocumentLine` report task and returns the identity of the report.
       Reports are run as asynchronous report tasks on the server. When complete, the report file will be available for download
       for up to 30 days after completion. To run an asynchronous report, you should follow these steps:
@@ -9793,32 +7859,25 @@ class Mixin:
       * Once all three reports are downloaded merge the files on the client side.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The unique ID number of the company to report on.
       :param model [ExportDocumentLineModel] Options that may be configured to customize the report.
       :return ReportModel
     """
 
     def initiate_export_document_line_report(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/reports/exportdocumentline/initiate'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/reports/exportdocumentline/initiate'.format(self.base_url, companyId),
+            auth=self.auth, headers=self.client_header, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all report tasks for account
-    
+
     List all report tasks for your account.
       Reports are run as asynchronous report tasks on the server. When complete, the report file will be available for download
       for up to 30 days after completion. To run an asynchronous report, you should follow these steps:
@@ -9829,7 +7888,7 @@ class Mixin:
       This API call returns information about all report types across your entire account.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The id of the company for which to get reports.
       :param pageKey [string] Provide a page key to retrieve the next page of results.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -9838,23 +7897,17 @@ class Mixin:
     """
 
     def list_reports(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/reports'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/reports'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new setting
-    
+
     Create one or more new setting objects attached to this company.
       The company settings system is a metadata system that you can use to store extra information
       about a company. Your integration or connector could use this data storage to keep track of
@@ -9868,30 +7921,24 @@ class Mixin:
       Set = Transactions, Name = TaxCodePrioritization, Value = Transaction
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this setting.
       :param model [SettingModel] The setting you wish to create.
       :return SettingModel
     """
 
     def create_settings(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single setting
-    
+
     Mark the setting object at this URL as deleted.
       The company settings system is a metadata system that you can use to store extra information
       about a company. Your integration or connector could use this data storage to keep track of
@@ -9902,32 +7949,24 @@ class Mixin:
       To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this setting.
       :param id_ [int] The ID of the setting you wish to delete.
       :return ErrorDetail
     """
 
     def delete_setting(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/settings/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single setting
-    
+
     Get a single setting object by its unique ID.
       The company settings system is a metadata system that you can use to store extra information
       about a company. Your integration or connector could use this data storage to keep track of
@@ -9938,32 +7977,24 @@ class Mixin:
       To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns this setting
       :param id_ [int] The primary key of this setting
       :return SettingModel
     """
 
     def get_setting(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/settings/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all settings for this company
-    
+
     List all setting objects attached to this company.
       The company settings system is a metadata system that you can use to store extra information
       about a company. Your integration or connector could use this data storage to keep track of
@@ -9976,7 +8007,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns these settings
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* modifiedDate, ModifiedUserId
       :param include [string] A comma separated list of additional data to retrieve.
@@ -9987,23 +8018,17 @@ class Mixin:
     """
 
     def list_settings_by_company(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all settings
-    
+
     Get multiple setting objects across all companies.
       The company settings system is a metadata system that you can use to store extra information
       about a company. Your integration or connector could use this data storage to keep track of
@@ -10016,7 +8041,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* modifiedDate, ModifiedUserId
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -10026,23 +8051,17 @@ class Mixin:
     """
 
     def query_settings(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/settings'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/settings'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single setting
-    
+
     Replace the existing setting object at this URL with an updated object.
       The company settings system is a metadata system that you can use to store extra information
       about a company. Your integration or connector could use this data storage to keep track of
@@ -10055,7 +8074,7 @@ class Mixin:
       To set a field's value to `null`, you may either set its value to `null` or omit that field from the object when calling update.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that this setting belongs to.
       :param id_ [int] The ID of the setting you wish to update
       :param model [SettingModel] The setting you wish to update.
@@ -10063,56 +8082,40 @@ class Mixin:
     """
 
     def update_setting(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/settings/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single subscription
-    
+
     Get the subscription object identified by this URL.
       A 'subscription' indicates a licensed subscription to a named Avalara service.
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param accountId [int] The ID of the account that owns this subscription
       :param id_ [int] The primary key of this subscription
       :return SubscriptionModel
     """
 
     def get_subscription(self, accountId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/accounts/{}/subscriptions/{}'.format(
-                self.base_url, accountId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve subscriptions for this account
-    
+
     List all subscription objects attached to this account.
       A 'subscription' indicates a licensed subscription to a named Avalara service.
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
@@ -10120,7 +8123,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param accountId [int] The ID of the account that owns these subscriptions
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* subscriptionDescription
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -10130,25 +8133,17 @@ class Mixin:
     """
 
     def list_subscriptions_by_account(self, accountId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/accounts/{}/subscriptions'.format(
-                self.base_url, accountId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all subscriptions
-    
+
     Get multiple subscription objects across all accounts.
       A 'subscription' indicates a licensed subscription to a named Avalara service.
       To request or remove subscriptions, please contact Avalara sales or your customer account manager.
@@ -10156,7 +8151,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* subscriptionDescription
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -10165,23 +8160,17 @@ class Mixin:
     """
 
     def query_subscriptions(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/subscriptions'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/subscriptions'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new tax code
-    
+
     Create one or more new taxcode objects attached to this company.
       A 'TaxCode' represents a uniquely identified type of product, good, or service.
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
@@ -10189,59 +8178,45 @@ class Mixin:
       taxability rules for this product in all supported jurisdictions.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this tax code.
       :param model [TaxCodeModel] The tax code you wish to create.
       :return TaxCodeModel
     """
 
     def create_tax_codes(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single tax code
-    
+
     Marks the existing TaxCode object at this URL as deleted.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this tax code.
       :param id_ [int] The ID of the tax code you wish to delete.
       :return ErrorDetail
     """
 
     def delete_tax_code(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/taxcodes/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single tax code
-    
+
     Get the taxcode object identified by this URL.
       A 'TaxCode' represents a uniquely identified type of product, good, or service.
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
@@ -10249,32 +8224,24 @@ class Mixin:
       taxability rules for this product in all supported jurisdictions.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns this tax code
       :param id_ [int] The primary key of this tax code
       :return TaxCodeModel
     """
 
     def get_tax_code(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/taxcodes/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve tax codes for this company
-    
+
     List all taxcode objects attached to this company.
       A 'TaxCode' represents a uniquely identified type of product, good, or service.
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
@@ -10284,7 +8251,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns these tax codes
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
@@ -10295,23 +8262,17 @@ class Mixin:
     """
 
     def list_tax_codes_by_company(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all tax codes
-    
+
     Get multiple taxcode objects across all companies.
       A 'TaxCode' represents a uniquely identified type of product, good, or service.
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
@@ -10321,7 +8282,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -10331,23 +8292,17 @@ class Mixin:
     """
 
     def query_tax_codes(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/taxcodes'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/taxcodes'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single tax code
-    
+
     Replace the existing taxcode object at this URL with an updated object.
       A 'TaxCode' represents a uniquely identified type of product, good, or service.
       Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
@@ -10357,7 +8312,7 @@ class Mixin:
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that this tax code belongs to.
       :param id_ [int] The ID of the tax code you wish to update
       :param model [TaxCodeModel] The tax code you wish to update.
@@ -10365,25 +8320,17 @@ class Mixin:
     """
 
     def update_tax_code(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/taxcodes/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Build a multi-location tax content file
-    
+
     Builds a tax content file containing information useful for a retail point-of-sale solution.
       Since tax rates may change based on decisions made by a variety of tax authorities, we recommend
       that users of this tax content API download new data every day. Many tax authorities may finalize
@@ -10404,29 +8351,23 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param model [PointOfSaleDataRequestModel] Parameters about the desired file format and report format, specifying which company, locations and TaxCodes to include.
       :return String
     """
 
     def build_tax_content_file(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/pointofsaledata/build'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/pointofsaledata/build'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Build a tax content file for a single location
-    
+
     Builds a tax content file containing information useful for a retail point-of-sale solution.
       Since tax rates may change based on decisions made by a variety of tax authorities, we recommend
       that users of this tax content API download new data every day. Many tax authorities may finalize
@@ -10447,7 +8388,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro.
-    
+
       :param companyId [int] The ID number of the company that owns this location.
       :param id_ [int] The ID number of the location to retrieve point-of-sale data.
       :param date [datetime] The date for which point-of-sale data would be calculated (today by default)
@@ -10457,28 +8398,18 @@ class Mixin:
       :return String
     """
 
-    def build_tax_content_file_for_location(
-            self, companyId, id_, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/locations/{}/pointofsaledata'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+    def build_tax_content_file_for_location(self, companyId, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/locations/{}/pointofsaledata'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Download a file listing tax rates by postal code
-    
+
     Download a CSV file containing all five digit postal codes in the United States and their sales
       and use tax rates for tangible personal property.
       Since tax rates may change based on decisions made by a variety of tax authorities, we recommend
@@ -10514,32 +8445,24 @@ class Mixin:
       For more detailed tax content, please use the `BuildTaxContentFile` API which allows usage of exact items and exact locations.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param date [datetime] The date for which point-of-sale data would be calculated (today by default). Example input: 2016-12-31
       :param region [string] A two character region code which limits results to a specific region.
       :return String
     """
 
     def download_tax_rates_by_zip_code(self, date, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/taxratesbyzipcode/download/{}'.format(
-                self.base_url, date
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/taxratesbyzipcode/download/{}'.format(self.base_url, date),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Sales tax rates for a specified address
-    
+
     Usage of this API is subject to rate limits. Users who exceed the rate limit will receive HTTP
       response code 429 - `Too Many Requests`.
       This API assumes that you are selling general tangible personal property at a retail point-of-sale
@@ -10556,7 +8479,7 @@ class Mixin:
       * And more!
       Please see [Estimating Tax with REST v2](http://developer.avalara.com/blog/2016/11/04/estimating-tax-with-rest-v2/)
       for information on how to upgrade to the full AvaTax CreateTransaction API.
-    
+
       :param line1 [string] The street address of the location.
       :param line2 [string] The street address of the location.
       :param line3 [string] The street address of the location.
@@ -10568,23 +8491,17 @@ class Mixin:
     """
 
     def tax_rates_by_address(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/taxrates/byaddress'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/taxrates/byaddress'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Sales tax rates for a specified country and postal code. This API is only available for US postal codes.
-    
+
     This API is only available for a US postal codes.
       Usage of this API is subject to rate limits. Users who exceed the rate limit will receive HTTP
       response code 429 - `Too Many Requests`.
@@ -10602,30 +8519,24 @@ class Mixin:
       * And more!
       Please see [Estimating Tax with REST v2](http://developer.avalara.com/blog/2016/11/04/estimating-tax-with-rest-v2/)
       for information on how to upgrade to the full AvaTax CreateTransaction API.
-    
+
       :param country [string] Name or ISO 3166 code identifying the country.     This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries     For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
       :param postalCode [string] The postal code of the location.
       :return TaxRateModel
     """
 
     def tax_rates_by_postal_code(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new tax rule
-    
+
     Create one or more custom tax rules attached to this company.
       A tax rule represents a rule that changes the default AvaTax behavior for a product or jurisdiction. Custom tax rules
       can be used to change the taxability of an item, to change the tax base of an item, or to change the tax rate
@@ -10638,30 +8549,24 @@ class Mixin:
       auditor, legal representative, and accounting team.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this tax rule.
       :param model [TaxRuleModel] The tax rule you wish to create.
       :return TaxRuleModel
     """
 
     def create_tax_rules(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single tax rule
-    
+
     Mark the custom tax rule identified by this URL as deleted.
       A tax rule represents a rule that changes the default AvaTax behavior for a product or jurisdiction. Custom tax rules
       can be used to change the taxability of an item, to change the tax base of an item, or to change the tax rate
@@ -10674,32 +8579,24 @@ class Mixin:
       auditor, legal representative, and accounting team.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that owns this tax rule.
       :param id_ [int] The ID of the tax rule you wish to delete.
       :return ErrorDetail
     """
 
     def delete_tax_rule(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/taxrules/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single tax rule
-    
+
     Get the taxrule object identified by this URL.
       A tax rule represents a rule that changes the default AvaTax behavior for a product or jurisdiction. Custom tax rules
       can be used to change the taxability of an item, to change the tax base of an item, or to change the tax rate
@@ -10712,32 +8609,24 @@ class Mixin:
       auditor, legal representative, and accounting team.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns this tax rule
       :param id_ [int] The primary key of this tax rule
       :return TaxRuleModel
     """
 
     def get_tax_rule(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/taxrules/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve tax rules for this company
-    
+
     List all taxrule objects attached to this company.
       A tax rule represents a rule that changes the default AvaTax behavior for a product or jurisdiction. Custom tax rules
       can be used to change the taxability of an item, to change the tax base of an item, or to change the tax rate
@@ -10752,7 +8641,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param companyId [int] The ID of the company that owns these tax rules
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, taxTypeCode, taxRuleProductDetail, rateTypeCode, taxTypeGroup, taxSubType, unitOfBasis
       :param include [string] A comma separated list of additional data to retrieve.
@@ -10763,23 +8652,17 @@ class Mixin:
     """
 
     def list_tax_rules(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all tax rules
-    
+
     Get multiple taxrule objects across all companies.
       A tax rule represents a rule that changes the default AvaTax behavior for a product or jurisdiction. Custom tax rules
       can be used to change the taxability of an item, to change the tax base of an item, or to change the tax rate
@@ -10794,7 +8677,7 @@ class Mixin:
       Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, taxTypeCode, taxRuleProductDetail, rateTypeCode, taxTypeGroup, taxSubType, unitOfBasis
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -10804,23 +8687,17 @@ class Mixin:
     """
 
     def query_tax_rules(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/taxrules'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/taxrules'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single tax rule
-    
+
     Replace the existing custom tax rule object at this URL with an updated object.
       A tax rule represents a rule that changes the default AvaTax behavior for a product or jurisdiction. Custom tax rules
       can be used to change the taxability of an item, to change the tax base of an item, or to change the tax rate
@@ -10833,7 +8710,7 @@ class Mixin:
       auditor, legal representative, and accounting team.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyId [int] The ID of the company that this tax rule belongs to.
       :param id_ [int] The ID of the tax rule you wish to update
       :param model [TaxRuleModel] The tax rule you wish to update.
@@ -10841,25 +8718,17 @@ class Mixin:
     """
 
     def update_tax_rule(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/taxrules/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Add lines to an existing unlocked transaction
-    
+
     Add lines to an existing unlocked transaction.
        The `AddLines` API allows you to add additional transaction lines to existing transaction, so that customer will
        be able to append multiple calls together and form an extremely large transaction. If customer does not specify line number
@@ -10879,31 +8748,24 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [AddTransactionLineModel] information about the transaction and lines to be added
       :return TransactionModel
     """
 
     def add_lines(self, model, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/transactions/lines/add'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/transactions/lines/add'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, params=include, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Correct a previously created transaction
-    
+
     Replaces the current transaction uniquely identified by this URL with a new transaction.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
@@ -10930,7 +8792,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to adjust
       :param documentType [DocumentType] (Optional): The document type of the transaction to adjust. (See DocumentType::* for a list of allowable values)
@@ -10939,29 +8801,19 @@ class Mixin:
       :return TransactionModel
     """
 
-    def adjust_transaction(
-            self, companyCode, transactionCode, model, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def adjust_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/transactions/{}/adjust'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/adjust'.format(self.base_url, companyCode, transactionCode),
+            auth=self.auth, headers=self.client_header, params=include, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Get audit information about a transaction
-    
+
     Retrieve audit information about a transaction stored in AvaTax.
       The `AuditTransaction` API retrieves audit information related to a specific transaction. This audit
       information includes the following:
@@ -10983,32 +8835,25 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
       :return AuditTransactionModel
     """
 
     def audit_transaction(self, companyCode, transactionCode):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/transactions/{}/audit'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/audit'.format(self.base_url, companyCode, transactionCode),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Get audit information about a transaction
-    
+
     Retrieve audit information about a transaction stored in AvaTax.
       The `AuditTransaction` API retrieves audit information related to a specific transaction. This audit
       information includes the following:
@@ -11030,35 +8875,27 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyCode [string] The code identifying the company that owns this transaction
       :param transactionCode [string] The code identifying the transaction
       :param documentType [DocumentType] The document type of the original transaction (See DocumentType::* for a list of allowable values)
       :return AuditTransactionModel
     """
 
-    def audit_transaction_with_type(
-            self, companyCode, transactionCode, documentType
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def audit_transaction_with_type(self, companyCode, transactionCode, documentType):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/transactions/{}/types/{}/audit'.format(
-                self.base_url, companyCode, transactionCode, documentType
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/types/{}/audit'.format(self.base_url, companyCode, transactionCode,
+                                                                           documentType),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Lock a set of documents
-    
+
     This API is available by invitation only.
       Lock a set of transactions uniquely identified by DocumentIds provided. This API allows locking multiple documents at once.
       After this API call succeeds, documents will be locked and can't be voided.
@@ -11067,29 +8904,23 @@ class Mixin:
       ### Security Policies
       * This API requires the user role Compliance Root User.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param model [BulkLockTransactionModel] bulk lock request
       :return BulkLockTransactionResult
     """
 
     def bulk_lock_transaction(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/transactions/lock'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/transactions/lock'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Change a transaction's code
-    
+
     Renames a transaction uniquely identified by this URL by changing its `code` value.
       This API is available as long as the transaction is in `saved` or `posted` status. When a transaction
       is `committed`, it can be modified by using the [AdjustTransaction](https://developer.avalara.com/api-reference/avatax/rest/v2/methods/Transactions/AdjustTransaction/) method.
@@ -11115,7 +8946,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to change
       :param documentType [DocumentType] (Optional): The document type of the transaction to change document code. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -11124,29 +8955,19 @@ class Mixin:
       :return TransactionModel
     """
 
-    def change_transaction_code(
-            self, companyCode, transactionCode, model, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def change_transaction_code(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/transactions/{}/changecode'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/changecode'.format(self.base_url, companyCode, transactionCode),
+            auth=self.auth, headers=self.client_header, params=include, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Commit a transaction for reporting
-    
+
     Marks a transaction by changing its status to `Committed`.
       Transactions that are committed are available to be reported to a tax authority by Avalara Managed Returns.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
@@ -11170,7 +8991,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to commit
       :param documentType [DocumentType] (Optional): The document type of the transaction to commit. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -11179,29 +9000,19 @@ class Mixin:
       :return TransactionModel
     """
 
-    def commit_transaction(
-            self, companyCode, transactionCode, model, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def commit_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/transactions/{}/commit'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/commit'.format(self.base_url, companyCode, transactionCode),
+            auth=self.auth, headers=self.client_header, params=include, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create or adjust a transaction
-    
+
     Records a new transaction or adjust an existing transaction in AvaTax.
       The `CreateOrAdjustTransaction` endpoint is used to create a new transaction or update an existing one. This API
       can help you create an idempotent service that creates transactions
@@ -11230,31 +9041,24 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateOrAdjustTransactionModel] The transaction you wish to create or adjust
       :return TransactionModel
     """
 
     def create_or_adjust_transaction(self, model, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/transactions/createoradjust'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/transactions/createoradjust'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, params=include, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new transaction
-    
+
     Records a new transaction in AvaTax.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
@@ -11288,31 +9092,24 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [CreateTransactionModel] The transaction you wish to create
       :return TransactionModel
     """
 
     def create_transaction(self, model, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/transactions/create'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/transactions/create'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, params=include, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Remove lines from an existing unlocked transaction
-    
+
     Remove lines to an existing unlocked transaction.
        The `DeleteLines` API allows you to remove transaction lines from existing unlocked transaction, so that customer will
        be able to delete transaction lines and adjust original transaction the way they like
@@ -11329,33 +9126,24 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param include [string] Specifies objects to include in the response after transaction is created
       :param model [RemoveTransactionLineModel] information about the transaction and lines to be removed
       :return TransactionModel
     """
 
     def delete_lines(self, model, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/transactions/lines/delete'.format(
-                self.base_url
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/transactions/lines/delete'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, params=include, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single transaction by code
-    
+
     Get the current transaction identified by this company code, transaction code, and document type.
       A transaction is uniquely identified by `companyCode`, `code` (often called Transaction Code), and `documentType`.
       For compatibility purposes, when this API finds multiple transactions with the same transaction code, and if you have not specified
@@ -11379,7 +9167,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to retrieve
       :param documentType [DocumentType] (Optional): The document type of the transaction to retrieve (See DocumentType::* for a list of allowable values)
@@ -11387,28 +9175,19 @@ class Mixin:
       :return TransactionModel
     """
 
-    def get_transaction_by_code(
-            self, companyCode, transactionCode, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def get_transaction_by_code(self, companyCode, transactionCode, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/transactions/{}'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}'.format(self.base_url, companyCode, transactionCode),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single transaction by code
-    
+
     DEPRECATED: Please use the `GetTransactionByCode` API instead.
       NOTE: If your companyCode or transactionCode contains any of these characters /, +, ? or a space please use the following encoding before making a request:
       * Replace '/' with '\_-ava2f-\_' For example: document/Code becomes document_-ava2f-_Code
@@ -11420,7 +9199,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to retrieve
       :param documentType [DocumentType] The transaction type to retrieve (See DocumentType::* for a list of allowable values)
@@ -11428,28 +9207,20 @@ class Mixin:
       :return TransactionModel
     """
 
-    def get_transaction_by_code_and_type(
-            self, companyCode, transactionCode, documentType, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def get_transaction_by_code_and_type(self, companyCode, transactionCode, documentType, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.get(
-            '{}/api/v2/companies/{}/transactions/{}/types/{}'.format(
-                self.base_url, companyCode, transactionCode, documentType
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/types/{}'.format(self.base_url, companyCode, transactionCode,
+                                                                     documentType),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single transaction by ID
-    
+
     Get the unique transaction identified by this URL.
       This endpoint retrieves the exact transaction identified by this ID number, as long as it is the most version of the transaction.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
@@ -11465,30 +9236,24 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param id_ [int] The unique ID number of the transaction to retrieve
       :param include [string] Specifies objects to include in this fetch call
       :return TransactionModel
     """
 
     def get_transaction_by_id(self, id_, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/transactions/{}'.format(self.base_url, id_),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/transactions/{}'.format(self.base_url, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all transactions
-    
+
     List all transactions attached to this company.
       This endpoint is limited to returning 1,000 transactions at a time maximum.
       When listing transactions, you must specify a `date` range filter. If you do not specify a `$filter` that includes a `date` field
@@ -11514,7 +9279,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyCode [string] The company code of the company that recorded this transaction
       :param dataSourceId [int] Optionally filter transactions to those from a specific data source.
       :param include [string] Specifies objects to include in this fetch call
@@ -11526,25 +9291,17 @@ class Mixin:
     """
 
     def list_transactions_by_company(self, companyCode, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/transactions'.format(
-                self.base_url, companyCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/transactions'.format(self.base_url, companyCode),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Lock a single transaction
-    
+
     Lock a transaction uniquely identified by this URL.
       This API is mainly used for connector developers to simulate what happens when the Returns product locks a document.
       After this API call succeeds, the document will be locked and can't be voided or adjusted.
@@ -11570,7 +9327,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
-    
+
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to lock
       :param documentType [DocumentType] (Optional): The document type of the transaction to lock. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -11579,29 +9336,19 @@ class Mixin:
       :return TransactionModel
     """
 
-    def lock_transaction(
-            self, companyCode, transactionCode, model, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def lock_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/transactions/{}/lock'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/lock'.format(self.base_url, companyCode, transactionCode),
+            auth=self.auth, headers=self.client_header, params=include, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a refund for a transaction
-    
+
     Create a refund for a transaction.
       The `RefundTransaction` API allows you to quickly and easily create a `ReturnInvoice` representing a refund
       for a previously created `SalesInvoice` transaction. You can choose to create a full or partial refund, and
@@ -11636,7 +9383,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyCode [string] The code of the company that made the original sale
       :param transactionCode [string] The transaction code of the original sale
       :param include [string] Specifies objects to include in the response after transaction is created
@@ -11646,29 +9393,19 @@ class Mixin:
       :return TransactionModel
     """
 
-    def refund_transaction(
-            self, companyCode, transactionCode, model, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def refund_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/transactions/{}/refund'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/refund'.format(self.base_url, companyCode, transactionCode),
+            auth=self.auth, headers=self.client_header, params=include, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Perform multiple actions on a transaction
-    
+
     Performs one or more actions against the current transaction uniquely identified by this URL.
       The `SettleTransaction` API call can perform the work of `ChangeCode`, `VerifyTransaction`, and `CommitTransaction`.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
@@ -11692,7 +9429,7 @@ class Mixin:
       * Replace ' ' with '%20' For example: document Code becomes document%20Code
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
-    
+
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to settle
       :param documentType [DocumentType] (Optional): The document type of the transaction to settle. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -11701,29 +9438,19 @@ class Mixin:
       :return TransactionModel
     """
 
-    def settle_transaction(
-            self, companyCode, transactionCode, model, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def settle_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/transactions/{}/settle'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/settle'.format(self.base_url, companyCode, transactionCode),
+            auth=self.auth, headers=self.client_header, params=include, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Uncommit a transaction for reporting
-    
+
     Adjusts a transaction by changing it to an uncommitted status.
       Transactions that have been previously reported to a tax authority by Avalara Managed Returns are considered `locked` and are
       no longer available to be uncommitted.
@@ -11745,7 +9472,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to Uncommit
       :param documentType [DocumentType] (Optional): The document type of the transaction to Uncommit. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -11754,25 +9481,18 @@ class Mixin:
     """
 
     def uncommit_transaction(self, companyCode, transactionCode, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/transactions/{}/uncommit'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/uncommit'.format(self.base_url, companyCode, transactionCode),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Unvoids a transaction
-    
+
     Unvoids a voided transaction
       You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * Lines
@@ -11792,7 +9512,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to commit
       :param documentType [DocumentType] (Optional): The document type of the transaction to commit. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -11801,25 +9521,18 @@ class Mixin:
     """
 
     def unvoid_transaction(self, companyCode, transactionCode, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/transactions/{}/unvoid'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/unvoid'.format(self.base_url, companyCode, transactionCode),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Verify a transaction
-    
+
     Verifies that the transaction uniquely identified by this URL matches certain expected values.
       If the transaction does not match these expected values, this API will return an error code indicating which value did not match.
       If you have more than one document with the same `code`, specify the `documentType` parameter to choose between them.
@@ -11843,7 +9556,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to settle
       :param documentType [DocumentType] (Optional): The document type of the transaction to verify. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -11852,29 +9565,19 @@ class Mixin:
       :return TransactionModel
     """
 
-    def verify_transaction(
-            self, companyCode, transactionCode, model, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def verify_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/transactions/{}/verify'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/verify'.format(self.base_url, companyCode, transactionCode),
+            auth=self.auth, headers=self.client_header, params=include, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Void a transaction
-    
+
     Voids the current transaction uniquely identified by this URL.
       A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
       sales, purchases, inventory transfer, and returns (also called refunds).
@@ -11899,7 +9602,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, ProStoresOperator, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyCode [string] The company code of the company that recorded this transaction
       :param transactionCode [string] The transaction code to void
       :param documentType [DocumentType] (Optional): The document type of the transaction to void. If not provided, the default is SalesInvoice. (See DocumentType::* for a list of allowable values)
@@ -11908,119 +9611,87 @@ class Mixin:
       :return TransactionModel
     """
 
-    def void_transaction(
-            self, companyCode, transactionCode, model, include=None
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+    def void_transaction(self, companyCode, transactionCode, model, include=None):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.post(
-            '{}/api/v2/companies/{}/transactions/{}/void'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/void'.format(self.base_url, companyCode, transactionCode),
+            auth=self.auth, headers=self.client_header, params=include, json=model,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create a new UPC
-    
+
     Create one or more new UPC objects attached to this company.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaUpc.
-    
+
       :param companyId [int] The ID of the company that owns this UPC.
       :param model [UPCModel] The UPC you wish to create.
       :return UPCModel
     """
 
     def create_u_p_cs(self, companyId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single UPC
-    
+
     Marks the UPC object identified by this URL as deleted.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaUpc.
-    
+
       :param companyId [int] The ID of the company that owns this UPC.
       :param id_ [int] The ID of the UPC you wish to delete.
       :return ErrorDetail
     """
 
     def delete_u_p_c(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/companies/{}/upcs/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single UPC
-    
+
     Get the UPC object identified by this URL.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaUpc.
-    
+
       :param companyId [int] The ID of the company that owns this UPC
       :param id_ [int] The primary key of this UPC
       :return UPCModel
     """
 
     def get_u_p_c(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/upcs/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve UPCs for this company
-    
+
     List all UPC objects attached to this company.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -12028,7 +9699,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaUpc.
-    
+
       :param companyId [int] The ID of the company that owns these UPCs
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
@@ -12039,23 +9710,17 @@ class Mixin:
     """
 
     def list_u_p_cs_by_company(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all UPCs
-    
+
     Get multiple UPC objects across all companies.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -12063,7 +9728,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
       * This API depends on the following active services:*Required* (all): AvaUpc.
-    
+
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
       :param include [string] A comma separated list of additional data to retrieve.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -12073,23 +9738,17 @@ class Mixin:
     """
 
     def query_u_p_cs(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/upcs'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/upcs'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single UPC
-    
+
     Replace the existing UPC object at this URL with an updated object.
       A UPC represents a single UPC code in your catalog and matches this product to the tax code identified by this UPC.
       All data from the existing object will be replaced with data in the object you PUT.
@@ -12097,7 +9756,7 @@ class Mixin:
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaUpc.
-    
+
       :param companyId [int] The ID of the company that this UPC belongs to.
       :param id_ [int] The ID of the UPC you wish to update
       :param model [UPCModel] The UPC you wish to update.
@@ -12105,59 +9764,44 @@ class Mixin:
     """
 
     def update_u_p_c(self, companyId, id_, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/companies/{}/upcs/{}'.format(
-                self.base_url, companyId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a User Defined Field by User Defined Field id for a company.
-    
+
     Marks the existing user defined field for a company as deleted.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyId [int] The id of the company the User Defined Field belongs to.
       :param id_ [int] The id of the User Defined Field you wish to delete.
       :return ErrorDetail
     """
 
     def delete_user_defined_field(self, companyId, id_):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
         return requests.delete(
-            '{}/api/v2/companies/{}/userdefinedfields/{}'.format(
-                self.base_url, companyId, accountId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/userdefinedfields/{}'.format(self.base_url, companyId, accountId),
+            auth=self.auth, headers=self.client_header, params=None,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
-    
-    
+
+
+
     ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyId [int] 
       :param udfType [UserDefinedFieldType] Document or Line level UDF (See UserDefinedFieldType::* for a list of allowable values)
       :param allowDefaults [boolean] If true this will add defaulted UDFs to the list that are not named yet
@@ -12165,30 +9809,22 @@ class Mixin:
     """
 
     def list_user_defined_fields_by_company_id(self, companyId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/companies/{}/userdefinedfields'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/companies/{}/userdefinedfields'.format(self.base_url, companyId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a User Defined Field identified by id for a company
-    
+
     Updates a User Defined Field for a company.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
-    
+
       :param companyId [int] The id of the company the user defined field belongs to.
       :param id [int] 
       :param model [CompanyUserDefinedFieldModel] 
@@ -12196,26 +9832,17 @@ class Mixin:
     """
 
     def update_user_defined_field(self, companyId, model, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/companies/{}/userdefinedfields'.format(
-                self.base_url, companyId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/companies/{}/userdefinedfields'.format(self.base_url, companyId),
+                             auth=self.auth, headers=self.client_header, params=include, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Change Password
-    
+
     Allows a user to change their password via an API call.
       This API allows an authenticated user to change their password via an API call. This feature is only available
       for accounts that do not use SAML integrated password validation.
@@ -12223,29 +9850,23 @@ class Mixin:
       different user than the one authenticating the current API call.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param model [PasswordChangeModel] An object containing your current password and the new password.
       :return string
     """
 
     def change_password(self, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/passwords'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/passwords'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Create new users
-    
+
     Create one or more new user objects attached to this account.
       A user represents one person with access privileges to make API calls and work with a specific account.
       Users who are account administrators or company users are permitted to create user records to invite
@@ -12254,69 +9875,55 @@ class Mixin:
       must provide a valid email address for all user accounts created.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param accountId [int] The unique ID number of the account where these users will be created.
       :param model [UserModel] The user or array of users you wish to create.
       :return UserModel
     """
 
     def create_users(self, accountId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.post(
-            '{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.post('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
+                             auth=self.auth, headers=self.client_header, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Delete a single user
-    
+
     Mark the user object identified by this URL as deleted.
       This API is available for use by account and company administrators only.
       Account and company administrators may only delete users within the appropriate organizations
       they control.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, CSPTester, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TreasuryAdmin.
-    
+
       :param id_ [int] The ID of the user you wish to delete.
       :param accountId [int] The accountID of the user you wish to delete.
       :return ErrorDetail
     """
 
     def delete_user(self, id_, accountId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.delete(
-            '{}/api/v2/accounts/{}/users/{}'.format(
-                self.base_url, accountId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
+                               auth=self.auth, headers=self.client_header, params=None,
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve a single user
-    
+
     Get the user object identified by this URL.
       A user represents one person with access privileges to make API calls and work with a specific account.
        You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
       * FetchDeleted
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The ID of the user to retrieve.
       :param accountId [int] The accountID of the user you wish to get.
       :param include [string] Optional fetch commands.
@@ -12324,25 +9931,17 @@ class Mixin:
     """
 
     def get_user(self, id_, accountId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/accounts/{}/users/{}'.format(
-                self.base_url, accountId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all entitlements for a single user
-    
+
     Return a list of all entitlements to which this user has rights to access.
       Entitlements are a list of specified API calls the user is permitted to make, a list of identifier numbers for companies the user is
       allowed to use, and an access level identifier that indicates what types of access roles the user is allowed to use.
@@ -12358,32 +9957,24 @@ class Mixin:
       For a full list of defined permissions, please use '/api/v2/definitions/permissions' .
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The ID of the user to retrieve.
       :param accountId [int] The accountID of the user you wish to get.
       :return UserEntitlementModel
     """
 
     def get_user_entitlements(self, id_, accountId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/accounts/{}/users/{}/entitlements'.format(
-                self.base_url, accountId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/accounts/{}/users/{}/entitlements'.format(self.base_url, accountId, id_),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve users for this account
-    
+
     List all user objects attached to this account.
       A user represents one person with access privileges to make API calls and work with a specific account.
       When an API is called using a legacy AvaTax License Key, the API log entry is recorded as being performed by a special user attached to that license key.
@@ -12394,7 +9985,7 @@ class Mixin:
       * FetchDeleted
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param accountId [int] The accountID of the user you wish to list.
       :param include [string] Optional fetch commands.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* SuppressNewUserEmail
@@ -12405,23 +9996,17 @@ class Mixin:
     """
 
     def list_users_by_account(self, accountId, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Retrieve all users
-    
+
     Get multiple user objects across all accounts.
       A user represents one person or set of credentials with access privileges to make API calls and work with a specific account. A user can be authenticated
       via either username / password authentication, an OpenID / OAuth Bearer Token, or a legacy AvaTax License Key.
@@ -12433,7 +10018,7 @@ class Mixin:
       * FetchDeleted
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param include [string] Optional fetch commands.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* SuppressNewUserEmail
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -12443,30 +10028,24 @@ class Mixin:
     """
 
     def query_users(self, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/users'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/users'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Update a single user
-    
+
     Replace the existing user object at this URL with an updated object.
       A user represents one person with access privileges to make API calls and work with a specific account.
       All data from the existing object will be replaced with data in the object you PUT.
       To set a field's value to null, you may either set its value to null or omit that field from the object you post.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-    
+
       :param id_ [int] The ID of the user you wish to update.
       :param accountId [int] The accountID of the user you wish to update.
       :param model [UserModel] The user object you wish to update.
@@ -12474,84 +10053,62 @@ class Mixin:
     """
 
     def update_user(self, id_, accountId, model):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.put(
-            '{}/api/v2/accounts/{}/users/{}'.format(
-                self.base_url, accountId, id_
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.put('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
+                            auth=self.auth, headers=self.client_header, json=model,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Checks if the current user is subscribed to a specific service
-    
+
     Returns a subscription object for the current account, or 404 Not Found if this subscription is not enabled for this account.
       This API will return an error if it is called with invalid authentication credentials.
       This API is intended to help you determine whether you have the necessary subscription to use certain API calls
       within AvaTax. You can examine the subscriptions returned from this API call to look for a particular product
       or subscription to provide useful information to the current user as to whether they are entitled to use
       specific features of AvaTax.
-    
+
       :param serviceTypeId [string] The service to check
       :return SubscriptionModel
     """
 
     def get_my_subscription(self, serviceTypeId):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/utilities/subscriptions/{}'.format(
-                self.base_url, serviceTypeId
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/utilities/subscriptions/{}'.format(self.base_url, serviceTypeId),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     List all services to which the current user is subscribed
-    
+
     Returns the list of all subscriptions enabled for the currently logged in user.
       This API will return an error if it is called with invalid authentication credentials.
       This API is intended to help you determine whether you have the necessary subscription to use certain API calls
       within AvaTax. You can examine the subscriptions returned from this API call to look for a particular product
       or subscription to provide useful information to the current user as to whether they are entitled to use
       specific features of AvaTax.
-    
+
       :return FetchResult
     """
 
     def list_my_subscriptions(self):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/utilities/subscriptions'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/utilities/subscriptions'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxClient
-    
+
     Tests connectivity and version of the service
-    
+
     Check connectivity to AvaTax and return information about the AvaTax API server.
       This API is intended to help you verify that your connection is working. This API will always succeed and will
       never return a error. It provides basic information about the server you connect to:
@@ -12567,28 +10124,22 @@ class Mixin:
       For more information on the uptime of AvaTax, please see [Avalara's AvaTax Status Page](https://status.avalara.com/).
       ### Security Policies
       * This API may be called without providing authentication credentials.
-    
+
       :return PingResultModel
     """
 
     def ping(self):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", "22.9.0"
-            )
-        return requests.get(
-            '{}/api/v2/utilities/ping'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=None,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "22.10.0")
+        return requests.get('{}/api/v2/utilities/ping'.format(self.base_url),
+                            auth=self.auth, headers=self.client_header, params=None,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxBeverageClient
-    
+
     Determines whether an individual meets or exceeds the minimum legal drinking age.
-    
+
     The request must meet the following criteria in order to be evaluated:
       * *firstName*, *lastName*, and *address* are required fields.
       * One of the following sets of attributes are required for the *address*:
@@ -12600,33 +10151,26 @@ class Mixin:
        * The valid values for this attribute are [*US, USA*]
       **Security Policies**
       This API depends on the active subscription *AgeVerification*
-    
+
       :param simulatedFailureCode [string] (Optional) The failure code included in the simulated response of the endpoint. Note that this endpoint is only available in Sandbox for testing purposes.
       :param model [AgeVerifyRequest] Information about the individual whose age is being verified.
       :return AgeVerifyResult
     """
 
     def verify_age(self, model, include=None):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", ""
-            )
-        return requests.post(
-            '{}/api/v2/ageverification/verify'.format(self.base_url),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            json=model,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "")
+        return requests.post('{}/api/v2/ageverification/verify'.format(self.base_url),
+                             auth=self.auth, headers=self.client_header, params=include, json=model,
+                             timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxBeverageClient
-    
+
     Removes the transaction from consideration when evaluating regulations that span multiple transactions.
-    
-    
-    
+
+
+
       :param companyCode [string] The company code of the company that recorded the transaction
       :param transactionCode [string] The transaction code to retrieve
       :param documentType [string] (Optional): The document type of the transaction to operate on. If omitted, defaults to "SalesInvoice"
@@ -12635,32 +10179,24 @@ class Mixin:
       :return 
     """
 
-    def deregister_shipment(
-            self, companyCode, transactionCode, include=None, x_avalara_version=""
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", ""
-            )
+    def deregister_shipment(self, companyCode, transactionCode, include=None, x_avalara_version=""):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "")
         if x_avalara_version:
-            self.client_header['x-avalara-version'] = x_avalara_version
+            self.client_header['x-avalara-version'] = x_avalara_version;
         return requests.delete(
-            '{}/api/v2/companies/{}/transactions/{}/shipment/registration'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/shipment/registration'.format(self.base_url, companyCode,
+                                                                                  transactionCode),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxBeverageClient
-    
+
     Registers the transaction so that it may be included when evaluating regulations that span multiple transactions.
-    
-    
-    
+
+
+
       :param companyCode [string] The company code of the company that recorded the transaction
       :param transactionCode [string] The transaction code to retrieve
       :param documentType [string] (Optional): The document type of the transaction to operate on. If omitted, defaults to "SalesInvoice"
@@ -12669,32 +10205,24 @@ class Mixin:
       :return 
     """
 
-    def register_shipment(
-            self, companyCode, transactionCode, include=None, x_avalara_version=""
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", ""
-            )
+    def register_shipment(self, companyCode, transactionCode, include=None, x_avalara_version=""):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "")
         if x_avalara_version:
-            self.client_header['x-avalara-version'] = x_avalara_version
+            self.client_header['x-avalara-version'] = x_avalara_version;
         return requests.put(
-            '{}/api/v2/companies/{}/transactions/{}/shipment/registration'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/shipment/registration'.format(self.base_url, companyCode,
+                                                                                  transactionCode),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxBeverageClient
-    
+
     Evaluates a transaction against a set of direct-to-consumer shipping regulations and, if compliant, registers the transaction so that it may be included when evaluating regulations that span multiple transactions.
-    
-    
-    
+
+
+
       :param companyCode [string] The company code of the company that recorded the transaction
       :param transactionCode [string] The transaction code to retrieve
       :param documentType [string] (Optional): The document type of the transaction to operate on. If omitted, defaults to "SalesInvoice"
@@ -12703,30 +10231,22 @@ class Mixin:
       :return ShippingVerifyResult
     """
 
-    def register_shipment_if_compliant(
-            self, companyCode, transactionCode, include=None, x_avalara_version=""
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", ""
-            )
+    def register_shipment_if_compliant(self, companyCode, transactionCode, include=None, x_avalara_version=""):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "")
         if x_avalara_version:
-            self.client_header['x-avalara-version'] = x_avalara_version
+            self.client_header['x-avalara-version'] = x_avalara_version;
         return requests.put(
-            '{}/api/v2/companies/{}/transactions/{}/shipment/registerIfCompliant'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            '{}/api/v2/companies/{}/transactions/{}/shipment/registerIfCompliant'.format(self.base_url, companyCode,
+                                                                                         transactionCode),
+            auth=self.auth, headers=self.client_header, params=include,
+            timeout=self.timeout_limit if self.timeout_limit else 1200)
 
     r"""
     Swagger Name: AvaTaxBeverageClient
-    
+
     Evaluates a transaction against a set of direct-to-consumer shipping regulations.
-    
+
     The transaction and its lines must meet the following criteria in order to be evaluated:
       * The transaction must be recorded. Using a type of *SalesInvoice* is recommended.
       * A parameter with the name *AlcoholRouteType* must be specified and the value must be one of the following: '*DTC*', '*Retailer DTC*'
@@ -12741,7 +10261,7 @@ class Mixin:
       * The *SalesLocation* parameter may be used to describe whether the sale was made *OnSite* or *OffSite*. *OffSite* is the default value.
       **Security Policies**
       This API depends on all of the following active subscriptions: *AvaAlcohol, AutoAddress, AvaTaxPro*
-    
+
       :param companyCode [string] The company code of the company that recorded the transaction
       :param transactionCode [string] The transaction code to retrieve
       :param documentType [string] (Optional): The document type of the transaction to operate on. If omitted, defaults to "SalesInvoice"
@@ -12750,21 +10270,12 @@ class Mixin:
       :return ShippingVerifyResult
     """
 
-    def verify_shipment(
-            self, companyCode, transactionCode, include=None, x_avalara_version=""
-    ):
-        if 'X-Avalara-Client' in self.client_header:
-            self.client_header['X-Avalara-Client'] = self.client_id.replace(
-                "API_VERSION", ""
-            )
+    def verify_shipment(self, companyCode, transactionCode, include=None, x_avalara_version=""):
+        if ('X-Avalara-Client' in self.client_header):
+            self.client_header['X-Avalara-Client'] = self.client_id.replace("API_VERSION", "")
         if x_avalara_version:
-            self.client_header['x-avalara-version'] = x_avalara_version
-        return requests.get(
-            '{}/api/v2/companies/{}/transactions/{}/shipment/verify'.format(
-                self.base_url, companyCode, transactionCode
-            ),
-            auth=self.auth,
-            headers=self.client_header,
-            params=include,
-            timeout=self.timeout_limit if self.timeout_limit else 1200,
-        )
+            self.client_header['x-avalara-version'] = x_avalara_version;
+        return requests.get('{}/api/v2/companies/{}/transactions/{}/shipment/verify'.format(self.base_url, companyCode,
+                                                                                            transactionCode),
+                            auth=self.auth, headers=self.client_header, params=include,
+                            timeout=self.timeout_limit if self.timeout_limit else 1200)
