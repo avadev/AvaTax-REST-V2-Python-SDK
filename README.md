@@ -170,6 +170,27 @@ SANDBOX_LICENSEKEY='your_sandbox_license_key'
 ```
 Note: Only *Sandbox credentials* should be used for testing, as the test case will commit/adjust/void dummy transactions on the account to verify functionalities.  
 
+### Logging
+
+Logging is implemented using standard Python logging framework.
+
+1. All relevant methods from `AvataxClient` class are decorated with `ava_log` decorator.(This is achieved using another decorator at class level, `decorate_all_methods`)
+2. `ava_log` decorator collects relevant request data, response data useful for instrumentation and logs error data in case of exception.
+3. `AvataxClient` constructor is modified with optional parameter, `is_log_req_resp_allowed` (defaulted to False), to control if log entry should contain request and response objects.
+4. SDK Consumer code can also set logger property of `AvataxClient` to use already configured logger instance. e.g. 
+```
+from logging import config 
+
+# configure logging using file config or dictConfig 
+# or by setting basicConfig (this is default in case no logger is set)
+config.fileConfig("logger_config.conf")
+
+logger = logging.getLogger()
+
+# set logger property
+client.logger = logger
+```
+    
 
 ## Issue or suggestion
 
