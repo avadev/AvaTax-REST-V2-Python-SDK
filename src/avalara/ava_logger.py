@@ -46,7 +46,7 @@ def ava_log(func):
             raise e
         finally:
             total_execution_time = time.perf_counter() - execution_start_time
-            if ava_log_entry["execution_time"] is None:
+            if "execution_time" not in ava_log_entry:
                 ava_log_entry["execution_time"] = total_execution_time * 1000
             json_data = json.dumps(ava_log_entry, indent=4)
             if is_error_log:
