@@ -18,7 +18,7 @@ def ava_log(func):
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        logger = logging.getLogger()
+        logger = logging.getLogger("avalara")
         is_log_req_resp_allowed = False
         ava_log_entry = {}
         is_error_log = False
