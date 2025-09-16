@@ -129,7 +129,7 @@ For information on other models use by AvaTax APIs, visit our information page [
 
 ### Use other methods
 
-Like our SDKs in other languages, the Python SDK includes all methods offered by the AvaTax REST V2 API. To find a mehtod corresponding to a specific API endpoint, simply visit this [code page](https://github.com/avadev/AvaTax-REST-V2-Python-SDK/blob/master/src/client_methods.py)
+Like our SDKs in other languages, the Python SDK includes all methods offered by the AvaTax REST V2 API. To find a method corresponding to a specific API endpoint, simply visit this [code page](https://github.com/avadev/AvaTax-REST-V2-Python-SDK/blob/master/src/client_methods.py)
 To learn more about integrating our REST API into your system, visit our [developer guide](https://developer.avalara.com/avatax/dev-guide/getting-started-with-avatax/) that contains information on using the powerful features offered by our API.
 
 
