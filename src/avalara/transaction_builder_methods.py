@@ -78,7 +78,7 @@ class Mixin:
                             of the location.
             city          City of the location.
             region        State or Region of the location.
-            postal_code    Postal/zip code of the location.
+            postalCode    Postal/zip code of the location.
             country       The two-letter country code of the location.
         :return: TransactionBuilder
         """
@@ -101,7 +101,7 @@ class Mixin:
                             of the location.
             city          City of the location.
             region        State or Region of the location.
-            postal_code    Postal/zip code of the location.
+            postalCode    Postal/zip code of the location.
             country       The two-letter country code of the location.
         :return: TransactionBuilder
         """
@@ -345,7 +345,7 @@ class Mixin:
                             of the location.
             city          City of the location.
             region        State or Region of the location.
-            postal_code    Postal/zip code of the location.
+            postalCode    Postal/zip code of the location.
             country       The two-letter country code of the location.
         :return: TransactionBuilder
         """
