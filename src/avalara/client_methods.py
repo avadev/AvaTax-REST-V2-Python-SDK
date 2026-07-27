@@ -31,7 +31,7 @@ class Mixin:
     """
     def account_reset_license_key(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/accounts/{}/resetlicensekey'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -56,7 +56,7 @@ class Mixin:
     """
     def activate_account(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/accounts/{}/activate'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -87,7 +87,7 @@ class Mixin:
     """
     def audit_account(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts/{}/audit'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -112,7 +112,7 @@ class Mixin:
     """
     def create_license_key(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/accounts/{}/licensekey'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -133,7 +133,7 @@ class Mixin:
     """
     def delete_license_key(self, id_, licensekeyname):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/accounts/{}/licensekey/{}'.format(self.base_url, id_, licensekeyname),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -155,7 +155,7 @@ class Mixin:
     """
     def get_account(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -181,7 +181,7 @@ class Mixin:
     """
     def get_account_configuration(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -199,7 +199,7 @@ class Mixin:
     """
     def get_license_key(self, id_, licensekeyname):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts/{}/licensekey/{}'.format(self.base_url, id_, licensekeyname),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -217,7 +217,7 @@ class Mixin:
     """
     def get_license_keys(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts/{}/licensekeys'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -235,7 +235,7 @@ class Mixin:
     """
     def list_mrs_accounts(self):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts/mrs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -264,7 +264,7 @@ class Mixin:
     """
     def query_accounts(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -291,7 +291,7 @@ class Mixin:
     """
     def set_account_configuration(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/accounts/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -327,7 +327,7 @@ class Mixin:
     """
     def resolve_address(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/addresses/resolve'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -352,7 +352,7 @@ class Mixin:
     """
     def resolve_address_post(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/addresses/resolve'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -369,7 +369,7 @@ class Mixin:
     """
     def create_a_p_config_setting(self, companyid, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/apconfigsetting'.format(self.base_url, companyid),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -390,7 +390,7 @@ class Mixin:
     """
     def get_a_p_config_setting_by_company(self, companyid, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/apconfigsetting'.format(self.base_url, companyid),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -410,7 +410,7 @@ class Mixin:
     """
     def query_a_p_config_setting(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/apconfigsetting'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -427,7 +427,7 @@ class Mixin:
     """
     def update_a_p_config_setting(self, companyid, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/apconfigsetting'.format(self.base_url, companyid),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -447,7 +447,7 @@ class Mixin:
     """
     def create_ava_file_forms(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -466,7 +466,7 @@ class Mixin:
     """
     def delete_ava_file_form(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -485,7 +485,7 @@ class Mixin:
     """
     def get_ava_file_form(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -508,7 +508,7 @@ class Mixin:
     """
     def query_ava_file_forms(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -529,7 +529,7 @@ class Mixin:
     """
     def update_ava_file_form(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/avafileforms/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -556,7 +556,7 @@ class Mixin:
     """
     def cancel_batch(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/batches/{}/cancel'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -583,7 +583,7 @@ class Mixin:
     """
     def create_advanced_rules_batch(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/batches/advancedrules'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -616,7 +616,7 @@ class Mixin:
     """
     def create_batches(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -643,7 +643,7 @@ class Mixin:
     """
     def create_item_import_batch(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/batches/items'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -675,7 +675,7 @@ class Mixin:
     """
     def create_transaction_batch(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/batches/transactions'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -701,7 +701,7 @@ class Mixin:
     """
     def delete_batch(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -721,7 +721,7 @@ class Mixin:
     """
     def download_batch(self, companyId, batchId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/batches/{}/files/{}/attachment'.format(self.base_url, companyId, batchId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -751,7 +751,7 @@ class Mixin:
     """
     def get_batch(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/batches/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -789,7 +789,7 @@ class Mixin:
     """
     def list_batches_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/batches'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -824,7 +824,7 @@ class Mixin:
     """
     def query_batches(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/batches'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -856,7 +856,7 @@ class Mixin:
     """
     def create_cert_express_invitation(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/customers/{}/certexpressinvites'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -889,7 +889,7 @@ class Mixin:
     """
     def get_cert_express_invitation(self, companyId, customerCode, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/customers/{}/certexpressinvites/{}'.format(self.base_url, companyId, customerCode, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -924,7 +924,7 @@ class Mixin:
     """
     def list_cert_express_invitations(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/certexpressinvites'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -960,7 +960,7 @@ class Mixin:
     """
     def create_certificates(self, companyId, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -989,7 +989,7 @@ class Mixin:
     """
     def delete_certificate(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1014,7 +1014,7 @@ class Mixin:
     """
     def delete_certificate_custom_fields(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/certificates/{}/custom-fields'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1046,7 +1046,7 @@ class Mixin:
     """
     def download_certificate_image(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1066,6 +1066,8 @@ class Mixin:
       * attributes - Retrieves all attributes applied to the certificate.
       * histories - Retrieves the certificate update history
       * jobs - Retrieves the jobs for this certificate
+      * jobs.phases - Retrieves the jobs along with their phases
+      * jobs.tasks - Retrieves the jobs along with their phases and the tasks within each phase
       * logs - Retrieves the certificate log
       * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid
       * custom_fields - Retrieves custom fields set for this certificate
@@ -1080,12 +1082,12 @@ class Mixin:
     
       :param companyId [int] The ID number of the company that recorded this certificate
       :param id_ [int] The unique ID number of this certificate
-      :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate   * jurisdictions - Retrieves the list of jurisdictions associated with the certificate
+      :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * jobs.phases - Retrieves the jobs along with their phases   * jobs.tasks - Retrieves the jobs along with their phases and the tasks within each phase   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate   * jurisdictions - Retrieves the list of jurisdictions associated with the certificate
       :return CertificateModel
     """
     def get_certificate(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1109,7 +1111,7 @@ class Mixin:
     """
     def get_certificate_setup(self, companyId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1140,7 +1142,7 @@ class Mixin:
     """
     def link_attributes_to_certificate(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1172,7 +1174,7 @@ class Mixin:
     """
     def link_customers_to_certificate(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/link'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1202,9 +1204,42 @@ class Mixin:
     """
     def list_attributes_for_certificate(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/certificates/{}/attributes'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    List the certificate tax-type hierarchy available to this company
+    
+    Returns the TPS multi-tax type hierarchy that is applicable when configuring exemption
+      certificates for the given country. The returned tax types can be used to populate
+      `taxTypeMappings` entries on a certificate jurisdiction via POST / PUT certificate.
+      This endpoint is scoped to the certificate (CertCapture) domain and does not return the
+      generic AvaTax tax-type catalog. For the generic catalog see the `Definitions` APIs.
+      `country` is a mandatory query parameter.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The ID number of the company
+      :param country [string] Required. ISO-2 country code used to filter the tax-type hierarchy (e.g., "US").
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxTypeId, country, taxSubTypeDetails
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_certificate_tax_types(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.get('{}/api/v2/companies/{}/certificates/taxtypes'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Swagger Name: AvaTaxClient
@@ -1233,7 +1268,7 @@ class Mixin:
     """
     def list_customers_for_certificate(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/certificates/{}/customers'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1257,7 +1292,7 @@ class Mixin:
     """
     def list_custom_fields_for_certificate(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/certificates/{}/custom-fields'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1289,7 +1324,7 @@ class Mixin:
     """
     def list_local_exempt_jurisdictions(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/jurisdictions'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1309,6 +1344,8 @@ class Mixin:
       * attributes - Retrieves all attributes applied to the certificate.
       * histories - Retrieves the certificate update history
       * jobs - Retrieves the jobs for this certificate
+      * jobs.phases - Retrieves the jobs along with their phases
+      * jobs.tasks - Retrieves the jobs along with their phases and the tasks within each phase
       * logs - Retrieves the certificate log
       * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid
       * custom_fields - Retrieves custom fields set for this certificate
@@ -1322,8 +1359,8 @@ class Mixin:
       * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
     
       :param companyId [int] The ID number of the company to search
-      :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate   * jurisdictions - Retrieves the list of jurisdictions associated with the certificate
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, ecmsId, ecmsStatus, pdf, pages
+      :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * jobs.phases - Retrieves the jobs along with their phases   * jobs.tasks - Retrieves the jobs along with their phases and the tasks within each phase   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate   * jurisdictions - Retrieves the list of jurisdictions associated with the certificate
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, jurisdictions, ecmsId, ecmsStatus, pdf, pages
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -1331,7 +1368,7 @@ class Mixin:
     """
     def query_certificates(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1356,7 +1393,7 @@ class Mixin:
     """
     def request_certificate_setup(self, companyId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/certificates/setup'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1387,7 +1424,7 @@ class Mixin:
     """
     def unlink_attributes_from_certificate(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/certificates/{}/attributes/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1420,7 +1457,7 @@ class Mixin:
     """
     def unlink_customers_from_certificate(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/certificates/{}/customers/unlink'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1449,7 +1486,7 @@ class Mixin:
     """
     def update_certificate(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/certificates/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1474,7 +1511,7 @@ class Mixin:
     """
     def update_certificate_custom_fields(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/certificates/{}/custom-fields'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1505,7 +1542,7 @@ class Mixin:
     """
     def upload_certificate_image(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/certificates/{}/attachment'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1529,7 +1566,7 @@ class Mixin:
     """
     def list_location_by_account(self, accountId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/clerk/locations'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1547,7 +1584,7 @@ class Mixin:
     """
     def get_communication_certificate(self, companyId, certificateId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/companies/{}/communication-certificates/{}'.format(self.base_url, companyId, certificateId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1573,7 +1610,7 @@ class Mixin:
     """
     def list_communication_certificates(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/companies/{}/communication-certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1612,7 +1649,7 @@ class Mixin:
     """
     def certify_integration(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/certify'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1639,7 +1676,7 @@ class Mixin:
     """
     def change_filing_status(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1666,7 +1703,7 @@ class Mixin:
     """
     def company_initialize(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/initialize'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1687,7 +1724,7 @@ class Mixin:
     """
     def create_companies(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1711,7 +1748,7 @@ class Mixin:
     """
     def create_company_parameters(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1742,7 +1779,7 @@ class Mixin:
     """
     def create_funding_request(self, id_, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/funding/setup'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1765,7 +1802,7 @@ class Mixin:
     """
     def create_vat_numbers(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/vatnumbers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1783,7 +1820,7 @@ class Mixin:
     """
     def delete_company(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1805,7 +1842,7 @@ class Mixin:
     """
     def delete_company_parameter(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1824,7 +1861,7 @@ class Mixin:
     """
     def delete_vat_number(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/vatnumbers/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1846,7 +1883,7 @@ class Mixin:
     """
     def funding_configuration_by_company(self, companyId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/funding/configuration'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1869,7 +1906,7 @@ class Mixin:
     """
     def funding_configurations_by_company_and_currency(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/funding/configurations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1892,7 +1929,7 @@ class Mixin:
     """
     def get_all_customers_and_suppliers_with_country_params(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/supplierandcustomers/withcountryparams'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1922,7 +1959,7 @@ class Mixin:
     """
     def get_company(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1948,7 +1985,7 @@ class Mixin:
     """
     def get_company_configuration(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1970,7 +2007,7 @@ class Mixin:
     """
     def get_company_parameter_detail(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -1998,7 +2035,7 @@ class Mixin:
     """
     def get_filing_status(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/filingstatus'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2017,7 +2054,7 @@ class Mixin:
     """
     def get_vat_number(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/vatnumbers/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2041,7 +2078,7 @@ class Mixin:
     """
     def list_a_c_h_entry_details_for_company(self, id_, periodyear, periodmonth):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/paymentdetails/{}/{}'.format(self.base_url, id_, periodyear, periodmonth),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2068,7 +2105,7 @@ class Mixin:
     """
     def list_company_parameter_details(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/parameters'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2090,7 +2127,7 @@ class Mixin:
     """
     def list_funding_requests_by_company(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/funding'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2108,7 +2145,7 @@ class Mixin:
     """
     def list_mrs_companies(self):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/mrs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2146,7 +2183,7 @@ class Mixin:
     """
     def list_vat_numbers(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/vatnumbers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2181,7 +2218,7 @@ class Mixin:
     """
     def query_companies(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2208,7 +2245,7 @@ class Mixin:
     """
     def set_company_configuration(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/configuration'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2233,7 +2270,7 @@ class Mixin:
     """
     def update_company(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2256,7 +2293,7 @@ class Mixin:
     """
     def update_company_parameter_detail(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/parameters/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2283,7 +2320,7 @@ class Mixin:
     """
     def update_vat_number(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/vatnumbers/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2308,7 +2345,7 @@ class Mixin:
     """
     def validate_vat_number(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/vatnumbers/validate'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2332,7 +2369,7 @@ class Mixin:
     """
     def query_juris_names(self, country, region, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/compliance/jurisnames/{}/{}'.format(self.base_url, country, region),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2358,7 +2395,7 @@ class Mixin:
     """
     def query_rate_options(self, country, region, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/compliance/rateOptions/{}/{}'.format(self.base_url, country, region),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2379,7 +2416,7 @@ class Mixin:
     """
     def query_state_config(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/compliance/stateconfig'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2403,7 +2440,7 @@ class Mixin:
     """
     def query_state_reporting_codes(self, country, region, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/compliance/stateReportingCodes/{}/{}'.format(self.base_url, country, region),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2423,7 +2460,7 @@ class Mixin:
     """
     def query_tax_type_mappings(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/compliance/taxtypemappings'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2444,7 +2481,7 @@ class Mixin:
     """
     def create_contacts(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2463,7 +2500,7 @@ class Mixin:
     """
     def delete_contact(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2484,7 +2521,7 @@ class Mixin:
     """
     def get_contact(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2508,7 +2545,7 @@ class Mixin:
     """
     def list_contacts_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/contacts'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2533,7 +2570,7 @@ class Mixin:
     """
     def query_contacts(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/contacts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2557,7 +2594,7 @@ class Mixin:
     """
     def update_contact(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/contacts/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2574,7 +2611,7 @@ class Mixin:
     """
     def bulk_upload_cost_centers(self, companyid, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/costcenters/$upload'.format(self.base_url, companyid),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2592,7 +2629,7 @@ class Mixin:
     """
     def create_cost_center(self, companyid, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/costcenters'.format(self.base_url, companyid),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2609,7 +2646,7 @@ class Mixin:
     """
     def delete_cost_center(self, companyid, costcenterid):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/costcenters/{}'.format(self.base_url, companyid, costcenterid),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2626,7 +2663,7 @@ class Mixin:
     """
     def get_cost_center_by_id(self, companyid, costcenterid):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/costcenters/{}'.format(self.base_url, companyid, costcenterid),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2647,7 +2684,7 @@ class Mixin:
     """
     def list_cost_centers_by_company(self, companyid, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/costcenters'.format(self.base_url, companyid),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2667,7 +2704,7 @@ class Mixin:
     """
     def query_cost_centers(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/costcenters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2685,8 +2722,33 @@ class Mixin:
     """
     def update_cost_center(self, companyid, costcenterid, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/costcenters/{}'.format(self.base_url, companyid, costcenterid),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    Add ship-to states to a customer
+    
+    Adds one or more ship-to states to the specified customer.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company that recorded this customer
+      :param customerCode [string] The unique code representing this customer
+      :param model [StateModel] The list of ship-to states to add to this customer
+      :return FetchResult
+    """
+    def add_ship_to_states_for_customer(self, companyId, customerCode, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.post('{}/api/v2/companies/{}/customers/{}/shiptostate'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -2716,7 +2778,7 @@ class Mixin:
     """
     def create_customers(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2745,7 +2807,7 @@ class Mixin:
     """
     def delete_customer(self, companyId, customerCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2770,7 +2832,7 @@ class Mixin:
     """
     def delete_custom_fields(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/customers/{}/custom-fields'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2811,7 +2873,7 @@ class Mixin:
     """
     def get_customer(self, companyId, customerCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2843,7 +2905,7 @@ class Mixin:
     """
     def link_attributes_to_customer(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2873,7 +2935,7 @@ class Mixin:
     """
     def link_certificates_to_customer(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/link'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2903,7 +2965,7 @@ class Mixin:
     """
     def link_ship_to_customers_to_bill_customer(self, companyId, code, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/customers/billto/{}/shipto/link'.format(self.base_url, companyId, code),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2927,7 +2989,7 @@ class Mixin:
     """
     def list_active_certificates_for_customer(self, companyId, customerCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/customers/{}/certificates/active'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2958,7 +3020,7 @@ class Mixin:
     """
     def list_attributes_for_customer(self, companyId, customerCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/customers/{}/attributes'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -2984,7 +3046,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this customer
       :param customerCode [string] The unique code representing this customer
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate   * jurisdictions - Retrieves the list of jurisdictions associated with the certificate
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, ecmsId, ecmsStatus, pdf, pages
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, jurisdictions, ecmsId, ecmsStatus, pdf, pages
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -2992,7 +3054,7 @@ class Mixin:
     """
     def list_certificates_for_customer(self, companyId, customerCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/customers/{}/certificates'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3016,7 +3078,7 @@ class Mixin:
     """
     def list_custom_fields_for_customer(self, companyId, customerCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/customers/{}/custom-fields'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3041,8 +3103,32 @@ class Mixin:
     """
     def list_in_active_certificates_for_customer(self, companyId, customerCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/customers/{}/certificates/inactive'.format(self.base_url, companyId, customerCode),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    List ship-to states linked to a customer
+    
+    Retrieves the ship-to states associated with the specified customer.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company that recorded this customer
+      :param customerCode [string] The unique code representing this customer
+      :return FetchResult
+    """
+    def list_ship_to_states_for_customer(self, companyId, customerCode):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.get('{}/api/v2/companies/{}/customers/{}/shiptostate'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -3074,7 +3160,7 @@ class Mixin:
     """
     def list_valid_certificates_for_customer(self, companyId, customerCode, country, region):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/customers/{}/certificates/{}/{}'.format(self.base_url, companyId, customerCode, country, region),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3118,9 +3204,34 @@ class Mixin:
     """
     def query_customers(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/customers'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    Remove ship-to states from a customer
+    
+    Removes one or more ship-to states from the specified customer.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company that recorded this customer
+      :param customerCode [string] The unique code representing this customer
+      :param model [StateModel] The list of ship-to states to remove from this customer
+      :return FetchResult
+    """
+    def remove_ship_to_states_for_customer(self, companyId, customerCode, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.delete('{}/api/v2/companies/{}/customers/{}/shiptostate'.format(self.base_url, companyId, customerCode),
+                               auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Swagger Name: AvaTaxClient
@@ -3150,7 +3261,7 @@ class Mixin:
     """
     def unlink_attributes_from_customer(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/customers/{}/attributes/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3180,7 +3291,7 @@ class Mixin:
     """
     def unlink_certificates_from_customer(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/customers/{}/certificates/unlink'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3210,7 +3321,7 @@ class Mixin:
     """
     def update_customer(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/customers/{}'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3235,7 +3346,7 @@ class Mixin:
     """
     def update_custom_fields(self, companyId, customerCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/customers/{}/custom-fields'.format(self.base_url, companyId, customerCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3255,7 +3366,7 @@ class Mixin:
     """
     def create_data_sources(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3275,7 +3386,7 @@ class Mixin:
     """
     def delete_data_source(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3295,7 +3406,7 @@ class Mixin:
     """
     def get_data_source_by_id(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3318,7 +3429,7 @@ class Mixin:
     """
     def list_data_sources(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/datasources'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3342,7 +3453,7 @@ class Mixin:
     """
     def query_data_sources(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/datasources'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3363,7 +3474,7 @@ class Mixin:
     """
     def update_data_source(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/datasources/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3388,7 +3499,7 @@ class Mixin:
     """
     def get_cross_border_code(self, country, hsCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/crossborder/{}/{}/hierarchy'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3407,7 +3518,7 @@ class Mixin:
     """
     def list_all_marketplace_locations(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/listallmarketplacelocations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3426,7 +3537,7 @@ class Mixin:
     """
     def list_all_unit_of_basis(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/unitofbasis'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3448,7 +3559,7 @@ class Mixin:
     """
     def list_ava_file_forms(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/avafileforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3472,7 +3583,7 @@ class Mixin:
     """
     def list_certificate_attributes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/certificateattributes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3495,7 +3606,7 @@ class Mixin:
     """
     def list_certificate_exempt_reasons(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/certificateexemptreasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3518,7 +3629,7 @@ class Mixin:
     """
     def list_certificate_exposure_zones(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/certificateexposurezones'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3539,7 +3650,7 @@ class Mixin:
     """
     def list_classification_parameters_usage(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/classification/parametersusage'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3559,7 +3670,7 @@ class Mixin:
     """
     def list_communications_service_types(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/communications/transactiontypes/{}/servicetypes'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3579,7 +3690,7 @@ class Mixin:
     """
     def list_communications_transaction_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/communications/transactiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3599,7 +3710,7 @@ class Mixin:
     """
     def list_communications_t_s_pairs(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/communications/tspairs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3624,7 +3735,7 @@ class Mixin:
     """
     def list_countries(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/countries'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3648,7 +3759,7 @@ class Mixin:
     """
     def list_cover_letters(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/coverletters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3676,7 +3787,7 @@ class Mixin:
     """
     def list_cross_border_codes(self, country, hsCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/crossborder/{}/{}'.format(self.base_url, country, hsCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3697,7 +3808,7 @@ class Mixin:
     """
     def list_cross_border_sections(self):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/crossborder/sections'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3718,7 +3829,7 @@ class Mixin:
     """
     def list_currencies(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/currencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3741,7 +3852,7 @@ class Mixin:
     """
     def list_entity_use_codes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/entityusecodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3761,7 +3872,7 @@ class Mixin:
     """
     def list_filing_frequencies(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/filingfrequencies'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3777,7 +3888,7 @@ class Mixin:
     """
     def list_item_h_s_code_classification_status(self):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/items/hscode-classification-status'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3793,7 +3904,7 @@ class Mixin:
     """
     def list_item_reverse_sync_events(self):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/items/events'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3809,7 +3920,7 @@ class Mixin:
     """
     def list_items_recommendations_status(self):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/items/recommendationstatus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3825,7 +3936,7 @@ class Mixin:
     """
     def list_items_status(self):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/items/status'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3848,7 +3959,7 @@ class Mixin:
     """
     def list_jurisdictions(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/jurisdictions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3861,6 +3972,9 @@ class Mixin:
       This API allows you to identify which jurisdictions are nearby a specific address according to the best available geocoding information.
       It is intended to allow you to create a "Jurisdiction Override", which allows an address to be configured as belonging to a nearby
       jurisdiction in AvaTax.
+      You can widen the search by supplying the optional `radius` parameter (in miles). Supported values are
+      5 (default), 10, 20, 30, and 40. If the desired tax region is not found at 5 miles, retry with a larger radius.
+      This only affects tax-region retrieval for this request; it does not change tax calculation once a region is selected.
       The results of this API call can be passed to the `CreateJurisdictionOverride` API call.
     
       :param line1 [string] The first address line portion of this address.
@@ -3870,6 +3984,7 @@ class Mixin:
       :param region [string] The region, state, or province code portion of this address.
       :param postalCode [string] The postal code or zip code portion of this address.
       :param country [string] The two-character ISO-3166 code of the country portion of this address.
+      :param radius [int] Optional. The search radius in miles used to find nearby tax regions. Allowed values are 5, 10,  20, 30, and 40; when omitted the default of 5 miles is used. A larger radius widens the search for  this request only and does not change the default behavior for other requests. Any other value  is rejected with a validation error.
       :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* country, Jurisdictions
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3878,7 +3993,7 @@ class Mixin:
     """
     def list_jurisdictions_by_address(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/jurisdictionsnearaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3907,7 +4022,7 @@ class Mixin:
     """
     def list_jurisdictions_by_rate_type_tax_type_mapping(self, country, taxTypeId, taxSubTypeId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/jurisdictions/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url, country, taxTypeId, taxSubTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3928,7 +4043,7 @@ class Mixin:
     """
     def list_jurisdictions_hierarchy(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/jurisdictions/hierarchy'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3959,7 +4074,7 @@ class Mixin:
     """
     def list_jurisdiction_tax_types_and_sub_types(self, country, region, jurisdictionTypeId, jurisdictionCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/jurisdictions/{}/{}/{}/{}/taxTypesAndSubTypes'.format(self.base_url, country, region, jurisdictionTypeId, jurisdictionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -3979,7 +4094,7 @@ class Mixin:
     """
     def list_jurisdiction_types_by_rate_type_tax_type_mapping(self, country, taxTypeId, taxSubTypeId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/jurisdictionTypes/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url, country, taxTypeId, taxSubTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4012,7 +4127,7 @@ class Mixin:
     """
     def list_location_questions_by_address(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/locationquestions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4031,7 +4146,7 @@ class Mixin:
     """
     def list_marketplace_locations(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/marketplacelocations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4051,7 +4166,7 @@ class Mixin:
     """
     def list_nexus(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4081,7 +4196,7 @@ class Mixin:
     """
     def list_nexus_by_address(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/nexus/byaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4102,7 +4217,7 @@ class Mixin:
     """
     def list_nexus_by_country(self, country, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/nexus/{}'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4124,7 +4239,7 @@ class Mixin:
     """
     def list_nexus_by_country_and_region(self, country, region, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/nexus/{}/{}'.format(self.base_url, country, region),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4149,7 +4264,7 @@ class Mixin:
     """
     def list_nexus_by_form_code(self, formCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/nexus/byform/{}'.format(self.base_url, formCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4170,7 +4285,7 @@ class Mixin:
     """
     def list_nexus_by_tax_type_group(self, taxTypeGroup, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/nexus/bytaxtypegroup/{}'.format(self.base_url, taxTypeGroup),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4190,7 +4305,7 @@ class Mixin:
     """
     def list_nexus_tax_type_groups(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/nexustaxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4210,7 +4325,7 @@ class Mixin:
     """
     def list_notice_customer_funding_options(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/noticecustomerfundingoptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4230,7 +4345,7 @@ class Mixin:
     """
     def list_notice_customer_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/noticecustomertypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4250,7 +4365,7 @@ class Mixin:
     """
     def list_notice_filingtypes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/noticefilingtypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4270,7 +4385,7 @@ class Mixin:
     """
     def list_notice_priorities(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/noticepriorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4290,7 +4405,7 @@ class Mixin:
     """
     def list_notice_reasons(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/noticereasons'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4310,7 +4425,7 @@ class Mixin:
     """
     def list_notice_responsibilities(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/noticeresponsibilities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4330,7 +4445,7 @@ class Mixin:
     """
     def list_notice_root_causes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/noticerootcauses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4350,7 +4465,7 @@ class Mixin:
     """
     def list_notice_statuses(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/noticestatuses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4370,7 +4485,7 @@ class Mixin:
     """
     def list_notice_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/noticetypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4391,7 +4506,7 @@ class Mixin:
     """
     def list_parameters(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/parameters'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4411,7 +4526,7 @@ class Mixin:
     """
     def list_parameters_by_account(self, accountId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/accounts/{}/parameters'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4445,7 +4560,7 @@ class Mixin:
     """
     def list_parameters_by_item(self, companyCode, itemCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/parameters/byitem/{}/{}'.format(self.base_url, companyCode, itemCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4466,7 +4581,7 @@ class Mixin:
     """
     def list_parameters_usage(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/parametersusage'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4484,7 +4599,7 @@ class Mixin:
     """
     def list_permissions(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/permissions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4504,7 +4619,7 @@ class Mixin:
     """
     def list_postal_codes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/postalcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4529,7 +4644,7 @@ class Mixin:
     """
     def list_preferred_programs(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/preferredprograms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4551,7 +4666,7 @@ class Mixin:
     """
     def list_product_classification_systems(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/productclassificationsystems'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4580,7 +4695,7 @@ class Mixin:
     """
     def list_product_classification_systems_by_company(self, companyCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/productclassificationsystems/bycompany/{}'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4601,7 +4716,7 @@ class Mixin:
     """
     def list_rate_types_by_country(self, country, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/countries/{}/ratetypes'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4625,7 +4740,7 @@ class Mixin:
     """
     def list_rate_types_by_country_tax_type_tax_sub_type(self, country, taxTypeId, taxSubTypeId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/countries/{}/taxtypes/{}/taxsubtypes/{}/ratetypes'.format(self.base_url, country, taxTypeId, taxSubTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4646,7 +4761,7 @@ class Mixin:
     """
     def list_regions(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/regions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4668,7 +4783,7 @@ class Mixin:
     """
     def list_regions_by_country(self, country, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/countries/{}/regions'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4695,7 +4810,7 @@ class Mixin:
     """
     def list_regions_by_country_and_tax_type_and_tax_sub_type_and_rate_type(self, companyId, country, taxTypeId, taxSubTypeId, rateTypeId, jurisdictionTypeId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/companies/{}/countries/{}/regions/taxtypes/{}/taxsubtypes/{}/rateTypeId/{}/jurisdictionTypeId/{}'.format(self.base_url, companyId, country, taxTypeId, taxSubTypeId, rateTypeId, jurisdictionTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4716,7 +4831,7 @@ class Mixin:
     """
     def list_returns_parameters_usage(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/returns/parametersusage'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4737,7 +4852,7 @@ class Mixin:
     """
     def list_security_roles(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/securityroles'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4759,7 +4874,7 @@ class Mixin:
     """
     def list_subscription_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/subscriptiontypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4778,7 +4893,7 @@ class Mixin:
     """
     def list_tags(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/tags'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4798,7 +4913,7 @@ class Mixin:
     """
     def list_tax_authorities(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/taxauthorities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4820,7 +4935,7 @@ class Mixin:
     """
     def list_tax_authority_forms(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/taxauthorityforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4840,7 +4955,7 @@ class Mixin:
     """
     def list_tax_authority_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/taxauthoritytypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4865,7 +4980,7 @@ class Mixin:
     """
     def list_tax_codes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4884,7 +4999,7 @@ class Mixin:
     """
     def list_tax_code_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/taxcodetypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4904,7 +5019,7 @@ class Mixin:
     """
     def list_tax_forms(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/taxforms'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4924,7 +5039,7 @@ class Mixin:
     """
     def list_tax_sub_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/taxsubtypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4948,7 +5063,7 @@ class Mixin:
     """
     def list_tax_sub_types_by_country_and_tax_type(self, country, taxTypeId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/taxsubtypes/countries/{}/taxtypes/{}'.format(self.base_url, country, taxTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4970,7 +5085,7 @@ class Mixin:
     """
     def list_tax_sub_types_by_jurisdiction_and_region(self, jurisdictionCode, region, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/taxsubtypes/{}/{}'.format(self.base_url, jurisdictionCode, region),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -4990,7 +5105,7 @@ class Mixin:
     """
     def list_tax_type_groups(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/taxtypegroups'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5011,7 +5126,7 @@ class Mixin:
     """
     def list_tax_types_by_nexus_and_country(self, country, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/taxtypes/countries/{}'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5033,7 +5148,7 @@ class Mixin:
     """
     def list_unit_of_basis_by_country_and_tax_type_and_tax_sub_type_and_rate_type(self, country, taxTypeId, taxSubTypeId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/unitofbasis/countries/{}/taxtypes/{}/taxsubtypes/{}'.format(self.base_url, country, taxTypeId, taxSubTypeId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5053,7 +5168,7 @@ class Mixin:
     """
     def list_unit_of_measurement(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/unitofmeasurements'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5075,7 +5190,7 @@ class Mixin:
     """
     def create_distance_threshold(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5097,7 +5212,7 @@ class Mixin:
     """
     def delete_distance_threshold(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5119,7 +5234,7 @@ class Mixin:
     """
     def get_distance_threshold(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5145,7 +5260,7 @@ class Mixin:
     """
     def list_distance_thresholds(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/distancethresholds'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5172,7 +5287,7 @@ class Mixin:
     """
     def query_distance_thresholds(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/distancethresholds'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5197,7 +5312,7 @@ class Mixin:
     """
     def update_distance_threshold(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/distancethresholds/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5213,7 +5328,7 @@ class Mixin:
     """
     def create_dcv(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/domain-control-verifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5229,7 +5344,7 @@ class Mixin:
     """
     def filter_dcv(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/domain-control-verifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5245,7 +5360,7 @@ class Mixin:
     """
     def get_dcv_by_id(self, domainControlVerificationId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/domain-control-verifications/{}'.format(self.base_url, domainControlVerificationId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5263,7 +5378,7 @@ class Mixin:
     """
     def delete_afc_event_notifications(self, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/event-notifications/afc'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5281,7 +5396,7 @@ class Mixin:
     """
     def delete_event_notifications(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/event-notifications/companies/{}'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5298,7 +5413,7 @@ class Mixin:
     """
     def get_event_notifications(self, companyId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/event-notifications/companies/{}'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5315,7 +5430,7 @@ class Mixin:
     """
     def list_afc_event_notifications(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/event-notifications/afc'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5337,7 +5452,7 @@ class Mixin:
     """
     def create_e_commerce_token(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5357,38 +5472,37 @@ class Mixin:
     """
     def refresh_e_commerce_token(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/ecommercetokens'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Swagger Name: AvaTaxClient
     
-    List economic nexus threshold statuses for a company
+    Get economic nexus threshold statuses for a company
     
-    Returns precomputed economic nexus threshold statuses for a company, sourced from a cache
-      refreshed weekly from Snowflake.
-      When the optional `region` query parameter is provided, only the matching jurisdiction row is included in `states`.
-      If no row exists for that company and region, `states` is an empty array (still 200 OK).
-      TPS currently binds this filter as query parameter `state`; use the same value. If the public contract standardizes on `region`,
-      TPS or api-gateway should accept or rewrite `region` so filtering still applies.
+    Returns precomputed economic nexus threshold statuses for a company, sourced from an in-memory
+      cache refreshed periodically from Snowflake. All responses are served from cache;
+      Snowflake is never queried on the request path.
+      When the optional `region` query parameter is provided, only the matching jurisdiction row
+      is included in `states`. If no row exists for that company and region, `states` is
+      an empty array (200 OK).
+      When `lastRefreshedAt` is absent from the response, the cache has not yet completed its
+      first refresh; callers should treat absence as "cache freshness unknown".
       Production traffic is served by TPS; api-gateway should route this path to TPS.
-      This endpoint requires the `NexusFetch` permission. If EcoNexus is not configured in TPS or the cache has not loaded, TPS returns 503.
+      This endpoint requires the `NexusFetch` permission. If EcoNexus is not configured in TPS,
+      a 503 is returned with no `Retry-After` (misconfiguration requires redeployment).
+      If the cache is still initializing, a 503 is returned with `Retry-After: 300`.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
       :param companyId [int] The Avalara company identifier.
-      :param region [string] Optional two-letter US state/region postal code (case-insensitive), same meaning as the `state` column in the data store. When provided, `states` contains at most one item; if there is no data for that company and region, `states` is an empty array (200 OK).
-      :param include [string] Standard Avalara `$include` query option (see other v2 list APIs).
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-      :return ThresholdStatusesModel
+      :param region [string] Optional two-letter US state postal code to filter results (case-insensitive).   When provided, `states` contains at most one item; if there is no data for that company   and region, `states` is an empty array (200 OK). Must be exactly two characters; otherwise returns 400.   Matches the `region` field on each item in the response.
+      :return EcoNexusThresholdsModel
     """
     def get_eco_nexus_thresholds(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/econexusthresholds'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5406,7 +5520,7 @@ class Mixin:
     """
     def approve_firm_client_linkage(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/firmclientlinkages/{}/approve'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5430,7 +5544,7 @@ class Mixin:
     """
     def create_and_link_new_firm_client_account(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/firmclientlinkages/createandlinkclient'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5448,7 +5562,7 @@ class Mixin:
     """
     def create_firm_client_linkage(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/firmclientlinkages'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5466,7 +5580,7 @@ class Mixin:
     """
     def delete_firm_client_linkage(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5484,7 +5598,7 @@ class Mixin:
     """
     def get_firm_client_linkage(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/firmclientlinkages/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5503,7 +5617,7 @@ class Mixin:
     """
     def insert_firm_client_linkage(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/firmclientlinkages/insert'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5521,7 +5635,7 @@ class Mixin:
     """
     def list_firm_client_linkage(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/firmclientlinkages'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5539,7 +5653,7 @@ class Mixin:
     """
     def reject_firm_client_linkage(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/firmclientlinkages/{}/reject'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5557,7 +5671,7 @@ class Mixin:
     """
     def reset_firm_client_linkage(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/firmclientlinkages/{}/reset'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5575,7 +5689,7 @@ class Mixin:
     """
     def revoke_firm_client_linkage(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/firmclientlinkages/{}/revoke'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5594,7 +5708,7 @@ class Mixin:
     """
     def update_firm_client_linkage(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/firmclientlinkages'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5612,7 +5726,7 @@ class Mixin:
     """
     def resolve_form_type_task(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/form-type-mappings/resolve-task'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5646,7 +5760,7 @@ class Mixin:
     """
     def activate_funding_request(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/fundingrequests/{}/widget'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5676,7 +5790,7 @@ class Mixin:
     """
     def funding_request_status(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/fundingrequests/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5693,7 +5807,7 @@ class Mixin:
     """
     def bulk_upload_g_l_accounts(self, companyid, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/glaccounts/$upload'.format(self.base_url, companyid),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5711,7 +5825,7 @@ class Mixin:
     """
     def create_g_l_account(self, companyid, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/glaccounts'.format(self.base_url, companyid),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5728,7 +5842,7 @@ class Mixin:
     """
     def delete_g_l_account(self, companyid, glaccountid):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/glaccounts/{}'.format(self.base_url, companyid, glaccountid),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5745,7 +5859,7 @@ class Mixin:
     """
     def get_g_l_account_by_id(self, companyid, glaccountid):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/glaccounts/{}'.format(self.base_url, companyid, glaccountid),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5766,7 +5880,7 @@ class Mixin:
     """
     def list_g_l_accounts_by_company(self, companyid, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/glaccounts'.format(self.base_url, companyid),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5784,7 +5898,7 @@ class Mixin:
     """
     def update_g_l_account(self, companyid, glaccountid, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/glaccounts/{}'.format(self.base_url, companyid, glaccountid),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5817,7 +5931,7 @@ class Mixin:
     """
     def a_isearch(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/items/nlq/$parse'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5838,7 +5952,7 @@ class Mixin:
     """
     def batch_delete_item_classifications(self, companyId, itemId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5861,7 +5975,7 @@ class Mixin:
     """
     def batch_delete_item_custom_parameters(self, companyId, itemId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/custom-parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5883,7 +5997,7 @@ class Mixin:
     """
     def batch_delete_item_parameters(self, companyId, itemId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5912,7 +6026,7 @@ class Mixin:
     """
     def bulk_upload_items(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/items/upload'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5935,7 +6049,7 @@ class Mixin:
     """
     def create_item_classifications(self, companyId, itemId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5959,7 +6073,7 @@ class Mixin:
     """
     def create_item_custom_parameters(self, companyId, itemId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/items/{}/custom-parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -5986,7 +6100,7 @@ class Mixin:
     """
     def create_item_parameters(self, companyId, itemId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6016,7 +6130,7 @@ class Mixin:
     """
     def create_items(self, companyId, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6037,7 +6151,7 @@ class Mixin:
     """
     def create_item_tags(self, companyId, itemId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6059,7 +6173,7 @@ class Mixin:
     """
     def create_taxcode_batch(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/taxcode-recommendations/batches'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6081,7 +6195,7 @@ class Mixin:
     """
     def create_tax_code_classification_request(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/classificationrequests/taxcode'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6101,7 +6215,7 @@ class Mixin:
     """
     def delete_batch_tax_code_recommendations(self, companyId, batchId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/taxcode-recommendations/batches/{}'.format(self.base_url, companyId, batchId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6131,7 +6245,7 @@ class Mixin:
     """
     def delete_catalogue_item(self, companyId, itemCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/itemcatalogue/{}'.format(self.base_url, companyId, itemCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6150,7 +6264,7 @@ class Mixin:
     """
     def delete_h_s_code_classification_status(self, companyId, itemId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/hscode-classifications-status/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6175,7 +6289,7 @@ class Mixin:
     """
     def delete_item(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6197,7 +6311,7 @@ class Mixin:
     """
     def delete_item_classification(self, companyId, itemId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6221,7 +6335,7 @@ class Mixin:
     """
     def delete_item_custom_parameter(self, companyId, itemId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/custom-parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6246,7 +6360,7 @@ class Mixin:
     """
     def delete_item_image(self, companyId, itemId, imageId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/images/{}'.format(self.base_url, companyId, itemId, imageId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6269,7 +6383,7 @@ class Mixin:
     """
     def delete_item_parameter(self, companyId, itemId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6290,7 +6404,7 @@ class Mixin:
     """
     def delete_item_tag(self, companyId, itemId, itemTagDetailId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/tags/{}'.format(self.base_url, companyId, itemId, itemTagDetailId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6310,7 +6424,7 @@ class Mixin:
     """
     def delete_item_tags(self, companyId, itemId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6330,7 +6444,7 @@ class Mixin:
     """
     def dismiss_h_s_code_classification_status(self, companyId, itemId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/items/{}/hscode-classifications-status/$dismiss'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6349,7 +6463,7 @@ class Mixin:
     """
     def fetch_additional_h_s_code_duty_details(self, companyId, itemId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/items/{}/hsdutydetails/$fetch-additional-hsdutydetails'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6372,7 +6486,7 @@ class Mixin:
     """
     def get_batch_tax_code_recommendations(self, companyId, batchId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/taxcode-recommendations/batches/{}'.format(self.base_url, companyId, batchId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6392,7 +6506,7 @@ class Mixin:
     """
     def get_h_s_code_classification_s_l_a(self, companyId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/hscode-classification/$get-sla'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6417,7 +6531,7 @@ class Mixin:
     """
     def get_item(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6439,7 +6553,7 @@ class Mixin:
     """
     def get_item_classification(self, companyId, itemId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6463,7 +6577,7 @@ class Mixin:
     """
     def get_item_custom_parameter(self, companyId, itemId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/{}/custom-parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6486,7 +6600,7 @@ class Mixin:
     """
     def get_item_parameter(self, companyId, itemId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6509,7 +6623,7 @@ class Mixin:
     """
     def get_item_tags(self, companyId, itemId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/{}/tags'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6528,7 +6642,7 @@ class Mixin:
     """
     def get_item_tax_code_recommendations(self, companyId, itemId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/{}/taxcoderecommendations'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6557,7 +6671,7 @@ class Mixin:
     """
     def get_premium_classification(self, companyId, itemCode, systemCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/{}/premiumClassification/{}'.format(self.base_url, companyId, itemCode, systemCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6579,7 +6693,7 @@ class Mixin:
     """
     def get_product_image(self, companyId, itemId, imageId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/{}/images/{}'.format(self.base_url, companyId, itemId, imageId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6599,7 +6713,7 @@ class Mixin:
     """
     def get_sync_tax_code_recommendations(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/$taxcode-recommendations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6617,7 +6731,7 @@ class Mixin:
     """
     def initiate_h_s_code_classification(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/items/$initiate-hscode-classification'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6648,7 +6762,7 @@ class Mixin:
     """
     def list_import_restrictions(self, companyId, itemCode, countryOfImport, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/{}/restrictions/import/{}'.format(self.base_url, companyId, itemCode, countryOfImport),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6675,7 +6789,7 @@ class Mixin:
     """
     def list_item_classifications(self, companyId, itemId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6704,7 +6818,7 @@ class Mixin:
     """
     def list_item_custom_parameters(self, companyId, itemId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/{}/custom-parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6732,7 +6846,7 @@ class Mixin:
     """
     def list_item_parameters(self, companyId, itemId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6763,7 +6877,7 @@ class Mixin:
     """
     def list_item_premium_classifications(self, companyId, itemCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/{}/premiumClassifications'.format(self.base_url, companyId, itemCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6813,7 +6927,7 @@ class Mixin:
     """
     def list_items_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6838,7 +6952,7 @@ class Mixin:
     """
     def list_recommended_parameter_by_company_id_and_item_id(self, companyId, itemId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/definitions/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6866,7 +6980,7 @@ class Mixin:
     """
     def patch_item(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.patch('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6895,7 +7009,7 @@ class Mixin:
     """
     def query_items(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/items'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6925,7 +7039,7 @@ class Mixin:
     """
     def query_items_by_system_code(self, companyId, systemCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/items/internal/bySystemCode/{}'.format(self.base_url, companyId, systemCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6956,7 +7070,7 @@ class Mixin:
     """
     def query_items_by_tag(self, companyId, tag, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/items/bytags/{}'.format(self.base_url, companyId, tag),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -6983,7 +7097,7 @@ class Mixin:
     """
     def sync_item_catalogue(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/itemcatalogue'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7012,7 +7126,7 @@ class Mixin:
     """
     def sync_items(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/items/sync'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7036,7 +7150,7 @@ class Mixin:
     """
     def update_image(self, companyId, itemId, imageId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/items/{}/images/{}'.format(self.base_url, companyId, itemId, imageId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7066,7 +7180,7 @@ class Mixin:
     """
     def update_item(self, companyId, id_, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/items/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7090,7 +7204,7 @@ class Mixin:
     """
     def update_item_classification(self, companyId, itemId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/items/{}/classifications/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7115,7 +7229,7 @@ class Mixin:
     """
     def update_item_custom_parameter(self, companyId, itemId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/items/{}/custom-parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7141,7 +7255,7 @@ class Mixin:
     """
     def update_item_parameter(self, companyId, itemId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/items/{}/parameters/{}'.format(self.base_url, companyId, itemId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7164,7 +7278,7 @@ class Mixin:
     """
     def upload_image(self, companyId, itemId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/items/{}/images'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7187,7 +7301,7 @@ class Mixin:
     """
     def upsert_item_classifications(self, companyId, itemId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/items/{}/classifications'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7211,7 +7325,7 @@ class Mixin:
     """
     def upsert_item_custom_parameter(self, companyId, itemId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/items/{}/custom-parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7236,7 +7350,7 @@ class Mixin:
     """
     def upsert_item_parameter(self, companyId, itemId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/items/{}/parameters'.format(self.base_url, companyId, itemId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7254,7 +7368,7 @@ class Mixin:
     """
     def verify_h_s_code(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/items/hscodes/$verify'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7276,7 +7390,7 @@ class Mixin:
     """
     def create_reverse_sync_registration(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/connector-sync/companies/{}/registrations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7295,7 +7409,7 @@ class Mixin:
     """
     def delete_reverse_sync_registration(self, companyId, registrationId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/connector-sync/companies/{}/registrations/{}'.format(self.base_url, companyId, registrationId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7314,7 +7428,7 @@ class Mixin:
     """
     def get_reverse_sync_registration(self, companyId, registrationId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/connector-sync/companies/{}/registrations/{}'.format(self.base_url, companyId, registrationId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7332,7 +7446,7 @@ class Mixin:
     """
     def list_reverse_sync_registrations(self, companyId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/connector-sync/companies/{}/registrations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7353,8 +7467,254 @@ class Mixin:
     """
     def update_reverse_sync_registration(self, companyId, registrationId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.patch('{}/api/v2/connector-sync/companies/{}/registrations/{}'.format(self.base_url, companyId, registrationId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    Create a new job for a company
+    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company
+      :param model [JobModel] The job to create
+      :return JobModel
+    """
+    def create_job(self, companyId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.post('{}/api/v2/companies/{}/jobs'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    Create a new phase on a job
+    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company
+      :param jobId [int] The unique ID number of the job
+      :param model [JobPhaseModel] The phase to create
+      :return JobPhaseModel
+    """
+    def create_job_phase(self, companyId, jobId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.post('{}/api/v2/companies/{}/jobs/{}/phases'.format(self.base_url, companyId, jobId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    Create a new task on a phase
+    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company
+      :param jobId [int] The unique ID number of the job
+      :param phaseId [int] The unique ID number of the phase
+      :param model [JobTaskModel] The task to create
+      :return JobTaskModel
+    """
+    def create_job_task(self, companyId, jobId, phaseId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.post('{}/api/v2/companies/{}/jobs/{}/phases/{}/tasks'.format(self.base_url, companyId, jobId, phaseId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    Delete a job
+    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company
+      :param id_ [int] The unique ID number of the job to delete
+      :return JobModel
+    """
+    def delete_job(self, companyId, id_):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.delete('{}/api/v2/companies/{}/jobs/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    Delete a phase from a job
+    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company
+      :param jobId [int] The unique ID number of the job
+      :param phaseId [int] The unique ID number of the phase to delete
+      :return JobPhaseModel
+    """
+    def delete_job_phase(self, companyId, jobId, phaseId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.delete('{}/api/v2/companies/{}/jobs/{}/phases/{}'.format(self.base_url, companyId, jobId, phaseId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    Delete a task from a phase
+    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company
+      :param jobId [int] The unique ID number of the job
+      :param phaseId [int] The unique ID number of the phase
+      :param taskId [int] The unique ID number of the task to delete
+      :return JobTaskModel
+    """
+    def delete_job_task(self, companyId, jobId, phaseId, taskId):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.delete('{}/api/v2/companies/{}/jobs/{}/phases/{}/tasks/{}'.format(self.base_url, companyId, jobId, phaseId, taskId),
+                               auth=self.auth, headers=self.client_header, params=None, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    Retrieve a single job
+    
+    Retrieve a single job by its unique ID.
+      A job represents construction or project work that exemption certificates can be associated with. Each
+      job can contain one or more phases, and each phase can contain one or more tasks.
+      You can use the `$include` parameter to fetch the following additional objects for expansion:
+      * phases - Retrieves the list of phases for this job.
+      * tasks - Retrieves the list of tasks within each phase. Tasks are nested under phases, so requesting `tasks` will also expand `phases`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company
+      :param id_ [int] The unique ID number of the job
+      :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * phases - Retrieves the list of phases for this job.   * tasks - Retrieves the list of tasks within each phase. Tasks are nested under phases, so requesting `tasks` will also expand `phases`.
+      :return JobModel
+    """
+    def get_job(self, companyId, id_, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.get('{}/api/v2/companies/{}/jobs/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    List all jobs for a company
+    
+    List all jobs recorded by a company.
+      A job represents construction or project work that exemption certificates can be associated with. Each
+      job can contain one or more phases, and each phase can contain one or more tasks.
+      You can use the `$include` parameter to fetch the following additional objects for expansion:
+      * phases - Retrieves the list of phases for each job.
+      * tasks - Retrieves the list of tasks within each phase. Tasks are nested under phases, so requesting `tasks` will also expand `phases`.
+      Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+      Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+      certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+      certificate storage for this company, call `RequestCertificateSetup`.
+      ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company
+      :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * phases - Retrieves the list of phases for each job.   * tasks - Retrieves the list of tasks within each phase. Tasks are nested under phases
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exposureZone, phases
+      :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+      :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+      :return FetchResult
+    """
+    def list_jobs(self, companyId, include=None):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.get('{}/api/v2/companies/{}/jobs'.format(self.base_url, companyId),
+                               auth=self.auth, headers=self.client_header, params=include, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    Update an existing job
+    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company
+      :param id_ [int] The unique ID number of the job to update
+      :param model [JobModel] The updated job data
+      :return JobModel
+    """
+    def update_job(self, companyId, id_, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.put('{}/api/v2/companies/{}/jobs/{}'.format(self.base_url, companyId, id_),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    Update an existing phase on a job
+    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company
+      :param jobId [int] The unique ID number of the job
+      :param phaseId [int] The unique ID number of the phase
+      :param model [JobPhaseModel] The updated phase data
+      :return JobPhaseModel
+    """
+    def update_job_phase(self, companyId, jobId, phaseId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.put('{}/api/v2/companies/{}/jobs/{}/phases/{}'.format(self.base_url, companyId, jobId, phaseId),
+                               auth=self.auth, headers=self.client_header, json=model, 
+                               timeout=self.timeout_limit if self.timeout_limit else 1200)
+    r"""
+    Swagger Name: AvaTaxClient
+    
+    Update an existing task on a phase
+    
+    ### Security Policies
+      * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+      * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+    
+      :param companyId [int] The unique ID number of the company
+      :param jobId [int] The unique ID number of the job
+      :param phaseId [int] The unique ID number of the phase
+      :param taskId [int] The unique ID number of the task
+      :param model [JobTaskModel] The updated task data
+      :return JobTaskModel
+    """
+    def update_job_task(self, companyId, jobId, phaseId, taskId, model):
+        if ('X-Avalara-Client' in self.client_header): 
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
+        return requests.put('{}/api/v2/companies/{}/jobs/{}/phases/{}/tasks/{}'.format(self.base_url, companyId, jobId, phaseId, taskId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
@@ -7376,7 +7736,7 @@ class Mixin:
     """
     def create_jurisdiction_overrides(self, accountId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7395,7 +7755,7 @@ class Mixin:
     """
     def delete_jurisdiction_override(self, accountId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7418,7 +7778,7 @@ class Mixin:
     """
     def get_jurisdiction_override(self, accountId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7447,7 +7807,7 @@ class Mixin:
     """
     def list_jurisdiction_overrides_by_account(self, accountId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts/{}/jurisdictionoverrides'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7475,7 +7835,7 @@ class Mixin:
     """
     def query_jurisdiction_overrides(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/jurisdictionoverrides'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7495,7 +7855,7 @@ class Mixin:
     """
     def update_jurisdiction_override(self, accountId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/accounts/{}/jurisdictionoverrides/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7520,7 +7880,7 @@ class Mixin:
     """
     def create_location_parameters(self, companyId, locationId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7539,7 +7899,7 @@ class Mixin:
     """
     def create_locations(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7558,7 +7918,7 @@ class Mixin:
     """
     def delete_location(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7581,7 +7941,7 @@ class Mixin:
     """
     def delete_location_parameter(self, companyId, locationId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7608,7 +7968,7 @@ class Mixin:
     """
     def get_location(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7631,7 +7991,7 @@ class Mixin:
     """
     def get_location_parameter(self, companyId, locationId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7659,7 +8019,7 @@ class Mixin:
     """
     def list_location_parameters(self, companyId, locationId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/locations/{}/parameters'.format(self.base_url, companyId, locationId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7691,7 +8051,7 @@ class Mixin:
     """
     def list_locations_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/locations'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7722,7 +8082,7 @@ class Mixin:
     """
     def query_locations(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/locations'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7744,7 +8104,7 @@ class Mixin:
     """
     def update_location(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/locations/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7768,7 +8128,7 @@ class Mixin:
     """
     def update_location_parameter(self, companyId, locationId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/locations/{}/parameters/{}'.format(self.base_url, companyId, locationId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7789,7 +8149,7 @@ class Mixin:
     """
     def validate_location(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/locations/{}/validate'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7823,7 +8183,7 @@ class Mixin:
     """
     def adjust_multi_document_transaction(self, code, type, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/adjust'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7860,7 +8220,7 @@ class Mixin:
     """
     def audit_multi_document_transaction(self, code, type):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}/audit'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7890,7 +8250,7 @@ class Mixin:
     """
     def commit_multi_document_transaction(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/transactions/multidocument/commit'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7940,7 +8300,7 @@ class Mixin:
     """
     def create_multi_document_transaction(self, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/transactions/multidocument'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -7976,7 +8336,7 @@ class Mixin:
     """
     def get_multi_document_transaction_by_code_and_type(self, code, type, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/transactions/multidocument/{}/type/{}'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8018,7 +8378,7 @@ class Mixin:
     """
     def get_multi_document_transaction_by_id(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/transactions/multidocument/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8061,7 +8421,7 @@ class Mixin:
     """
     def list_multi_document_transactions(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/transactions/multidocument'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8116,7 +8476,7 @@ class Mixin:
     """
     def refund_multi_document_transaction(self, code, type, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/refund'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8145,7 +8505,7 @@ class Mixin:
     """
     def verify_multi_document_transaction(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/transactions/multidocument/verify'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8178,7 +8538,7 @@ class Mixin:
     """
     def void_multi_document_transaction(self, code, type, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/transactions/multidocument/{}/type/{}/void'.format(self.base_url, code, type),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8210,7 +8570,7 @@ class Mixin:
     """
     def create_nexus(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8235,7 +8595,7 @@ class Mixin:
     """
     def create_nexus_parameters(self, companyId, nexusId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8264,7 +8624,7 @@ class Mixin:
     """
     def declare_nexus_by_address(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/nexus/byaddress'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8289,7 +8649,7 @@ class Mixin:
     """
     def delete_nexus(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8312,7 +8672,7 @@ class Mixin:
     """
     def delete_nexus_parameter(self, companyId, nexusId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8334,7 +8694,7 @@ class Mixin:
     """
     def delete_nexus_parameters(self, companyId, nexusId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8359,7 +8719,7 @@ class Mixin:
     """
     def get_nexus(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8387,7 +8747,7 @@ class Mixin:
     """
     def get_nexus_by_form_code(self, companyId, formCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/nexus/byform/{}'.format(self.base_url, companyId, formCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8410,7 +8770,7 @@ class Mixin:
     """
     def get_nexus_parameter(self, companyId, nexusId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8440,7 +8800,7 @@ class Mixin:
     """
     def list_nexus_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/nexus'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8471,7 +8831,7 @@ class Mixin:
     """
     def list_nexus_by_company_and_tax_type_group(self, companyId, taxTypeGroup, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/nexus/byTaxTypeGroup/{}'.format(self.base_url, companyId, taxTypeGroup),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8499,7 +8859,7 @@ class Mixin:
     """
     def list_nexus_parameters(self, companyId, nexusId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/nexus/{}/parameters'.format(self.base_url, companyId, nexusId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8528,7 +8888,7 @@ class Mixin:
     """
     def query_nexus(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/nexus'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8561,7 +8921,7 @@ class Mixin:
     """
     def update_nexus(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/nexus/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8585,7 +8945,7 @@ class Mixin:
     """
     def update_nexus_parameter(self, companyId, nexusId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/nexus/{}/parameters/{}'.format(self.base_url, companyId, nexusId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8604,7 +8964,7 @@ class Mixin:
     """
     def create_notice_responsibility_type(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/notices/responsibilities'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8623,7 +8983,7 @@ class Mixin:
     """
     def create_notice_root_cause_type(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/notices/rootcauses'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8641,7 +9001,7 @@ class Mixin:
     """
     def delete_notice_responsibility_type(self, responsibilityId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/notices/responsibilities/{}'.format(self.base_url, responsibilityId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8659,7 +9019,7 @@ class Mixin:
     """
     def delete_notice_root_cause_type(self, rootCauseId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/notices/rootcauses/{}'.format(self.base_url, rootCauseId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8686,7 +9046,7 @@ class Mixin:
     """
     def dismiss_notification(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/notifications/{}/dismiss'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8709,7 +9069,7 @@ class Mixin:
     """
     def get_notification(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8737,7 +9097,7 @@ class Mixin:
     """
     def list_notifications(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8769,7 +9129,7 @@ class Mixin:
     """
     def request_new_account(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/accounts/request'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8791,7 +9151,7 @@ class Mixin:
     """
     def request_new_entitlement(self, id_, offer):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/accounts/{}/entitlements/{}'.format(self.base_url, id_, offer),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8812,7 +9172,7 @@ class Mixin:
     """
     def create_account(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/accounts'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8839,7 +9199,7 @@ class Mixin:
     """
     def create_notifications(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/notifications'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8861,7 +9221,7 @@ class Mixin:
     """
     def create_subscriptions(self, accountId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8882,7 +9242,7 @@ class Mixin:
     """
     def delete_account(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8907,7 +9267,7 @@ class Mixin:
     """
     def delete_notification(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8928,7 +9288,7 @@ class Mixin:
     """
     def delete_subscription(self, accountId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8954,7 +9314,7 @@ class Mixin:
     """
     def list_service_types(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/servicetypes/servicetypes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -8979,7 +9339,7 @@ class Mixin:
     """
     def reset_password(self, userId, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/passwords/{}/reset'.format(self.base_url, userId),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9000,7 +9360,7 @@ class Mixin:
     """
     def update_account(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/accounts/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9026,7 +9386,7 @@ class Mixin:
     """
     def update_notification(self, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/notifications/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9052,7 +9412,7 @@ class Mixin:
     """
     def update_subscription(self, accountId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9061,17 +9421,25 @@ class Mixin:
     
     Download an audit log report
     
-    Downloads the file associated with an audit log report.
-      If the report is not yet complete, you will receive a `ReportNotFinished` error.
+    This API downloads the file associated with an audit log report.
+      If the report is not yet complete, you will receive a `ReportNotFinished` error. To check if a report is complete,
+      use the `GetAuditLogReport` API.
+      Reports are run on the server. When complete, the report file will be available for download
+      for up to 30 days after completion. To run a report, you should follow these steps:
+      * Begin a report by calling the report's ExportAuditLogs API.
+      * In the result of the ExportAuditLogs API, you receive back a report's `id` value.
+      * Check the status of a report by calling `GetAuditLogReport` and passing in the report's `id` value.
+      * When a report's status is `Completed`, call `DownloadAuditLogReport` to retrieve the file.
+      * We throttle this API. You can only call this API up to 5 times in a minute.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
-      :param id_ [string] The unique ID of the audit log report
+      :param id_ [string] The unique ID number of this report
       :return String
     """
     def download_audit_log_report(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/reports/exportauditlogs/{}/attachment'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9098,7 +9466,7 @@ class Mixin:
     """
     def download_report(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/reports/{}/attachment'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9108,33 +9476,59 @@ class Mixin:
     Initiate an ExportAuditLogs report task
     
     Begins running an `ExportAuditLogs` report task and returns the identity of the report.
+      Reports are run on the server. When complete, the report file will be available for download
+      for up to 30 days after completion. To run a report, you should follow these steps:
+      * Begin a report by calling the report's ExportAuditLogs API.
+      * In the result of the ExportAuditLogs API, you receive a report's `id` value.
+      * All reports with `InQueue` status are picked up by the report service and processed in the background.
+      * Reports that are picked up by the report service will have an `InProgress` status.
+      * Reports will be updated to `Completed` status when the report is ready for download.
+      * Check the status of a report by calling `GetAuditLogReport` and passing in the report's `id` value.
+      * When a report's status is `Completed`, call `DownloadAuditLogReport` to retrieve the file.
+      The `ExportAuditLogs` report produces information about audit records within your account.
+      The following `reportType` values are supported:
+      * `audit` - Exports audit records for configuration changes. Requires `reportSubType` to specify the table name.
+      * `audittransactionlogs` - Exports transaction audit logs.
+      When `reportType` is `audit`, the `reportSubType` field supports the following valid table names:
+      `NEXUS`, `USER`, `COMPANY`, `ACCOUNT`, `COMPANYLOCATION`, `ACCOUNTSETTING`, `COMPANYLOCATIONSETTING`,
+      `COMPANYSETTING`, `TAXCODE`, `TAXRULE`, `ADDRESSSERVICECONFIG`, `AUDITADVANCEDRULE`, `COMPANYCONTACT`,
+      `COMPANYLOCATIONPARAMETERDETAIL`, `COMPANYLOCATIONSETTINGCONFIG`, `COMPANYPARAMETERDETAIL`, `COMPANYRETURN`,
+      `COMPANYRETURNSETTING`, `ITEM`, `SERVICE`, `EXEMPTCERT`, `AVACERTSERVICECONFIG`, `JURISDICTIONOVERRIDE`, `COSTCENTER`.
+      Set `compression` to `GZIP` to reduce the size of the report file and increase download speed.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
-      :param model [ReportAuditLogModel] Options to filter the audit log export.
+      :param model [ReportAuditLogModel] Options that may be configured to customize the report.
       :return ReportAuditLogResponseModel
     """
     def export_audit_logs(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/reports/exportauditlogs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
     r"""
     Swagger Name: AvaTaxClient
     
-    Get an audit log report by id
+    Retrieve a single audit log report
     
-    Retrieves the status and details of an audit log report task.
+    Retrieve a single audit log report by its unique ID number.
+      Reports are run on the server. When complete, the report file will be available for download
+      for up to 30 days after completion. To run a report, you should follow these steps:
+      * Begin a report by calling the report's ExportAuditLogs API.
+      * In the result of the ExportAuditLogs API, you receive back a report's `id` value.
+      * Check the status of a report by calling `GetAuditLogReport` and passing in the report's `id` value.
+      * When a report's status is `Completed`, call `DownloadAuditLogReport` to retrieve the file.
+      This API call returns information about audit log report types.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
-      :param id_ [string] The unique ID of the audit log report
+      :param id_ [string] The unique ID number of the report to retrieve
       :return ReportAuditLogResponseModel
     """
     def get_audit_log_report(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/reports/exportauditlogs/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9157,7 +9551,7 @@ class Mixin:
     """
     def get_report(self, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/reports/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9178,7 +9572,7 @@ class Mixin:
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       The `ExportDocumentLine` report produces information about invoice lines recorded within your account.
       Set `compression` to `GZIP` to reduce the size of the report file and increase download speed.
-      The currently supported reports are: **Document Line**, **Document Line Detail**, **Multitax Line Detail**, **Liability**, **Tax Region**, **AP Document**, **AP Document Detail**, and **Document Line Detail All Taxes**.
+      The currently supported reports are: **Document**, **Document Summary**, **Document Line**, **Document Line Detail**, **Multitax Line Detail**, **Liability**, **Tax Region**, **AP Document**, **AP Document Detail**, and **Document Line Detail All Taxes**.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, ReturnsOnlyAccountAdmin, ReturnsOnlyCompanyAdmin, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
@@ -9188,7 +9582,7 @@ class Mixin:
     """
     def initiate_export_document_line_report(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/reports/exportdocumentline/initiate'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9205,6 +9599,11 @@ class Mixin:
       * Check the status of a report by calling `GetReport` and passing in the report's `id` value.
       * When a report's status is `Completed`, call `DownloadReport` to retrieve the file.
       This API call returns information about all report types across your entire account.
+      Audit-log report types (`audit`, `audittransactionlogs`) are not included in this list; retrieve those via the
+      `GetAuditLogReport` / `DownloadAuditLogReport` APIs.
+      Pagination note: when the response includes a non-null `pageKey` (next link), more results may exist and the
+      caller should follow it, even if the current page returned fewer than the requested number of records. This can
+      happen when a `$filter` is applied, because matches are evaluated server-side across backend pages.
       ### Security Policies
       * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
     
@@ -9212,11 +9611,12 @@ class Mixin:
       :param pageKey [string] Provide a page key to retrieve the next page of results.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* reportType, parameters, status, size, format, file, createdUser, completedDate
       :return FetchResult
     """
     def list_reports(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/reports'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9245,7 +9645,7 @@ class Mixin:
     """
     def create_settings(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9271,7 +9671,7 @@ class Mixin:
     """
     def delete_setting(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9297,7 +9697,7 @@ class Mixin:
     """
     def get_setting(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9329,7 +9729,7 @@ class Mixin:
     """
     def list_settings_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/settings'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9360,7 +9760,7 @@ class Mixin:
     """
     def query_settings(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/settings'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9389,7 +9789,7 @@ class Mixin:
     """
     def update_setting(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/settings/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9410,7 +9810,7 @@ class Mixin:
     """
     def get_subscription(self, accountId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts/{}/subscriptions/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9436,7 +9836,7 @@ class Mixin:
     """
     def list_subscriptions_by_account(self, accountId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts/{}/subscriptions'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9461,7 +9861,7 @@ class Mixin:
     """
     def query_subscriptions(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9484,7 +9884,7 @@ class Mixin:
     """
     def create_tax_codes(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9503,7 +9903,7 @@ class Mixin:
     """
     def delete_tax_code(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9526,7 +9926,7 @@ class Mixin:
     """
     def get_tax_code(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9555,7 +9955,7 @@ class Mixin:
     """
     def list_tax_codes_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/taxcodes'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9583,7 +9983,7 @@ class Mixin:
     """
     def query_tax_codes(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/taxcodes'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9609,7 +10009,7 @@ class Mixin:
     """
     def update_tax_code(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/taxcodes/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9644,7 +10044,7 @@ class Mixin:
     """
     def build_tax_content_file(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/pointofsaledata/build'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9684,7 +10084,7 @@ class Mixin:
     """
     def build_tax_content_file_for_location(self, companyId, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/locations/{}/pointofsaledata'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9735,7 +10135,7 @@ class Mixin:
     """
     def download_tax_rates_by_zip_code(self, date, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/taxratesbyzipcode/download/{}'.format(self.base_url, date),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9758,7 +10158,7 @@ class Mixin:
     """
     def get_v_a_t_rates_by_country(self, country, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/taxcontent/rates/{}'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9795,7 +10195,7 @@ class Mixin:
     """
     def tax_rates_by_address(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/taxrates/byaddress'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9830,7 +10230,7 @@ class Mixin:
     """
     def tax_rates_by_postal_code(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/taxrates/bypostalcode'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9853,7 +10253,7 @@ class Mixin:
     """
     def create_country_coefficients(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/countryCoefficients'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9881,7 +10281,7 @@ class Mixin:
     """
     def create_tax_rules(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9909,7 +10309,7 @@ class Mixin:
     """
     def delete_tax_rule(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9937,7 +10337,7 @@ class Mixin:
     """
     def get_tax_rule(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9960,7 +10360,7 @@ class Mixin:
     """
     def list_country_coefficients(self, country, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/{}/CountryCoefficients'.format(self.base_url, country),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -9994,7 +10394,7 @@ class Mixin:
     """
     def list_tax_rules(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/taxrules'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10027,7 +10427,7 @@ class Mixin:
     """
     def query_tax_rules(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/taxrules'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10056,7 +10456,7 @@ class Mixin:
     """
     def update_tax_rule(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/taxrules/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10092,7 +10492,7 @@ class Mixin:
     """
     def add_lines(self, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/transactions/lines/add'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10138,7 +10538,7 @@ class Mixin:
     """
     def adjust_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/adjust'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10175,7 +10575,7 @@ class Mixin:
     """
     def audit_transaction(self, companyCode, transactionCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/transactions/{}/audit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10213,7 +10613,7 @@ class Mixin:
     """
     def audit_transaction_with_type(self, companyCode, transactionCode, documentType):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}/audit'.format(self.base_url, companyCode, transactionCode, documentType),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10236,7 +10636,7 @@ class Mixin:
     """
     def bulk_lock_transaction(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/transactions/lock'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10281,7 +10681,7 @@ class Mixin:
     """
     def change_transaction_code(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/changecode'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10324,7 +10724,7 @@ class Mixin:
     """
     def commit_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/commit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10370,7 +10770,7 @@ class Mixin:
     """
     def create_or_adjust_transaction(self, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/transactions/createoradjust'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10421,7 +10821,7 @@ class Mixin:
     """
     def create_transaction(self, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/transactions/create'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10454,7 +10854,7 @@ class Mixin:
     """
     def delete_lines(self, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/transactions/lines/delete'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10472,7 +10872,7 @@ class Mixin:
     """
     def get_all_variance_report_by_company_code(self, companyCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/AllVariance'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10514,7 +10914,7 @@ class Mixin:
     """
     def get_transaction_by_code(self, companyCode, transactionCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/transactions/{}'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10543,7 +10943,7 @@ class Mixin:
     """
     def get_transaction_by_code_and_type(self, companyCode, transactionCode, documentType, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/transactions/{}/types/{}'.format(self.base_url, companyCode, transactionCode, documentType),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10575,7 +10975,7 @@ class Mixin:
     """
     def get_transaction_by_id(self, id_, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/transactions/{}'.format(self.base_url, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10594,7 +10994,7 @@ class Mixin:
     """
     def get_variance_report_by_company_code_by_transaction_id(self, companyCode, transactionId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/transactions/{}/variance'.format(self.base_url, companyCode, transactionId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10641,7 +11041,7 @@ class Mixin:
     """
     def list_transactions_by_company(self, companyCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/transactions'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10686,7 +11086,7 @@ class Mixin:
     """
     def lock_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/lock'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10741,7 +11141,7 @@ class Mixin:
     """
     def refund_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/refund'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10784,7 +11184,7 @@ class Mixin:
     """
     def settle_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/settle'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10824,7 +11224,7 @@ class Mixin:
     """
     def uncommit_transaction(self, companyCode, transactionCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/uncommit'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10862,7 +11262,7 @@ class Mixin:
     """
     def unvoid_transaction(self, companyCode, transactionCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/unvoid'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10881,7 +11281,7 @@ class Mixin:
     """
     def variance_report(self, companyCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/variance'.format(self.base_url, companyCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10924,7 +11324,7 @@ class Mixin:
     """
     def verify_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/verify'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10968,7 +11368,7 @@ class Mixin:
     """
     def void_transaction(self, companyCode, transactionCode, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/transactions/{}/void'.format(self.base_url, companyCode, transactionCode),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -10989,7 +11389,7 @@ class Mixin:
     """
     def create_u_p_cs(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11009,7 +11409,7 @@ class Mixin:
     """
     def delete_u_p_c(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11030,7 +11430,7 @@ class Mixin:
     """
     def get_u_p_c(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11057,7 +11457,7 @@ class Mixin:
     """
     def list_u_p_cs_by_company(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/upcs'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11083,7 +11483,7 @@ class Mixin:
     """
     def query_u_p_cs(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/upcs'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11107,7 +11507,7 @@ class Mixin:
     """
     def update_u_p_c(self, companyId, id_, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/upcs/{}'.format(self.base_url, companyId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11127,7 +11527,7 @@ class Mixin:
     """
     def delete_user_defined_field(self, companyId, id_):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/userdefinedfields/{}'.format(self.base_url, companyId, accountId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11147,7 +11547,7 @@ class Mixin:
     """
     def list_user_defined_fields_by_company_id(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/userdefinedfields'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11168,7 +11568,7 @@ class Mixin:
     """
     def update_user_defined_field(self, companyId, model, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/userdefinedfields'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11190,7 +11590,7 @@ class Mixin:
     """
     def change_password(self, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/passwords'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11214,7 +11614,7 @@ class Mixin:
     """
     def create_users(self, accountId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11236,7 +11636,7 @@ class Mixin:
     """
     def delete_user(self, id_, accountId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11259,7 +11659,7 @@ class Mixin:
     """
     def get_user(self, id_, accountId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11290,7 +11690,7 @@ class Mixin:
     """
     def get_user_entitlements(self, id_, accountId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts/{}/users/{}/entitlements'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11320,7 +11720,7 @@ class Mixin:
     """
     def list_users_by_account(self, accountId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/accounts/{}/users'.format(self.base_url, accountId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11350,7 +11750,7 @@ class Mixin:
     """
     def query_users(self, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/users'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11373,7 +11773,7 @@ class Mixin:
     """
     def update_user(self, id_, accountId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/accounts/{}/users/{}'.format(self.base_url, accountId, id_),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11394,7 +11794,7 @@ class Mixin:
     """
     def get_my_subscription(self, serviceTypeId):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/utilities/subscriptions/{}'.format(self.base_url, serviceTypeId),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11414,7 +11814,7 @@ class Mixin:
     """
     def list_my_subscriptions(self):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/utilities/subscriptions'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11443,7 +11843,7 @@ class Mixin:
     """
     def ping(self):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/utilities/ping'.format(self.base_url),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11477,7 +11877,7 @@ class Mixin:
     
       :param companyId [int] The ID number of the company to search
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of vendors linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* documentTypeId, documentTypeDescription, exemptionNumber, ecmsId, ecmsStatus, pdf, pages
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* documentTypeId, documentTypeDescription, exemptionNumber, jurisdictions, ecmsId, ecmsStatus, pdf, pages
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -11485,7 +11885,7 @@ class Mixin:
     """
     def query_vendor_certificates(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/{}/vendor-certificates'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11516,7 +11916,7 @@ class Mixin:
     """
     def create_vendors(self, companyId, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.post('{}/api/v2/companies/{}/vendors'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11542,7 +11942,7 @@ class Mixin:
     """
     def delete_vendor(self, companyId, vendorCode):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.delete('{}/api/v2/companies/{}/vendors/{}'.format(self.base_url, companyId, vendorCode),
                                auth=self.auth, headers=self.client_header, params=None, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11584,7 +11984,7 @@ class Mixin:
     """
     def get_vendor(self, companyId, vendorCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/vendors/{}'.format(self.base_url, companyId, vendorCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11612,7 +12012,7 @@ class Mixin:
       :param companyId [int] The unique ID number of the company that recorded this vendor
       :param vendorCode [string] The unique code representing this vendor
       :param include [string] OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * vendors - Retrieves the list of vendors linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate
-      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* documentTypeId, documentTypeDescription, exemptionNumber, ecmsId, ecmsStatus, pdf, pages
+      :param filter [string] A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* documentTypeId, documentTypeDescription, exemptionNumber, jurisdictions, ecmsId, ecmsStatus, pdf, pages
       :param top [int] If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
       :param skip [int] If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
       :param orderBy [string] A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -11620,7 +12020,7 @@ class Mixin:
     """
     def list_certificates_for_vendor(self, companyId, vendorCode, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/vendors/{}/certificates'.format(self.base_url, companyId, vendorCode),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11666,7 +12066,7 @@ class Mixin:
     """
     def query_vendors(self, companyId, include=None):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.get('{}/api/v2/companies/{}/vendors'.format(self.base_url, companyId),
                                auth=self.auth, headers=self.client_header, params=include, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
@@ -11695,7 +12095,7 @@ class Mixin:
     """
     def update_vendor(self, companyId, vendorCode, model):
         if ('X-Avalara-Client' in self.client_header): 
-            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.6.0")   
+            self.client_header['X-Avalara-Client']=self.client_id.replace("API_VERSION","26.7.3")   
         return requests.put('{}/api/v2/companies/{}/vendors/{}'.format(self.base_url, companyId, vendorCode),
                                auth=self.auth, headers=self.client_header, json=model, 
                                timeout=self.timeout_limit if self.timeout_limit else 1200)
