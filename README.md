@@ -66,7 +66,7 @@ Now we have a client object, we can ping the AvaTax REST V2 server to ensure con
 ```
   response = client.ping()
 
-  # to view respnse text
+  # to view response text
   print(response.text())
 
   # to view json version of the response
@@ -78,7 +78,7 @@ Now we have a client object, we can ping the AvaTax REST V2 server to ensure con
   # to view the raw response
   print(response.raw())
 ```
-Note that the response from all REST calls made using this SDK will be [Request](http://docs.python-requests.org/en/master/user/quickstart/#response-content) object, which contains status code, response text, raw josn, and more information on the respnse.
+Note that the response from all REST calls made using this SDK will be [Request](http://docs.python-requests.org/en/master/user/quickstart/#response-content) object, which contains status code, response text, raw josn, and more information on the response.
 
 
 **Add credentials to your client object**
